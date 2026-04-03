@@ -1,0 +1,22 @@
+# Large data files
+gbc2025_7apr_base/
+gbc2025_7apr_lower/
+gbc2025_7apr_upper/
+general_files/
+ERA5/
+
+# Generated data
+analysis/data/*.parquet
+analysis/data/*.csv
+
+# OS files
+.DS_Store
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
