@@ -1,0 +1,19 @@
+{
+  "land_area_km2": "km2_land",
+  "pop_persons": "persons",
+  "popdens_p_km2": "persons/km2_land",
+  "rice_mha": "Mha",
+  "nonrice_mha": "Mha",
+  "grazing_mha": "Mha",
+  "rice_mha_percap": "Mha/person",
+  "nonrice_mha_percap": "Mha/person",
+  "grazing_mha_percap": "Mha/person",
+  "rice_share_cropland": "share",
+  "irrigation_share": "share",
+  "ag_land_share_of_land": "share",
+  "urban_share": "share",
+  "ch4_proxy_mha": "Mha",
+  "co2_proxy_mha": "Mha",
+  "ch4_proxy_mha_percap": "Mha/person",
+  "co2_proxy_mha_percap": "Mha/person"
+}

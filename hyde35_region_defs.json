@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Sub-Saharan Africa",
+    "boxes": [
+      {
+        "lon_min": -20,
+        "lon_max": 52,
+        "lat_min": -35,
+        "lat_max": 15
+      }
+    ],
+    "subtract_boxes": []
+  },
+  {
+    "name": "North Africa (Sahara + Mediterranean)",
+    "boxes": [
+      {
+        "lon_min": -17,
+        "lon_max": 35,
+        "lat_min": 15,
+        "lat_max": 37
+      }
+    ],
+    "subtract_boxes": []
+  },
+  {
+    "name": "West & South Asia core (Arabia+Mesopotamia+Iran+Turkey+India)",
+    "boxes": [
+      {
+        "lon_min": 26,
+        "lon_max": 90,
+        "lat_min": 5,
+        "lat_max": 45
+      }
+    ],
+    "subtract_boxes": []
+  },
+  {
+    "name": "Europe",
+    "boxes": [
+      {
+        "lon_min": -12,
+        "lon_max": 40,
+        "lat_min": 35,
+        "lat_max": 72
+      }
+    ],
+    "subtract_boxes": []
+  },
+  {
+    "name": "East Asia",
+    "boxes": [
+      {
+        "lon_min": 90,
+        "lon_max": 150,
+        "lat_min": -10,
+        "lat_max": 55
+      }
+    ],
+    "subtract_boxes": []
+  },
+  {
+    "name": "South America",
+    "boxes": [
+      {
+        "lon_min": -82,
+        "lon_max": -34,
+        "lat_min": -56,
+        "lat_max": 15
+      }
+    ],
+    "subtract_boxes": []
+  }
+]

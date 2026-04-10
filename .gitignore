@@ -1,9 +1,13 @@
-# Large data files
+# Large data directories
 gbc2025_7apr_base/
 gbc2025_7apr_lower/
 gbc2025_7apr_upper/
 general_files/
 ERA5/
+climate_reconstructions/
+
+# Large generated CSVs (root-level panel exports)
+hyde35_*.csv
 
 # Generated data
 analysis/data/*.parquet

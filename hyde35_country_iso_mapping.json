@@ -1,0 +1,1188 @@
+{
+  "iso_grid_used": "/Volumes/HIKSEMI/HYDE35/general_files/general_files/iso_cr.asc",
+  "min_land_km2": 500.0,
+  "countries_kept": [
+    {
+      "iso_num": 4,
+      "iso3": "AFG",
+      "name": "Afghanistan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 8,
+      "iso3": "ALB",
+      "name": "Albania",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 12,
+      "iso3": "DZA",
+      "name": "Algeria",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 20,
+      "iso3": "AND",
+      "name": "Andorra",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 24,
+      "iso3": "AGO",
+      "name": "Angola",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 28,
+      "iso3": "ATG",
+      "name": "Antigua & Barb.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 31,
+      "iso3": "AZE",
+      "name": "Azerbaijan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 32,
+      "iso3": "ARG",
+      "name": "Argentina",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 36,
+      "iso3": "AUS",
+      "name": "Australia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 40,
+      "iso3": "AUT",
+      "name": "Austria",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 44,
+      "iso3": "BHS",
+      "name": "Bahamas",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 48,
+      "iso3": "BHR",
+      "name": "Bahrain",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 50,
+      "iso3": "BGD",
+      "name": "Bangladesh",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 51,
+      "iso3": "ARM",
+      "name": "Armenia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 52,
+      "iso3": "BRB",
+      "name": "Barbados",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 56,
+      "iso3": "BEL",
+      "name": "Belgium",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 64,
+      "iso3": "BTN",
+      "name": "Bhutan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 68,
+      "iso3": "BOL",
+      "name": "Bolivia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 70,
+      "iso3": "BIH",
+      "name": "Bsnia.&Hrzgvna.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 72,
+      "iso3": "BWA",
+      "name": "Botswana",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 76,
+      "iso3": "BRA",
+      "name": "Brazil",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 84,
+      "iso3": "BLZ",
+      "name": "Belize",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 90,
+      "iso3": "SLB",
+      "name": "Solomon Islands",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 96,
+      "iso3": "BRN",
+      "name": "Brunei",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 100,
+      "iso3": "BGR",
+      "name": "Bulgaria",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 104,
+      "iso3": "MMR",
+      "name": "Myanmar",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 108,
+      "iso3": "BDI",
+      "name": "Burundi",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 112,
+      "iso3": "BLR",
+      "name": "Belarus",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 116,
+      "iso3": "KHM",
+      "name": "Cambodia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 120,
+      "iso3": "CMR",
+      "name": "Cameroon",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 124,
+      "iso3": "CAN",
+      "name": "Canada",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 132,
+      "iso3": "CPV",
+      "name": "Cape Verde",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 140,
+      "iso3": "CAF",
+      "name": "Central African Rep.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 144,
+      "iso3": "LKA",
+      "name": "Sri Lanka",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 148,
+      "iso3": "TCD",
+      "name": "Chad",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 152,
+      "iso3": "CHL",
+      "name": "Chile",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 156,
+      "iso3": "CHN",
+      "name": "China",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 158,
+      "iso3": "TWN",
+      "name": "Taiwan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 170,
+      "iso3": "COL",
+      "name": "Colombia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 174,
+      "iso3": "COM",
+      "name": "Comoros",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 175,
+      "iso3": "MYT",
+      "name": "Mayotte",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 178,
+      "iso3": "COG",
+      "name": "Congo",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 180,
+      "iso3": "COD",
+      "name": "Zaire/ Congo , Dem. Rep.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 188,
+      "iso3": "CRI",
+      "name": "Costa Rica",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 191,
+      "iso3": "HRV",
+      "name": "Croatia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 192,
+      "iso3": "CUB",
+      "name": "Cuba",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 196,
+      "iso3": "CYP",
+      "name": "Cyprus",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 203,
+      "iso3": "CZE",
+      "name": "Czech Rep.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 204,
+      "iso3": "BEN",
+      "name": "Benin",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 208,
+      "iso3": "DNK",
+      "name": "Denmark",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 212,
+      "iso3": "DMA",
+      "name": "Dominica",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 214,
+      "iso3": "DOM",
+      "name": "Dominican Rep.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 218,
+      "iso3": "ECU",
+      "name": "Ecuador",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 222,
+      "iso3": "SLV",
+      "name": "El Salvador",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 226,
+      "iso3": "GNQ",
+      "name": "Eq. Guinea",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 231,
+      "iso3": "ETH",
+      "name": "Ethiopia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 232,
+      "iso3": "ERI",
+      "name": "Eritrea",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 233,
+      "iso3": "EST",
+      "name": "Estonia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 234,
+      "iso3": "FRO",
+      "name": "Faeroe Islands",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 238,
+      "iso3": "FLK",
+      "name": "Falkland Is.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 242,
+      "iso3": "FJI",
+      "name": "Fiji",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 246,
+      "iso3": "FIN",
+      "name": "Finland",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 250,
+      "iso3": "FRA",
+      "name": "France",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 254,
+      "iso3": "GUF",
+      "name": "French Guiana",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 262,
+      "iso3": "DJI",
+      "name": "Djibouti",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 266,
+      "iso3": "GAB",
+      "name": "Gabon",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 268,
+      "iso3": "GEO",
+      "name": "Georgia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 270,
+      "iso3": "GMB",
+      "name": "Gambia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 276,
+      "iso3": "DEU",
+      "name": "Germany",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 288,
+      "iso3": "GHA",
+      "name": "Ghana",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 300,
+      "iso3": "GRC",
+      "name": "Greece",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 304,
+      "iso3": "GRL",
+      "name": "Greenland",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 308,
+      "iso3": "GRD",
+      "name": "Grenada",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 312,
+      "iso3": "GLP",
+      "name": "Guadaloupe",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 320,
+      "iso3": "GTM",
+      "name": "Guatemala",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 324,
+      "iso3": "GIN",
+      "name": "Guinea",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 328,
+      "iso3": "GUY",
+      "name": "Guyana",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 332,
+      "iso3": "HTI",
+      "name": "Haiti",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 340,
+      "iso3": "HND",
+      "name": "Honduras",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 344,
+      "iso3": "HKG",
+      "name": "China, Hong Kong SAR",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 348,
+      "iso3": "HUN",
+      "name": "Hungary",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 352,
+      "iso3": "ISL",
+      "name": "Iceland",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 356,
+      "iso3": "IND",
+      "name": "India",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 360,
+      "iso3": "IDN",
+      "name": "Indonesia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 364,
+      "iso3": "IRN",
+      "name": "Iran, Isl.Rep.of",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 368,
+      "iso3": "IRQ",
+      "name": "Iraq",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 372,
+      "iso3": "IRL",
+      "name": "Ireland",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 376,
+      "iso3": "ISR",
+      "name": "Israel",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 380,
+      "iso3": "ITA",
+      "name": "Italy",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 384,
+      "iso3": "CIV",
+      "name": "Cote d'Ivoire",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 388,
+      "iso3": "JAM",
+      "name": "Jamaica",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 392,
+      "iso3": "JPN",
+      "name": "Japan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 398,
+      "iso3": "KAZ",
+      "name": "Kazakhstan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 400,
+      "iso3": "JOR",
+      "name": "Jordan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 404,
+      "iso3": "KEN",
+      "name": "Kenya",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 408,
+      "iso3": "PRK",
+      "name": "Dem.Rep.,Korea",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 410,
+      "iso3": "KOR",
+      "name": "Rep. of Korea",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 414,
+      "iso3": "KWT",
+      "name": "Kuwait",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 417,
+      "iso3": "KGZ",
+      "name": "Kyrgyzstan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 418,
+      "iso3": "LAO",
+      "name": "Lao",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 422,
+      "iso3": "LBN",
+      "name": "Lebanon",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 426,
+      "iso3": "LSO",
+      "name": "Lesotho",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 428,
+      "iso3": "LVA",
+      "name": "Latvia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 430,
+      "iso3": "LBR",
+      "name": "Liberia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 434,
+      "iso3": "LBY",
+      "name": "Libyan A.J.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 440,
+      "iso3": "LTU",
+      "name": "Lithuania",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 442,
+      "iso3": "LUX",
+      "name": "Luxembourg",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 450,
+      "iso3": "MDG",
+      "name": "Madagascar",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 454,
+      "iso3": "MWI",
+      "name": "Malawi",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 458,
+      "iso3": "MYS",
+      "name": "Malaysia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 466,
+      "iso3": "MLI",
+      "name": "Mali",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 474,
+      "iso3": "MTQ",
+      "name": "Martinique",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 478,
+      "iso3": "MRT",
+      "name": "Mauritania",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 480,
+      "iso3": "MUS",
+      "name": "Mauritius",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 484,
+      "iso3": "MEX",
+      "name": "Mexico",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 496,
+      "iso3": "MNG",
+      "name": "Mongolia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 498,
+      "iso3": "MDA",
+      "name": "Rep. of Moldova",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 504,
+      "iso3": "MAR",
+      "name": "Morocco",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 508,
+      "iso3": "MOZ",
+      "name": "Mozambique",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 512,
+      "iso3": "OMN",
+      "name": "Oman",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 516,
+      "iso3": "NAM",
+      "name": "Namibia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 524,
+      "iso3": "NPL",
+      "name": "Nepal",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 528,
+      "iso3": "NLD",
+      "name": "Netherlands",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 530,
+      "iso3": "UNK",
+      "name": "Neth.Antilles",
+      "source": "unknown"
+    },
+    {
+      "iso_num": 540,
+      "iso3": "NCL",
+      "name": "New Caledonia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 548,
+      "iso3": "VUT",
+      "name": "Vanuatu",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 554,
+      "iso3": "NZL",
+      "name": "New Zealand",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 558,
+      "iso3": "NIC",
+      "name": "Nicaragua",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 562,
+      "iso3": "NER",
+      "name": "Niger",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 566,
+      "iso3": "NGA",
+      "name": "Nigeria",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 578,
+      "iso3": "NOR",
+      "name": "Norway",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 586,
+      "iso3": "PAK",
+      "name": "Pakistan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 591,
+      "iso3": "PAN",
+      "name": "Panama",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 598,
+      "iso3": "PNG",
+      "name": "Papua New Guinea",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 600,
+      "iso3": "PRY",
+      "name": "Paraguay",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 604,
+      "iso3": "PER",
+      "name": "Peru",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 608,
+      "iso3": "PHL",
+      "name": "Philippines",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 616,
+      "iso3": "POL",
+      "name": "Poland",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 620,
+      "iso3": "PRT",
+      "name": "Portugal",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 624,
+      "iso3": "GNB",
+      "name": "Guinea-Bissau",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 626,
+      "iso3": "TLS",
+      "name": "East Timor",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 630,
+      "iso3": "PRI",
+      "name": "Puerto Rico",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 634,
+      "iso3": "QAT",
+      "name": "Qatar",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 638,
+      "iso3": "REU",
+      "name": "Reunion",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 642,
+      "iso3": "ROU",
+      "name": "Romania",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 643,
+      "iso3": "RUS",
+      "name": "Russian Fed.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 646,
+      "iso3": "RWA",
+      "name": "Rwanda",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 659,
+      "iso3": "KNA",
+      "name": "St.Kitts & Nevis",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 662,
+      "iso3": "LCA",
+      "name": "Saint Lucia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 666,
+      "iso3": "SPM",
+      "name": "St.Pierre & Miq.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 670,
+      "iso3": "VCT",
+      "name": "St.Vin. & Gren.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 678,
+      "iso3": "STP",
+      "name": "Sao Tome & Pr.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 682,
+      "iso3": "SAU",
+      "name": "Saudi Arabia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 686,
+      "iso3": "SEN",
+      "name": "Senegal",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 694,
+      "iso3": "SLE",
+      "name": "Sierra Leone",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 702,
+      "iso3": "SGP",
+      "name": "Singapore",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 703,
+      "iso3": "SVK",
+      "name": "Slovakia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 704,
+      "iso3": "VNM",
+      "name": "Viet Nam",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 705,
+      "iso3": "SVN",
+      "name": "Slovenia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 706,
+      "iso3": "SOM",
+      "name": "Somalia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 710,
+      "iso3": "ZAF",
+      "name": "South Africa",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 716,
+      "iso3": "ZWE",
+      "name": "Zimbabwe",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 724,
+      "iso3": "ESP",
+      "name": "Spain",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 732,
+      "iso3": "ESH",
+      "name": "Western Sahara",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 736,
+      "iso3": "SDN",
+      "name": "Sudan",
+      "source": "pycountry_name"
+    },
+    {
+      "iso_num": 740,
+      "iso3": "SUR",
+      "name": "Suriname",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 744,
+      "iso3": "SJM",
+      "name": "Svalbard & Jan Mayen Isl.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 748,
+      "iso3": "SWZ",
+      "name": "Swaziland",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 752,
+      "iso3": "SWE",
+      "name": "Sweden",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 756,
+      "iso3": "CHE",
+      "name": "Switzerland",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 760,
+      "iso3": "SYR",
+      "name": "Syrian Arab Rep.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 762,
+      "iso3": "TJK",
+      "name": "Tajikistan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 764,
+      "iso3": "THA",
+      "name": "Thailand",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 768,
+      "iso3": "TGO",
+      "name": "Togo",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 776,
+      "iso3": "TON",
+      "name": "Tonga",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 780,
+      "iso3": "TTO",
+      "name": "Trin. & Tobago",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 784,
+      "iso3": "ARE",
+      "name": "U.Arab Emirates",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 788,
+      "iso3": "TUN",
+      "name": "Tunisia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 792,
+      "iso3": "TUR",
+      "name": "Turkey",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 795,
+      "iso3": "TKM",
+      "name": "Turkmenistan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 796,
+      "iso3": "TCA",
+      "name": "Turks & Caicos",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 800,
+      "iso3": "UGA",
+      "name": "Uganda",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 804,
+      "iso3": "UKR",
+      "name": "Ukraine",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 807,
+      "iso3": "MKD",
+      "name": "TFYR Macedonia",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 818,
+      "iso3": "EGY",
+      "name": "Egypt",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 826,
+      "iso3": "GBR",
+      "name": "GBR",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 834,
+      "iso3": "TZA",
+      "name": "U.R. Tanzania",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 840,
+      "iso3": "USA",
+      "name": "United States",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 850,
+      "iso3": "VIR",
+      "name": "U.S. Virgin Is.",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 854,
+      "iso3": "BFA",
+      "name": "Burkina Faso",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 858,
+      "iso3": "URY",
+      "name": "Uruguay",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 860,
+      "iso3": "UZB",
+      "name": "Uzbekistan",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 862,
+      "iso3": "VEN",
+      "name": "Venezuela",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 882,
+      "iso3": "WSM",
+      "name": "Samoa",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 887,
+      "iso3": "YEM",
+      "name": "Yemen",
+      "source": "pycountry_numeric"
+    },
+    {
+      "iso_num": 891,
+      "iso3": "UNK",
+      "name": "Serbia and Montenegro",
+      "source": "unknown"
+    },
+    {
+      "iso_num": 894,
+      "iso3": "ZMB",
+      "name": "Zambia",
+      "source": "pycountry_numeric"
+    }
+  ]
+}
