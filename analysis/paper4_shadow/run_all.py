@@ -85,9 +85,13 @@ def load_data() -> dict:
     # The file uses 'iso3' — create a 'country' alias for merging
     if "country" not in pw.columns and "iso3" in pw.columns:
         pw["country"] = pw["iso3"]
-    # Also create a country_id alias so we can merge with extended_panel
-    if "country_id" not in pw.columns and "country" in pw.columns:
-        pw["country_id"] = pw["country"]
+    # Map iso3 -> integer country_id via the extended panel
+    iso_map = ep[["country_id", "iso3"]].drop_duplicates()
+    pw = pw.merge(iso_map, on="iso3", how="left", suffixes=("_old", ""))
+    if "country_id_old" in pw.columns:
+        pw = pw.drop(columns=["country_id_old"])
+    # Also set 'country' to the integer ID for merging with country_analysis_panel
+    pw["country"] = pw["country_id"]
     data["pathways"] = pw
 
     # -- Country analysis panel (0-1750 CE) --------------------------------
@@ -201,8 +205,8 @@ def exercise_1(data: dict, *, figures_only: bool = False) -> pd.DataFrame:
 
     # Figures
     figs = _import_figures()
-    if figs:
-        _try_figure(getattr(figs, "fig3", lambda: None), data, endowments)
+    if figs and 'merged' in dir():
+        _try_figure(figs.fig3_seasonality_predicts_pathway, merged, "seasonality", "cluster")
 
     return endowments
 
@@ -318,7 +322,7 @@ def exercise_2(data: dict, *, figures_only: bool = False) -> None:
 
     figs = _import_figures()
     if figs:
-        _try_figure(getattr(figs, "fig4", lambda: None), data)
+        _try_figure(figs.fig4_dual_channel_dag)
 
 
 # ---------------------------------------------------------------------------
@@ -378,9 +382,8 @@ def exercise_3(data: dict, *, figures_only: bool = False) -> None:
             print("  [warn] No results from rolling regressions")
 
     figs = _import_figures()
-    if figs:
-        _try_figure(getattr(figs, "fig5", lambda: None), data)
-        _try_figure(getattr(figs, "fig6", lambda: None), data)
+    if figs and 'roll' in dir() and not roll.empty:
+        _try_figure(figs.fig5_rolling_malthusian_by_pathway, roll)
 
 
 # ---------------------------------------------------------------------------
@@ -426,8 +429,8 @@ def exercise_4(data: dict, *, figures_only: bool = False) -> None:
             print("  [warn] No IRFs could be computed")
 
     figs = _import_figures()
-    if figs:
-        _try_figure(getattr(figs, "fig7", lambda: None), data)
+    if figs and 'irf_dict' in dir() and irf_dict:
+        _try_figure(figs.fig6_pathway_stratified_irfs, irf_dict, "Temp")
 
 
 # ---------------------------------------------------------------------------
@@ -446,12 +449,22 @@ def exercise_5(data: dict, *, figures_only: bool = False) -> None:
     if not figures_only:
         ep = data["extended_panel"]
 
+        # Derive intensification_index if not present
+        if "intensification_index" not in ep.columns:
+            if "irrigation_share" in ep.columns and "crop_share" in ep.columns:
+                ep = ep.copy()
+                ep["intensification_index"] = ep["irrigation_share"] * ep["crop_share"]
+
+        # Select mediators that actually exist in the panel
+        mediators = [m for m in ["urban_share", "intensification_index"]
+                     if m in ep.columns]
+
         _sub("Interaction regressions: shock x mediator")
         results = run_escape_interactions(
             ep,
             shock_var="temp_anomaly",
             outcome_var="pop_growth",
-            mediators=["urban_share", "intensification_index"],
+            mediators=mediators,
             entity_col="country_id",
         )
 
@@ -497,8 +510,8 @@ def exercise_5(data: dict, *, figures_only: bool = False) -> None:
                 print("  [warn] Rolling interaction returned no results")
 
     figs = _import_figures()
-    if figs:
-        _try_figure(getattr(figs, "fig8", lambda: None), data)
+    if figs and 'results' in dir() and results:
+        _try_figure(figs.fig8_escape_mechanism, results)
 
 
 # ---------------------------------------------------------------------------
@@ -562,8 +575,10 @@ def exercise_6(
             print("  [warn] No results from long-shadow regressions")
 
     figs = _import_figures()
-    if figs:
-        _try_figure(getattr(figs, "fig9", lambda: None), data, endowments)
+    if figs and 'xs' in dir() and len(xs) > 0:
+        seas_col = "seasonality_historical" if "seasonality_historical" in xs.columns else "hist_seasonality_proxy"
+        if seas_col in xs.columns:
+            _try_figure(figs.fig9_long_shadow, xs, seas_col)
 
 
 # ---------------------------------------------------------------------------
