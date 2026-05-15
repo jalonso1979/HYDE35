@@ -1,0 +1,55 @@
+Hatcher-Bailey medieval mortality cascade: ALL TIERS FAILED
+============================================================
+
+Date:          2026-05-15
+Task:          Task 5 of pre-1751 + medieval mortality plan
+Plan ref:      docs/superpowers/plans/2026-05-15-pre1751-and-medieval-mortality.md
+
+Tiers attempted
+---------------
+  Task 4 / Tier A.1: Voigtländer-Voth 2013 RES replication archive   FAILED
+  Task 5 / Tier A.2: Campbell 2016 "Great Transition" supplementary  FAILED
+  Task 5 / Tier B:   Kelly-Ó Gráda 2014 EHR + Page 2003 UKDS 4086    FAILED (gated)
+  Task 5 / Tier C:   Hatcher 1986 EHR OCR / Hatcher-Bailey 2001      FAILED (off-target)
+
+Why the cascade ended without a CSV
+------------------------------------
+* Hatcher 1986 covers Christ Church monks 1395-1505 only — single
+  site, no 1348 anchor possible, annual CDR locked in Figure 1.
+* Campbell 2016 cites cropyields.ac.uk for crop yields (not
+  mortality); supplementary mortality file does not exist publicly.
+* Kelly-Ó Gráda 2014 uses Page (2003) micro-data archived at the
+  UK Data Service (Study 4086) under registration-gated terms —
+  not openly downloadable.
+* Hatcher-Bailey 2001 is a book; no online appendix or
+  machine-readable mortality table accompanies it.
+
+Implications for downstream tasks
+---------------------------------
+* Task 9  (medieval mortality event study):
+       DOWNGRADE — no manor-year panel available; cannot run
+       event study around 1348. Use narrative summary of
+       Russell (1948), Hatcher (1977, 1986), Kelly & Ó Gráda
+       (2014) point estimates instead.
+
+* Task 11 (Appendix C.3 of paper):
+       DOWNGRADE — replace tabular results with a narrative
+       documentation block. Cite Russell (1948), Hatcher
+       (1977, 1986), Kelly & Ó Gráda (2014), Page (2003 UKDS
+       4086 — access gated), Campbell (2007 cropyields — yields
+       only, gated), and Hatcher-Bailey (2001). Note explicitly
+       that no openly redistributable manor-year mortality
+       panel exists for medieval England as of 2026-05-15.
+
+Reproducibility note
+--------------------
+A future researcher with institutional UKDS credentials could
+re-attempt Tier B by registering for Study 4086, downloading
+the 14 tab-delimited Winchester pipe-roll files, aggregating
+the entry-fines into annual death-proxies by manor (per Kelly
+& Ó Gráda 2014 methodology), and reconstructing a Winchester
+manor-year inheritance panel for 1263-1349. That panel would
+permit the 1348 anchor test but would still cover only the
+Winchester bishopric (60 manors, one estate, pre-1350).
+
+See provenance.txt for the full per-URL search log.

@@ -1,11 +1,16 @@
 Hatcher-Bailey medieval English manorial mortality
 ====================================================
 
-Cascade step:  A.1 (Voigtländer-Voth 2013 RES replication archive)
-Status:        FAILED (proceed to Task 5: Campbell 2016 + Hatcher 1986 OCR)
-Date:          2026-05-15
+Final retrieval status: FAILED — App. C.3 should downgrade to
+narrative documentation block per Task 5 spec.
 
-Target series (per Task 4):
+================================================================
+Cascade step:  A.1 (Voigtländer-Voth 2013 RES replication archive)
+Status:        FAILED
+Date:          2026-05-15
+================================================================
+
+Target series:
   Manor-level mortality (deaths per tenant per year, or comparable),
   1300-1500, covering Halesowen, Westminster, Winchester, etc.,
   with the 1348 Black Death anchor showing >=1.5x baseline spike.
@@ -46,24 +51,134 @@ What the VV-2013 archive actually contains
     Bairoch city populations and aggregate continental mortality
     estimates from secondary literature.
 
-Conclusion
-----------
-The VV-2013 "Three Horsemen" replication archive does not contain
-manorial mortality data. The paper relies on aggregate / city-level
-inputs and a simulated mortality schedule. The Hatcher-Bailey
-manor-level death-rate series targeted by Task 4 was never
-included in the VV-2013 replication deposit, contrary to the
-working hypothesis.
 
-The cascade therefore advances to Tier B:
-  Task 5  - Campbell (2016) "The Great Transition" data +
-            Hatcher (1986) "Mortality in the 15th Century" OCR.
+================================================================
+Cascade step:  A.2 / C  (Campbell 2016 + Hatcher 1986 OCR
+                         + Hatcher-Bailey 2001 + Kelly-Ó Gráda 2014)
+Status:        FAILED
+Date:          2026-05-15
+================================================================
+
+URLs queried in Task 5
+----------------------
+1. https://www.cambridge.org/core/books/great-transition/08A11B44816A641AC07B6BE36A557FD8
+   Campbell (2016) Cambridge Core book page. No supplementary
+   data files; only citation metadata and references.
+2. http://www.cropyields.ac.uk/
+   Campbell's "Three Centuries of English Crop Yields, 1211-1491"
+   archive (cited by Kelly & Ó Gráda 2014). Server unreachable
+   in 2026. Wayback (12 Aug 2020) confirms the database holds
+   ~30,000 crop YIELD observations, NOT mortality. Registration
+   required for the search interface.
+3. https://demographic-challenge.com/files/downloads/df64928d609d73239e62b83f92bf3d54/hatcher19.pdf
+   Hatcher (1986) "Mortality in the Fifteenth Century: Some New
+   Evidence", EHR 39(1):19-38. PDF downloaded successfully
+   (1,497,534 bytes; saved as hatcher_1986_ehr.pdf).
+4. https://www.crei.cat/wp-content/uploads/2016/09/090415121904_Morgan_Kelly.pdf
+   Kelly & Ó Gráda "Poor Law versus the Positive Check" working
+   paper (= EHR 2014 article). PDF downloaded (250,115 bytes;
+   saved as kelly_ograda_crei.pdf).
+5. https://doc.ukdataservice.ac.uk/doc/4086/mrdoc/UKDA/UKDA_Study_4086_Information.htm
+   UKDS Study 4086 (Page 2003, "Peasant Land Market in Southern
+   England, 1260-1350"). 35,000 entry fines + 5,488 marriage
+   fines transcribed from 73 Winchester pipe rolls covering 60
+   manors. ACCESS: "depositor has specified that registration is
+   required and standard conditions of use apply" — gated.
+6. WebSearch attempts (~8 distinct queries) on Hatcher-Bailey
+   2001 "Modelling the Middle Ages" surfaced only reviews and
+   Oxford UP catalogue pages — no online appendix or supplementary
+   data file exists.
+
+What the Hatcher 1986 PDF actually contains
+-------------------------------------------
+The article is a SINGLE-SITE monastic study, not a manorial
+mortality compilation. Coverage:
+
+* Christ Church Priory, Canterbury — Benedictine monks only
+* Period: January 1395 – May 1505 (NOT 1348; cannot anchor BD)
+* Population at risk: 414 monks tracked over 110 years
+* Quoted annual CDR series exists only as Figure 1 (chart,
+  not tabulated); requires manual digitisation to extract a
+  yearly series.
+* Tables 1-5 give seasonality index, cohort life-table death
+  rates (1000qx), Princeton model-fit, and Comparative
+  Medieval English life-tables — none of these is a
+  manor-year × mortality_rate × sample_size table.
+
+The author EXPLICITLY states (p. 38): "we cannot even tell
+whether the experience of Christ Church monks was similar to
+that of other English monastic houses, for no comparable
+figures have been collected."
+
+Crisis years identifiable from body text:
+  1457 (CDR 189/1000, severe pestilence)
+  1471 (CDR 139/1000, plague)
+  1485 (CDR 116/1000, sweating sickness)
+  1487, 1501 (plague, levels not quoted)
+Average fifteenth-century CDR: 33.12 / 1000.
+
+Conclusion: Hatcher 1986 cannot supply ≥30 manor-years across
+≥2 manors, and provides no observations within the 1340-1349
+Black Death anchor window.
+
+What the Kelly & Ó Gráda 2014 PDF actually contains
+----------------------------------------------------
+The paper is a REGRESSION analysis on three underlying micro
+datasets (which are NOT redistributed by the authors):
+
+* Page (2003): 12,378 inheritances on 77 Winchester manors,
+  1263-1349 — gated at UK Data Service (Study 4086).
+* Campbell (2005, Past & Present 188): ~1,800 IPMs of nobles
+  without adult heirs, 1300-1349 — embedded in the article;
+  no replication file.
+* Gottfried (1978, monograph): ~15,000 Norwich diocese wills,
+  1430-1480 — book, no machine-readable file.
+
+Crop-yield covariates are from Campbell (2007) at cropyields.ac.uk
+(yield data only, registration-gated). The paper itself prints
+only regression coefficients (Tables 1-4), aggregate plots
+(Figures 2, 3, 5, 6), and a 19-year "mortality after bad harvests"
+summary table (Table 5) covering 1549-1800 — no medieval
+manor-year mortality series is published.
+
+Hatcher-Bailey (2001) status
+----------------------------
+"Modelling the Middle Ages: The History and Theory of England's
+Economic Development" (OUP). Book-length theoretical synthesis;
+no online appendix or replication archive exists. WebSearches
+for "Hatcher Bailey 2001 ... appendix" returned only reviews
+and the publisher catalogue page.
+
+Overall cascade outcome
+-----------------------
+After exhausting all four cascade tiers (VV-2013 archive,
+Campbell-2016 / cropyields, Hatcher-1986 OCR, Kelly-Ó Gráda
+working paper, UKDS Study 4086 metadata, Hatcher-Bailey 2001
+searches), no openly retrievable dataset satisfies the
+required schema:
+
+   manor, year, mortality_rate, sample_size, source
+   ≥30 manor-years × ≥2 manors × covering 1300-1500
+   × 1348 spike ratio ≥1.5×
+
+medieval_mortality.csv is NOT written.
+
+Per the Task 5 spec, Appendix C.3 must DOWNGRADE to a
+narrative documentation block, citing the known point
+estimates from:
+  * Russell (1948) British Medieval Population
+  * Hatcher (1977) Plague, Population and the English Economy
+  * Hatcher (1986) Mortality in the Fifteenth Century — see
+    hatcher_1986_ehr.pdf on disk for Christ Church CDR series
+  * Kelly & Ó Gráda (2014) EHR 67(2) — see kelly_ograda_crei.pdf
+    for regression-based mortality inferences.
 
 Files left on disk under analysis/data/hatcher_bailey/:
-  Horsemen_Bairoch_Data.xlsx          - VV-2013 city pop data (not on-target)
-  Horsemen_Online_Appendix.pdf        - VV-2013 theoretical appendix
-  Horsemen_REStud.pdf                 - VV-2013 main paper
-  provenance.txt                      - this file
-
-medieval_mortality.csv is NOT written, because the target series
-was not recovered. Anchor validation could not be performed.
+  Horsemen_Bairoch_Data.xlsx       VV-2013 city pop data (not on-target)
+  Horsemen_Online_Appendix.pdf     VV-2013 theoretical appendix
+  Horsemen_REStud.pdf              VV-2013 main paper
+  hatcher_1986_ehr.pdf             Christ Church monks CDR (single site)
+  kelly_ograda_crei.pdf            Kelly & Ó Gráda 2014 working paper
+  ukds_4086_info.html              UKDS 4086 metadata (access-gated)
+  STATUS_FAILED.txt                Marker file for downstream tasks
+  provenance.txt                   This file
