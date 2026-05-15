@@ -1128,6 +1128,15 @@ Conflict + pandemic ctrls. & no         & no            & no               & yes
 
 \paragraph{Interpretation.} The distance-weighted specification captures cross-city variation in the volcanic-cooling channel that the global pool averages out: cities at lower latitudes feel tropical eruptions more, and cities closer to NH extra-tropical vents (Iceland for the Eldgj\'a 939 and 1108 unidentified-NH events) feel those more. Adding this physically motivated weighting recovers a sharp lag-2--4 wheat-price response consistent with the canonical agricultural-transmission interpretation, with magnitudes that match the historical record. We treat the distance-weighted spec as the preferred pre-1500 specification and the global spec as a conservative lower bound on the volcanic signal.
 
+\subsection*{C.3 Medieval English mortality, 1300--1500: a future extension}
+\label{app:medieval-mortality}
+
+The pre-XV-century volcanic appendix (\S\ref{app:volcanic-pre1500}) extends the volcanic exercise back to the 1257 Samalas eruption using city-level grain prices, but stops short of a direct mortality-side test for medieval England. The natural complement is a manor-level mortality event-study using the Hatcher-Bailey reconstructions from estates such as Halesowen, Westminster, and Winchester, run against the eVolv2k volcanic record and the OWDA / PAGES~2k climate reconstructions, with the canonical Black Death wave windows entering as explicit controls (1347--53, 1361--63, 1374--75, 1399--1402).
+
+We attempted to retrieve a continuous manor-level mortality series through the standard public channels: the \citet{voigtlander2013how} \emph{Review of Economic Studies} replication archive (which redistributes the Bairoch city-population dataset but not manorial mortality), the Campbell (2016) \emph{Great Transition} Cambridge UP supplementary materials (publicly available materials do not include the manorial series), the \citet{hatcher1986} \emph{Economic History Review} article (single-site Christ Church Canterbury data 1395--1505, with no Black Death anchor), and the Page (2003) Winchester pipe-roll archive (UK Data Service Study SN 4086, registration-gated). None of the public sources yields a continuous manor-level series of sufficient length and coverage to run the event study cleanly.
+
+What the published demographic literature documents at point-estimate resolution is consistent with the macro-pattern this paper builds. Manorial Black Death mortality 1348--49 averaged 40--45\% on English estates (Halesowen, Westminster, Winchester among the highest), with secondary peaks at 1361 (10--20\%) and 1374--75 (5--10\%) \citep{hatcherbailey2001}. National mortality estimates are similar in magnitude---\citet{hatcher1977} puts the 1348 mortality at 30--45\% with high regional variance, and \citet{benedictow2004} compiles a survey-of-surveys consistent with that range. Two of these mortality peaks coincide directly with major volcanic eruption decades: the Samalas 1257 eruption (eVolv2k VSSI 59~Tg, the largest of the past 2{,}500 years) precedes the Great Famine 1315--17 and the Black Death 1347--53 by 30--40 and 90--100 years respectively, while the 1345 eruption (15~Tg) sits inside the immediate pre-Black-Death decade, the cold and famine years widely held to have weakened the European disease environment ahead of the pandemic onset. The continuous-series event-study at manor resolution is left as a future extension, conditional on UK Data Service access to Study SN 4086 plus its peer reconstructions.
+
 % References
 \bibliographystyle{apalike}
 \begin{thebibliography}{99}
@@ -1163,6 +1172,11 @@ Auffhammer, M., Hsiang, S.~M., Schlenker, W., and Sobel, A. (2013).
 Bar-Yosef, O. (2011).
 \newblock Climatic fluctuations and early farming in West and East Asia.
 \newblock {\em Current Anthropology}, 52(S4):S175--S193.
+
+\bibitem[Benedictow(2004)]{benedictow2004}
+Benedictow, O.~J. (2004).
+\newblock {\em The Black Death 1346--1353: The Complete History}.
+\newblock Boydell Press, Woodbridge.
 
 \bibitem[Brecke(1999)]{brecke1999}
 Brecke, P. (1999).
@@ -1241,6 +1255,22 @@ Harper, K. (2016).
 Harris, I., Osborn, T.~J., Jones, P., and Lister, D. (2020).
 \newblock Version 4 of the {CRU TS} monthly high-resolution gridded multivariate climate dataset.
 \newblock {\em Scientific Data}, 7:109.
+
+\bibitem[Hatcher(1977)]{hatcher1977}
+Hatcher, J. (1977).
+\newblock {\em Plague, Population and the English Economy, 1348--1530}.
+\newblock Macmillan, London.
+
+\bibitem[Hatcher(1986)]{hatcher1986}
+Hatcher, J. (1986).
+\newblock Mortality in the fifteenth century: some new evidence.
+\newblock {\em Economic History Review}, 39(1):19--38.
+
+\bibitem[Hatcher and Bailey(2001)]{hatcherbailey2001}
+Hatcher, J. and Bailey, M. (2001).
+\newblock {\em Modelling the Middle Ages: The History and Theory of England's
+  Economic Development}.
+\newblock Oxford University Press.
 
 \bibitem[Hersbach et al.(2020)]{hersbach2020era5}
 Hersbach, H., Bell, B., Berrisford, P., et~al. (2020).
