@@ -75,3 +75,69 @@ Status of normalised output file ws_england_annual.csv: NOT YET WRITTEN.
   cascade tiers.
 
 Next step: dispatch cascade tier A.2 (Clark UC Davis macroeconomic aggregates).
+
+
+=== Cascade tier A.2: Gregory Clark UC Davis (attempted 2026-05-15) ===
+Source URL: https://faculty.econ.ucdavis.edu/faculty/gclark/data.html
+
+Outcome: FAILED.  Clark's UC Davis data page hosts macroeconomic aggregate
+spreadsheets for England 1209-1869, but none of them contain crude birth
+rates (CBR), crude death rates (CDR), or absolute birth/death counts.  The
+page advertises wages, prices, national income, land rents, and aggregate
+population - not vital rates.  No Wrigley-Schofield CBR/CDR file is hosted
+on this page.
+
+Files inspected:
+  - English Data/England NNI - Clark - 2015.xlsx  (annual 1209-1869)
+        Columns: Year, Pop E&W, Pop England, Share Males farm sector,
+        Male Farm/Non-Farm/average Wage, Work Days per Year, Total Wage
+        Income, Land rents, Net House rents, Other Capital Income, All
+        Capital Income, Indirect Taxes, Net National Income, Price Index
+        (DE/GDP/COL), Real NNI (DE), Real NNI/N.
+        Demographic content: Pop England series only.  No CBR/CDR.
+        Population sanity:  1541 ->  2.99 M
+                            1700 ->  5.51 M
+                            1801 ->  8.81 M  (matches BoE Millennium 8.66 M
+                                              and W-S Table A3.3 ~8.7 M)
+                            1851 -> 16.89 M
+                            1869 -> 20.75 M
+        Saved as clark_England_NNI_2015.xlsx (gitignored, ~230 KB).
+        Treated as a corroborating cross-check for the BoE Millennium
+        population series, not as the primary source.
+
+  - English Data/Wages 2014.xlsx
+        Annual nominal/real wages 1200-2013 for farm laborers, coal
+        miners, building laborers, and craftsmen.  No demographic
+        columns.  Deleted after inspection.
+
+  - English Data/farm2002.xls
+        Farm product price indices 1500-1914 (wheat, barley, oats, etc.).
+        No demographic columns.  Deleted after inspection.
+
+Files attempted but unavailable (HTTP 404):
+  - papers/pardata.txt  ("English Parish Data Set - Data")
+  - papers/parcode.pdf  ("English Parish Data Set - Codes")
+  These would have been the only plausible source of parish-level vital
+  events on Clark's page; both return 404 from the UC Davis server.
+
+Other pages checked for additional links:
+  - a_farewell_to_alms.html: no spreadsheet links; only navigation back
+    to data.html.
+
+Notes:
+  - Clark's published demographic work (e.g. Clark & Cummins 2009, 2015,
+    on social mobility from English wills/parish records) is not posted
+    as annual CBR/CDR time series on this page; only econometric outputs
+    and replication packages appear in journal supplements, not on the
+    UC Davis faculty page.
+  - The Clark NNI annual population series is broadly consistent with
+    Bank of England's BoE Millennium series and with the original W-S
+    Table A3.3 totals, so the partial population CSV from tier A.1
+    remains valid.  But the CBR and CDR series are still missing.
+
+Status of normalised output file ws_england_annual.csv: STILL NOT WRITTEN.
+  Cascade must proceed to tier A.3 (Allen Nuffield "Allen-Unger" page) and
+  tier C (OCR of Schofield 2022 / Wrigley-Schofield 1981 Table A3.3 PDF)
+  to obtain CBR and CDR.
+
+Next step: dispatch cascade tier A.3 (Allen Nuffield + Schofield 2022 OCR).
