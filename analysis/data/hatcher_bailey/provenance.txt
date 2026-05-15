@@ -1,0 +1,69 @@
+Hatcher-Bailey medieval English manorial mortality
+====================================================
+
+Cascade step:  A.1 (Voigtländer-Voth 2013 RES replication archive)
+Status:        FAILED (proceed to Task 5: Campbell 2016 + Hatcher 1986 OCR)
+Date:          2026-05-15
+
+Target series (per Task 4):
+  Manor-level mortality (deaths per tenant per year, or comparable),
+  1300-1500, covering Halesowen, Westminster, Winchester, etc.,
+  with the 1348 Black Death anchor showing >=1.5x baseline spike.
+
+URLs queried
+------------
+1. https://www.jvoth.com/datasets.html
+   (Voth's official datasets page — sole VV-2013 deposit)
+2. http://www.anderson.ucla.edu/faculty_pages/nico.v/Research/Horsemen_Bairoch_Data.xlsx
+   Downloaded 2026-05-15  (191,877 bytes; SHA available on disk).
+3. https://www-apache.anderson.ucla.edu/faculty_pages/nico.v/Research/Horsemen_Online%20Appendix.pdf
+   Downloaded 2026-05-15  (145,581 bytes).
+4. https://www-apache.anderson.ucla.edu/faculty_pages/nico.v/Research/Horsemen_REStud.pdf
+   Downloaded 2026-05-15  (763,608 bytes).
+5. https://academic.oup.com/restud/article-abstract/80/2/774/1535445
+   Inspected; journal page lists no supplementary data deposit.
+
+What the VV-2013 archive actually contains
+------------------------------------------
+* Horsemen_Bairoch_Data.xlsx
+    Single sheet "Bairoch et al data" — European city populations
+    (thousands) for 800-1850 from Bairoch et al. (1988). Columns are
+    centennial population checkpoints. There are NO mortality columns,
+    NO manor-level identifiers, and the smallest spatial unit is a
+    European city, not an English manor.
+
+* Horsemen_Online_Appendix.pdf
+    Theoretical appendix; describes a Malthusian two-sector model
+    with simulated birth/death schedules. Mentions "mortality" 15
+    times, all in the context of model-simulated death-rate
+    schedules. The strings "Hatcher", "Bailey", "Halesowen",
+    "Westminster", "Winchester", and "manorial" do NOT appear.
+
+* Horsemen_REStud.pdf (main paper)
+    The only manorial reference is a single footnote (#52) citing
+    Kelly and Ó Gráda (2008) — VV did NOT collect or distribute
+    manor-level mortality themselves. Their empirical pieces use
+    Bairoch city populations and aggregate continental mortality
+    estimates from secondary literature.
+
+Conclusion
+----------
+The VV-2013 "Three Horsemen" replication archive does not contain
+manorial mortality data. The paper relies on aggregate / city-level
+inputs and a simulated mortality schedule. The Hatcher-Bailey
+manor-level death-rate series targeted by Task 4 was never
+included in the VV-2013 replication deposit, contrary to the
+working hypothesis.
+
+The cascade therefore advances to Tier B:
+  Task 5  - Campbell (2016) "The Great Transition" data +
+            Hatcher (1986) "Mortality in the 15th Century" OCR.
+
+Files left on disk under analysis/data/hatcher_bailey/:
+  Horsemen_Bairoch_Data.xlsx          - VV-2013 city pop data (not on-target)
+  Horsemen_Online_Appendix.pdf        - VV-2013 theoretical appendix
+  Horsemen_REStud.pdf                 - VV-2013 main paper
+  provenance.txt                      - this file
+
+medieval_mortality.csv is NOT written, because the target series
+was not recovered. Anchor validation could not be performed.
