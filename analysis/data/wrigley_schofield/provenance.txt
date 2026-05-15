@@ -1,0 +1,77 @@
+Wrigley-Schofield England annual demographic series - cascade retrieval log
+============================================================================
+
+Cascade tier A.1 (Crafts-Mills 2020 AEA/openICPSR dataverse) - ATTEMPTED 2026-05-15
+---------------------------------------------------------------------------
+
+OUTCOME: FAILED.  No public Crafts-Mills replication package was located at
+openICPSR / AEA Data and Code Repository or anywhere else.  The cascade must
+proceed to tier A.2 (Clark UC Davis) to obtain CBR and CDR.
+
+Search attempts:
+  - WebSearch: "Crafts Mills From Malthus to Solow 2020 Economic Journal
+    replication openicpsr" -> no replication package.  Note that "From Malthus
+    to Solow" is actually the 2009 Journal of Macroeconomics paper, not a 2020
+    Economic Journal paper.
+  - WebSearch: "Considering the Counterfactual ... replication data openicpsr
+    Wrigley Schofield" -> nothing.
+  - WebSearch: site:openicpsr.org Crafts Mills counterfactual real wages
+    -> nothing.
+  - WebFetch: https://www.openicpsr.org/openicpsr/search/aea/studies?searchTerm=Crafts+Mills
+    -> HTTP 403.
+  - WebFetch: ideas.repec.org bibliographic page for the EJ 2022 article
+    -> no data links.
+  - WebFetch: Oxford Academic EJ article page -> no data availability link.
+  - WebFetch: Warwick WRAP repository pages for the 2009 J Macro and 2017
+    EREH papers -> bibliographic only, no data deposited.
+  - WebFetch: CAGE working paper 502 PDF (which became the EJ 2022 paper):
+    references W-S aggregate data 1541-1871 and Bank of England Thomas-Dimsdale
+    "Millennium of UK Data" as a downstream compilation, but does not link to
+    any replication data deposit.
+
+Closest candidate paper found:
+  Crafts, N. and T.C. Mills (2022).  "Considering the Counterfactual: Real
+  Wages in the First Industrial Revolution."  Economic Journal 132(645):
+  1994-2006.  Working paper version: CAGE WP 502 (August 2020, revised
+  September 2021).  This paper estimates a Lee-Anderson state-space model on
+  the W-S aggregate series 1570-1850 (Figure 2 plots crude birth and death
+  rates), but neither the published version (EJ) nor the working paper
+  (CAGE/Warwick) deposits the underlying time series.  The Economic Journal
+  did not require replication archives during this period for theoretical/
+  applied papers without micro-data, so no openICPSR record exists.
+
+Companion paper:
+  Crafts, N. and T.C. Mills (2009).  "From Malthus to Solow: How Did the
+  Malthusian Economy Really Evolve?"  Journal of Macroeconomics 31(1):
+  68-93.  Predates current AEA replication requirements; no deposit located.
+
+Useful partial artifact retrieved during this attempt:
+---------------------------------------------------------------------------
+  boe_millennium.xlsx (27 MB)
+  Source: Bank of England, "A Millennium of Macroeconomic Data for the UK",
+          v3.1, sheet "A2. Pop of Eng & GB 1086-1870"
+  URL: https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+  Citation: Thomas, R. and N. Dimsdale (cited in Crafts-Mills 2022 fn 14);
+            underlying data: Broadberry, Campbell, Klein, Overton and van
+            Leeuwen, British Economic Growth, 1270-1870, CUP 2015.
+
+  Derived file: ws_england_annual_partial_population_only.csv
+  Coverage: 330 annual observations, 1541-1870.
+  Sanity check values:
+      1541 ->  2.83 M  (matches W-S Table A3.3)
+      1700 ->  5.20 M  (matches W-S Table A3.3)
+      1801 ->  8.66 M  (matches W-S Table A3.3)
+      1851 -> 16.74 M  (matches official census)
+  This series is consistent with the Wrigley-Schofield aggregate population
+  totals (rebased and extended in Broadberry et al. 2015).
+
+  CRITICAL GAP: this file contains POPULATION ONLY.  It does not contain CBR
+  (crude birth rate), CDR (crude death rate), or absolute birth/death counts.
+  Per the task's stop condition, partial coverage does NOT satisfy SUCCESS;
+  the cascade must continue to tier A.2 to obtain the missing rate series.
+
+Status of normalised output file ws_england_annual.csv: NOT YET WRITTEN.
+  Will be written when CBR+CDR+population are all available from one or more
+  cascade tiers.
+
+Next step: dispatch cascade tier A.2 (Clark UC Davis macroeconomic aggregates).
