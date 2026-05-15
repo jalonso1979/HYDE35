@@ -141,3 +141,103 @@ Status of normalised output file ws_england_annual.csv: STILL NOT WRITTEN.
   to obtain CBR and CDR.
 
 Next step: dispatch cascade tier A.3 (Allen Nuffield + Schofield 2022 OCR).
+
+
+=== Cascade tier A.3 (Allen Nuffield xls scan): FAILED (2026-05-15) ===
+---------------------------------------------------------------------
+
+Scanned all 17 already-downloaded Allen Nuffield xls files in
+analysis/data/gpih_raw/ (amsterdam, antwerp, augsburg, gdansk, krakow,
+leipzig, london, lwow, madrid, munich, naples, northern-italy, paris,
+strasbourg, valencia, vienna, warsaw).  None of the 17 files contains any
+sheet/cell matching the demographic terms population, births, deaths, cbr,
+cdr, demographic, vital, baptism, burial, or mortality (case-insensitive,
+top 20 rows of every sheet).
+
+This is consistent with the Allen-Unger Global Price and Income History
+Group archive being price-and-wage focused.  Even the "population" term
+returned no hits in the top-of-sheet headers - the city-population
+conversion tables that Allen used must encode population implicitly rather
+than via a labelled column.
+
+No demographic vital rates recoverable from Allen Nuffield archive.
+
+
+=== Cascade tier C (Schofield 2022 PRA-2 OCR): FAILED (2026-05-15) ===
+---------------------------------------------------------------------
+
+PDF download: SUCCESS.
+  URL: http://www.localpopulationstudies.org.uk/wp-content/uploads/
+       Parish-register-aggregate-analyses-SECOND-EDITION-PUBLISHED.pdf
+  HTTP 200, 1,012,617 bytes, 45 pages, PDF 1.7, downloaded cleanly.
+  Saved as schofield_2022_pra2.pdf.
+
+Content inspection (pdfplumber, all 45 pages):
+  Pages 1-3: front matter, title, copyright.
+  Pages 4-5: contents and list of tables/figures.
+  Pages 6-23: narrative on the database, how it was assembled, what
+              the parish-level files contain (bap_10, bur_10, mar_10,
+              bap_50, bur_50, mar_50, etc.), quality of registration,
+              use cases (seasonality, fluctuations, crisis mortality,
+              long-run trends).
+  Page 24:   Figure 1 - map of the 404 parishes.
+  Pages 25-34: Table 2 - alphabetic list of 404 parishes with their
+              1811 populations.
+  Pages 35-45: Table 3 - same 404 parishes ordered by county.
+
+Critical finding: this PDF is the *introductory guide* to the PRA-2
+parish-level CD-ROM database.  It does NOT contain any national annual
+back-projected CBR, CDR, or population time-series tables, and there is
+no Appendix A3.
+
+Page 18 of the PDF says explicitly: "annual national totals of baptisms,
+burials and marriages estimated from the aggregate of the 404 parishes
+can be found in the population history of england" - i.e. these series
+live in the Wrigley-Schofield 1981 hardcopy book (Appendix A3), not in
+this 2022 guide PDF.
+
+Additional source survey (web searches and webfetches):
+  - https://archive.org/details/populationhistor0000wrig_w4s3
+      The 1981 W-S book on Internet Archive is "access-restricted-item"
+      with "cut text on some pages".  Borrow-only, no direct PDF
+      download, OCR not externally available.
+  - https://www.campop.geog.cam.ac.uk/datasets/
+      Lists only 404pars.csv (parish metadata, not annual vital rates).
+      Annual CBR/CDR series are reachable only via the UK Data Archive
+      (UKDS) doi:10.5255/UKDA-SN-853082, which requires academic
+      registration (cascade tier B - out of scope without credentials).
+  - GitHub gist / public CSV search: no public reproduction of the W-S
+      Appendix A3 annual series found.
+
+OCR was therefore not attempted on the Schofield 2022 PDF, because the
+target tables are not in that PDF.  Running pdfplumber.extract_tables()
+on pages 25-45 would only retrieve the 1811 parish population list
+(Tables 2 and 3), which does not provide annual national CBR/CDR.
+
+
+=== Cascade summary ===
+-----------------------
+
+  Tier A.1 (Crafts-Mills openICPSR):      FAILED (no public deposit)
+  Tier A.2 (Clark UC Davis):              FAILED (no CBR/CDR series)
+  Tier A.3 (Allen Nuffield xls scan):     FAILED (no demographic columns)
+  Tier C   (Schofield 2022 PRA-2 OCR):    FAILED (PDF lacks A3 tables)
+  Tier B   (UKDS doi:10.5255/UKDA-SN-...) NOT ATTEMPTED (requires academic
+                                          registration credentials -
+                                          out of scope per task brief).
+
+Public-domain data we DO have for the W-S exercise:
+  - boe_millennium.xlsx (gitignored, redownloadable)
+  - clark_England_NNI_2015.xlsx (gitignored, redownloadable)
+  - ws_england_annual_partial_population_only.csv (annual population
+    1541-1870, consistent with W-S Appendix A3.3 within rounding;
+    no CBR, no CDR, no birth/death counts).
+
+Status of normalised output file ws_england_annual.csv:
+  NOT WRITTEN.  The cascade did not retrieve CBR and CDR; only
+  population is available, which by the task's stop condition is
+  insufficient.  Phase 2 / Task 6 (W-S extended regression on CBR+CDR)
+  should be downgraded to a "future extension" note in the paper.
+  STATUS_FAILED.txt has been written alongside this provenance log to
+  flag this clearly to downstream tasks.
+

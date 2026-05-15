@@ -1,0 +1,51 @@
+CASCADE STATUS: FAILED
+Date: 2026-05-15
+
+The Wrigley-Schofield annual CBR+CDR+population cascade has failed at all
+public tiers (A.1, A.2, A.3, C).  See provenance.txt for the full attempt log.
+
+Public-domain artifacts retrieved during the cascade:
+  - boe_millennium.xlsx               (population only, annual 1086-1870)
+  - clark_England_NNI_2015.xlsx       (population only, annual 1209-1869)
+  - ws_england_annual_partial_population_only.csv
+        (annual population 1541-1870, derived from BoE Millennium,
+        consistent with W-S Appendix A3.3 within rounding)
+  - schofield_2022_pra2.pdf
+        (the LPSS PRA-2 introductory guide; does NOT contain national
+        annual CBR/CDR series)
+
+Critical missing data:
+  - Annual crude birth rate (CBR), 1541-1871.
+  - Annual crude death rate (CDR), 1541-1871.
+  - Annual birth and burial counts, 1541-1871.
+
+These series are only available from the UK Data Archive
+  doi:10.5255/UKDA-SN-853082
+which requires academic registration (cascade tier B - out of scope).
+
+DOWNSTREAM IMPLICATION
+----------------------
+
+Phase 2 / Task 6 (W-S extended regression: CBR, CDR, and Malthusian
+fertility/mortality response to climate over 1541-1871) cannot be
+executed with public-domain data.  This task should be:
+
+  (a) DOWNGRADED in scope: rewrite §4.3.2 of the paper from a planned
+      W-S annual regression result to a "future extension" / "data
+      availability" note, citing UKDA-SN-853082 as the gated source
+      and Crafts-Mills (2022, Economic Journal) as the most recent
+      published analysis on these series.
+
+OR
+
+  (b) DEFERRED conditional on user-provided UKDS access.  If the user
+      can supply UKDS credentials (or arrange academic registration
+      via their institution), cascade tier B becomes feasible and Task
+      6 can be re-attempted in a future session.
+
+Population-only analyses (long-run Malthusian dynamics measured via
+the population series alone, e.g. Crafts-Mills 2009 specification with
+population growth as LHS) remain feasible using
+ws_england_annual_partial_population_only.csv.  This is the
+recommended fallback if the W-S exercise must produce some result in
+the current paper.
