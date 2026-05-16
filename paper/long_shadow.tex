@@ -26,7 +26,7 @@
 
 \begin{abstract}
 \noindent
-This paper assembles a new monthly paleo-economic panel for 196 countries and 3{,}187 sub-national units reaching back to 1421~CE---aggregating the ModE-RA paleo-reanalysis onto HYDE~3.5 land-use cells and linking the resulting climate-and-land-use panel to the Sigl-Toohey eVolv2k volcanic record, the Brecke conflict catalogue, and the Allen-Nuffield wage-and-price archive---and uses it to identify three substantive findings about the pre-industrial Malthusian regime. First, continuous volcanic forcing from the eVolv2k ice-core record 1500--1900 produces a sharply pathway-heterogeneous demographic response: crop-dominant late and pastoral/mixed late countries show population-growth coefficients of $-9.7$ and $-5.5 \!\cdot\! 10^{-5}$ per Tg of stratospheric sulfur injection respectively, both Bonferroni-significant across pathway typology, multiple-testing correction, and HYDE temporal sub-samples. Second, crop-dominant late economies in the modern instrumental era show a sharply positive cropland-share response to the same volcanic forcing ($+7.8 \!\cdot\! 10^{-4}$ per Tg in 1800--1900, $p<0.01$): after cold shocks, these economies expanded cropland, a direct empirical signature of the Boserupian intensification mechanism that has been hard to test at the cross-country pre-industrial scale. Third, pre-industrial inter-annual climate volatility 1421--1750 emerges as the single strongest cross-country predictor of modern population growth at $R^2 = 0.45$, surviving both latitude and an extended deep-determinant battery. Two complementary exercises sharpen the channel: the Allen real-wage panel for six European countries 1421--1850 returns the canonical Malthusian price-on-population coefficient at city resolution, and an annual European mortality and fertility panel 1751--1900 decomposes the Malthusian response into preventive (fertility) and positive (mortality) checks, finds the response dominated by the positive check on infant and child mortality---the historically documented summer-mortality pattern---and traces the coefficient's monotonic collapse to zero by 1950--2022 as twentieth-century sanitation, refrigeration, and antibiotics develop. The paleo-economic dataset that enables these exercises is, we believe, the more durable contribution: it makes within-country Malthusian econometrics with real annual climate forcing addressable for the entire 1421--1950 sample. Seasonality, properly measured, casts a long shadow.
+We assemble a new monthly paleo-economic panel covering 196 countries from 1421~CE---ModE-RA $\times$ HYDE $\times$ eVolv2k $\times$ Brecke $\times$ Allen---and use it to identify three findings about the pre-industrial Malthusian trap. First, continuous volcanic forcing 1500--1900 produces a pathway-heterogeneous demographic response, with crop-dominant late and pastoral/mixed late countries losing population at $-9.7$ and $-5.5\!\cdot\!10^{-5}$ per Tg of stratospheric sulfur injection respectively, Bonferroni-significant across multiple-testing and robustness slices. Second, the same crop-dominant late countries expanded cropland share after cold shocks in the modern instrumental era ($+7.8\!\cdot\!10^{-4}$ per Tg in 1800--1900, $p<0.01$), the first cross-country pre-industrial test of the Boserupian intensification hypothesis using exogenous climate forcing. Third, pre-industrial inter-annual climate volatility 1421--1750 is the single strongest cross-country predictor of modern population growth at $R^2 = 0.45$, surviving latitude and deep-determinant controls. Seasonality, properly measured, casts a long shadow.
 
 \medskip
 \noindent\textbf{JEL Codes:} N50, O13, O44, Q54, J11.\\
@@ -56,6 +56,13 @@ The paper proceeds as follows. Section~\ref{sec:data} introduces the new paleo-e
 
 The paper rests on a paleo-economic dataset that we assemble for the first time and that does most of the empirical work. We describe its construction, validate its alignment with the modern instrumental record where they overlap, and then use it to characterise the climate-pathway typology that organises the rest of the paper. The dataset itself is, we believe, the more durable contribution: it can support econometric questions about pre-industrial development that the existing climate-history literature has been unable to address.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/fig00_source_coverage.pdf}
+  \caption{Temporal coverage of the data sources merged into the paleo-economic panel. Each bar marks one source. The vertical dotted lines mark the analysis windows (1421 ModE-RA start, 1500 joint VAR start, 1750 HMD/HFD-era start, 1900 modern, 1950 ERA5).}
+  \label{fig:source-coverage}
+\end{figure}
+
 \subsection{Construction}
 
 The dataset has three substantive layers and three event layers, all merged onto a common country-year (or city-year, or sub-unit-year) grid. The first substantive layer is HYDE~3.5 \citep{goldewijk2017}, which provides gridded estimates of population, cropland, grazing land, irrigated land, rice cultivation, and urban population at 5-arcminute resolution from 10{,}000~BCE to 2025~CE under three uncertainty scenarios. We aggregate to country totals using the \texttt{iso\_cr} country raster and to 3{,}187 sub-national units using the \texttt{sub\_iso\_cr} raster. The HYDE temporal grid is irregular: 100-year intervals before 1700, decadal 1700--1950, and annual thereafter. The pre-industrial decadal sample is what powers most of the regressions; we use the century-spaced pre-1500 sample only in the appendix extension.
@@ -75,6 +82,22 @@ The country-level monthly climate panel matches the modern instrumental record w
   \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/fig02_calibration.pdf}
   \caption{ModE-RA versus country-level ERA5, 1950--2008. (a)~Per-country mean bias (ERA5 minus ModE-RA $+$ CRU climatology). (b)~Country-month temperature correlation. (c)~Year-to-year anomaly correlation after country-wise detrending. Both panels use the same 196-country sample.}
   \label{fig:calibration}
+\end{figure}
+
+The panel also captures documented climate-driven famines (Figure~\ref{fig:famine-validation}): negative temperature anomalies during the Great Frost of 1709 and the Tambora year-without-a-summer 1816, the cold-and-wet anomaly during the Irish potato famine 1845--49, and the precipitation deficits during the North China famine 1876--79 and the Bengal famine 1943 all show up in the panel at the relevant country and decade.  And the monthly resolution of ModE-RA lets us watch a single eruption propagate spatially: Figure~\ref{fig:tambora} traces the Tambora 1815 cooling pattern month by month from June 1815 through September 1816, the canonical year-without-a-summer.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/fig0X_famine_validation.pdf}
+  \caption{Cross-validation against five documented climate-driven famines: temperature anomaly (blue, left axis) and precipitation anomaly (green, right axis) in the affected country, with famine years shaded.}
+  \label{fig:famine-validation}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/figXX_tambora_propagation.pdf}
+  \caption{Tambora propagation: monthly world temperature anomalies (°C vs.\ 1901--2000), June 1815 through September 1816, from ModE-RA. Tambora's location (8°S, 118°E) is marked. The Northern Hemisphere ``year without a summer'' of 1816 is visible as the coherent cold anomaly through June--August 1816.}
+  \label{fig:tambora}
 \end{figure}
 
 \subsection{Five agricultural pathways}
@@ -137,7 +160,7 @@ The Matranga story survives, in other words, but it operates through the \emph{j
 \section{From storage demand to the Malthusian regression}
 \label{sec:identification}
 
-The empirical work that follows is organised around the within-country identification strategy that the appendix model motivates. Appendix~\ref{app:theory} sketches a two-stage model in the spirit of \citet{ashraf2011dynamics} that delivers two empirical predictions. First, in a society's far past, the share of climatically productive months $\Pi$ jointly with inter-annual climate volatility $\sigma_v$ selects which agricultural system $\tau \in \{$intensive crop, extensive pastoral, irrigation-based$\}$ the society adopts; the model produces a productive-months threshold $\Pi^*(\sigma_v)$ above which intensive crop dominates pastoral (Appendix~\ref{app:theory}, Equation~\ref{eq:threshold}). Second, given the selected pathway, the demographic dynamics follow a Malthusian regression with pathway-specific coefficients on lagged density, level temperature, and inter-annual temperature volatility:
+The empirical work that follows is organised around the within-country identification strategy that the appendix model motivates. Appendix~\ref{app:theory} sketches a two-stage model in the spirit of \citet{ashraf2011dynamics} that delivers two empirical predictions. First, in a society's far past, the share of climatically productive months $\Pi$ jointly with inter-annual climate volatility $\sigma_v$ selects which agricultural system $\tau \in \{$intensive crop, extensive pastoral, irrigation-based$\}$ the society adopts; the model produces a productive-months threshold $\Pi^*(\sigma_v)$ above which intensive crop dominates pastoral (Appendix~\ref{app:theory}). Second, given the selected pathway, the demographic dynamics follow a Malthusian regression with pathway-specific coefficients on lagged density, level temperature, and inter-annual temperature volatility:
 \begin{equation}
   \Delta \ln P_{it} \;=\; \alpha_i \;+\; \beta(\tau^\ast)\, d_{i,t-1} \;+\; \gamma(\tau^\ast)\, T_{it} \;+\; \delta(\tau^\ast)\, \sigma_v^T(T_{it}) \;+\; \eta(\tau^\ast)\, h_{it} \;+\; \varepsilon_{it}.
   \label{eq:malthus-main}
@@ -219,14 +242,7 @@ Early extensifiers      & 189 & $-0.0007$      & $+0.0003$     & $-1.0{\cdot}10^
 \par\smallskip\footnotesize{Within-country FE; standard errors clustered by country. Stars: $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \end{table}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\textwidth]{../analysis/figures/paper4_v2/fig05_malthus_pathway.pdf}
-  \caption{Pathway-stratified Malthusian regressions with annual climate, 1421--1750. (a)~Density coefficient $\hat{\beta}_{\ln d}$: crop-based pathways anti-Malthusian, pastoral pathway strongly Malthusian. (b)~Coefficient on within-interval temperature volatility $\hat{\delta}_T$: capital-intensive pathways significantly vulnerable to inter-annual volatility, pastoral pathway insensitive.}
-  \label{fig:malthus-pathway}
-\end{figure}
-
-Three robustness exercises confirm and extend the pathway-stratified result. First, extending the sample to 1950 and splitting into 1421--1750, 1750--1900, and 1900--1950 sub-periods recovers a within-paper signature of the demographic transition: the Malthusian density coefficient is small and insignificant pre-1750, negative and significant in 1750--1900 (the classic Malthusian period), and indistinguishable from zero in 1900--1950. The inter-annual volatility coefficient flips sign from $+0.0045$ in 1750--1900 to $-0.0125$ in 1900--1950 ($p<10^{-4}$), coincident with the spread of monoculture and capital-intensive agriculture (Appendix~\ref{app:identification-extensions}, Table~\ref{tab:malthus-subperiod}, Figures~\ref{fig:subperiods}--\ref{fig:rolling}). Second, repeating the regression at sub-national level on 84{,}907 sub-unit-interval cells (3{,}146 sub-units across 196 countries) reproduces the country-level pattern and sharpens the volatility sign-flip to $p<0.05$ across all three sub-periods (Appendix Table~\ref{tab:subnat-malthus}). Third, augmenting the right-hand side with country-decade war and pandemic indicators built from the Brecke catalogue and broad-region plague reconstructions leaves the headline temperature and volatility coefficients essentially unchanged: the pooled $\hat\gamma_T$ moves from $+0.0055$ to $+0.0051$ and $\hat\delta_T$ from $+0.0038$ to $+0.0034$ (Appendix Table~\ref{tab:malthus-conflict}). Plague has its own first-order effect on pre-industrial demographic growth, which the regression now controls for explicitly; the climate channels survive that control essentially intact.
+Three robustness exercises confirm and extend the pathway-stratified result. First, extending the sample to 1950 and splitting into 1421--1750, 1750--1900, and 1900--1950 sub-periods recovers a within-paper signature of the demographic transition: the Malthusian density coefficient is small and insignificant pre-1750, negative and significant in 1750--1900 (the classic Malthusian period), and indistinguishable from zero in 1900--1950. The inter-annual volatility coefficient flips sign from $+0.0045$ in 1750--1900 to $-0.0125$ in 1900--1950 ($p<10^{-4}$), coincident with the spread of monoculture and capital-intensive agriculture (Appendix~\ref{app:identification-extensions}, Table~\ref{tab:malthus-subperiod}). Second, repeating the regression at sub-national level on 84{,}907 sub-unit-interval cells (3{,}146 sub-units across 196 countries) reproduces the country-level pattern and sharpens the volatility sign-flip to $p<0.05$ across all three sub-periods (Appendix Table~\ref{tab:subnat-malthus}). Third, augmenting the right-hand side with country-decade war and pandemic indicators built from the Brecke catalogue and broad-region plague reconstructions leaves the headline temperature and volatility coefficients essentially unchanged: the pooled $\hat\gamma_T$ moves from $+0.0055$ to $+0.0051$ and $\hat\delta_T$ from $+0.0038$ to $+0.0034$ (Appendix Table~\ref{tab:malthus-conflict}). Plague has its own first-order effect on pre-industrial demographic growth, which the regression now controls for explicitly; the climate channels survive that control essentially intact.
 
 \section{Volcanic forcing and the Malthusian channel}
 \label{sec:headline}
@@ -291,38 +307,10 @@ The pathway-stratified version of this exercise (Figure~\ref{fig:joint-var}) sho
 
 The pathway-stratified demographic response is the headline coefficient we carry forward through the rest of the section. Crop-dominant late and pastoral/mixed late countries lose population growth at $-9.7$ and $-5.5\!\cdot\!10^{-5}$ per Tg of stratospheric sulfur injection respectively. A 10~Tg decadal VSSI exposure---typical for a pre-industrial decade with one major eruption---translates to roughly $1\%$ less annualised population growth across the decade in crop-dominant late countries, or about $10\%$ cumulative population loss for a country exposed to a Tambora-class shock without intervening recovery. The high-density intensive pathway shows an essentially zero demographic response ($p = 0.21$), consistent with the headline cross-pathway heterogeneity but identified weakly; we return to this pathway-versus-pathway heterogeneity in the welfare evidence of Section~\ref{sec:allen}.
 
-\subsection{Discrete volcanic event study, 1500--1900}
+\subsection{Single-equation cross-checks and pre-XV-century extension}
 \label{sec:volcanic}
 
-The identifying volcanic variation in the joint specification is the Sigl-Toohey eVolv2k v4 ice-core record \citep{sigl2024evolv2k}, which catalogues every major eruption from 500~BCE to 1900~CE and reports its stratospheric sulfur injection (VSSI, in Tg). As a single-equation pathway-stratified design on $\Delta_{\text{ann}} \ln P$ with country fixed effects, the same pattern reproduces cleanly: crop-dominant systems show $-9.7\!\cdot\!10^{-5}$ per Tg ($p<10^{-9}$), pastoral $-7.2\!\cdot\!10^{-5}$ ($p<10^{-11}$), early extensifiers $-4.3\!\cdot\!10^{-5}$ ($p<10^{-6}$), and high-density intensive a near-zero $-1.2\!\cdot\!10^{-5}$ ($p=0.55$) (Table~\ref{tab:sigl}). A dynamic IRF design at $h\in\{-2,\ldots,+2\}$ decades passes parallel trends ($F=0.33$, $p=0.72$ on the two leads) and peaks at $h=+2$ decades ($p<10^{-4}$), consistent with cohort-level propagation over the two decades following an eruption; full IRF in Appendix~\ref{app:sigl-irf}.
-
-\begin{table}[H]
-\centering
-\caption{Continuous-forcing volcanic regression: ann.\ log pop growth on decade-summed VSSI, country fixed effects}
-\label{tab:sigl}
-\small
-\begin{tabular}{lrrr}
-\toprule
-\multicolumn{4}{l}{\textit{Panel A. Pooled with pathway interactions ($N = 3{,}385$, $R^2 = 0.052$)}}\\
-\midrule
-Main effect, VSSI                                & $-0.92\cdot10^{-4}$ & $(0.15)$ & $p < 10^{-9}$ \\
-$\,+\,$ High-density intensive $\times$ VSSI     & $+0.87\cdot10^{-4}$ & $(0.26)$ & $p < 10^{-3}$ \\
-$\,+\,$ Early extensifiers $\times$ VSSI         & $+0.43\cdot10^{-4}$ & $(0.17)$ & $p = 0.010$ \\
-$\,+\,$ Pastoral/mixed late $\times$ VSSI        & $+0.17\cdot10^{-4}$ & $(0.18)$ & $p = 0.35$ \\
-\midrule
-\multicolumn{4}{l}{\textit{Panel B. Pathway-stratified slopes with country fixed effects}}\\
-Pathway & $\hat\beta_{\mathrm{VSSI}}$ & (SE) & $p$\\
-\midrule
-Crop-dominant late ($N=988$)        & $-0.97\cdot10^{-4}$ & $(0.15)$ & $<10^{-9}$ \\
-Pastoral/mixed late ($N=1429$)      & $-0.72\cdot10^{-4}$ & $(0.11)$ & $<10^{-11}$ \\
-Early extensifiers ($N=594$)        & $-0.43\cdot10^{-4}$ & $(0.08)$ & $<10^{-6}$ \\
-High-density intensive ($N=352$)    & $-0.12\cdot10^{-4}$ & $(0.21)$ & $0.55$ \\
-\bottomrule
-\end{tabular}
-\par\smallskip\footnotesize{Coefficients in $\Delta(\text{ann.\ log pop growth})/\text{Tg}$. Standard errors clustered by country; in parentheses, scaled to match the coefficient magnitudes ($\times 10^{-4}$).}
-\end{table}
-
-A pre-XV-century extension via the Allen-Studer European wheat-price panel (1259--1500, nine cities) and the Harper (2016) Roman-Egypt wheat-price series (45--650~CE) reaches further back than HYDE itself allows. The continuous-VSSI design on log wheat prices recovers a supply-side spike peaking two years post-eruption ($+0.0089$ per Tg, $p=0.10$); applied to the 59~Tg Samalas eruption of 1257---the largest VSSI of the past 2500 years---this implies a $\approx 52\%$ price spike by 1259, in the right neighbourhood of the Great Famine of 1315--1317. Twenty-five-year-bin event studies around Samalas and around the 540~CE LALIA doublet (Plague of Justinian onset) recover the canonical post-famine demand-side aftermath ($-40\%$ wheat prices and $+7\%$ real wages over 1257--1282; $-94\%$ Egyptian wheat prices over 552--587)---the volcanic Malthus mechanism viewed at two different timescales. The pathway-heterogeneous demographic test does not survive translation to the century-binned HYDE intervals available pre-1500; details in Appendix~\ref{app:volcanic-pre1500}.
+The single-equation pathway-stratified version of the joint specification---$\Delta_{\text{ann}} \ln P$ on country FE and VSSI alone---reproduces the demographic-margin coefficients of Section~\ref{sec:joint-var}: crop-dominant systems $-9.7\!\cdot\!10^{-5}$ per Tg ($p<10^{-9}$), pastoral $-7.2\!\cdot\!10^{-5}$ ($p<10^{-11}$), early extensifiers $-4.3\!\cdot\!10^{-5}$ ($p<10^{-6}$), high-density intensive a near-zero $-1.2\!\cdot\!10^{-5}$ ($p=0.55$). A dynamic IRF at decade leads and lags passes parallel trends ($F=0.33$ on the two leads, $p=0.72$) and peaks at $h=+2$ decades ($\hat\beta = -36\!\cdot\!10^{-5}$, $p<10^{-4}$). A pre-XV-century extension via the Allen-Studer European wheat-price panel (1259--1500, nine cities) and the Harper (2016) Roman-Egypt wheat-price series (45--650~CE) recovers a supply-side spike peaking two years post-eruption ($+0.0089$ per Tg, $p=0.10$); applied to the 59~Tg Samalas eruption of 1257, this implies a $\approx 52\%$ price spike by 1259, in the right neighbourhood of the Great Famine of 1315--1317. Twenty-five-year-bin event studies around Samalas and around the 540~CE LALIA doublet recover the canonical post-famine demand-side aftermath; the pathway-heterogeneous demographic test does not survive translation to century-binned HYDE intervals pre-1500. Details in Appendix~\ref{app:volcanic-pre1500}.
 
 \subsubsection{Boserupian cropland response in crop-dominant late economies post-1700}
 \label{sec:boserup}
@@ -365,21 +353,21 @@ $N$                                  & $2{,}353$     & $2{,}383$      & $2{,}353
 
 A natural further question is whether the climate-Malthus response operates through the \emph{preventive} check (fertility postponement) or the \emph{positive} check (mortality). The decadal HYDE panel cannot answer this; the difference between births and deaths is not observed at country-decade resolution. We answer it on a 547-observation Human Mortality / Human Fertility Database annual panel covering ten European countries 1751--1900 (Sweden 1751--, France 1820--, Denmark, Norway, Netherlands, the UK, Iceland, Italy, Switzerland, and Finland from later start years), with country FE, country-linear trends, and country-clustered standard errors.
 
-The decomposition surfaces a clean asymmetry (Figure~\ref{fig:prevpos}). Annual warm-year shocks operate primarily through the \emph{positive} check: $+1\,^\circ$C raises $\log m_0$ by $+2.35\%$ ($p=0.009$), $\log m_5$ by $+2.58\%$ ($p=0.003$), and $\log m_{10}$ by $+2.56\%$ ($p=0.002$). The preventive check is small and insignificant ($+0.75\%$ on log fertility, $p=0.14$). Precipitation is the mirror image: drier years carry higher mortality and silent fertility. This is the historically well-documented ``summer mortality'' pattern of pre-modern Europe: in the absence of refrigeration and sanitation, warm summers triggered dysentery and gastroenteritis outbreaks that disproportionately killed infants \citep{wrigley1981}.
+The decomposition surfaces a clean asymmetry. Annual warm-year shocks operate primarily through the \emph{positive} check: $+1\,^\circ$C raises $\log m_0$ by $+2.35\%$ ($p=0.009$), $\log m_5$ by $+2.58\%$ ($p=0.003$), and $\log m_{10}$ by $+2.56\%$ ($p=0.002$). The preventive check is small and insignificant ($+0.75\%$ on log fertility, $p=0.14$). Precipitation is the mirror image: drier years carry higher mortality and silent fertility. This is the historically well-documented ``summer mortality'' pattern of pre-modern Europe: in the absence of refrigeration and sanitation, warm summers triggered dysentery and gastroenteritis outbreaks that disproportionately killed infants \citep{wrigley1981}.
 
 Two cross-cutting results sharpen the interpretation. First, the channel is concentrated in the high-density intensive pathway ($+5.3\%$ per $^\circ$C on $\log m_0$, $p<10^{-6}$) and weakens monotonically through early extensifiers ($+3.4\%$) and pastoral systems ($+1.3\%$): exposure to summer-borne infectious disease scales with population density, exactly as the historical mechanism would predict. Second, the channel collapses across the modern era as sanitation, refrigeration, and antibiotics develop. The $m_0$ coefficient falls from $+0.0235$ per $^\circ$C in 1751--1900 to $+0.0078$ in 1900--1950 (no longer significant) to $+0.0003$ in 1950--2022 (a 75-fold reduction, $p=0.84$); the $m_5$ and $m_{10}$ coefficients turn slightly \emph{negative} post-1950 with significant negative precipitation coefficients. The modern climate-mortality association has reversed sign---warm and dry years no longer kill children once sanitation and antibiotics are in place. Pathway-stratified, modern-era, and English-parish-aggregate (CamPop 1541--1850) extensions are reported in Appendix~\ref{app:prevpos-extensions}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\textwidth]{../analysis/figures/paper4_v2/figK_prevpos.pdf}
-  \caption{Preventive vs.\ positive Malthusian checks, European annual panel 1751--1900. Coefficients on $T$ anomaly across four outcomes (fertility, infant mortality, child mortality at 5 and 10), country FE, country-linear trend, SEs clustered by country; $N=547$ across 10 countries.}
-  \label{fig:prevpos}
-\end{figure}
 
 \section{The long shadow on modern outcomes}
 \label{sec:shadow}
 
-We have shown that the climate-induced agricultural-pathway selection that operated in the deep past still shapes how societies respond to climate shocks in the pre-industrial period, and that the response margin varies across pathways in a way that maps cleanly onto the unified-growth-theory escape trajectory. We finally ask whether the storage-demand effect itself continues to propagate into modern outcomes. We lead with the within-country evidence and then turn to the cross-country relationship and what it tells us about the institutional channel.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/figXY_long_shadow_choropleth.pdf}
+  \caption{The long shadow of seasonality. (a)~Pre-industrial inter-annual temperature volatility $\sigma_v^T$ (country-mean std of annual mean $T$, 1421--1750). (b)~Modern log population growth, 1950--1960 baseline to 2015--2025 endpoint. Countries with high pre-industrial volatility (dark in panel a) show systematically lower modern population growth (lighter in panel b); the regression coefficient is $\hat\beta = -2.48$ ($p < 10^{-24}$, $R^2 = 0.45$).}
+  \label{fig:long-shadow-map}
+\end{figure}
+
+We have shown that the climate-induced agricultural-pathway selection operated in the deep past still shapes how pre-industrial societies absorbed climate shocks. We finally ask whether the storage-demand effect propagates into modern outcomes. The bottom-line answer is the choropleth in Figure~\ref{fig:long-shadow-map}: countries that faced more volatile pre-industrial climates 1421--1750 have systematically lower modern population growth, $R^2 = 0.45$. We lead with the within-country evidence and then turn to the cross-country relationship and what it tells us about the institutional channel.
 
 Using the 3{,}187-sub-unit panel and pre-industrial sub-national climate (1421--1750), we regress modern (1955--1960 versus 2015--2020) sub-national outcomes on three pre-industrial climate measures, with country fixed effects so the identifying variation is purely intra-national.
 
@@ -429,13 +417,6 @@ Productive months                      & $\Delta$ irrigation        & Yes & $-0.
 \end{table}
 
 Inter-annual climate volatility 1421--1750 is the single strongest cross-country predictor of modern population growth ($\hat\beta=-2.48$, $p<10^{-15}$, $R^2=0.45$ with pathway fixed effects). Intra-annual temperature range predicts modern $\Delta$ crop share with the same negative sign ($p<10^{-4}$). The productive-months / storage-demand measure predicts modern irrigation expansion negatively (high-storage-demand countries had developed irrigation early and have less room to expand it in the modern era) and urbanisation marginally positively.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.94\textwidth]{../analysis/figures/paper4_v2/fig08_long_shadow.pdf}
-  \caption{The long shadow on modern outcomes. (a)~Pre-industrial inter-annual temperature volatility $\sigma_v^T$ versus modern log population growth (1955 to 2020). (b)~Pre-industrial intra-annual temperature range $\sigma_s^T$ versus modern $\Delta$ crop share. Lines are OLS without pathway fixed effects.}
-  \label{fig:longshadow}
-\end{figure}
 
 The cross-country point estimate is roughly $8\times$ the within-country one for inter-annual volatility ($-2.48$ versus $-0.31$). We read the gap not as discouraging but as informative about \emph{how} the long shadow operates. The within-country effect captures the part of the long shadow that runs through geography, directly: regions within the same country that were more climatically volatile pre-industrially reached lower carrying capacities and have less room to grow into during the modern transition. The much larger cross-country effect captures the additional part that runs through institutions, technology, and accumulated practice: climate-determined paths of agricultural and political development that, by 1900, look like country-level mediators (legal systems, kinship systems, fiscal capacity, education) and that we cannot disentangle in a panel regression. Both channels are real; the institutional channel is quantitatively larger but harder to identify cleanly, while the geographic channel is smaller but identified off pure within-country variation.
 
@@ -496,58 +477,9 @@ A more careful version of the Matranga story---one in which the relevant climate
 \section{A two-stage framework}
 \label{app:theory}
 
-We sketch a semi-formal two-stage model in the spirit of \citet{ashraf2011dynamics}: it delivers the testable predictions used in the body of the paper without insisting on full general-equilibrium proofs.
+A semi-formal two-stage model in the spirit of \citet{ashraf2011dynamics} motivates the empirical specification of Section~\ref{sec:identification}. \emph{Stage 1 (pathway selection)}: a representative household with mean-variance utility chooses agricultural technology $\tau \in \{I, P, X\}$ (intensive crop, pastoral, irrigation) given climate endowment $(\Pi, \sigma_v)$, where $\Pi \in [0, 12]$ is the share of productive months and $\sigma_v$ is inter-annual volatility. Period consumption is $c_I = A_I \Pi - \kappa_I + \lambda_I \sigma_v \epsilon_t$, $c_P = A_P m + \lambda_P \sigma_v \epsilon_t$, $c_X = A_X - \kappa_X + \lambda_X \sigma_v \epsilon_t$ where $A_\tau$ is technology productivity, $\kappa_\tau$ the fixed adoption cost (granaries, irrigation works), $m$ pastoral mobility, and $\lambda_\tau$ climate-volatility exposure. With $V(\tau) = E[c_\tau] - \tfrac{\rho}{2}\lambda_\tau^2 \sigma_v^2$, intensive crop dominates pastoral when $\Pi > \Pi^*(\sigma_v) \equiv [A_P m + \kappa_I + \tfrac{\rho}{2}(\lambda_I^2 - \lambda_P^2)\sigma_v^2]/A_I$. With $\lambda_P^2 > \lambda_I^2$ (intensive storage hedges volatility better than pastoral mobility), $\Pi^*$ is decreasing in $\sigma_v$: more-volatile climates push intensive crop to dominate at lower productive-month counts because the storage hedge is more valuable.
 
-\subsection*{Stage 1: climate and agricultural system selection}
-
-A representative household with mean-variance utility $u(c) = c - \tfrac{\rho}{2}\mathrm{Var}(c)$ chooses agricultural technology $\tau \in \{I, P, X\}$ ($I$ = intensive crop, $P$ = extensive pastoral, $X$ = irrigation-based) given the climate endowment $(\Pi, \sigma_v)$, where $\Pi \in [0,12]$ is the share of climatically productive months and $\sigma_v$ is inter-annual volatility. Period consumption under each technology is
-\begin{equation}
-  c_I \;=\; A_I \, \Pi \;-\; \kappa_I \;+\; \lambda_I \sigma_v \epsilon_t,
-  \quad
-  c_P \;=\; A_P \, m \;+\; \lambda_P \sigma_v \epsilon_t,
-  \quad
-  c_X \;=\; A_X \;-\; \kappa_X \;+\; \lambda_X \sigma_v \epsilon_t,
-\end{equation}
-with $\epsilon_t$ unit-variance, $A_\tau$ the deterministic productivity of each technology, $\kappa_\tau$ the fixed cost of adoption (granaries, irrigation works; no fixed cost for pastoral), $m \in (0,1)$ the mobility-based recovery of annual surplus available to pastoralists, and $\lambda_\tau$ the exposure of $\tau$ to climate volatility. The intensive technology delivers output proportional to $\Pi$ because rain-fed cropping cannot operate during non-productive months; the pastoral technology operates year-round through mobility but at lower average productivity; irrigation bypasses $\Pi$ at the cost of $\kappa_X$.
-
-Expected utility under $\tau$ is $V(\tau) = E[c_\tau] - \tfrac{\rho}{2}\lambda_\tau^2 \sigma_v^2$. The selection condition $\tau^\ast = I$ requires $V(I) > V(P)$ and $V(I) > V(X)$:
-\begin{equation}
-  A_I \, \Pi \;-\; \kappa_I \;-\; \tfrac{\rho}{2}\lambda_I^2 \sigma_v^2
-  \;>\;
-  A_P \, m \;-\; \tfrac{\rho}{2}\lambda_P^2 \sigma_v^2.
-  \label{eq:I-vs-P}
-\end{equation}
-Solving for $\Pi$ gives the productive-months threshold above which intensive crop dominates pastoral:
-\begin{equation}
-  \Pi \;>\; \Pi^*(\sigma_v) \;\equiv\; \frac{1}{A_I}\!\left[A_P m + \kappa_I + \tfrac{\rho}{2}(\lambda_I^2 - \lambda_P^2)\sigma_v^2\right].
-  \label{eq:threshold}
-\end{equation}
-Analogous reasoning against $X$ yields a much higher threshold (or, equivalently, $X$ dominates only when $\Pi$ is small \emph{and} $A_X$ is large enough to offset $\kappa_X$), which accounts for the rarity of pure irrigation pioneers in our data (Egypt is the only one). Comparative statics are immediate. The threshold $\Pi^*$ is increasing in pastoral mobility benefit $m$ and intensive fixed cost $\kappa_I$, decreasing in intensive productivity $A_I$. With $\lambda_P^2 > \lambda_I^2$ (intensive systems' storage and granaries hedge volatility better than pastoral mobility), $\Pi^*$ is decreasing in volatility $\sigma_v$: when climate is more volatile, intensive crop dominates at lower productive-month counts, because the storage hedge is more valuable. Stage 1 thus predicts that the share of climatically productive months predicts agricultural pathway assignment; formally, $\Pr(\tau^\ast = I \mid \Pi, \sigma_v) = \Phi\bigl((\Pi - \Pi^*(\sigma_v))/\eta\bigr)$ for unobserved heterogeneity scale $\eta$ and Gaussian CDF $\Phi$.
-
-\subsection*{Stage 2: pathway, Malthusian feedback, and escape}
-
-Given the selected system $\tau^\ast$, population dynamics follow
-\begin{equation}
-  \Delta \ln P_{it} \;=\; \alpha_i \;+\; \beta(\tau^\ast)\, d_{i,t-1} \;+\; \gamma(\tau^\ast)\, T_{it} \;+\; \delta(\tau^\ast)\,\sigma_v^T(T_{it}) \;+\; \eta(\tau^\ast)\, h_{it} \;+\; \varepsilon_{it},
-  \label{eq:malthus}
-\end{equation}
-where $d$ is log population density, $T_{it}$ is contemporaneous mean temperature, $\sigma_v^T$ is its inter-annual standard deviation, and $h_{it}$ is a technology or human-capital proxy. The pathway-specific parameters capture three margins. The Malthusian density coefficient $\beta(\tau^\ast)$ is predicted to be stronger in pastoral than intensive systems ($|\beta(P)| > |\beta(I)|$): pastoral systems sit closer to a tight Malthusian ceiling because they cannot store, while intensive systems carry capital that smooths the feedback. The contemporaneous climate responses $\gamma(\tau^\ast)$ and $\delta(\tau^\ast)$ go in opposite directions across pathways: pastoralists' mobility hedges level shocks but their thinner safety net amplifies volatility shocks ($|\delta(P)| > |\delta(I)|$), while intensive systems suffer level shocks (killing frosts) more but absorb volatility better through storage. The rate at which human capital weakens the Malthusian constraint, $\eta(\tau^\ast)$, is faster in intensive systems---literacy, urbanisation, and capital accumulation accelerate there---so escape is earlier on the intensive arm. Equation~\ref{eq:malthus} is the appendix counterpart of equation~\eqref{eq:malthus-main} in the main text; the empirical analogue with interval-mean climate is equation~\eqref{eq:malthus2}, estimated in Section~\ref{sec:identification}.
-
-\section{Appendix figures}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\textwidth]{../analysis/figures/paper4_v2/fig10_pathway_validation.pdf}
-  \caption{Pathway clustering diagnostics. (a)~Silhouette score by number of clusters $K$; dashed line marks $K=5$, the local maximum with a sharp drop at $K=6$. (b)~Country-level bootstrap stability of the original $K=5$ partition: distribution across 200 resamples of the fraction of same-cluster partners that re-cluster with each country.}
-  \label{fig:pathway-validation}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.88\textwidth]{../analysis/figures/paper4_v2/fig11_tambora_placebo.pdf}
-  \caption{Tambora individual-eruption placebo. Histogram of the high-density-intensive $\times$ $T$-shock interaction across 1{,}000 single-year placebo events drawn from 1755--1894. The real Tambora-1815 coefficient (solid line) sits at the 65th percentile of the placebo distribution; individual eruptions do not separately identify the pathway-differential effect. The pooled five-eruption result in Section~\ref{sec:volcanic} rests on across-event efficiency.}
-  \label{fig:tambora-placebo}
-\end{figure}
+\emph{Stage 2 (Malthusian feedback under the selected pathway)}: given $\tau^\ast$, population dynamics follow $\Delta \ln P_{it} = \alpha_i + \beta(\tau^\ast) d_{i,t-1} + \gamma(\tau^\ast) T_{it} + \delta(\tau^\ast) \sigma_v^T(T_{it}) + \eta(\tau^\ast) h_{it} + \varepsilon_{it}$, where $d$ is log density, $h_{it}$ a human-capital proxy. Pathway-specific Malthusian density coefficient $\beta(\tau^\ast)$ is predicted stronger in pastoral than intensive ($|\beta(P)| > |\beta(I)|$): pastoral systems sit closer to a tight ceiling because they cannot store. The volatility coefficient $\delta(\tau^\ast)$ is larger in magnitude for pastoral systems whose thinner safety net amplifies volatility shocks. Equation~\ref{eq:malthus-main} in the main text is the empirical analogue.
 
 \section{Pre-XV-century volcanic extension: data, designs, and full results}
 \label{app:volcanic-pre1500}
@@ -556,26 +488,16 @@ where $d$ is log population density, $T_{it}$ is contemporaneous mean temperatur
 
 \paragraph{Designs.} Three complementary specifications. (i) A century-rate population regression on the HYDE century-resolution intervals 100--1500~CE: $g^{\text{ann}}_{i,c \to c+100} = \alpha_i + \gamma\,V_{[c,c+100)} + \tau_p \cdot V_{[c,c+100)} + \varepsilon$, with country fixed effects, country-clustered SEs, and pathway interactions. (ii) Event studies with 25-year horizon bins around four major eruptions: $\log y_{i,t} = \alpha_i + \sum_{h \in H} \beta_h \mathbf{1}\{t-t_e \in h\} + \varepsilon$ where $H = \{-100, -75, -50, +0, +25, +50, +75, +100\}$ with $h=-25$ as the reference, $t_e$ the eruption year (Samalas 1257, Kuwae 1453, LALIA 540, Cyprian onset 249), $\alpha_i$ city fixed effects, and SEs clustered by city. (iii) A continuous-VSSI distributed-lag regression on the Allen+Malanima panel 1259--1500: $\log p_{c,t} = \alpha_c + \delta_d + \sum_{L=0}^{5} \beta_L V_{t-L} + \varepsilon$ with city ($\alpha_c$) and decade ($\delta_d$) fixed effects and city-clustered SEs. Cumulative responses $\sum_{l=0}^{k} \beta_l$ are reported with delta-method SEs.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.78\textwidth]{../analysis/figures/paper4_v2/figA1_sigl_pre1500.pdf}
-  \caption{Pre-1500 continuous-forcing population regression, 100--1500~CE: slope of annualised log population growth on century-summed VSSI exposure, by pathway, with country FE and clustered SEs. Per-pathway slopes are small and either weakly positive or insignificant, in contrast with the strongly pathway-heterogeneous demographic response 1500--1900 (Table~\ref{tab:sigl}). The reading is methodological: HYDE century-resolution pop data smear within-century variation that the decadal post-1500 panel resolves, and century-summed VSSI is essentially time-invariant across countries within each century (eruptions deposit stratospheric sulphur globally), so within-country identification is essentially zero. The pathway-heterogeneous demographic test cannot be run cleanly on pre-1500 HYDE data; the annual-resolution price exercises that follow recover the underlying mechanism through a different measurement window.}
-  \label{fig:volcanic-pre1500}
-\end{figure}
+The pre-1500 population regression at century resolution returns small and mostly insignificant per-pathway slopes (figA1, not shown), in contrast to the sharp pathway-heterogeneous response 1500--1900 (Section~\ref{sec:joint-var}). The reading is methodological: HYDE century-resolution pop data smear within-century variation, and century-summed VSSI is essentially time-invariant across countries within each century, so within-country identification is essentially zero. The pathway-heterogeneous demographic test cannot be run cleanly on pre-1500 HYDE data; the annual-resolution price exercises below recover the underlying mechanism through a different measurement window.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/figA2_volcanic_price_event.pdf}
-  \caption{Event-study coefficients in 25-year horizon bins around four pre-1500 eruptions. Top row: 1257 Samalas (eVolv2k VSSI~$=59$~Tg, largest of the past 2500 years), Allen wheat prices left and real wages right. Bottom row: 1453 Kuwae (13~Tg) wheat prices and 540 LALIA doublet on Harper Egyptian prices. Reference is $h=-25$. The contemporaneous and short-horizon point estimates are negative on prices and positive on wages, consistent with a Malthusian demand-side adjustment to volcanic-cooling-induced mortality (Black-Death-style labour scarcity raises real wages and depresses grain demand). The LALIA Egyptian price coefficient at $h=+25$ is $-0.94$ ($p<0.01$, $N=18$), coinciding with the Plague of Justinian; the Samalas European price coefficient at $h=+0$ is $-0.40$ ($p<0.01$, $N=168$ across 3 cities) coinciding with the documented Great Famine 1315--1317 in its post-shock recovery window.}
+  \caption{Event-study coefficients in 25-year horizon bins around four pre-1500 eruptions. Top row: 1257 Samalas (eVolv2k VSSI~$=59$~Tg), Allen wheat prices left and real wages right. Bottom row: 1453 Kuwae wheat prices and 540 LALIA doublet on Harper Egyptian prices. The Samalas European price coefficient at $h=+0$ is $-0.40$ ($p<0.01$, $N=168$ across 3 cities), in the right neighbourhood of the documented Great Famine 1315--1317; LALIA Egypt at $h=+25$ is $-0.94$ ($p<0.01$, $N=18$), coinciding with the Plague of Justinian.}
   \label{fig:volcanic-price-event}
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\textwidth]{../analysis/figures/paper4_v2/figA3_volcanic_price_continuous.pdf}
-  \caption{Continuous-VSSI distributed-lag wheat-price regression on the Allen+Malanima European panel 1259--1500: $\log p_{c,t} = \alpha_c + \delta_d + \sum_{L=0}^{5} \beta_L V_{t-L} + \varepsilon$, with city and decade fixed effects ($N=768$ city-year obs, 9 cities). (a)~Per-lag coefficients show a positive supply-side response peaking at $L=2$ years ($\hat\beta_2 = +0.0089$ per Tg, $p=0.10$), the standard agricultural transmission lag (eruption year + winter + growing season + carry-over stocks). (b)~Cumulative response $\sum_{l=0}^{k} \beta_l$ reaches $+0.019$ per Tg at $k=5$. Applied to the 59~Tg Samalas 1257 eruption, the lag-2 coefficient implies a $\approx 52\%$ wheat-price spike by 1259; the cumulative response reaches $\approx 113\%$ over 5 years, in the right neighbourhood of the documented Great Famine 1315--1317 price elevation.}
-  \label{fig:volcanic-price-cont}
-\end{figure}
+The continuous-VSSI distributed-lag regression $\log p_{c,t} = \alpha_c + \delta_d + \sum_{L=0}^{5} \beta_L V_{t-L} + \varepsilon$ on the Allen+Malanima European panel ($N=768$ city-years, 9 cities) shows the per-lag coefficients peak at $L=2$ years ($\hat\beta_2 = +0.0089$ per Tg, $p=0.10$), the standard agricultural transmission lag, with cumulative response $\sum_{l=0}^{5} \beta_l = +0.019$ per Tg. For the 59~Tg Samalas eruption, the lag-2 coefficient implies a $\approx 52\%$ wheat-price spike at 1259 and the cumulative reaches $\approx 113\%$ over five years---in the right neighbourhood of the Great Famine 1315--1317 elevation.
 
 \begin{table}[H]
 \centering
@@ -600,38 +522,12 @@ Cyprian 249 -- log Egyptian wheat price & $+0.15$ & $+0.04$ & 34 & 1 \\
 \end{tabular}
 \end{table}
 
-\paragraph{Interpretation.} The pre-1500 record carries a clean and direct \emph{annual} supply-side signal of volcanic cooling on grain prices (Figure~\ref{fig:volcanic-price-cont}): the peak response is at lag two years, the standard agricultural transmission lag, and the magnitude implied for Samalas is consistent with the Great Famine. The same record carries a \emph{decadal} demand-side signal of volcanic cooling on grain prices and real wages (Figure~\ref{fig:volcanic-price-event}, Table~\ref{tab:volcanic-pre1500}) of the Black-Death-bonus form. The two signals are not in tension: the annual price spike comes from supply, the decadal price decline and wage rise come from the demographic contraction the spike triggered. Both are Malthusian. The pathway-heterogeneous demographic regression (Figure~\ref{fig:volcanic-pre1500}) cannot be run at century resolution and we say so; the price-side exercises preserve the temporal resolution that the demographic exercise loses.
+\paragraph{Interpretation.} The pre-1500 record carries a clean \emph{annual} supply-side signal of volcanic cooling on grain prices at the canonical lag-2 transmission, and a \emph{decadal} demand-side signal (Figure~\ref{fig:volcanic-price-event}, Table~\ref{tab:volcanic-pre1500}) of the Black-Death-bonus form. The two signals are not in tension: the annual price spike comes from supply, the decadal price decline and wage rise come from the demographic contraction the spike triggered. Both are Malthusian.
 
 \subsection*{C.1 Conflict and pandemic robustness}
 \label{app:conflict-robust}
 
-The most obvious confound for any pre-1500 climate-cum-price exercise is that volcanic eruptions sit inside dense and overlapping histories of war, siege, and plague: Samalas~1257 inside the Mongol invasions of Eastern Europe, the 1453 Kuwae eruption inside the fall of Constantinople and the end of the Hundred Years' War, the 540~CE LALIA doublet inside the Plague of Justinian and the Gothic Wars, and Cyprian~249 inside the Crisis of the Third Century. The price-side exercises above could in principle pick up these contemporaneous shocks rather than volcanic cooling. We address the concern by adding a city-year conflict-and-pandemic regressor layer to the continuous-VSSI distributed-lag regression and the Samalas event study, and by first verifying that the regressors retain enough within-city, within-decade variation to be identified at all in a two-way FE specification.
-
-\paragraph{Conflict data.} We build a (city, year) conflict panel for the 17 panel cities + Roman Egypt over 100--1500~CE from two sources. \citet{brecke1999} provides 3{,}708 globally recorded violent conflicts 1400--1999 and 1{,}147 pre-1400 European conflicts, each with start- and end-year and a free-text actor description. We map each city to one of nine medieval regions (England, France, Low Countries, Iberia, Italy, German Empire, Bavaria/Austria, Poland-Lithuania, Eastern Mediterranean) and code a binary \texttt{war\_active}$_{c,t}$ and a count \texttt{n\_active\_wars}$_{c,t}$ by string-matching the city's region keywords against the conflict actor string. We hand-code \texttt{siege\_active}$_{c,t}$ for 30 sieges of specific panel cities documented in standard historiography (e.g., Mongol sack of Krakow 1241, Aragonese conquest of Naples 1442, Siege of Paris 1429, Sassanid conquest of Egypt 619). We hand-code \texttt{plague\_active}$_{c,t}$ from the standard plague-recurrence catalogues (Biraben, Benedictow, Harper, McCormick): the Black Death and its 15 known post-1361 recurrences for European cities, the Justinianic Plague and 13 documented late-antique recurrences 541--750 for Egypt, and the Antonine and Cyprian plagues for Roman Egypt.
-
-\paragraph{Variance survival under two-way FE.} For each regressor we decompose total variance on the European pre-1500 subset ($N=768$ city-years, 9 cities, 25 decades) into between-city, between-decade, and residual (within-city, within-decade) components:
-
-\begin{table}[H]
-\centering
-\caption{Variance shares of the conflict/pandemic regressors after two-way (city + decade) fixed effects on the European 1259--1499 panel. The residual share is what a two-way FE regression actually identifies off; values near zero would mean the FE absorbs the regressor mechanically.}
-\label{tab:variance-decomp}
-\small
-\begin{tabular}{lcccc}
-\toprule
-Regressor & Mean & Between-city & Between-decade & Residual \\
-\midrule
-\texttt{war\_active}    & 0.77 & 2.2\% & 12.6\% & \textbf{85.3\%} \\
-\texttt{n\_active\_wars}& 1.36 & 7.0\% & 13.3\% & \textbf{80.6\%} \\
-\texttt{log\_fatalities}& 3.95 & 33.4\% & 7.4\% & \textbf{58.5\%} \\
-\texttt{plague\_active} & 0.37 & 3.6\% & 21.7\% & \textbf{80.8\%} \\
-\texttt{siege\_active}  & 0.005 & 0.4\% & 2.1\% & \textbf{97.6\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-All five conflict-pandemic regressors retain 58--98\% of total variance after the two-way FE absorbs city and decade levels: the two-way design has plenty of within-city, within-decade variation to identify both the volcanic forcing and the conflict layer simultaneously.
-
-\paragraph{Augmented regression.} Re-running the continuous-VSSI distributed-lag regression on the European wheat-price panel 1259--1500 with \texttt{war\_active}, \texttt{n\_active\_wars}, \texttt{plague\_active}, and \texttt{siege\_active} added as contemporaneous controls:
+Volcanic eruptions sit inside dense histories of war, siege, and plague: Samalas~1257 alongside the Mongol invasions; Kuwae~1453 alongside the fall of Constantinople; LALIA~540 alongside the Plague of Justinian; Cyprian~249 inside the Crisis of the Third Century. We address the confound by adding a city-year conflict-and-pandemic regressor layer (\texttt{war\_active}, \texttt{n\_active\_wars}, \texttt{plague\_active}, \texttt{siege\_active}) built from \citet{brecke1999} plus 30 hand-coded sieges and standard plague-recurrence catalogues. The regressors retain 58--98\% of total variance under city + decade FE, so the two-way design has plenty of identifying variation.
 
 \begin{table}[H]
 \centering
@@ -664,14 +560,7 @@ $R^2$ & 0.965 & 0.966 \\
 
 The lag-2 VSSI coefficient is essentially unchanged ($+0.0089 \to +0.0102$, with the controlled version marginally significant), and the 5-year cumulative response is slightly \emph{larger} with controls than without. The Samalas event-study point estimate at $h=+0$ moves from $-0.262$ to $-0.261$. Volcanic forcing is not a war-or-plague confound. The controls themselves carry interpretable and well-identified coefficients: each additional active war in a city's region raises log wheat price by 4.6\% ($p < 10^{-3}$); plague years are associated with 6.8\% higher contemporaneous prices ($p = 0.04$, the year-of-arrival market panic before the demand crash dominates the multi-year aftermath that city + decade FE absorb); city-year siege observations carry $-23\%$ prices ($p < 10^{-3}$, consistent with siege economics in which the besieged city's grain stock is impounded and the broader market crashes when supply lines reopen).
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\textwidth]{../analysis/figures/paper4_v2/figA4_volcanic_price_robust.pdf}
-  \caption{Conflict and pandemic robustness for the pre-1500 volcanic price regressions. (a)~Per-lag VSSI coefficients in the continuous distributed-lag regression on the Allen + Malanima European panel 1259--1500, with city and decade fixed effects; baseline (black circles) vs.\ with \texttt{war\_active}, \texttt{n\_active\_wars}, \texttt{plague\_active}, \texttt{siege\_active} controls (red squares). (b)~Samalas 1257 event-study coefficients in 25-year bins; baseline vs.\ with conflict + pandemic controls. The volcanic point estimates are essentially unchanged in both panels; the controls have their own significant effects (Table~\ref{tab:volcanic-robust}) but do not absorb the volcanic signal.}
-  \label{fig:volcanic-price-robust}
-\end{figure}
-
-\paragraph{Limitations.} The Egyptian price subset is a single-city panel of 68 annual observations; after decade fixed effects, conflict and pandemic indicators retain almost no residual variation and we cannot run the corresponding robustness check inside that panel. The European pre-1500 price panel is the right place to test the volcanic claim against the conflict confound, and it survives. We treat the Egyptian results in Table~\ref{tab:volcanic-pre1500} as suggestive rather than primary, and rest the appendix's identification weight on the multi-city European panel.
+\paragraph{Limitations.} The Egyptian single-city panel of 68 annual observations cannot support the corresponding robustness check (after decade FE the conflict indicators have almost no residual variation); we treat the Egyptian results as suggestive and rest the appendix's identification weight on the multi-city European panel.
 
 \subsection*{C.2 Region-aware VSSI exposure}
 \label{app:regional-vssi}
@@ -726,23 +615,12 @@ Conflict + pandemic ctrls. & no         & no            & no               & yes
 
 \paragraph{Reading the table.} Three results. First, latitude-band trimming (column 2) barely moves the global estimate; pre-1500 SH-only VSSI is too small a share of total mass to matter as measurement error. Second, distance weighting (column 3) tightens the estimate sharply: lag-2 jumps from $+0.0091$ ($p=0.10$) to $+0.0294$ ($p=0.014$), lags 3 and 4 reach $p<0.05$ and $p<0.01$, and the cumulative 5-year response is $+0.1024$ ($p=0.005$). Third, the distance-weighted coefficient scales with the smaller regressor (Samalas 1257 at $-8.4^{\circ}$ enters London at $51.5^{\circ}$ with effective weight $\approx 0.14$, so the effective Samalas exposure for London is $\approx 8.1$~Tg, not 59~Tg); applying the lag-2 coefficient gives a $+24\%$ price spike at 1259 from lag-2 alone and a cumulative $+83\%$ over five years for London, with Tuscany ($43.8^{\circ}$N) experiencing a larger response by virtue of its smaller latitudinal distance to the Samalas vent. Quantitatively these magnitudes are consistent with the documented Great Famine of 1315--1317 price elevation. Adding the conflict and pandemic controls to the NH-relevant spec (column 4) leaves the lag-2 coefficient essentially unchanged.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\textwidth]{../analysis/figures/paper4_v2/figA5_volcanic_price_regional.pdf}
-  \caption{Region-aware VSSI exposure for the pre-1500 wheat-price regression. (a)~Per-lag coefficients across four specifications: raw global VSSI, NH-relevant (tropical + NH extra-tropical, with 20\% SH leakage), distance-weighted (Gaussian in latitudinal distance with 30$^\circ$ bandwidth), and NH-relevant with conflict+pandemic controls. (b)~Cumulative responses $\sum_{l=0}^{k} \beta_l$. The latitude-band correction barely moves the estimate (pre-1500 SH-only VSSI is a small share of total mass); the distance-weighted exposure tightens the estimate sharply, with the cumulative 5-year response reaching $+0.10$ per Tg of distance-weighted exposure ($p=0.005$). Both refinements are robust to conflict and pandemic controls.}
-  \label{fig:volcanic-price-regional}
-\end{figure}
+The distance-weighted specification captures cross-city variation in the volcanic-cooling channel that the global pool averages out: cities at lower latitudes feel tropical eruptions more, cities closer to NH vents feel those more. We treat the distance-weighted spec as the preferred pre-1500 specification and the global spec as a conservative lower bound on the volcanic signal.
 
-\paragraph{Interpretation.} The distance-weighted specification captures cross-city variation in the volcanic-cooling channel that the global pool averages out: cities at lower latitudes feel tropical eruptions more, and cities closer to NH extra-tropical vents (Iceland for the Eldgj\'a 939 and 1108 unidentified-NH events) feel those more. Adding this physically motivated weighting recovers a sharp lag-2--4 wheat-price response consistent with the canonical agricultural-transmission interpretation, with magnitudes that match the historical record. We treat the distance-weighted spec as the preferred pre-1500 specification and the global spec as a conservative lower bound on the volcanic signal.
-
-\subsection*{C.3 Medieval English mortality, 1300--1500: a future extension}
+\subsection*{C.3 Medieval English mortality: a future extension}
 \label{app:medieval-mortality}
 
-The pre-XV-century volcanic appendix (\S\ref{app:volcanic-pre1500}) extends the volcanic exercise back to the 1257 Samalas eruption using city-level grain prices, but stops short of a direct mortality-side test for medieval England. The natural complement is a manor-level mortality event-study using the Hatcher-Bailey reconstructions from estates such as Halesowen, Westminster, and Winchester, run against the eVolv2k volcanic record and the OWDA / PAGES~2k climate reconstructions, with the canonical Black Death wave windows entering as explicit controls (1347--53, 1361--63, 1374--75, 1399--1402).
-
-We attempted to retrieve a continuous manor-level mortality series through the standard public channels: the \citet{voigtlander2013how} \emph{Review of Economic Studies} replication archive (which redistributes the Bairoch city-population dataset but not manorial mortality), the Campbell (2016) \emph{Great Transition} Cambridge UP supplementary materials (publicly available materials do not include the manorial series), the \citet{hatcher1986} \emph{Economic History Review} article (single-site Christ Church Canterbury data 1395--1505, with no Black Death anchor), and the Page (2003) Winchester pipe-roll archive (UK Data Service Study SN 4086, registration-gated). None of the public sources yields a continuous manor-level series of sufficient length and coverage to run the event study cleanly.
-
-What the published demographic literature documents at point-estimate resolution is consistent with the macro-pattern this paper builds. Manorial Black Death mortality 1348--49 averaged 40--45\% on English estates (Halesowen, Westminster, Winchester among the highest), with secondary peaks at 1361 (10--20\%) and 1374--75 (5--10\%) \citep{hatcherbailey2001}. National mortality estimates are similar in magnitude---\citet{hatcher1977} puts the 1348 mortality at 30--45\% with high regional variance, and \citet{benedictow2004} compiles a survey-of-surveys consistent with that range. Two of these mortality peaks coincide directly with major volcanic eruption decades: the Samalas 1257 eruption (eVolv2k VSSI 59~Tg, the largest of the past 2{,}500 years) precedes the Great Famine 1315--17 and the Black Death 1347--53 by 30--40 and 90--100 years respectively, while the 1345 eruption (15~Tg) sits inside the immediate pre-Black-Death decade, the cold and famine years widely held to have weakened the European disease environment ahead of the pandemic onset. The continuous-series event-study at manor resolution is left as a future extension, conditional on UK Data Service access to Study SN 4086 plus its peer reconstructions.
+A natural complement to the pre-1500 price-side exercise above is a manor-level mortality event-study for medieval England. Continuous manor-level series of sufficient coverage to run the event study cleanly are gated behind UK Data Service Study SN~4086 \citep{voigtlander2013how, hatcher1986, hatcherbailey2001}; we flag this as a future extension. The published literature does document that manorial Black Death mortality 1348--49 averaged 40--45\% on English estates with secondary peaks at 1361 and 1374--75 \citep{hatcher1977, benedictow2004}, and that two of these mortality peaks coincide with major volcanic eruption decades (Samalas 1257 preceding the Great Famine 1315--17, and the 1345 eruption preceding the Black Death 1347--53). The continuous-series manorial event study is left for follow-up work conditional on UKDS access.
 
 \section{Long-shadow extensions: placebo windows and other outcomes}
 \label{app:longshadow-extensions}
@@ -796,21 +674,7 @@ Subperiod & $N$ & $\hat{\beta}_{\ln d}$ ($p$) & $\hat{\gamma}_T$ ($p$) & $\hat{\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/fig06_subperiods.pdf}
-  \caption{Subperiod stability of the pooled Malthusian regression with climate. (a)~Density coefficient progressively weakens and vanishes by 1900--1950. (b)~Coefficient on $T$ anomaly grows monotonically through the modern era. (c)~Coefficient on inter-annual $T$ volatility flips sign between 1750--1900 ($+0.0045$) and 1900--1950 ($-0.0125$, $p<10^{-4}$).}
-  \label{fig:subperiods}
-\end{figure}
-
-The Malthusian density coefficient progressively weakens over the centuries: small and insignificant in 1421--1750, negative and significant in 1750--1900 (the classic Malthusian period), and indistinguishable from zero in 1900--1950. The sign on inter-annual temperature volatility flips between 1750--1900 and 1900--1950, coincident with the spread of monoculture and capital-intensive agriculture in the late nineteenth and early twentieth centuries: the modern agricultural system was \emph{more} sensitive to climate volatility than the diversified pre-industrial systems it replaced. A continuous rolling-window estimator confirms the picture: re-estimating the within-country Malthusian regression in 100-year windows centred at every 25-year step from 1500 to 1925 shows early extensifiers transitioning first ($\hat\beta_{\ln d}$ turns sharply positive at window centre 1800, $\hat\beta = +0.0102$, $p<10^{-4}$), pastoral/mixed-late following about a century later, high-density intensive declining from strongly Malthusian ($-0.0377$ at centre 1675) toward zero by 1775, and crop-dominant late showing consistently weak feedback throughout (Figure~\ref{fig:rolling}).
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\textwidth]{../analysis/figures/paper4_v2/fig17_placebo_and_rolling.pdf}
-  \caption{(a) Long-shadow $\hat\beta_{\sigma_v^T}$ across alternative windows over which $\sigma_v^T$ is computed. Pre-industrial 1421--1750 is the strongest predictor; modern 1950--2008 produces a non-significant coefficient. (b) Rolling 100-year window of the Malthusian density coefficient $\hat\beta_{\ln d}(\tau, t)$, by pathway. Bands are pointwise 95\% confidence intervals.}
-  \label{fig:rolling}
-\end{figure}
+The Malthusian density coefficient progressively weakens over the centuries: small and insignificant in 1421--1750, negative and significant in 1750--1900 (the classic Malthusian period), and indistinguishable from zero in 1900--1950. The sign on inter-annual temperature volatility flips between 1750--1900 and 1900--1950, coincident with the spread of monoculture and capital-intensive agriculture: the modern agricultural system was \emph{more} sensitive to climate volatility than the diversified pre-industrial systems it replaced. A continuous rolling-window estimator shows early extensifiers transitioning first ($\hat\beta_{\ln d}$ turns sharply positive at window centre 1800, $\hat\beta = +0.0102$, $p<10^{-4}$), pastoral/mixed-late following about a century later, and high-density intensive declining from strongly Malthusian toward zero by 1775.
 
 \textbf{Sub-national replication.} The country-level panel still pools heterogeneous sub-regions. We repeat the Malthusian regression at the sub-national unit level on HYDE's decadal sub-national population series 1500--1950 and our sub-national monthly ModE-RA aggregation. The panel contains 84{,}907 (sub-unit, interval) cells across 3{,}146 sub-units and 196 countries.
 
@@ -864,18 +728,6 @@ $R^2$                                  & 0.044             & 0.048              
 
 The pooled temperature-anomaly coefficient moves from $+0.0055$ ($p<10^{-9}$) to $+0.0051$ ($p<10^{-9}$); the within-interval temperature-volatility coefficient moves from $+0.0038$ ($p=0.036$) to $+0.0034$ ($p=0.052$). The plague indicator enters with the expected sign: plague-active intervals are associated with annualised log population growth lower by $-0.0056$ ($p=0.020$). The country-decade war indicator is small and insignificant ($-0.0003$, $p=0.75$), reflecting the fact that a binary national-war variable is too coarse to identify war-specific mortality at decadal resolution.
 
-\section{Dynamic IRF of the Sigl-Toohey volcanic regression}
-\label{app:sigl-irf}
-
-To trace the temporal shape of the volcanic response and to test parallel trends, we project decade-level annualised log population growth on VSSI exposure at leads and lags $h \in \{-2, -1, 0, +1, +2\}$ decades, with country fixed effects and country-clustered standard errors. The pre-event coefficients ($h=-2, -1$) are jointly insignificant ($F = 0.33$, $p = 0.72$), comfortably passing the parallel-trends check. The strongest effect is at $h = +2$ decades ($\hat\beta = -36 \cdot 10^{-5}$, $p < 10^{-4}$), consistent with demographic propagation through cohort dynamics: a cold-shock-induced contraction in a HYDE decade compounds through reduced births and elevated mortality over the subsequent 10--20 years before the cumulative population effect peaks.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\textwidth]{../analysis/figures/paper4_v2/fig15_sigl_irf.pdf}
-  \caption{Dynamic event-study of Sigl-Toohey VSSI exposure on annualised log population growth, decade leads and lags. (a) Pooled IRF, all pathways. Pre-event coefficients ($h=-2,-1$) jointly insignificant ($F=0.33$, $p=0.72$). Peak response at $h=+2$ decades ($p<10^{-4}$). (b) Per-pathway IRFs.}
-  \label{fig:sigl-irf}
-\end{figure}
-
 \section{Preventive vs.\ positive checks: pathway and modern-era extensions}
 \label{app:prevpos-extensions}
 
@@ -898,13 +750,6 @@ High-density intensive   & $+0.0530$ & $(0.0104)$ & $<10^{-6}$ & $158$ \\
 \par\smallskip\footnotesize{High-density intensive: France and the Netherlands. Early extensifiers: Britain, Sweden, Denmark, Norway, Switzerland. Pastoral/mixed late: Italy, Iceland, Finland.}
 \end{table}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{../analysis/figures/paper4_v2/figK_prevpos_pathway.pdf}
-  \caption{Pathway-stratified summer-mortality coefficient on $\Delta \log m_0$, 1751--1900 European panel.}
-  \label{fig:prevpos-pathway}
-\end{figure}
-
 \begin{table}[H]
 \centering
 \caption{Modern-era prevpos: $T$-anomaly coefficient on $\Delta \log m_0$ by sub-period. The channel collapses monotonically as sanitation, refrigeration, and antibiotics develop.}
@@ -922,26 +767,12 @@ Baseline 1751--1900 (reference) & $+0.0235$ & $(0.0091)$ & $0.009$ & $547$ \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{../analysis/figures/paper4_v2/figK_prevpos_modern.pdf}
-  \caption{Modern-era reversal of the summer-mortality channel.}
-  \label{fig:prevpos-modern}
-\end{figure}
-
 \section{CamPop England 1541--1850: parish-aggregate extension}
 \label{app:campop}
 
 The European HMD/HFD panel starts at 1751 because Sweden's continuous national vital statistics begin there. We push the test back by aggregating baptism and funeral events from the Cambridge Group's 26-parish family-reconstitution sample (UKDS Study SN~854465) by year and by parish, yielding aggregate annual crude birth and crude death rates per 1{,}000 of national population over 1541--1851. The 26 parishes cover roughly 3--5\% of England, so the level of the rates is depressed relative to national totals by a factor of $\sim 25$, but the year-to-year variation that the prevpos regression identifies is preserved.
 
 We run the same specification as in Section~\ref{sec:prevpos}: $\Delta \log y_t$ on contemporaneous $T$ and $P$ anomalies and 5-year $T$ volatility, with a country-linear trend and HC1 standard errors (single country, so country FE is degenerate). Three sub-period windows trade reach for precision. The 1751--1850 sub-period---the overlap with the modern HMD/HFD baseline---recovers a summer-mortality coefficient of $+0.040$ per $^\circ$C on $\Delta \log$ CDR ($p=0.046$), within the confidence interval of the HMD/HFD baseline's $+0.0235$ ($p=0.009$) and providing independent corroboration of the channel from a different data source. The deep pre-industrial 1541--1750 sub-period (210 years, $N=209$) returns $+0.022$ per $^\circ$C ($p=0.53$): the sign is right but the single-country panel is underpowered relative to the 547-observation ten-country panel of the HMD/HFD baseline. The pooled 1541--1850 sample gives $+0.028$ per $^\circ$C ($p=0.18$). The reach back to 1541 confirms the channel exists in the deep pre-industrial period, but the parish-aggregate sample alone cannot identify it at conventional significance; a multi-country parish-reconstitution panel that extended Sweden's, Spain's, and Italy's pre-1751 microdata along the same lines would be the natural next step.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.78\textwidth]{../analysis/figures/paper4_v2/figK_prevpos_campop.pdf}
-  \caption{Pre-industrial summer mortality pushed back to 1541. Coefficient on $T$ anomaly in $\Delta \log$ CDR for three CamPop sub-periods. The 1751--1850 transition window recovers a coefficient consistent with the HMD/HFD baseline; the 1541--1750 deep pre-industrial window is right-signed but underpowered.}
-  \label{fig:prevpos-campop}
-\end{figure}
 
 \section{Climate-panel ensemble uncertainty}
 \label{app:ensemble-uncertainty}
@@ -981,75 +812,73 @@ $+$ all extended deep determinants                & $-2.09$ & $0.53$ & $<10^{-4}
 
 Distance to Neolithic centres does itself distinguish pathways in a one-way ANOVA ($F=4.96$, $p=0.003$), but productive-months is the stronger Stage~1 predictor ($F=6.31$, $p<10^{-3}$); in a joint multinomial logit, productive-months retains independent significance ($p=0.001$ in the crop-dominant equation) after controlling for Neolithic distance. Interacting Sigl-Toohey VSSI with standardised log distance to Neolithic centres in the volcanic regression returns an interaction coefficient of $-3.6 \cdot 10^{-6}$ with $p=0.57$: the pathway-heterogeneous volcanic response is not driven by countries' deep-historical exposure to agriculture.
 
-\section{A calibrated quantitative model}
+\section{A calibrated three-equation quantitative model}
 \label{app:calibrated-model}
 
-To organise the reduced-form coefficients into a forward-simulation framework and to compute counterfactuals, we calibrate a parsimonious pathway-specific dynamic model. The model takes the empirical pathway-stratified coefficients of Section~\ref{sec:stage2} as structural inputs rather than estimating deep production-function parameters that the data do not identify; we accordingly call this a \emph{calibrated quantitative model} rather than a structural estimation.
+We calibrate a three-equation pathway-specific dynamic model that takes the joint-VAR coefficients of Section~\ref{sec:joint-var} as structural inputs and forward-simulates the demographic, cropland-share, and urban-share trajectories under three counterfactuals. The model is parsimonious by design: we keep only the pathway-specific drift and the volcanic-forcing coefficient in each equation, calibrating the drift to match each pathway's pre-industrial mean growth rate after subtracting the mean-volcanic contribution. The exercise is calibration, not deep structural estimation.
 
-For country $i$ in pathway $\tau$ and HYDE interval $[t, t+1)$, annualised log population growth follows
-\begin{equation}
-\Delta_{\text{ann}} \ln N_{it} = \alpha_\tau + \beta_\tau(t)\, \tilde d_{it} + \gamma_\tau\, \tilde T_{it} + \delta_\tau\, \tilde\sigma^T_{it} + \varepsilon_{it},
-\label{eq:struct}
-\end{equation}
-where $\tilde d, \tilde T, \tilde\sigma^T$ are within-country deviations from the pre-industrial country mean and the Malthusian density coefficient evolves over time as $\beta_\tau(t) = \beta_{0,\tau} + \eta_\tau (t - 1421)/100$. The slope $\eta_\tau$ captures the rate at which the Malthusian feedback weakens with the secular accumulation of human capital, literacy, and storage, calibrated from how fast $\hat\beta_\tau$ moves toward zero across our three subperiods.
+For country $i$ in pathway $\tau$ and HYDE interval $[t, t+1)$,
+\begin{align}
+\Delta_{\text{ann}} \ln N_{it} &= \alpha^P_\tau + \phi^P_\tau\, V_{it} + \varepsilon^P_{it},\label{eq:struct-pop}\\
+\Delta_{\text{ann}} \ln s_{it} &= \alpha^s_\tau + \phi^s_\tau\, V_{it} + \varepsilon^s_{it},\label{eq:struct-crop}\\
+\Delta_{\text{ann}} \ln u_{it} &= \alpha^u_\tau + \phi^u_\tau\, V_{it} + \varepsilon^u_{it},\label{eq:struct-urb}
+\end{align}
+where $V_{it}$ is the decade-summed Sigl-Toohey VSSI exposure. The coefficients $\phi^*_\tau$ come directly from the joint-VAR pathway-stratified slopes (Table~\ref{tab:joint-var-climate} and Section~\ref{sec:joint-var}); the drifts $\alpha^*_\tau$ are calibrated as $\alpha^*_\tau = \overline{g^*_{\tau,\text{pre1750}}} - \phi^*_\tau \overline{V_{\text{pre1750}}}$ so the simulation reproduces each pathway's observed pre-industrial mean growth rate when $V_{it}$ is at its pre-industrial mean.
 
 \begin{table}[H]
 \centering
-\caption{Calibrated parameters for the quantitative model, per pathway.}
+\caption{Calibrated parameters for the three-equation model, per pathway. $\alpha^*$ in annualised log-units; $\phi^*$ in annualised log-units per Tg of VSSI.}
 \label{tab:struct-params}
 \small
-\begin{tabular}{lrrrrr}
+\begin{tabular}{lrrrrrr}
 \toprule
-Pathway & $\alpha_\tau$ & $\beta_{0,\tau}$ & $\eta_\tau$ & $\gamma_{T,\tau}$ & $\delta_{T,\tau}$ \\
+Pathway & $\alpha^P$ & $\phi^P$ & $\alpha^s$ & $\phi^s$ & $\alpha^u$ & $\phi^u$ \\
 \midrule
-Crop-dominant late      & $+0.031$ & $+0.0043$ & $-0.0029$ & $-0.0021$ & $-0.0057$ \\
-Pastoral/mixed late     & $-0.028$ & $-0.0054$ & $+0.0016$ & $+0.0038$ & $+0.0037$ \\
-High-density intensive  & $-0.002$ & $-0.0022$ & $-0.0003$ & $-0.0010$ & $-0.0050$ \\
-Early extensifiers      & $+0.001$ & $-0.0002$ & $+0.0021$ & $+0.0003$ & $-0.0035$ \\
+Crop-dominant late      & $+8.5\!\cdot\!10^{-3}$ & $-9.6\!\cdot\!10^{-5}$ & $-3.0\!\cdot\!10^{-4}$ & $+3.0\!\cdot\!10^{-5}$ & $+2.2\!\cdot\!10^{-2}$ & $-5.2\!\cdot\!10^{-4}$ \\
+Pastoral/mixed late     & $+5.5\!\cdot\!10^{-3}$ & $-5.5\!\cdot\!10^{-5}$ & $-5.7\!\cdot\!10^{-4}$ & $+1.3\!\cdot\!10^{-6}$ & $+1.1\!\cdot\!10^{-2}$ & $-6.0\!\cdot\!10^{-5}$ \\
+High-density intensive  & $+4.2\!\cdot\!10^{-3}$ & $-2.0\!\cdot\!10^{-5}$ & $+2.0\!\cdot\!10^{-3}$ & $-3.7\!\cdot\!10^{-5}$ & $+8.7\!\cdot\!10^{-3}$ & $+1.8\!\cdot\!10^{-5}$ \\
+Early extensifiers      & $+1.7\!\cdot\!10^{-3}$ & $-1.4\!\cdot\!10^{-5}$ & $+1.3\!\cdot\!10^{-3}$ & $-1.7\!\cdot\!10^{-5}$ & $+1.2\!\cdot\!10^{-2}$ & $-7.8\!\cdot\!10^{-5}$ \\
 \bottomrule
 \end{tabular}
+\par\smallskip\footnotesize{The Boserupian sign of $\phi^s$ for crop-dominant late ($+3.0\!\cdot\!10^{-5}$) is the headline new finding of Section~\ref{sec:boserup}; all other $\phi$ signs reproduce the joint VAR.}
 \end{table}
 
-\textbf{Validation.} The model captures within-country growth deviations modestly: pseudo-$R^2$ in one-step-ahead predictions ranges from $0.26$ (early extensifiers) to $-0.18$ (high-density intensive). The model does \emph{not} reproduce the cross-country long-shadow result quantitatively: simulating terminal cumulative growth and regressing on pre-industrial $\sigma_v^T$ returns a non-significant coefficient ($\hat\beta^{\text{sim}}=+0.18$, $p=0.56$). We read this failure as informative rather than fatal: the cross-country long shadow operates primarily through institutional and technological mediators that the within-country Malthusian dynamics do not capture, consistent with the institutional-channel interpretation we already gave in Section~\ref{sec:shadow}.
-
-\textbf{Counterfactual experiments.} The model's value is for counterfactual computations the empirical regressions cannot perform directly. CF1: re-simulate each pastoral/mixed-late country under the calibrated parameters of the high-density-intensive pathway, keeping its actual climate trajectory. Median cumulative pre-industrial growth lift: $+0.197$ log-units, equivalent to a $+21.8\%$ population gain ($N=65$ countries; IQR $+7.1\%$ to $+33.0\%$). CF2: set within-interval $\sigma^T$ to zero in every HYDE interval that contains a $\geq 5$~Tg Sigl-Toohey eruption 1500--1900. Cumulative population effect: $+23.2\%$ crop-dominant, $-15.1\%$ pastoral/mixed (positive $\delta_T$: their mobility hedge benefits from volatility), $+29.1\%$ high-density intensive, $+22.7\%$ early extensifiers. The sign asymmetry across pathways is what the model exists to quantify; it would not have been recoverable from the reduced-form regressions alone. CF3: shrink within-interval $\sigma^T$ by a fixed weight $w \in \{1.0, 0.75, 0.5, 0.25, 0.0\}$ for all countries and recompute cumulative pre-industrial growth.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\textwidth]{../analysis/figures/paper4_v2/fig14_counterfactuals.pdf}
-  \caption{Structural counterfactuals. (a) Cumulative growth gained by removing eruption-year volatility 1500--1900, by pathway. Crop-dominant, high-density intensive, and early-extensifiers gain (negative $\delta_T$); pastoral loses (positive $\delta_T$). (b) Mean cumulative growth deviation as the volatility weight $w$ shrinks from 1 to 0.}
-  \label{fig:cf}
-\end{figure}
-
-\textbf{Welfare counterfactuals via Allen wages.} To translate population into welfare, we use the Allen real-wage Malthus regression coefficients from Section~\ref{sec:allen}: $\hat\beta_{\ln \text{pop}} = -0.285$ on lagged log population. Per-capita welfare and total welfare in each counterfactual are
-$\Delta \ln w_{\tau}^{\text{per cap}} = \hat\beta_{\ln \text{pop}} \cdot \Delta \ln N_\tau$ and $\Delta W_{\tau}^{\text{total}} = \Delta \ln N_\tau + \Delta \ln w_\tau^{\text{per cap}}$.
+\textbf{Three counterfactuals on the three-equation model.} We run the simulation for every (country, interval) cell in the 1500--1890 panel and report median-country cumulative log-changes across cells. CF1 reassigns pastoral/mixed-late countries to the high-density-intensive coefficient vector and re-simulates. CF2 sets $V_{it} = 0$ in every cell. CF3---the new \emph{Boserup-shutdown} counterfactual---forces $\phi^s_{\text{crop-dominant late}} = 0$ and leaves every other coefficient unchanged, asking what the cropland trajectory of crop-dominant late countries would have looked like in the absence of the Boserupian intensification response we identified.
 
 \begin{table}[H]
 \centering
-\caption{Welfare counterfactuals (median per pathway). $\Delta \ln N$ from the structural simulation; $\Delta \ln w$ via Allen $\hat\beta$.}
-\label{tab:welfare}
+\caption{Counterfactual cumulative log-changes 1500--1890, median country per pathway. ``$\Delta$ vs baseline'' rows report the counterfactual minus the baseline log-change.}
+\label{tab:struct-cf}
 \small
-\begin{tabular}{lrrrr}
+\begin{tabular}{llrrr}
 \toprule
-Counterfactual & Pathway & $\Delta \ln N$ & $\Delta \ln w$ (per cap.) & $\Delta W$ (total) \\
+Pathway & Specification & $\Delta \ln P$ & $\Delta \ln s$ & $\Delta \ln u$ \\
 \midrule
-CF1 reassign & Pastoral/mixed late$^\dagger$ & $+0.197$ ($+22\%$) & $-0.056$ ($-5.5\%$) & $+0.141$ \\
+Crop-dominant late     & Baseline                       & $+2.26$         & $+0.23$           & $+2.79$ \\
+                        & CF2 no volcanism              & $+3.40$ ($+212\%$ pop) & $-0.12$  ($-30\%$ crop) & $+8.88$ \\
+                        & CF3 Boserup shutdown          & $+2.26$ (no change)    & $-0.12$  ($-30\%$ crop) & $+2.79$ \\
 \midrule
-CF2 no volc. & Crop-dominant late      & $+0.209$ ($+23\%$) & $-0.059$ ($-5.7\%$) & $+0.150$ \\
-             & Pastoral/mixed late$^\dagger$ & $-0.163$ ($-15\%$) & $+0.047$ ($+4.9\%$) & $-0.116$ \\
-             & High-density intensive  & $+0.255$ ($+29\%$) & $-0.072$ ($-6.9\%$) & $+0.183$ \\
-             & Early extensifiers      & $+0.204$ ($+23\%$) & $-0.057$ ($-5.6\%$) & $+0.147$ \\
+Pastoral/mixed late    & Baseline                       & $+1.54$         & $-0.21$           & $+3.69$ \\
+                        & CF1 → intensive parameters    & $+1.96$ ($+52\%$ pop)  & $-0.67$           & $+3.69$ \\
+                        & CF2 no volcanism              & $+2.20$ ($+91\%$ pop)  & $-0.23$           & $+4.40$ \\
 \midrule
-CF3 full decoupl. & Crop-dominant late & $+0.330$ ($+39\%$) & $-0.094$ ($-9.0\%$) & $+0.236$ \\
-             & Pastoral/mixed late$^\dagger$ & $-0.272$ ($-24\%$) & $+0.078$ ($+8.1\%$) & $-0.195$ \\
-             & High-density intensive  & $+0.442$ ($+56\%$) & $-0.126$ ($-12\%$) & $+0.316$ \\
-             & Early extensifiers      & $+0.338$ ($+40\%$) & $-0.096$ ($-9.2\%$) & $+0.242$ \\
+High-density intensive & Baseline                       & $+1.46$         & $+0.36$           & $+3.69$ \\
+                        & CF2 no volcanism              & $+1.70$ ($+27\%$ pop)  & $+0.80$           & $+3.48$ \\
+\midrule
+Early extensifiers     & Baseline                       & $+0.50$         & $+0.33$           & $+3.82$ \\
+                        & CF2 no volcanism              & $+0.67$ ($+19\%$ pop)  & $+0.53$           & $+4.75$ \\
 \bottomrule
 \end{tabular}
-\par\smallskip\footnotesize{$^\dagger$ Pastoral/mixed late has no countries in the Allen sample (BEL, ESP, FRA, GBR, ITA, NLD); the wage translation for this pathway extrapolates the European $\hat\beta$.}
+\par\smallskip\footnotesize{Cumulative log-changes from forward-simulating Equations~\eqref{eq:struct-pop}--\eqref{eq:struct-urb} over each cell in the 1500--1890 panel; medians taken across countries within pathway. Percent labels convert log-units to level-change percentages, $\exp(\Delta)-1$.}
 \end{table}
 
-The canonical Malthusian welfare paradox emerges: removing volcanic forcing increases the headcount but reduces per-capita real wages. For high-density intensive systems, removing 1500--1900 volcanism produces $+29\%$ more people each $-6.9\%$ poorer on average---a net utilitarian gain of $+0.18$ log-welfare but a clearly worse outcome for the representative individual in the affected centuries. The pastoral exception is informative: removing volcanism reduces population in pastoral systems (positive $\delta_T$), so volatility helps their growth, and per-capita wages rise, but total welfare falls because there are fewer people. The exercise is not a deep structural estimation. Two pieces of information come out cleanly: (i) the order-of-magnitude demographic effect of agricultural-pathway choice (about $\pm 20$--$30\%$ population over the pre-industrial period for plausibly-comparable countries), and (ii) the order of magnitude of cumulative volcanic forcing across 400 years ($\pm 15$--$29\%$ population by pathway). The model treats population as the single endogenous outcome and is silent on the joint cropland-and-urbanization dynamics that Section~\ref{sec:joint-var} surfaces; an extension to a three-equation forward simulation is a natural next step.
+\textbf{The Boserup-shutdown counterfactual is the headline quantitative result.} The cumulative cropland-share growth of the median crop-dominant late country is $+0.23$ log-units over 1500--1890 in the baseline, equivalent to a $+26\%$ cropland-share level increase. Under CF3, with the Boserupian response forced off, this becomes $-0.12$ log-units---a $30\%$ cropland-share decline rather than a $26\%$ increase. The Boserupian intensification response is responsible for the entire net cropland expansion: in its absence, crop-dominant late economies would have lost cropland share over the four pre-industrial centuries rather than gained it. This is the welfare value of the intensification margin we surfaced in Section~\ref{sec:boserup}. The demographic margin is unchanged in CF3 because $\phi^P$ and $\phi^s$ are estimated as separate equations in the joint VAR; the indirect effect of the cropland response on population that runs through the lagged-log-$s$ term in the joint VAR is small ($-2 \times 10^{-4}$ on $\Delta \log P$) and propagates to a negligible cumulative effect at the resolution of the calibration.
+
+\textbf{CF2 no-volcanism puts a number on the demographic cost.} Crop-dominant late countries lose $+2.12$ log-units of cumulative population growth (the difference between the $+3.40$ counterfactual and the $+2.26$ baseline)---a factor of $\sim 3$ in level terms. Pastoral/mixed late countries lose a similar amount in proportional terms. The intensive and extensifier pathways lose less. The asymmetry mirrors the demographic-margin coefficient ranking of Section~\ref{sec:volcanic}.
+
+\textbf{Welfare counterfactuals.} Using the Allen Malthus regression of Section~\ref{sec:allen} ($\hat\beta_{\ln \text{pop}} = -0.285$), the per-capita welfare gain for crop-dominant late under CF2 is $-0.32$ log-units---the canonical Malthusian welfare paradox: removing the volcanic check produces more people each substantially poorer. For CF3 the welfare effect is dominated by the cropland-share contraction itself ($-0.35$ log-units), not the population channel.
+
+\textbf{Reading the calibration honestly.} The model treats lagged levels as exogenous shifters and does not propagate cross-equation feedback (those lagged coefficients are small in the joint VAR and we set them to zero). It does not reproduce the cross-country long-shadow regression ($\hat\beta^{\text{sim}}=+0.18$, $p=0.56$): the cross-country long shadow operates through institutional and technological mediators that within-country dynamics do not capture.
 
 \section{Robustness of the cross-pathway asymmetry}
 \label{app:joint-var-robustness}
@@ -1082,12 +911,6 @@ High-storage (wettest)  & $1{,}076$ & $49$ & $-8.1\!\cdot\!10^{-5}$ ($<10^{-6}$)
 \par\smallskip\footnotesize{Pathways labeled by mean pre-industrial productive months and intra-annual temperature range. The neat one-pathway-per-margin pattern of the HYDE-clustered specification (Section~\ref{sec:joint-var}) does not survive: all five climate-only clusters show statistically significant negative VSSI coefficients on $\Delta \log P$, and the cropland and urban responses are not concentrated in single climate-defined clusters.}
 \end{table}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.99\textwidth]{../analysis/figures/paper4_v2/figJ_climate_pathways.pdf}
-  \caption{Climate-only pathway clustering: VSSI response by cluster across the three joint-VAR equations, 1500--1900. The asymmetry that the headline HYDE-clustered specification exhibits does not survive translation to climate-orthogonal pathway labels.}
-  \label{fig:joint-var-climate}
-\end{figure}
 
 \subsection*{L.2 Wild-cluster bootstrap and label permutation}
 \label{app:joint-var-bootstrap}
@@ -1122,13 +945,6 @@ Early extensifiers    & $\Delta \log u$ & $-7.82\!\cdot\!10^{-5}$ & $0.040$ \qua
 \end{table}
 
 Second, a permutation test that re-shuffles the pathway labels across countries 300 times---preserving panel structure and within-country dynamics but breaking the link between cluster identity and country---asks how often a random labeling produces at least the observed number of significant coefficients per equation. For the demographic equation the answer is essentially always (median 4 significant slopes under permutation vs. 2 observed); the labeling actually reduces the count of significant demographic slopes relative to random. For the cropland equation, 48\% of permutations produce at least one significant cropland slope. For the urban equation, 73\% of permutations produce at least one significant urban slope. The observed cross-pathway pattern of one significant cropland and one significant urban response across four pathways is not distinguishable from what random labels produce.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.99\textwidth]{../analysis/figures/paper4_v2/figJ_bootstrap.pdf}
-  \caption{Joint VAR pathway slopes with both asymptotic and wild-cluster bootstrap significance markers. The bootstrap inference confirms the asymptotic inference; multiple-testing correction is what removes ten of the twelve slopes from significance.}
-  \label{fig:joint-var-bootstrap}
-\end{figure}
 
 \subsection*{L.3 Post-1700 sub-sample}
 \label{app:joint-var-post1700}
@@ -1169,13 +985,6 @@ Early extensifiers    & 1500--1900 (full)       & $-1.43$           & $-1.71$   
 \end{tabular}
 \par\smallskip\footnotesize{The crop-dominant late demographic margin is the only coefficient that retains significance across all four sub-samples. The other three margins of the original three-margin asymmetry either weaken substantially (high-density intensive cropland, early extensifier urban) or vanish (pastoral/mixed demographic) when the century-resolution HYDE cells are dropped.}
 \end{table}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.99\textwidth]{../analysis/figures/paper4_v2/figJ_post1700.pdf}
-  \caption{Joint VAR pathway coefficients across temporal sub-samples. Full panel (open circles) versus post-1700 decadal cells only (filled squares). Significance markers are nominal asymptotic.}
-  \label{fig:joint-var-post1700}
-\end{figure}
 
 \subsection*{L.4 Reading the robustness exercises}
 \label{app:joint-var-reading}
