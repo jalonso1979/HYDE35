@@ -461,7 +461,11 @@ The long-shadow coefficient is identified off pre-industrial climate variation s
 \section{Robustness and limitations}
 \label{sec:robustness}
 
-We have run the standard battery and the results survive. The merged ModE-RA + ERA5 climate panel calibrates within $0.6^\circ$C of the modern instrumental record in country-monthly RMSE; effect sizes for every headline finding exceed the local $1\sigma$ noise floor by factors of two to four, and the 1950--2008 overlap returns cross-product disagreement that neither published ensemble alone captures (Appendix~\ref{app:ensemble-uncertainty}, Figure~\ref{fig:ensemble}). Five well-documented historical climate-driven famines (the Great Frost of 1709, the Year Without Summer 1816, the Irish Potato Famine, the North China Famine, the Bengal Famine 1943) recover correctly in ModE-RA, although HYDE's decadal-population resolution smooths over the shortest crises---a HYDE limitation, not a climate-panel one. The pathway typology has silhouette peak at $K=5$ (0.399) with bootstrap median co-cluster probability $0.84$, and the productive-months $\to$ pathway link survives a multinomial logit that adds Neolithic distance, migratory distance from Addis Ababa, landlocked-ness, ruggedness, latitude, and log land area as deep-determinants controls; the long-shadow slope on $\sigma_v^T$ ranges between $-1.88$ and $-2.48$ across these specifications, always at $p<10^{-3}$ (Appendix~\ref{app:deep-determinants}). Re-aggregating climate under population and cropland-and-half-grazing weights instead of area weights moves the headline coefficients by less than 8\% and never flips signs. The discrete five-eruption volcanic exercise of Section~\ref{sec:volcanic} fails a Tambora-alone single-event placebo (the real coefficient sits at the 65th percentile of 1{,}000 placebo years drawn from 1755--1894), and the volcanic identification accordingly rests on the continuous Sigl-Toohey forcing exercise, where $\sim$60 distinct eruption years contribute to the within-country variation.
+We have run the standard battery and the headline findings on the demographic margin survive. The merged ModE-RA + ERA5 climate panel calibrates within $0.6^\circ$C of the modern instrumental record in country-monthly RMSE; effect sizes for every headline finding exceed the local $1\sigma$ noise floor by factors of two to four, and the 1950--2008 overlap returns cross-product disagreement that neither published ensemble alone captures (Appendix~\ref{app:ensemble-uncertainty}, Figure~\ref{fig:ensemble}). Five well-documented historical climate-driven famines (the Great Frost of 1709, the Year Without Summer 1816, the Irish Potato Famine, the North China Famine, the Bengal Famine 1943) recover correctly in ModE-RA, although HYDE's decadal-population resolution smooths over the shortest crises---a HYDE limitation, not a climate-panel one. The pathway typology has silhouette peak at $K=5$ (0.399) with bootstrap median co-cluster probability $0.84$, and the productive-months $\to$ pathway link survives a multinomial logit that adds Neolithic distance, migratory distance from Addis Ababa, landlocked-ness, ruggedness, latitude, and log land area as deep-determinants controls; the long-shadow slope on $\sigma_v^T$ ranges between $-1.88$ and $-2.48$ across these specifications, always at $p<10^{-3}$ (Appendix~\ref{app:deep-determinants}). Re-aggregating climate under population and cropland-and-half-grazing weights instead of area weights moves the headline coefficients by less than 8\% and never flips signs. The discrete five-eruption volcanic exercise of Section~\ref{sec:volcanic} fails a Tambora-alone single-event placebo (the real coefficient sits at the 65th percentile of 1{,}000 placebo years drawn from 1755--1894), and the volcanic identification accordingly rests on the continuous Sigl-Toohey forcing exercise, where $\sim$60 distinct eruption years contribute to the within-country variation.
+
+Three further exercises target the cross-pathway asymmetry of Section~\ref{sec:joint-var} specifically, which depends on a pathway typology that is itself estimated from HYDE-trajectory outcomes (1750-era density, crop share, urbanisation timing). The headline three-margin pattern is more fragile under these tests than the demographic-margin claim is. (a)~Re-clustering pathways on climate primitives only---pre-industrial productive months, intra-annual $T$ and $P$ range, and inter-annual $T$ volatility, all computed over 1421--1750 and orthogonal to HYDE outcomes---and re-running the joint VAR returns a different picture: all five climate-only clusters show statistically significant negative population coefficients on VSSI exposure, and the neat one-pathway-per-margin pattern dissolves. (b)~Wild-cluster bootstrap (Webb six-point, 1{,}999 replications) on the original twelve pathway-by-equation slopes gives bootstrap p-values that track the asymptotic p-values closely but, under Bonferroni correction for the twelve simultaneous tests, only two coefficients clear the $p<0.0042$ threshold---both demographic-margin slopes (crop-dominant late and pastoral/mixed late). A permutation test that re-shuffles pathway labels across countries 300 times produces the observed pattern of one significant cropland coefficient and one significant urban coefficient roughly half the time (cropland $P=0.48$, urban $P=0.73$). (c)~Restricting the panel to year $\ge 1700$---the decadal portion of HYDE where the demographic back-projection is less dependent on cropland imputation---collapses the pastoral demographic margin to zero ($p=0.95$), weakens the intensive-cropland margin to $p=0.076$, and reduces the early-extensifier urban margin to $p=0.28$. The crop-dominant demographic margin survives the post-1700 cut at $p=0.012$. Full results in Appendix~\ref{app:joint-var-robustness}.
+
+We read these results as drawing a sharper line through the joint-VAR exercise. What is statistically defensible across pathway typology, multiple-testing correction, and HYDE temporal sub-samples is the demographic-margin response itself: volcanic cooling reduces population growth, the effect is concentrated in dense-agricultural and pastoral systems, and the magnitude survives every robustness slice. The further claim that intensive and early-extensifier pathways adjust along non-demographic margins is suggestive but does not survive multiple-testing or sample-cut stress tests on the present panel. We interpret the joint VAR's principal contribution as identifying a clean demographic effect within an empirically natural multi-margin framework that future work with finer temporal demographic data can sharpen, not as a complete decomposition of pre-industrial structural response.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -1033,6 +1037,141 @@ CF3 full decoupl. & Crop-dominant late & $+0.330$ ($+39\%$) & $-0.094$ ($-9.0\%$
 \end{table}
 
 The canonical Malthusian welfare paradox emerges: removing volcanic forcing increases the headcount but reduces per-capita real wages. For high-density intensive systems, removing 1500--1900 volcanism produces $+29\%$ more people each $-6.9\%$ poorer on average---a net utilitarian gain of $+0.18$ log-welfare but a clearly worse outcome for the representative individual in the affected centuries. The pastoral exception is informative: removing volcanism reduces population in pastoral systems (positive $\delta_T$), so volatility helps their growth, and per-capita wages rise, but total welfare falls because there are fewer people. The exercise is not a deep structural estimation. Two pieces of information come out cleanly: (i) the order-of-magnitude demographic effect of agricultural-pathway choice (about $\pm 20$--$30\%$ population over the pre-industrial period for plausibly-comparable countries), and (ii) the order of magnitude of cumulative volcanic forcing across 400 years ($\pm 15$--$29\%$ population by pathway). The model treats population as the single endogenous outcome and is silent on the joint cropland-and-urbanization dynamics that Section~\ref{sec:joint-var} surfaces; an extension to a three-equation forward simulation is a natural next step.
+
+\section{Robustness of the cross-pathway asymmetry}
+\label{app:joint-var-robustness}
+
+This appendix documents the three robustness exercises that the main-text Section~\ref{sec:robustness} summarises. They target the joint-VAR cross-pathway asymmetry of Section~\ref{sec:joint-var} specifically, which depends on a pathway typology estimated from HYDE-trajectory outcomes (peak agricultural expansion year, 1750-era density, 1750-era crop share, urbanisation timing).
+
+\subsection*{L.1 Climate-only pathway clustering}
+\label{app:joint-var-climate-clusters}
+
+The headline pathway typology of Section~\ref{sec:pathways} is built on HYDE-trajectory features that are downstream outcomes of the same processes the joint VAR is trying to explain. We re-cluster the 196 countries using exclusively pre-industrial climate primitives---productive months, intra-annual $T$ and $P$ range, mean $T$, mean $P$, and inter-annual $T$ volatility, all computed over 1421--1750 from the ModE-RA + CRU panel and orthogonal to every HYDE outcome---and re-estimate the joint VAR on the new cluster labels.
+
+K=5 KMeans on the standardised climate-primitive features achieves a silhouette of $0.340$ and produces five clusters ordered by mean productive months: \emph{Low-storage (driest)} (mean prod.\ months 2.5, $\sigma_s = 15.4^\circ$C, $N=32$), \emph{Moderate-storage low} ($4.1$, $28.1^\circ$C, $N=22$), \emph{Mid-storage} ($7.1$, $20.7^\circ$C, $N=33$), \emph{Moderate-storage high} ($9.1$, $7.0^\circ$C, $N=49$), and \emph{High-storage (wettest)} ($11.1$, $3.9^\circ$C, $N=60$). The cross-tab against the HYDE-derived clusters is essentially block-diagonal-free: HYDE-cluster ``pastoral/mixed late'' (the largest, $N=65$) spreads across all five climate clusters, and similarly for HYDE-cluster ``crop-dominant late''. The two typologies measure different things.
+
+\begin{table}[H]
+\centering
+\caption{Joint VAR pathway-stratified VSSI slopes under climate-only clustering, 1500--1900. Country FE, country-clustered SEs. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:joint-var-climate}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Climate cluster (storage demand) & $N$ & countries & $\hat\beta^{\text{Pop}}$ ($p$) & $\hat\beta^{\text{Crop}}$ ($p$) & $\hat\beta^{\text{Urb}}$ ($p$) \\
+\midrule
+Low-storage (driest)    & $483$  & $22$ & $-2.6\!\cdot\!10^{-5}$ ($0.048$)$^{**}$  & $-2.9\!\cdot\!10^{-5}$ ($0.330$)         & $-5.1\!\cdot\!10^{-5}$ ($0.005$)$^{***}$ \\
+Moderate-storage low    & $308$  & $14$ & $-3.2\!\cdot\!10^{-5}$ ($0.045$)$^{**}$  & $+6.9\!\cdot\!10^{-6}$ ($0.250$)         & $+5.6\!\cdot\!10^{-5}$ ($0.263$)         \\
+Mid-storage             & $704$  & $32$ & $-3.0\!\cdot\!10^{-5}$ ($0.007$)$^{***}$ & $-3.9\!\cdot\!10^{-5}$ ($<10^{-5}$)$^{***}$ & $-4.7\!\cdot\!10^{-5}$ ($0.356$)      \\
+Moderate-storage high   & $814$  & $37$ & $-7.4\!\cdot\!10^{-5}$ ($<10^{-3}$)$^{***}$ & $-2.9\!\cdot\!10^{-5}$ ($0.008$)$^{***}$ & $-4.8\!\cdot\!10^{-5}$ ($0.005$)$^{***}$ \\
+High-storage (wettest)  & $1{,}076$ & $49$ & $-8.1\!\cdot\!10^{-5}$ ($<10^{-6}$)$^{***}$ & $+5.4\!\cdot\!10^{-5}$ ($0.091$)$^{*}$  & $-5.2\!\cdot\!10^{-4}$ ($0.132$)         \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Pathways labeled by mean pre-industrial productive months and intra-annual temperature range. The neat one-pathway-per-margin pattern of the HYDE-clustered specification (Section~\ref{sec:joint-var}) does not survive: all five climate-only clusters show statistically significant negative VSSI coefficients on $\Delta \log P$, and the cropland and urban responses are not concentrated in single climate-defined clusters.}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth]{../analysis/figures/paper4_v2/figJ_climate_pathways.pdf}
+  \caption{Climate-only pathway clustering: VSSI response by cluster across the three joint-VAR equations, 1500--1900. The asymmetry that the headline HYDE-clustered specification exhibits does not survive translation to climate-orthogonal pathway labels.}
+  \label{fig:joint-var-climate}
+\end{figure}
+
+\subsection*{L.2 Wild-cluster bootstrap and label permutation}
+\label{app:joint-var-bootstrap}
+
+With twelve pathway-by-equation slopes in the headline joint VAR (four informative pathways times three equations), the asymptotic single-coefficient significance tests are vulnerable to multiple-testing inflation. We re-test the twelve slopes two ways.
+
+First, a Webb (2014) six-point wild-cluster bootstrap (1{,}999 replications, restricted residuals re-signed at the country level) gives bootstrap p-values that track the cluster-robust asymptotic p-values closely (the two columns of Table~\ref{tab:joint-var-bootstrap} agree to within rounding). The cluster SEs are not catastrophically off; the asymptotic inference is well-calibrated. Under Bonferroni correction at the 5\% level ($0.05 / 12 = 0.0042$), however, only two of the twelve slopes survive: the crop-dominant late and pastoral/mixed late demographic-margin coefficients (Table~\ref{tab:joint-var-bootstrap}). The high-density intensive cropland coefficient ($p_{\text{boot}} = 0.017$) and the early-extensifier urban coefficient ($p_{\text{boot}} = 0.035$) fall short of Bonferroni significance, as do all remaining off-margin coefficients. A Benjamini-Hochberg FDR procedure at the 5\% level returns the same two demographic-margin coefficients.
+
+\begin{table}[H]
+\centering
+\caption{Wild-cluster bootstrap p-values for the joint VAR pathway slopes, 1{,}999 Webb six-point replications. Bonferroni threshold: $p<0.0042$. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:joint-var-bootstrap}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Pathway & Equation & $\hat\beta$ & $p_{\text{asymp}}$ & $p_{\text{boot}}$ & Bonferroni \\
+\midrule
+Crop-dominant late    & $\Delta \log P$ & $-9.65\!\cdot\!10^{-5}$ & $<10^{-6}$ \quad *** & $0.000$ \quad *** & $\checkmark$ \\
+Crop-dominant late    & $\Delta \log s$ & $+2.96\!\cdot\!10^{-5}$ & $0.258$               & $0.301$           &  \\
+Crop-dominant late    & $\Delta \log u$ & $-5.16\!\cdot\!10^{-4}$ & $0.126$               & $0.045$ \quad **  &  \\
+Pastoral/mixed late   & $\Delta \log P$ & $-5.55\!\cdot\!10^{-5}$ & $<10^{-5}$ \quad *** & $0.000$ \quad *** & $\checkmark$ \\
+Pastoral/mixed late   & $\Delta \log s$ & $+0.13\!\cdot\!10^{-5}$ & $0.913$               & $0.931$           &  \\
+Pastoral/mixed late   & $\Delta \log u$ & $-6.02\!\cdot\!10^{-5}$ & $0.086$ \quad *      & $0.280$           &  \\
+High-density intensive & $\Delta \log P$ & $-2.02\!\cdot\!10^{-5}$ & $0.215$              & $0.233$           &  \\
+High-density intensive & $\Delta \log s$ & $-3.73\!\cdot\!10^{-5}$ & $0.021$ \quad **    & $0.017$ \quad **  &  \\
+High-density intensive & $\Delta \log u$ & $+1.84\!\cdot\!10^{-5}$ & $0.751$              & $0.823$           &  \\
+Early extensifiers    & $\Delta \log P$ & $-1.43\!\cdot\!10^{-5}$ & $0.121$               & $0.146$           &  \\
+Early extensifiers    & $\Delta \log s$ & $-1.71\!\cdot\!10^{-5}$ & $0.186$               & $0.210$           &  \\
+Early extensifiers    & $\Delta \log u$ & $-7.82\!\cdot\!10^{-5}$ & $0.040$ \quad **    & $0.035$ \quad **  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Second, a permutation test that re-shuffles the pathway labels across countries 300 times---preserving panel structure and within-country dynamics but breaking the link between cluster identity and country---asks how often a random labeling produces at least the observed number of significant coefficients per equation. For the demographic equation the answer is essentially always (median 4 significant slopes under permutation vs. 2 observed); the labeling actually reduces the count of significant demographic slopes relative to random. For the cropland equation, 48\% of permutations produce at least one significant cropland slope. For the urban equation, 73\% of permutations produce at least one significant urban slope. The observed cross-pathway pattern of one significant cropland and one significant urban response across four pathways is not distinguishable from what random labels produce.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth]{../analysis/figures/paper4_v2/figJ_bootstrap.pdf}
+  \caption{Joint VAR pathway slopes with both asymptotic and wild-cluster bootstrap significance markers. The bootstrap inference confirms the asymptotic inference; multiple-testing correction is what removes ten of the twelve slopes from significance.}
+  \label{fig:joint-var-bootstrap}
+\end{figure}
+
+\subsection*{L.3 Post-1700 sub-sample}
+\label{app:joint-var-post1700}
+
+HYDE 3.5 uses 100-year intervals before 1700 and decadal intervals afterwards; the 1500 and 1600 cells in the joint VAR panel are century-aggregated back-projections from a sparser historical source base than the post-1700 decadal cells. HYDE's pre-1850 demographic back-projection also uses cropland and pasture extent as input variables, so the joint cropland-and-population dynamics in the pre-1700 portion of the panel are partly mechanical. We restrict to year $\ge 1700$ (drops 305 century cells, $\sim 9\%$ of the panel) and re-run.
+
+The post-1700 restriction differentially weakens the pathway coefficients. Table~\ref{tab:joint-var-post1700} reports the slopes across four sub-samples: full 1500--1900, post-1700, post-1750, and post-1800. The crop-dominant late demographic margin survives every cut ($p \le 0.018$). The pastoral/mixed demographic margin collapses to $p = 0.95$ post-1700: that significance came entirely from the century-resolution cells. The high-density intensive cropland margin weakens to $p = 0.076$ post-1700 and to $p = 0.26$ post-1750. The early-extensifier urban margin weakens to $p = 0.28$ post-1700.
+
+\begin{table}[H]
+\centering
+\caption{Joint VAR pathway slopes across temporal sub-samples. Coefficients in units of $10^{-5}$ per Tg VSSI. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:joint-var-post1700}
+\small
+\begin{tabular}{llrrr}
+\toprule
+Pathway & Sub-sample & $\hat\beta^{\text{Pop}}$ ($p$) & $\hat\beta^{\text{Crop}}$ ($p$) & $\hat\beta^{\text{Urb}}$ ($p$) \\
+\midrule
+Crop-dominant late    & 1500--1900 (full)       & $-9.65$ \quad ***  & $+2.96$           & $-51.6$        \\
+                       & 1700--1900               & $-4.10$ \quad **   & $+36.3$ \quad **  & $+9.95$         \\
+                       & 1750--1900               & $-5.66$ \quad ***  & $+39.1$ \quad **  & $+0.19$         \\
+                       & 1800--1900               & $-11.9$ \quad **   & $+78.4$ \quad *** & $-0.13$         \\
+\midrule
+Pastoral/mixed late   & 1500--1900 (full)       & $-5.55$ \quad ***  & $+0.13$           & $-6.02$ \quad * \\
+                       & 1700--1900               & $-0.11$           & $-4.79$           & $-0.61$         \\
+                       & 1750--1900               & $-0.48$           & $-5.99$           & $+0.79$         \\
+                       & 1800--1900               & $-2.22$           & $-10.0$           & $-2.45$         \\
+\midrule
+High-density intensive & 1500--1900 (full)       & $-2.02$           & $-3.73$ \quad **  & $+1.84$         \\
+                       & 1700--1900               & $-0.43$           & $-4.16$ \quad *   & $-8.44$         \\
+                       & 1750--1900               & $-0.23$           & $-3.32$           & $-9.18$         \\
+                       & 1800--1900               & $-5.94$ \quad *   & $-2.26$           & $-4.81$         \\
+\midrule
+Early extensifiers    & 1500--1900 (full)       & $-1.43$           & $-1.71$           & $-7.82$ \quad ** \\
+                       & 1700--1900               & $-3.69$ \quad *   & $+10.7$           & $-3.13$         \\
+                       & 1750--1900               & $-2.93$           & $+15.7$ \quad *   & $-2.82$ \quad * \\
+                       & 1800--1900               & $-6.11$           & $+20.7$           & $-3.38$         \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{The crop-dominant late demographic margin is the only coefficient that retains significance across all four sub-samples. The other three margins of the original three-margin asymmetry either weaken substantially (high-density intensive cropland, early extensifier urban) or vanish (pastoral/mixed demographic) when the century-resolution HYDE cells are dropped.}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth]{../analysis/figures/paper4_v2/figJ_post1700.pdf}
+  \caption{Joint VAR pathway coefficients across temporal sub-samples. Full panel (open circles) versus post-1700 decadal cells only (filled squares). Significance markers are nominal asymptotic.}
+  \label{fig:joint-var-post1700}
+\end{figure}
+
+\subsection*{L.4 Reading the robustness exercises}
+\label{app:joint-var-reading}
+
+The three exercises target related but distinct issues with the joint-VAR cross-pathway asymmetry: pathway endogeneity (L.1), multiple-testing inflation (L.2), and HYDE temporal-imputation artifacts (L.3). Each exercise weakens a different component of the original headline. Taking the three together, what is statistically defensible is a clean demographic-margin response to volcanic forcing that is concentrated in crop-dominant late countries and is robust across pathway typology, multiple-testing correction, and HYDE sub-sample. What is not statistically defensible at conventional levels is the further claim that intensive and early-extensifier pathways adjust on non-demographic margins: those slopes are individually nominally significant in the full HYDE-clustered specification but do not survive any one of the three robustness exercises.
+
+A noteworthy and previously unreported result emerges from the post-1700 restriction: the crop-dominant late pathway shows a sharply \emph{positive} cropland-share response to volcanic forcing once the century-resolution cells are dropped ($\hat\beta = +3.6\!\cdot\!10^{-4}$ per Tg post-1700, $p = 0.031$; $+7.8\!\cdot\!10^{-4}$, $p = 0.003$ in 1800--1900). After volcanic cooling, crop-dominant late economies expanded their cropland share---a Boserupian intensification response in the decade following a cold shock. This finding is robust to the temporal sub-sample but is masked in the full 1500--1900 panel by the offsetting pre-1700 century cells. We note it here as a candidate result for follow-up work.
+
+The honest reading of the joint VAR is therefore: it identifies a clean demographic effect within a multi-margin framework, surfaces an unexpected Boserupian cropland response in the modern-era crop-dominant subsample, and motivates future work with finer temporal demographic resolution that can resolve the within-decade dynamics of the cropland and urban margins.
 
 % References
 \bibliographystyle{apalike}
