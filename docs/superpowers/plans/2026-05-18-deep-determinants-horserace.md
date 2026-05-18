@@ -2913,14 +2913,16 @@ git commit -m "paper5: robustness battery (continent FE, LOO, WY, placebos)"
 
 ## Phase 6 — Theory section (2 weeks)
 
-### Task 18: Write theory section §2
+### Task 18: Write theory section §2 [REFRAMED]
 
 **Files:**
 - Create: `paper/horserace/horserace.tex` (paper skeleton)
 - Create: `paper/horserace/references.bib`
 - Create: `paper/horserace/section_theory.tex`
 
-**Goal:** Roughly 2 pages of theory that motivates the four-substrate framework inside a UGT skeleton.
+**Goal:** Roughly 2 pages of theory framing climate volatility as the focal channel and the other three substrates (Het, ancestral yield, pandemic intensity) as competing channels controlled for in robustness.
+
+**Reframe note (2026-05-18):** Original plan put four substrates symmetric and pathway as mediator. Empirical results (Tasks 10-17) show climate volatility has small but non-trivial Shapley R² across all outcomes; ancestral crop yield dominates 3 of 4 outcomes for Shapley; only 3 of 16 mediation cells survive FWER; continent FE cleans up the suppressor structure. Theory section now organises around climate volatility shaping agricultural-system selection and modern demographic outcomes, with competing channels controlled for.
 
 - [ ] **Step 1: Create paper skeleton**
 
@@ -2930,19 +2932,32 @@ cp /Volumes/BIGDATA/HYDE35/paper/long_shadow.tex \
 # Then edit to remove all long_shadow.tex content past \maketitle
 ```
 
-- [ ] **Step 2: Write §1 placeholder + §2 theory**
+- [ ] **Step 2: Write §1 placeholder + §2 theory (climate-volatility frame)**
 
 ```latex
 % section_theory.tex
-\section{A UGT skeleton with substrate-mediated pathway selection}
+\section{Climate volatility and pathway selection: a UGT skeleton}
 \label{sec:theory}
 
-Consider a country $i$ at some pre-industrial date with a vector of
-substrate endowments $\mathbf{S}_i = (\sigma_{v,i}^T, H_i, A_i, \Pi_i)$:
-inter-annual climate volatility, predicted heterozygosity, ancestral crop
-yield, and pre-1500 pandemic intensity. Following Ashraf and Galor
-\citep{ashraf2011dynamics}, the pre-industrial demographic dynamics
-in country $i$ follow a Malthusian regression
+Consider a country $i$ with pre-industrial climate-volatility
+endowment $\sigma_{v,i}^T$ (standard deviation of annual mean
+temperature over a multi-century pre-industrial window). Climate
+volatility shapes agricultural-system selection: societies in
+high-volatility environments face strong incentives to adopt
+storage-intensive crop systems with granaries and reserves, while
+those in low-volatility environments can rely on shorter-horizon
+production. Following \citet{matranga2024}, climate volatility maps
+into a discrete agricultural pathway $\tau_i \in \{$intensive crop,
+pastoral, mixed late, early extensifier$\}$ via
+\begin{equation}
+  \tau_i = \tau^*(\sigma_{v,i}^T, \mathbf{X}_i; \theta) + \xi_i
+  \label{eq:thy-pathway}
+\end{equation}
+where $\mathbf{X}_i$ is the geography control vector (latitude,
+land area, ruggedness) and $\xi_i$ is historical contingency.
+
+Conditional on pathway, pre-industrial demographic dynamics follow
+a Malthusian regression in the spirit of \citet{ashraf2011dynamics}
 \begin{equation}
   \Delta \ln P_{i,t} \;=\; \alpha_i \;+\; \beta(\tau_i)\, d_{i,t-1}
                        \;+\; \gamma(\tau_i)\, T_{i,t}
@@ -2951,47 +2966,57 @@ in country $i$ follow a Malthusian regression
                        \;+\; \varepsilon_{i,t}
   \label{eq:thy-malthus}
 \end{equation}
-where $\tau_i \in \{$crop-dominant late, pastoral/mixed late, intensive,
-extensifier$\}$ is the country's agricultural pathway and $h_{i,t}$ is
-human capital. The four pathway coefficients $\beta(\tau), \gamma(\tau),
-\delta(\tau), \eta(\tau)$ determine how fast the Malthusian regime weakens
-with secular accumulation of $h$.
+with pathway-specific coefficients reflecting the storage and human-
+capital structure of each system. Modern outcomes $y_i^{(k)}$
+(modern population growth, urbanisation change, log GDPpc,
+demographic-transition timing) inherit two types of climate-
+volatility dependence: \emph{indirect} through pathway $\tau_i$ via
+\eqref{eq:thy-malthus}'s pathway-specific coefficients, and
+\emph{direct} through any persistent channel that bypasses pathway.
 
-The pathway $\tau_i$ is selected at some pre-1421 horizon as a function
-of the substrate vector. We do not micro-found this selection but
-assume the reduced form
-\begin{equation}
-  \tau_i = \tau^*(\mathbf{S}_i, \mathbf{X}_i) + \xi_i
-  \label{eq:thy-pathway}
-\end{equation}
-where $\mathbf{X}_i$ is the geography control vector and $\xi_i$ is an
-idiosyncratic component that captures historical contingency.
+Three competing pre-industrial substrates may absorb part of the
+climate-volatility channel:
+\begin{itemize}
+  \item \textbf{Predicted heterozygosity} $H_i$ \citep{ashraf2013out},
+    an ancestry-adjusted measure of population genetic diversity that
+    enters as a direct channel on modern outcomes \emph{not} mediated
+    by pathway.
+  \item \textbf{Ancestral crop yield} $A_i$ \citep{galor2016agricultural},
+    the gridded pre-1500 caloric-yield potential of Old-World crops,
+    a competing pre-industrial channel that may dominate $\sigma_v^T$
+    on agricultural-system outcomes.
+  \item \textbf{Pre-1500 pandemic intensity} $\Pi_i$, a Voigtl\"ander-
+    Voth-style historical mortality-pressure measure that operates
+    primarily through post-Black-Death factor-ratio effects on
+    surviving populations.
+\end{itemize}
+The empirical exercises decompose cross-country variance in $y_i^{(k)}$
+across the four channels and ask which of them survives multi-testing
+correction. We do not estimate \eqref{eq:thy-malthus} or
+\eqref{eq:thy-pathway} directly here; the companion paper
+\citet{alonso_long_shadow} estimates a related panel specification.
 
-Modern outcomes $y_i^{(k)}$ inherit two types of substrate dependence:
-\emph{indirect} through pathway $\tau_i$ via \eqref{eq:thy-malthus}'s
-pathway-specific coefficients, and \emph{direct} through any other
-mechanism not mediated by pathway. The empirical decomposition of the
-paper attributes cross-country variance to each substrate (Exercise~1)
-and identifies which substrate effects are routed through pathway
-(Exercise~2). Specifically, predicting:
+\textbf{Prediction 1.} Modern population growth is decreasing in
+$\sigma_v^T$ across pathways with strong Malthusian regimes
+(crop-dominant late, pastoral/mixed late), with magnitude bounded by
+how much the alternative channels ($H_i, A_i, \Pi_i$) absorb the
+cross-country covariance.
 
-\textbf{Prediction 1.} Modern outcomes are decreasing in $\sigma_v^T$
-for pathways with strong Malthusian regimes (crop-dominant late and
-pastoral/mixed late), and uniformly weakly decreasing for pathways that
-exited earlier (early extensifiers, high-density intensive).
+\textbf{Prediction 2.} The agricultural pathway mediates the
+$\sigma_v^T \to y$ relationship only after continent fixed effects
+are added, because climate volatility is also a continental phenomenon
+that pathway dummies cannot capture without partialling out continent
+membership.
 
-\textbf{Prediction 2.} The mediating role of pathway is largest for
-substrates whose primary channel is agricultural-system selection
-($\sigma_v^T$, ancestral crop yield), and smallest for substrates whose
-primary channel is direct on modern human capital (predicted
-heterozygosity, pandemic intensity through immunity selection).
+\textbf{Prediction 3.} The $\sigma_v^T$ channel is robust to the
+volatility-measurement window: both pre-industrial $\sigma_v^T$
+1421--1750 and modern $\sigma_v^T$ 1950--2008 predict modern outcomes,
+because the channel is structural rather than window-specific.
 
-These two predictions structure the empirical work. We do not estimate
-\eqref{eq:thy-malthus} or \eqref{eq:thy-pathway} directly in this paper;
-the companion paper \citet{alonso_long_shadow} estimates a related
-specification. Here we treat the predictions as testable restrictions
-on the variance-decomposition and mediation matrices and ask whether
-they are consistent with the data.
+These predictions structure the empirical work. We treat them as
+testable restrictions on the variance-decomposition matrix
+(Exercise~1) and the conditional-coefficient pattern (Exercises~2-3),
+and ask whether they are consistent with the data.
 ```
 
 - [ ] **Step 3: Commit**

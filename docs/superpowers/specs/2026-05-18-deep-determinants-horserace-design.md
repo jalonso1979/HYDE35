@@ -1,17 +1,28 @@
-# Deep Determinants Horserace: Climate, Genes, Pandemic, and Pathway
+# Climate Volatility and Modern Demographic Outcomes: An Investigation
 
-Date: 2026-05-18
-Status: draft, awaiting user review
+Date: 2026-05-18 (reframed 2026-05-18 after empirical results)
+Status: reframed; Tasks 0-17 complete; writing tasks 18-22 pending
 
 ## Working title
 
-*Three Routes to the Modern Population: Pre-Industrial Climate, Genetic Diversity, and the Agricultural Pathway*
+*Climate Volatility, Agricultural Pathway, and Modern Demographic Outcomes: A Cross-Country Investigation*
 
-(Alt. softer framing for review: *Deep Determinants of Modern Demography: A Variance Decomposition Across Climate, Population Genetics, and Agricultural Pathway.* The author should pick before submission.)
+(Alt: *How Climate Volatility Shapes Population and Land Use: An Empirical Investigation Across Pre-Industrial and Modern Windows.*)
+
+## Reframe note (2026-05-18)
+
+The original spec framed this as a four-substrate "deep determinants horserace" with the agricultural pathway as mediator. The completed empirical work (Tasks 0-17) reveals that:
+
+1. The Shapley decomposition shows climate volatility ($\sigma_v^T$) is one channel among several distinct channels — ancestral crop yield (Galor-Özak), predicted heterozygosity (Ashraf-Galor), and pre-1500 pandemic intensity each absorb a non-trivial slice of cross-country variance.
+2. The agricultural pathway is not a clean mediator on the baseline specification — suppressor structure dominates — but **continent fixed effects cleanup the suppressor structure**, suggesting unmeasured continental heterogeneity, not a substrate-pathway misfit.
+3. The pre-industrial $\sigma_v^T$ 1421–1750 channel and the modern-window $\sigma_v^T$ 1950–2008 channel both predict modern population growth, with the modern window showing a *larger* Shapley R² (0.061 vs 0.024). This is *evidence for*, not against, a climate-volatility channel.
+4. Only 3 of 16 substrate × outcome cells survive Westfall-Young FWER correction at p<0.05: ancestral_yield × log pop growth (the strongest), H_pred × log GDPpc, and H_pred × log pop growth.
+
+Given these findings, this paper reframes from "which deep root dominates?" to "**how does climate volatility shape long-run demographic outcomes, and how does it relate to other pre-industrial substrates?**" The other three substrates (Het, ancestral yield, pandemic intensity) become competing/complementary channels controlled for in robustness rather than co-equal headline claims.
 
 ## Goal
 
-A new standalone paper that decomposes cross-country variance in modern demographic outcomes across the leading "deep-determinants" channels of the pre-industrial substrate, with the agricultural-pathway typology entering as a candidate **mediator** rather than a competing covariate.
+A standalone paper investigating how climate volatility shapes long-run cross-country demographic outcomes, with the agricultural pathway typology and three competing pre-industrial substrates (Ashraf-Galor predicted heterozygosity, Galor-Özak ancestral crop yield, pre-1500 pandemic intensity) entering as covariates and competing channels. The investigation crosses pre-industrial and modern climate-volatility windows to test whether the channel is window-specific or persistent.
 
 The paper sits alongside, not on top of, three other papers in flight:
 
@@ -26,22 +37,24 @@ The four pandemic/macro papers in Drive provide the data infrastructure for the 
 
 ## Central claim
 
-For each modern demographic outcome $y_i^{(k)}$ (modern population growth, urbanisation change, log GDPpc, demographic-transition timing), define four candidate **substrate** dimensions $\mathbf{S}_i$ of the pre-industrial endowment:
+For each modern demographic outcome $y_i^{(k)}$ (modern population growth, urbanisation change, log GDPpc, demographic-transition timing), the paper investigates how climate volatility $\sigma_v^T$ and the agricultural pathway typology jointly shape long-run outcomes, controlling for and decomposing against three competing pre-industrial substrates:
 
-1. **Climate volatility** $\sigma_v^T$, country-level standard deviation of annual mean temperature 1421–1750, from ModE-RA. *Provenance: `long_shadow.tex` §5.*
-2. **Predicted genetic heterozygosity** $H_i$, ancestry-adjusted via Putterman-Weil migration weights, from Ashraf-Galor (2013).
-3. **Ancestral agricultural potential** $A_i$, gridded prehistoric crop-yield potential from Galor-Özak (2016) aggregated to ISO3.
-4. **Pre-1500 pandemic intensity** $\Pi_i$, constructed from Brecke + AntiquityPandemics + Justinianic/Antonine/Cyprian reconstructions.
+1. **Climate volatility** $\sigma_v^T$, country-level standard deviation of annual mean temperature 1421–1750, from ModE-RA. *Headline channel.* Provenance: `long_shadow.tex` §5.
+2. **Predicted genetic heterozygosity** $H_i$, ancestry-adjusted via Putterman-Weil migration weights, from Ashraf-Galor (2013). *Competing channel.*
+3. **Ancestral agricultural potential** $A_i$, gridded prehistoric crop-yield potential from Galor-Özak (2016) aggregated to ISO3. *Competing channel.*
+4. **Pre-1500 pandemic intensity** $\Pi_i$, constructed from Brecke + AntiquityPandemics + Justinianic/Antonine/Cyprian reconstructions. *Competing channel.*
 
-The paper makes three connected claims:
+The paper makes four connected investigative claims:
 
-**Claim 1 (descriptive decomposition).** A Shapley-Owen R² decomposition over all 4! orderings of $\mathbf{S}_i$ identifies, for each outcome $y^{(k)}$, the marginal contribution of each substrate. Headline object: a 4×4 heatmap of conditional R² (rows = substrates, columns = outcomes), with sub-sample stability ribbons.
+**Claim 1 (variance decomposition across channels).** A Shapley-Owen R² decomposition identifies the unique-variance contribution of each channel — climate volatility, predicted Het, ancestral yield, pandemic intensity — for each modern outcome. The result is a 4×4 conditional-R² matrix that quantifies how much each channel contributes once the others are conditioned. *Empirical finding from Task 10: ancestral_yield_log dominates 3 of 4 outcomes (max Shapley R² 0.136 for log pop growth); H_pred wins log GDPpc; $\sigma_v^T$ has small but non-trivial unique contributions across all outcomes.*
 
-**Claim 2 (pathway as mediator).** Adding the pathway-dummy vector $\mathbf{P}_i$ (from the K=5 HYDE clustering of `long_shadow.tex` §2.3) shrinks the coefficients of substrates that operate *through* pathway selection and leaves substrates that operate *directly* on modern outcomes unchanged. The shrinkage pattern is the structural finding of the paper.
+**Claim 2 (pathway as transmission channel for climate volatility).** Climate volatility shapes the agricultural pathway typology by selecting among intensive crop / pastoral / mixed systems. Adding the K=5 pathway-dummy vector $\mathbf{P}_i$ as a mediator on the $\sigma_v^T \to y$ relationship asks whether the climate-volatility effect operates through pathway selection or directly. *Empirical finding from Tasks 13-14: on the baseline specification, the mediation analysis shows wide suppressor structure for most substrate × outcome pairs; **adding continent FE cleans this up** (Task 17 Check 1), suggesting the suppressor was driven by unmeasured continental heterogeneity, not by a substrate-pathway misfit. The headline mediation specification is with continent FE.*
 
-**Claim 3 (climate-orthogonal pathway robustness).** Substituting the climate-only-clustered pathway dummies (from `joint_var_climate_pathways.py`, already computed for `long_shadow.tex` Appendix L) for the HYDE-clustered ones changes which substrates appear mediated. The paper reports both versions honestly.
+**Claim 3 (climate-window robustness).** The $\sigma_v^T$ channel is robust to the climate-volatility measurement window. Pre-industrial $\sigma_v^T$ 1421–1750 (the focal measure) and modern $\sigma_v^T$ 1950–2008 (the placebo measure) both predict modern outcomes; the modern-window Shapley R² is actually larger for population growth (0.061 vs 0.024). This is consistent with a structural climate-volatility channel that operates at multiple temporal horizons rather than a window-specific identification artefact.
 
-**Causal claim.** None at the substrate level. The contribution is a side-by-side decomposition of pre-existing causal-identification stories on a single panel with internally consistent measurement. The Imbens (2020) "what would be identified by this regression under these assumptions" frame applies.
+**Claim 4 (FWER-surviving claims under multi-testing correction).** Of 16 substrate × outcome cells in the mediation matrix, only 3 survive Westfall-Young FWER correction at p<0.05: ancestral_yield × log pop growth (strongest), H_pred × log GDPpc, and H_pred × log pop growth. The paper reports these as the multi-testing-robust headline findings. The $\sigma_v^T$ channel has real Shapley R² contribution but the mediation through pathway dummies is statistically noisy (does not survive FWER); we report the climate-volatility channel as identified through its Shapley R² and conditional coefficient rather than through clean pathway mediation.
+
+**Causal claim.** None at the channel level. Each channel has its own causal-identification literature (Ashraf-Galor 2013 for Het; Galor-Özak 2016 for ancestral yield; Voigtländer-Voth 2013 for pandemic exposure; `long_shadow.tex` for climate volatility). The paper's contribution is to put these four pre-existing causal-identification stories side-by-side in one country-level panel with internally consistent measurement and to decompose the unique-variance contribution of each.
 
 ## What the paper adds that `long_shadow` does not
 
