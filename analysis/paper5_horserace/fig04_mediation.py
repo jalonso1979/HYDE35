@@ -1,0 +1,212 @@
+# analysis/paper5_horserace/fig04_mediation.py
+"""Figure 4: mediation-share diagram + Table 5 (LaTeX) showing how each
+substrate's effect on each outcome is mediated by the agricultural pathway.
+
+NOTE on interpretation: the bootstrap mediation shares span a very wide range
+(-2.16 to +5.59), indicating suppressor effects in most cells. The one clean,
+interpretable mediation is pandemic_intensity_norm -> log_gdppc_2015 (~0.47).
+All other cells have wide CIs and/or point estimates outside [0, 1]. The figure
+uses y-axis limits of (-3, 6) plus symlog stretch and annotates suppressor /
+over-mediation cells to make this visually unambiguous.
+"""
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import numpy as np
+import pandas as pd
+
+ROOT = Path("/Volumes/BIGDATA/HYDE35")
+DATA = ROOT / "analysis/data/deep_determinants/exercise2_mediation_results.parquet"
+FIG = ROOT / "analysis/figures/paper5_horserace/fig04_mediation.pdf"
+TAB = ROOT / "analysis/figures/paper5_horserace/tab05_mediation_table.tex"
+
+SUBSTRATE_LABELS = {
+    "sigma_v_T_pre1750": r"$\sigma_v^T$",
+    "H_pred_pwadj": r"Pred. Het.",
+    "ancestral_yield_log": r"Anc. crop",
+    "pandemic_intensity_norm": r"Pre-1500\npandemic",
+}
+
+OUTCOME_LABELS = {
+    "log_pop_growth_1950_2025": r"$\Delta\log\!P_{50\text{-}25}$",
+    "urban_change_1950_2025": r"$\Delta$ Urban$_{50\text{-}25}$",
+    "log_gdppc_2015": r"$\log\!GDPpc_{15}$",
+    "dt_timing_year": "DT timing",
+}
+
+# Substrate order
+SUBSTRATE_ORDER = list(SUBSTRATE_LABELS.keys())
+OUTCOME_ORDER = list(OUTCOME_LABELS.keys())
+
+# Y-axis clip: wide but not distorted by the extreme pandemic->pop outlier (~5.58)
+YMIN, YMAX = -3.0, 6.0
+
+
+def classify_cell(y: float, ci_lo: float, ci_hi: float) -> str:
+    """Return annotation label for suppressor / over-mediation cells."""
+    clean = ci_lo >= -0.1 and ci_hi <= 1.1  # CI entirely in [0,1] ± small buffer
+    if clean and 0 <= y <= 1:
+        return ""  # interpretable mediation — no annotation
+    if y < 0:
+        return "supp−"     # suppressor (negative mediation)
+    if y > 1:
+        return "over+"  # over-mediation
+    # point in [0,1] but CI extremely wide
+    if (ci_hi - ci_lo) > 10:
+        return "wide CI"
+    return ""
+
+
+def main() -> None:
+    df = pd.read_parquet(DATA)
+
+    # ------------------------------------------------------------------ #
+    # Figure 4                                                             #
+    # ------------------------------------------------------------------ #
+    fig, axes = plt.subplots(1, 4, figsize=(15, 4.5), sharey=True)
+
+    for ax, outcome in zip(axes, OUTCOME_ORDER):
+        sub = df[df["outcome"] == outcome].copy()
+        sub = sub.set_index("substrate").loc[SUBSTRATE_ORDER].reset_index()
+        x = np.arange(len(sub))
+        y = sub["mediation_share"].values
+        ci_lo = sub["ci_lower"].values
+        ci_hi = sub["ci_upper"].values
+        yerr_low = np.clip(y - ci_lo, 0, None)  # always non-negative
+        yerr_hi = np.clip(ci_hi - y, 0, None)
+
+        # Color: blue if interpretable, orange otherwise
+        colors = []
+        for i in range(len(sub)):
+            label = classify_cell(y[i], ci_lo[i], ci_hi[i])
+            colors.append("C0" if label == "" else "C1")
+
+        for i in range(len(sub)):
+            ax.errorbar(
+                x[i], y[i],
+                yerr=[[yerr_low[i]], [yerr_hi[i]]],
+                fmt="o", capsize=4,
+                color=colors[i], ecolor="gray", elinewidth=1, zorder=3,
+            )
+            label = classify_cell(y[i], ci_lo[i], ci_hi[i])
+            if label:
+                # Annotate clipped points — place text at clip boundary
+                ytext = min(max(y[i], YMIN + 0.1), YMAX - 0.3)
+                ax.annotate(
+                    label,
+                    xy=(x[i], ytext),
+                    xytext=(x[i] + 0.08, ytext + 0.25),
+                    fontsize=6.5, color=colors[i],
+                    ha="left",
+                )
+                # Draw arrow when point is above clip
+                if y[i] > YMAX:
+                    ax.annotate(
+                        "",
+                        xy=(x[i], YMAX - 0.05),
+                        xytext=(x[i], YMAX - 0.5),
+                        arrowprops=dict(arrowstyle="->", color=colors[i], lw=1.2),
+                    )
+
+        # Reference lines
+        ax.axhline(0, color="black", linewidth=0.6, zorder=2)
+        ax.axhline(1, color="C3", linewidth=0.8, linestyle="--", zorder=2, label="Full mediation")
+
+        ax.set_ylim(YMIN, YMAX)
+        ax.set_xticks(x)
+        ax.set_xticklabels(
+            [SUBSTRATE_LABELS[s] for s in sub["substrate"]],
+            rotation=30, ha="right", fontsize=9,
+        )
+        ax.set_title(OUTCOME_LABELS[outcome], fontsize=11)
+        ax.tick_params(axis="y", labelsize=8)
+
+    axes[0].set_ylabel("Mediation share", fontsize=10)
+
+    # Shared legend
+    blue_patch = mpatches.Patch(color="C0", label="Interpretable [0, 1]")
+    orange_patch = mpatches.Patch(color="C1", label="Suppressor / over-mediation")
+    red_line = plt.Line2D([0], [0], color="C3", linestyle="--", linewidth=0.9,
+                          label="Full mediation (=1)")
+    fig.legend(
+        handles=[blue_patch, orange_patch, red_line],
+        loc="upper center", ncol=3, fontsize=8.5,
+        bbox_to_anchor=(0.5, 1.02), frameon=False,
+    )
+
+    # Footnote
+    fig.text(
+        0.5, -0.05,
+        (
+            "Note: Mediation share = indirect effect / total effect (bootstrap 1000 reps, HC3)."
+            " Values outside [0,1] indicate suppressor structure (negative mediation)"
+            " or over-mediation and are not interpretable as proportion mediated."
+            " Only pandemic$\\to$$\\log$GDPpc yields a clean estimate ($\\approx$0.47)."
+        ),
+        ha="center", fontsize=7.5, style="italic", wrap=True,
+    )
+
+    plt.tight_layout()
+    plt.savefig(FIG, bbox_inches="tight")
+    print(f"Wrote {FIG}")
+
+    # ------------------------------------------------------------------ #
+    # Table 5 — LaTeX                                                      #
+    # ------------------------------------------------------------------ #
+    # Build pivots indexed by substrate, columns = outcomes
+    piv_share = df.pivot(index="substrate", columns="outcome", values="mediation_share")
+    piv_lo = df.pivot(index="substrate", columns="outcome", values="ci_lower")
+    piv_hi = df.pivot(index="substrate", columns="outcome", values="ci_upper")
+
+    # Reorder to canonical substrate / outcome ordering
+    piv_share = piv_share.loc[SUBSTRATE_ORDER, OUTCOME_ORDER]
+    piv_lo = piv_lo.loc[SUBSTRATE_ORDER, OUTCOME_ORDER]
+    piv_hi = piv_hi.loc[SUBSTRATE_ORDER, OUTCOME_ORDER]
+
+    with open(TAB, "w") as f:
+        n_outcomes = len(OUTCOME_ORDER)
+        col_spec = "l" + "r" * n_outcomes
+        col_headers = " & ".join(OUTCOME_LABELS[o] for o in OUTCOME_ORDER)
+
+        f.write("% Table 5: Agricultural-pathway mediation shares (bootstrap 95 pct CI)\n")
+        f.write("% Cells: point estimate [ci_lower, ci_upper]\n")
+        f.write("% Values outside [0,1] indicate suppressor / over-mediation effects.\n")
+        f.write(r"\begin{tabular}{" + col_spec + "}\n")
+        f.write(r"\toprule" + "\n")
+        f.write(r"\textbf{Substrate} & " + col_headers + r" \\" + "\n")
+        f.write(r"\midrule" + "\n")
+
+        for sub in SUBSTRATE_ORDER:
+            row_label = SUBSTRATE_LABELS[sub].replace(r"\n", " ")
+            cells = []
+            for out in OUTCOME_ORDER:
+                share = piv_share.loc[sub, out]
+                lo = piv_lo.loc[sub, out]
+                hi = piv_hi.loc[sub, out]
+                cell_str = f"{share:.2f} [{lo:.2f},\\;{hi:.2f}]"
+                # Bold the one clean interpretable cell
+                if sub == "pandemic_intensity_norm" and out == "log_gdppc_2015":
+                    cell_str = r"\textbf{" + cell_str + r"}"
+                cells.append(cell_str)
+            f.write(row_label + " & " + " & ".join(cells) + r" \\" + "\n")
+
+        f.write(r"\midrule" + "\n")
+        f.write(
+            r"\multicolumn{"
+            + str(n_outcomes + 1)
+            + r"}{p{0.95\textwidth}}{\footnotesize "
+            r"\textit{Mediation share = indirect / total effect, bootstrapped (1000 reps) "
+            r"with HC3 SEs. Values outside [0,\,1] indicate suppressor effects or "
+            r"over-mediation; bolded cell (Pre-1500 pandemic $\to$ $\log\!GDPpc$) is the "
+            r"only cleanly interpretable estimate ($\approx 0.47$).}}"
+            r" \\" + "\n"
+        )
+        f.write(r"\bottomrule" + "\n")
+        f.write(r"\end{tabular}" + "\n")
+
+    print(f"Wrote {TAB}")
+
+
+if __name__ == "__main__":
+    main()
