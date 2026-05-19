@@ -17,7 +17,7 @@ from analysis.paper5_horserace.mediation import (
     mediation_share_partial_r2_with_ci,
 )
 from analysis.paper5_horserace.exercise1_shapley import (
-    CLIMATE_BUNDLE, OUTCOMES, CONTROLS,
+    CLIMATE_BUNDLE, FUNCTIONAL_BUNDLE, OUTCOMES, CONTROLS,
 )
 
 ROOT = Path("/Volumes/BIGDATA/HYDE35")
@@ -25,7 +25,7 @@ PANEL = ROOT / "analysis/data/deep_determinants_horserace.parquet"
 OUT = ROOT / "analysis/data/deep_determinants/exercise2_mediation_results.parquet"
 
 SCALAR_SUBSTRATES = [
-    "H_pred_pwadj",
+    "neolithic_frac",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
@@ -37,9 +37,10 @@ def main() -> None:
     df = pd.read_parquet(PANEL)
 
     rows = []
-    cells = [("climate_bundle", list(CLIMATE_BUNDLE), "partial_r2")] + [
-        (s, s, "beta_attenuation") for s in SCALAR_SUBSTRATES
-    ]
+    cells = [
+        ("climate_bundle", list(CLIMATE_BUNDLE), "partial_r2"),
+        ("functional_alleles", list(FUNCTIONAL_BUNDLE), "partial_r2"),
+    ] + [(s, s, "beta_attenuation") for s in SCALAR_SUBSTRATES]
     total = len(OUTCOMES) * len(cells)
     i = 0
     for outcome in OUTCOMES:
@@ -76,10 +77,10 @@ def main() -> None:
 
     pivot = out_df.pivot(index="substrate", columns="outcome", values="mediation_share")
     pivot = pivot.reindex(
-        index=["climate_bundle"] + SCALAR_SUBSTRATES,
+        index=["climate_bundle", "functional_alleles"] + SCALAR_SUBSTRATES,
         columns=OUTCOMES,
     )
-    print("\nMediation shares (4 substrates × 6 outcomes):")
+    print("\nMediation shares (5 substrates × 6 outcomes):")
     print(pivot.round(3).to_string())
 
 

@@ -21,7 +21,7 @@ from analysis.paper5_horserace.mediation import (
     mediation_share_partial_r2_with_ci,
 )
 from analysis.paper5_horserace.exercise1_shapley import (
-    CLIMATE_BUNDLE, OUTCOMES, CONTROLS,
+    CLIMATE_BUNDLE, FUNCTIONAL_BUNDLE, OUTCOMES, CONTROLS,
 )
 from analysis.paper5_horserace.subsamples import SUBSAMPLE_STAGES
 
@@ -30,7 +30,7 @@ PANEL = ROOT / "analysis/data/deep_determinants_horserace.parquet"
 OUT = ROOT / "analysis/data/deep_determinants/subsample_stability.parquet"
 
 SCALAR_SUBSTRATES = [
-    "H_pred_pwadj",
+    "neolithic_frac",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
@@ -44,9 +44,10 @@ def main() -> None:
     )
     print(f"Pathway dummies: {pathway_cols}")
 
-    cells = [("climate_bundle", list(CLIMATE_BUNDLE), "partial_r2")] + [
-        (s, s, "beta_attenuation") for s in SCALAR_SUBSTRATES
-    ]
+    cells = [
+        ("climate_bundle", list(CLIMATE_BUNDLE), "partial_r2"),
+        ("functional_alleles", list(FUNCTIONAL_BUNDLE), "partial_r2"),
+    ] + [(s, s, "beta_attenuation") for s in SCALAR_SUBSTRATES]
 
     rows = []
     total_stages = len(SUBSAMPLE_STAGES)

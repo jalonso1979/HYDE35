@@ -24,14 +24,20 @@ CLIMATE_BUNDLE = (
     "sigma_v_T_pre1750",
     "sigma_v_P_pre1750",
 )
+FUNCTIONAL_BUNDLE = (
+    "fa_lct", "fa_adh1b", "fa_amy1", "fa_edar",
+    "fa_darc", "fa_slc24a5", "fa_hbb", "fa_fads",
+)
 SUBSTRATES = [
     CLIMATE_BUNDLE,
-    "H_pred_pwadj",
+    FUNCTIONAL_BUNDLE,
+    "neolithic_frac",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
-SUBSTRATE_KEYS = ["climate_bundle", "H_pred_pwadj",
-                  "ancestral_yield_log", "pandemic_intensity_norm"]
+SUBSTRATE_KEYS = ["climate_bundle", "functional_alleles",
+                  "neolithic_frac", "ancestral_yield_log",
+                  "pandemic_intensity_norm"]
 OUTCOMES = [
     "log_popd_1500",
     "log_popd_2025",
@@ -70,7 +76,7 @@ def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
     import statsmodels.api as sm
 
     pathway_cols = sorted(c for c in df.columns if c.startswith("pathway_"))[1:]
-    flat_substrates = list(CLIMATE_BUNDLE) + [
+    flat_substrates = list(CLIMATE_BUNDLE) + list(FUNCTIONAL_BUNDLE) + [
         s for s in SUBSTRATES if isinstance(s, str)
     ]
     regressors = flat_substrates + CONTROLS
@@ -88,7 +94,15 @@ def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
         "p_mean_pre1750": r"~~Mean P ($\bar P$)",
         "sigma_v_T_pre1750": r"~~T volatility ($\sigma_v^T$)",
         "sigma_v_P_pre1750": r"~~P volatility ($\sigma_v^P$)",
-        "H_pred_pwadj": r"Pred.\ heterozygosity",
+        "fa_lct": r"~~LCT",
+        "fa_adh1b": r"~~ADH1B",
+        "fa_amy1": r"~~AMY1",
+        "fa_edar": r"~~EDAR",
+        "fa_darc": r"~~DARC",
+        "fa_slc24a5": r"~~SLC24A5",
+        "fa_hbb": r"~~HBB",
+        "fa_fads": r"~~FADS",
+        "neolithic_frac": r"Neolithic ancestry frac.",
         "ancestral_yield_log": r"Ancestral crop yield (log)",
         "pandemic_intensity_norm": r"Pandemic intensity",
         "abs_lat": r"Abs.\ latitude",
@@ -122,9 +136,14 @@ def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
         for r in CLIMATE_BUNDLE:
             _write_regressor_row(f, r, OUTCOMES, fits, label_map)
 
-        # Non-climate substrate block
+        # Functional-allele bundle block
+        f.write("\\multicolumn{" + str(len(OUTCOMES) + 1) + "}{l}{\\textit{Functional-allele bundle}} \\\\\n")
+        for r in FUNCTIONAL_BUNDLE:
+            _write_regressor_row(f, r, OUTCOMES, fits, label_map)
+
+        # Other substrates block
         f.write("\\multicolumn{" + str(len(OUTCOMES) + 1) + "}{l}{\\textit{Other substrates}} \\\\\n")
-        for r in ["H_pred_pwadj", "ancestral_yield_log", "pandemic_intensity_norm"]:
+        for r in ["neolithic_frac", "ancestral_yield_log", "pandemic_intensity_norm"]:
             _write_regressor_row(f, r, OUTCOMES, fits, label_map)
 
         # Controls block
@@ -176,7 +195,8 @@ def main() -> None:
         )
         # Map result keys to our canonical SUBSTRATE_KEYS for clean output
         key_map = {"+".join(CLIMATE_BUNDLE): "climate_bundle",
-                   "H_pred_pwadj": "H_pred_pwadj",
+                   "+".join(FUNCTIONAL_BUNDLE): "functional_alleles",
+                   "neolithic_frac": "neolithic_frac",
                    "ancestral_yield_log": "ancestral_yield_log",
                    "pandemic_intensity_norm": "pandemic_intensity_norm"}
         for raw_key, phi in result["shapley"].items():

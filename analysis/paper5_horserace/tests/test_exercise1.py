@@ -21,8 +21,8 @@ def test_columns_and_shape():
     assert expected.issubset(set(df.columns)), (
         f"Missing columns: {expected - set(df.columns)}"
     )
-    # 6 outcomes × 4 substrates = 24 rows
-    assert len(df) == 24, f"Expected 24 rows, got {len(df)}"
+    # 6 outcomes × 5 substrates = 30 rows
+    assert len(df) == 30, f"Expected 30 rows, got {len(df)}"
 
 
 def test_shapley_values_nonnegative():

@@ -26,12 +26,14 @@ TAB = ROOT / "analysis/figures/paper5_horserace/tab04_shapley_table.tex"
 
 SUBSTRATE_LABELS = {
     "climate_bundle": r"Climate bundle",
-    "H_pred_pwadj": r"Predicted Het",
+    "functional_alleles": r"Functional alleles",
+    "neolithic_frac": r"Neolithic frac.",
     "ancestral_yield_log": r"Anc.\ crop yield",
     "pandemic_intensity_norm": r"Pre-1500 pandemic int.",
 }
-SUBSTRATE_ORDER = ["climate_bundle", "H_pred_pwadj",
-                   "ancestral_yield_log", "pandemic_intensity_norm"]
+SUBSTRATE_ORDER = ["climate_bundle", "functional_alleles",
+                   "neolithic_frac", "ancestral_yield_log",
+                   "pandemic_intensity_norm"]
 OUTCOME_LABELS = {
     "log_popd_1500": r"$\log D_{1500}$",
     "log_popd_2025": r"$\log D_{2025}$",

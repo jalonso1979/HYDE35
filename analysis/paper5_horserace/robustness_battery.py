@@ -27,6 +27,7 @@ from analysis.paper5_horserace.mediation import (
 from analysis.paper5_horserace.shapley import shapley_r2_decomposition
 from analysis.paper5_horserace.exercise1_shapley import (
     CLIMATE_BUNDLE,
+    FUNCTIONAL_BUNDLE,
     OUTCOMES,
     CONTROLS,
 )
@@ -38,13 +39,13 @@ CLIMATE_RAW = ROOT / "analysis/data/country_climate_1421_2025.parquet"
 OUT = ROOT / "analysis/data/deep_determinants/robustness_battery.parquet"
 
 SCALAR_SUBSTRATES = [
-    "H_pred_pwadj",
+    "neolithic_frac",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
 
-SUBSTRATES_FOR_SHAPLEY = [list(CLIMATE_BUNDLE)] + SCALAR_SUBSTRATES
-SUBSTRATE_KEYS = ["climate_bundle"] + SCALAR_SUBSTRATES
+SUBSTRATES_FOR_SHAPLEY = [list(CLIMATE_BUNDLE), list(FUNCTIONAL_BUNDLE)] + SCALAR_SUBSTRATES
+SUBSTRATE_KEYS = ["climate_bundle", "functional_alleles"] + SCALAR_SUBSTRATES
 
 PATHWAY_COLS_DEFAULT = ["pathway_1", "pathway_2", "pathway_3", "pathway_4"]
 
@@ -56,6 +57,7 @@ def _pathway_cols(df: pd.DataFrame) -> list[str]:
 def _substrate_cells():
     """Yield (substrate_key, substrate_cols, method) per cell."""
     yield ("climate_bundle", list(CLIMATE_BUNDLE), "partial_r2")
+    yield ("functional_alleles", list(FUNCTIONAL_BUNDLE), "partial_r2")
     for s in SCALAR_SUBSTRATES:
         yield (s, [s], "beta_attenuation")
 
@@ -290,7 +292,8 @@ def check_climate_placebo(
         )
         # Map raw keys to canonical
         key_map = {"+".join(CLIMATE_BUNDLE): "climate_bundle",
-                   "H_pred_pwadj": "H_pred_pwadj",
+                   "+".join(FUNCTIONAL_BUNDLE): "functional_alleles",
+                   "neolithic_frac": "neolithic_frac",
                    "ancestral_yield_log": "ancestral_yield_log",
                    "pandemic_intensity_norm": "pandemic_intensity_norm"}
         for raw_k, phi in result["shapley"].items():
@@ -334,7 +337,8 @@ def check_pre1900_outcome(df: pd.DataFrame) -> pd.DataFrame:
         controls=CONTROLS,
     )
     key_map = {"+".join(CLIMATE_BUNDLE): "climate_bundle",
-               "H_pred_pwadj": "H_pred_pwadj",
+               "+".join(FUNCTIONAL_BUNDLE): "functional_alleles",
+               "neolithic_frac": "neolithic_frac",
                "ancestral_yield_log": "ancestral_yield_log",
                "pandemic_intensity_norm": "pandemic_intensity_norm"}
     for raw_k, phi in result["shapley"].items():
@@ -406,7 +410,8 @@ def check_climate_A_partial(df: pd.DataFrame) -> pd.DataFrame:
             controls=CONTROLS,
         )
         key_map = {"+".join(CLIMATE_BUNDLE): "climate_bundle",
-                   "H_pred_pwadj": "H_pred_pwadj",
+                   "+".join(FUNCTIONAL_BUNDLE): "functional_alleles",
+                   "neolithic_frac": "neolithic_frac",
                    "ancestral_yield_log": "ancestral_yield_log",
                    "pandemic_intensity_norm": "pandemic_intensity_norm"}
         for raw_k, phi in result["shapley"].items():

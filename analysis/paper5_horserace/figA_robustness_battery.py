@@ -39,7 +39,8 @@ FIG_BW = ROOT / "analysis/figures/paper5_horserace/figA_robustness_battery_bw.pd
 
 SUBSTRATES = [
     "climate_bundle",
-    "H_pred_pwadj",
+    "functional_alleles",
+    "neolithic_frac",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
@@ -54,7 +55,8 @@ OUTCOMES = [
 
 SUB_LABELS = {
     "climate_bundle": "Climate bundle",
-    "H_pred_pwadj": r"$\hat{H}$ (heterozygosity)",
+    "functional_alleles": "Functional alleles",
+    "neolithic_frac": "Neolithic frac.",
     "ancestral_yield_log": "Crop yield (log)",
     "pandemic_intensity_norm": "Pandemic intensity",
 }

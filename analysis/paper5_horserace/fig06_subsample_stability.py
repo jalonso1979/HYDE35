@@ -33,7 +33,8 @@ FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig06_subsample_stability_bw.
 
 SUBSTRATES = [
     "climate_bundle",
-    "H_pred_pwadj",
+    "functional_alleles",
+    "neolithic_frac",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
@@ -47,7 +48,8 @@ OUTCOMES = [
 ]
 SUBSTRATE_LABELS = {
     "climate_bundle": "Climate bundle",
-    "H_pred_pwadj": "Predicted Het.",
+    "functional_alleles": "Functional alleles",
+    "neolithic_frac": "Neolithic frac.",
     "ancestral_yield_log": "Anc. crop yield",
     "pandemic_intensity_norm": "Pre-1500 pandemic",
 }

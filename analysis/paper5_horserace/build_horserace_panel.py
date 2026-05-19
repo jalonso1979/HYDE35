@@ -74,6 +74,8 @@ def main() -> None:
     yld = pd.read_parquet(ROOT / "analysis/data/deep_determinants/ancestral_crop_yield.parquet")
     pan = pd.read_parquet(ROOT / "analysis/data/deep_determinants/pandemic_intensity_pre1500.parquet")
     out = pd.read_parquet(ROOT / "analysis/data/deep_determinants/modern_outcomes.parquet")
+    fa = pd.read_parquet(ROOT / "analysis/data/deep_determinants/functional_alleles_pwadj.parquet")
+    neo = pd.read_parquet(ROOT / "analysis/data/deep_determinants/neolithic_fraction.parquet")
 
     print(f"  climate bundle: {len(climate)} | pathways: {len(pathways)} | geo: {len(geo)}")
     print(f"  Het: {len(het)} | state: {len(state)} | yield: {len(yld)} | pandemic: {len(pan)} | outcomes: {len(out)}")
@@ -87,6 +89,10 @@ def main() -> None:
     df = df.merge(pan[["iso3", "pandemic_intensity", "n_pandemic_years", "pandemic_intensity_norm"]],
                   on="iso3", how="left")
     df = df.merge(out.drop(columns=["source"], errors="ignore"), on="iso3", how="left")
+    fa_cols = [c for c in fa.columns if c.startswith("fa_")]
+    df = df.merge(fa[["iso3"] + fa_cols], on="iso3", how="left")
+    df = df.merge(neo[["iso3", "neolithic_frac", "neolithic_frac_strict"]],
+                  on="iso3", how="left")
 
     # Drop duplicates and filter to valid ISO3 codes
     df = df.drop_duplicates(subset=["iso3"])

@@ -34,7 +34,8 @@ TAB = ROOT / "analysis/figures/paper5_horserace/tab05_mediation_table.tex"
 
 SUBSTRATE_LABELS = {
     "climate_bundle": r"Climate bundle",
-    "H_pred_pwadj": r"Pred. Het.",
+    "functional_alleles": "Functional\nalleles",
+    "neolithic_frac": "Neolithic\nfrac.",
     "ancestral_yield_log": r"Anc. crop",
     "pandemic_intensity_norm": "Pre-1500\npandemic",
 }
@@ -84,7 +85,7 @@ def main() -> None:
     # Figure 4                                                             #
     # ------------------------------------------------------------------ #
     # Marker / linestyle differentiation for B&W
-    MARKERS = ["o", "s", "^", "D"]   # per substrate position
+    MARKERS = ["o", "s", "^", "D", "v"]   # per substrate position (now 5)
     if BW:
         color_interp = "black"
         color_suppressor = "0.55"
@@ -174,7 +175,7 @@ def main() -> None:
             plt.Line2D([0], [0], marker=MARKERS[k], color="black",
                        linestyle="None", markersize=6,
                        label=list(SUBSTRATE_LABELS.values())[k])
-            for k in range(4)
+            for k in range(len(SUBSTRATE_ORDER))
         ]
         fig.legend(
             handles=[interp_handle, supp_handle, ref_line] + marker_handles,
