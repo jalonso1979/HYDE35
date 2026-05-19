@@ -35,11 +35,13 @@ CLIMATE_BUNDLE = [
     "sigma_v_P_pre1750",
 ]
 
-# Headline 4 substrates for the cross-substrate scatter and 4×4 correlation table.
-# σᵥᵀ is the natural single-value representative of the climate bundle for display.
+# Headline 5 substrates for the cross-substrate scatter and 5×5 correlation table.
+# σᵥᵀ represents the climate bundle; AMY1 represents the functional-allele bundle.
+# Each is the most-interpretable single member of its coalition for display.
 SUBSTRATES = [
     "sigma_v_T_pre1750",
-    "H_pred_pwadj",
+    "fa_amy1",
+    "neolithic_frac",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
@@ -61,8 +63,9 @@ CONTROLS = [
 
 # Long labels for the pairplot axes
 AXIS_LABELS = {
-    "sigma_v_T_pre1750": r"$\sigma_v^T$ (1421-1750)",
-    "H_pred_pwadj": r"Predicted Het ($H_i$)",
+    "sigma_v_T_pre1750": r"$\sigma_v^T$ (climate rep.)",
+    "fa_amy1": r"AMY1 (func. rep.)",
+    "neolithic_frac": r"Neolithic ancestry frac.",
     "ancestral_yield_log": r"Anc. crop yield (log)",
     "pandemic_intensity_norm": r"Pre-1500 pandemic",
 }
@@ -70,12 +73,14 @@ AXIS_LABELS = {
 # Short labels for LaTeX table column headers
 SHORT_LABELS = {
     "sigma_v_T_pre1750": r"$\sigma_v^T$",
-    "H_pred_pwadj": r"$H_i$",
+    "fa_amy1": r"AMY1",
+    "neolithic_frac": r"$\nu$",
     "ancestral_yield_log": r"Crop yield",
     "pandemic_intensity_norm": r"Pandemic",
     "t_mean_pre1750": r"$\bar T$",
     "p_mean_pre1750": r"$\bar P$",
     "sigma_v_P_pre1750": r"$\sigma_v^P$",
+    "H_pred_pwadj": r"$H_i$",
 }
 
 FULL_LABELS = {
@@ -83,7 +88,16 @@ FULL_LABELS = {
     "p_mean_pre1750": r"Climate: mean $P$ 1421--1750",
     "sigma_v_T_pre1750": r"Climate: $\sigma_v^T$ 1421--1750",
     "sigma_v_P_pre1750": r"Climate: $\sigma_v^P$ 1421--1750",
-    "H_pred_pwadj": r"Predicted heterozygosity $H_i$",
+    "fa_lct": r"Functional: LCT (lactase)",
+    "fa_adh1b": r"Functional: ADH1B (alcohol)",
+    "fa_amy1": r"Functional: AMY1 (starch)",
+    "fa_edar": r"Functional: EDAR (E.\ Asian morphology)",
+    "fa_darc": r"Functional: DARC (malaria/Duffy)",
+    "fa_slc24a5": r"Functional: SLC24A5 (pigmentation)",
+    "fa_hbb": r"Functional: HBB (malaria/sickle)",
+    "fa_fads": r"Functional: FADS1/2 (PUFA)",
+    "neolithic_frac": r"Neolithic ancestry fraction",
+    "H_pred_pwadj": r"Predicted heterozygosity $H_i$ (demoted)",
     "ancestral_yield_log": r"Ancestral crop yield (log)",
     "pandemic_intensity_norm": r"Pre-1500 pandemic intensity",
     "log_popd_1500": r"$\log$ pop density 1500",
@@ -107,7 +121,8 @@ FULL_LABELS = {
 def _descriptives_table(df: pd.DataFrame, out: Path) -> None:
     """Write mean / SD / N for substrates, outcomes, controls as a LaTeX tabular.
 
-    Substrate block: 4 climate-bundle members + H + A + Π (7 rows).
+    Substrate block: 4 climate-bundle members + 8 functional alleles +
+        Neolithic frac + A + Π (15 rows).
     Outcome block: 2 density + 4 modern = 6 rows.
     Controls: 5 geography vars.
     """
@@ -116,8 +131,12 @@ def _descriptives_table(df: pd.DataFrame, out: Path) -> None:
         s = df[c].dropna()
         return (FULL_LABELS.get(c, c), s.mean(), s.std(), len(s))
 
-    substrates_full = CLIMATE_BUNDLE + ["H_pred_pwadj", "ancestral_yield_log",
-                                       "pandemic_intensity_norm"]
+    functional_bundle = ["fa_lct", "fa_adh1b", "fa_amy1", "fa_edar",
+                         "fa_darc", "fa_slc24a5", "fa_hbb", "fa_fads"]
+    substrates_full = (CLIMATE_BUNDLE
+                       + functional_bundle
+                       + ["neolithic_frac", "ancestral_yield_log",
+                          "pandemic_intensity_norm"])
 
     with open(out, "w") as f:
         f.write("% Table 1 — Descriptive statistics\n")
