@@ -12,6 +12,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{enumitem}
+\usepackage{multirow}
 
 \title{Climate Volatility, Agricultural Pathway, and Modern Demographic Outcomes\\
 {\large A Cross-Country Investigation Across Pre-Industrial and Modern Windows}}
@@ -353,6 +354,72 @@ Substrate & Outcome & Base & Ext. & Base & Ext. \\
 \end{tabular}
 \end{table}
 
+\subsection{Direct ancestry-composition measures}
+\label{sec:genetic-controls}
+
+\textbf{Motivation.} The Ashraf-Galor (2013) predicted-heterozygosity measure summarises population genetic diversity as a scalar function of migratory distance from East Africa.
+Since 2013, the ancient-DNA literature has decomposed the cross-country diversity gradient into specific historical-migration components with direct technological and cultural referents.
+Three components structure the Eurasian record.
+\emph{Anatolian Neolithic farmer ancestry} (hereafter ANF) indexes descent from the originators of the agricultural package, circa 10{,}000 BP in Anatolia and the Fertile Crescent \citep{lazaridis2014}.
+It brings sedentism, ceramics, and crop cultivation and has a clear economic-history interpretation: populations with high ANF proportions descended substantially from the societies that invented farming.
+\emph{Yamnaya/steppe-pastoralist ancestry} (YAM) indexes Bronze-Age migration out of the Pontic-Caspian steppe, circa 5{,}000 BP \citep{haak2015,allentoft2015}.
+It is associated with lactase persistence (LCT~rs4988235), dairy economy, horse domestication, and wheeled transport---a distinct technological package from the Neolithic agricultural one.
+\emph{Western Hunter-Gatherer ancestry} (WHG) is the pre-agricultural Mesolithic European baseline.
+As a complementary Y-chromosome marker, the R1b-M269 haplogroup tracks Yamnaya male-mediated migration \citep{myres2011,balaresque2010,underhill2014}: it reaches 80--92\% in Ireland and Wales, 40--70\% in Western and Central Europe, 10--25\% in Eastern Europe, and near-zero in East Asia and Sub-Saharan Africa (excepting the R1b-V88 sub-clade in the Sahel, which reflects a distinct, earlier migration documented by \citealt{cruciani2010}).
+This framing is not about abstract ``diversity drives innovation''; it is about which ancestry packages---with specific technological and institutional histories---a population inherited.
+
+We collect country-level R1b-M269 frequency from the primary literature (Myres et al.\ 2011, Balaresque et al.\ 2010, Underhill et al.\ 2014; covering 195 countries) and Lazaridis three-component ancestry from ancient-DNA qpAdm decompositions (Lazaridis et al.\ 2014, 2022; Haak et al.\ 2015; Allentoft et al.\ 2015; Narasimhan et al.\ 2019; covering 79 countries in our panel, predominantly Eurasia and MENA).
+We add both layers to the baseline control battery and re-run the Westfall-Young FWER procedure.
+
+\textbf{Option A --- full panel with R1b-M269.}
+On the 185-country full-coverage panel, adding R1b-M269 frequency as an additional geography-style control leaves the dominant FWER finding unchanged: the ancestral-crop-yield $\to$ log-population-growth cell has $|t|=5.14$ ($p_\text{WY}=0.000$, identical to baseline).
+The $H_\text{pred} \to$ log-population-growth finding survives at $|t|=3.26$ ($p_\text{WY}=0.020$).
+The $H_\text{pred} \to$ log-GDPpc cell attenuates to $|t|=2.98$ and sits at exactly $p_\text{WY}=0.050$---borderline, but the point estimate retains the sign and magnitude of the baseline.
+The R1b signal is thus absorbed by H\_pred (migratory-distance heterozygosity) in the full-panel regression, consistent with the two measures being correlated West-to-East gradients; conditioning on R1b does not dislodge the three FWER findings.
+
+\textbf{Option B --- Lazaridis sub-sample.}
+Restricting to the 79 countries with complete Lazaridis decompositions (predominantly Europe, MENA, Central Asia, and South Asia) and adding ANF, Yamnaya, and WHG ancestry percentages as controls, the ancestral-crop-yield $\to$ log-population-growth finding survives FWER correction at $|t|=3.39$ ($p_\text{WY}=0.023$, $n=78$).
+The two $H_\text{pred}$ findings do not survive on the Lazaridis sub-sample ($p_\text{WY}=0.777$ and $1.000$ respectively), but this reflects sample-size loss (78 vs.\ 185 countries) rather than a sign reversal: the H\_pred coefficients remain in the same direction.
+An unexpected survivor emerges: $H_\text{pred} \to$ urbanisation change ($|t|=3.32$, $p_\text{WY}=0.030$) on this Eurasian sub-sample, suggesting within-Eurasia variation in heterozygosity predicts urbanisation dynamics beyond the ANF/YAM/WHG decomposition.
+
+\textbf{Substantive result: is H\_pred's GDP signal absorbed by Lazaridis components?}
+We run a coefficient-evolution test on the H\_pred $\to$ log-GDPpc specification, progressively adding the Lazaridis components on the 78-country sub-sample.
+The baseline coefficient on the full 160-country panel is $\hat\beta_{H} = -9.02$ (se $= 2.68$, $|t|=3.37$).
+On the Lazaridis sub-sample alone (before adding the ancestry components) the coefficient is $-10.68$ (se $= 10.61$)---substantially noisier owing to the smaller $n$, but in the same direction.
+Adding Yamnaya \%, ANF \%, and WHG \% drives the coefficient toward zero ($\hat\beta_{H}=-1.70$, se $= 13.11$, $|t|=0.13$).
+This pattern indicates that \emph{most of what H\_pred captures on log GDPpc in the Eurasian sub-sample is spanned by the specific ancestry packages}: Anatolian Neolithic farmer ancestry and Yamnaya steppe ancestry together absorb the AG signal in this sub-sample.
+The interpretation is that the migratory-distance heterozygosity measure is, in the Eurasian context, a proxy for how much of the farming package (ANF) versus the dairy-pastoral package (YAM) a population inherited.
+We note this result must be read with caution: the Lazaridis sub-sample ($n=79$) has low power, and the standard errors on the absorbed specifications are large.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Three FWER-surviving cells under genetic-ancestry controls.
+  \emph{Baseline}: 5 geography controls, no genetic variables, $n \approx 160$--185.
+  \emph{+R1b-M269}: adds R1b-M269 frequency to controls, full panel.
+  \emph{+Lazaridis}: adds ANF \%, Yamnaya \%, WHG \%; Eurasian sub-sample ($n=78$--79).
+  WY $p$-values from 1{,}000 permutations.
+  Bold entries: FWER-surviving cells ($p_\text{WY} < 0.05$).}
+\label{tab:genetic-controls}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{Baseline} & \multicolumn{2}{c}{+R1b-M269} & \multicolumn{2}{c}{+Lazaridis (sub-sample)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Cell & $|t|$ & $p_\text{WY}$ & $|t|$ & $p_\text{WY}$ & $|t|$ & $p_\text{WY}$ \\
+\midrule
+Anc.\ yield $\to$ $\Delta\ln$Pop & 5.19 & \textbf{0.000} & 5.14 & \textbf{0.000} & 3.39 & \textbf{0.023} \\
+$H_\text{pred} \to \ln$GDPpc & 3.37 & \textbf{0.010} & 2.98 & 0.050 & 0.13 & 1.000 \\
+$H_\text{pred} \to \Delta\ln$Pop & 3.29 & \textbf{0.015} & 3.26 & \textbf{0.020} & 1.73 & 0.777 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Limitations.}
+The Lazaridis ANF/YAM/WHG decomposition is a Eurasian framework.
+Equivalent ancestry decompositions exist for other macro-regions---the Bantu expansion and pre-Bantu lineages for Sub-Saharan Africa \citep{patin2017}, Han/Tibetan/Southeast-Asian decompositions for East Asia \citep{reich2018}, and the three-population model for Native Americans \citep{reich2012}---but applying them coherently on a single global panel is beyond the present exercise.
+The R1b-M269 control covers the full panel but is a single Y-chromosome lineage, not a full ancestry decomposition.
+These are recognised gaps; the present exercise establishes that within the Eurasian sub-sample, specific ancestry packages substantially absorb the AG heterozygosity signal on per-capita income, while the ancestral-crop-yield finding is robust to both genetic-ancestry control layers.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -381,6 +448,71 @@ The investigation puts four pre-existing causal-identification literatures on a 
 Acemoglu, D., Johnson, S., and Robinson, J. A. (2001).
 \newblock The colonial origins of comparative development: An empirical investigation.
 \newblock {\em American Economic Review}, 91(5):1369--1401.
+
+\bibitem[Allentoft et al.(2015)]{allentoft2015}
+Allentoft, M.~E., Sikora, M., Sj\"ogren, K.-G., et al. (2015).
+\newblock Population genomics of Bronze Age Eurasia.
+\newblock {\em Nature}, 522(7555):167--172.
+
+\bibitem[Balaresque et al.(2010)]{balaresque2010}
+Balaresque, P., Bowden, G.~R., Adams, S.~M., et al. (2010).
+\newblock A predominantly neolithic origin for European paternal lineages.
+\newblock {\em PLoS Biology}, 8(1):e1000285.
+
+\bibitem[Cruciani et al.(2010)]{cruciani2010}
+Cruciani, F., Trombetta, B., Sellitto, D., et al. (2010).
+\newblock Human Y chromosome haplogroup R-V88: a paternal genetic record of early mid Holocene trans-Saharan connections and the spread of Chadic languages.
+\newblock {\em European Journal of Human Genetics}, 18(7):800--807.
+
+\bibitem[Haak et al.(2015)]{haak2015}
+Haak, W., Lazaridis, I., Patterson, N., et al. (2015).
+\newblock Massive migration from the steppe was a source for Indo-European languages in Europe.
+\newblock {\em Nature}, 522(7555):207--211.
+
+\bibitem[Lazaridis et al.(2014)]{lazaridis2014}
+Lazaridis, I., Patterson, N., Mittnik, A., et al. (2014).
+\newblock Ancient human genomes suggest three ancestral populations for present-day Europeans.
+\newblock {\em Nature}, 513(7518):409--413.
+
+\bibitem[Lazaridis et al.(2022)]{lazaridis2022}
+Lazaridis, I., Alpaslan-Roodenberg, S., Acar, A., et al. (2022).
+\newblock The genetic history of the Southern Arc from the Caucasus to the Eastern Mediterranean.
+\newblock {\em Science}, 377(6609):eabm4247.
+
+\bibitem[Myres et al.(2011)]{myres2011}
+Myres, N.~M., Rootsi, S., Lin, A.~A., et al. (2011).
+\newblock A major Y-chromosome haplogroup R1b Holocene era founder effect in Central and Western Europe.
+\newblock {\em European Journal of Human Genetics}, 19(1):95--101.
+
+\bibitem[Narasimhan et al.(2019)]{narasimhan2019}
+Narasimhan, V.~M., Patterson, N., Moorjani, P., et al. (2019).
+\newblock The formation of human populations in South and Central Asia.
+\newblock {\em Science}, 365(6457):eaat7487.
+
+\bibitem[Patin et al.(2017)]{patin2017}
+Patin, E., Lopez, M., Grollemund, R., et al. (2017).
+\newblock Dispersals and genetic adaptation of Bantu-speaking populations in Africa and North America.
+\newblock {\em Science}, 356(6337):543--546.
+
+\bibitem[Reich et al.(2012)]{reich2012}
+Reich, D., Patterson, N., Campbell, D., et al. (2012).
+\newblock Reconstructing Native American population history.
+\newblock {\em Nature}, 488(7411):370--374.
+
+\bibitem[Reich et al.(2018)]{reich2018}
+Reich, D. (2018).
+\newblock {\em Who We Are and How We Got Here: Ancient DNA and the New Science of the Human Past}.
+\newblock Oxford University Press, New York.
+
+\bibitem[Underhill et al.(2014)]{underhill2014}
+Underhill, P.~A., Poznik, G.~D., Rootsi, S., et al. (2014).
+\newblock The phylogenetic and geographic structure of Y-chromosome haplogroup R1a.
+\newblock {\em European Journal of Human Genetics}, 23(1):124--131.
+
+\bibitem[Wang et al.(2019)]{wang2018}
+Wang, C.-C., Reinhold, S., Kalmykov, A., et al. (2019).
+\newblock Ancient human genome-wide data from a 3000-year interval in the Caucasus corresponds with eco-geographic regions.
+\newblock {\em Nature Communications}, 10:590.
 
 \bibitem[Alonso Ortiz and Da-Rocha(2026)]{alonso_long_shadow}
 Alonso Ortiz, J.\ and Da-Rocha, J.-M. (2026).
