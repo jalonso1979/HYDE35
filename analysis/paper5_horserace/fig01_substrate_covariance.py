@@ -3,8 +3,10 @@ and pairwise correlations.  Also writes Table 1 (descriptives) and
 Table 2 (4x4 substrate correlation matrix) as LaTeX.
 
 Run:
-    python -m analysis.paper5_horserace.fig01_substrate_covariance
+    python -m analysis.paper5_horserace.fig01_substrate_covariance          # colour
+    python -m analysis.paper5_horserace.fig01_substrate_covariance --bw     # grayscale B&W
 """
+import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -12,9 +14,15 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+# ---------------------------------------------------------------------------
+# B&W toggle — set to True to produce grayscale output
+# ---------------------------------------------------------------------------
+BW = False  # default; overridden by --bw CLI flag
+
 ROOT = Path("/Volumes/BIGDATA/HYDE35")
 PANEL = ROOT / "analysis/data/deep_determinants_horserace.parquet"
 FIG = ROOT / "analysis/figures/paper5_horserace/fig01_substrate_covariance.pdf"
+FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf"
 TAB1 = ROOT / "analysis/figures/paper5_horserace/tab01_descriptives.tex"
 TAB2 = ROOT / "analysis/figures/paper5_horserace/tab02_substrate_correlations.tex"
 
@@ -142,11 +150,24 @@ def _correlation_table(corr: pd.DataFrame, out: Path) -> None:
 # Figure 1 — Pairplot
 # ---------------------------------------------------------------------------
 
-def _pairplot(sub: pd.DataFrame, out: Path) -> None:
+def _pairplot(sub: pd.DataFrame, out: Path, bw: bool = False) -> None:
     """4x4 seaborn pairplot with regression lines and histograms on diagonal."""
     sns.set_theme(style="ticks", font_scale=0.9)
 
     renamed = sub.rename(columns=AXIS_LABELS)
+
+    if bw:
+        scatter_color = "0.3"
+        line_color = "black"
+        hist_color = "0.5"
+        r_strong_color = "black"
+        r_weak_color = "0.55"
+    else:
+        scatter_color = "steelblue"
+        line_color = "C3"
+        hist_color = "steelblue"
+        r_strong_color = "C3"
+        r_weak_color = "0.3"
 
     g = sns.pairplot(
         renamed,
@@ -154,11 +175,11 @@ def _pairplot(sub: pd.DataFrame, out: Path) -> None:
         diag_kind="hist",
         height=2.2,
         plot_kws={
-            "scatter_kws": {"alpha": 0.45, "s": 8, "color": "steelblue"},
-            "line_kws": {"color": "C3", "lw": 1.5},
+            "scatter_kws": {"alpha": 0.45, "s": 8, "color": scatter_color},
+            "line_kws": {"color": line_color, "lw": 1.5},
             "ci": 95,
         },
-        diag_kws={"bins": 20, "color": "steelblue", "edgecolor": "white"},
+        diag_kws={"bins": 20, "color": hist_color, "edgecolor": "white"},
     )
 
     # Tighten tick labels
@@ -178,14 +199,15 @@ def _pairplot(sub: pd.DataFrame, out: Path) -> None:
                 if mask.sum() > 2:
                     r = float(np.corrcoef(x[mask], y[mask])[0, 1])
                     ax.set_visible(True)
+                    strong = abs(r) > 0.4
                     ax.text(
                         0.5, 0.5,
                         f"r = {r:.2f}",
                         transform=ax.transAxes,
                         ha="center", va="center",
                         fontsize=9,
-                        fontweight="bold" if abs(r) > 0.4 else "normal",
-                        color="C3" if abs(r) > 0.4 else "0.3",
+                        fontweight="bold" if strong else "normal",
+                        color=r_strong_color if strong else r_weak_color,
                     )
                     ax.set_xticks([])
                     ax.set_yticks([])
@@ -198,7 +220,7 @@ def _pairplot(sub: pd.DataFrame, out: Path) -> None:
         y=1.01, fontsize=10,
     )
     g.figure.tight_layout()
-    g.figure.savefig(out, bbox_inches="tight", dpi=150)
+    g.figure.savefig(out, bbox_inches="tight", dpi=300)
     print(f"Wrote {out}")
 
 
@@ -207,26 +229,36 @@ def _pairplot(sub: pd.DataFrame, out: Path) -> None:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
+    global BW
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bw", action="store_true", help="Produce grayscale B&W version")
+    args = parser.parse_args()
+    BW = args.bw
+
     df = pd.read_parquet(PANEL)
     print(f"Panel loaded: {df.shape[0]} rows x {df.shape[1]} cols")
+    print(f"Mode: {'B&W grayscale' if BW else 'colour'}")
 
-    # Table 1: descriptives on full sample (dropna per variable)
-    _descriptives_table(df, SUBSTRATES + OUTCOMES + CONTROLS, TAB1)
+    # Table 1: descriptives on full sample (dropna per variable) — only in colour mode
+    if not BW:
+        _descriptives_table(df, SUBSTRATES + OUTCOMES + CONTROLS, TAB1)
 
     # Subset to rows with all four substrates present
     sub = df[SUBSTRATES].dropna()
     print(f"Substrate subset (all 4 non-null): {len(sub)} rows")
 
-    # Table 2: correlation matrix on substrate subset
-    corr = sub.corr().round(3)
-    print("\nSubstrate correlations:")
-    print(corr.to_string())
-    print(f"\nMax |r| off-diagonal: {corr.where(~np.eye(4, dtype=bool)).abs().max().max():.3f}")
-    _correlation_table(corr, TAB2)
+    if not BW:
+        # Table 2: correlation matrix on substrate subset
+        corr = sub.corr().round(3)
+        print("\nSubstrate correlations:")
+        print(corr.to_string())
+        print(f"\nMax |r| off-diagonal: {corr.where(~np.eye(4, dtype=bool)).abs().max().max():.3f}")
+        _correlation_table(corr, TAB2)
 
     # Figure 1
-    FIG.parent.mkdir(parents=True, exist_ok=True)
-    _pairplot(sub, FIG)
+    out = FIG_BW if BW else FIG
+    out.parent.mkdir(parents=True, exist_ok=True)
+    _pairplot(sub, out, bw=BW)
 
     print("\nAll outputs written.")
 

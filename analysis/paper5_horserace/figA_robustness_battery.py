@@ -10,20 +10,32 @@ key statistic for that check:
   (d) Climate 1421-1500 placebo — Shapley R²
   (e) Climate 1950-2008 placebo — Shapley R²
   (f) Pre-1950 outcome heterogeneity — Shapley R² (only dt_timing_year outcome)
+
+Run:
+    python -m analysis.paper5_horserace.figA_robustness_battery          # colour
+    python -m analysis.paper5_horserace.figA_robustness_battery --bw     # grayscale B&W
 """
+import argparse
 from pathlib import Path
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import matplotlib.patches as mpatches
 import numpy as np
 import pandas as pd
+
+# ---------------------------------------------------------------------------
+# B&W toggle — set to True to produce grayscale output
+# ---------------------------------------------------------------------------
+BW = False  # default; overridden by --bw CLI flag
 
 ROOT = Path("/Volumes/BIGDATA/HYDE35")
 DATA = ROOT / "analysis/data/deep_determinants/robustness_battery.parquet"
 BASELINE = ROOT / "analysis/data/deep_determinants/exercise2_mediation_results.parquet"
 FIG = ROOT / "analysis/figures/paper5_horserace/figA_robustness_battery.pdf"
+FIG_BW = ROOT / "analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf"
 
 SUBSTRATES = [
     "sigma_v_T_pre1750",
@@ -52,10 +64,22 @@ OUT_LABELS = {
 }
 
 
+def _bw_div_cmap(vmin: float, vmax: float, vcenter: float = 0.0):
+    """Return a diverging white-centred grayscale colormap normalised to [vmin,vmax]."""
+    center_frac = (vcenter - vmin) / (vmax - vmin) if (vmax - vmin) != 0 else 0.5
+    center_frac = np.clip(center_frac, 0.05, 0.95)
+    cmap = mcolors.LinearSegmentedColormap.from_list(
+        "bw_div",
+        [(0.0, "0.12"), (center_frac, "white"), (1.0, "0.12")],
+    )
+    norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
+    return cmap, norm
+
+
 def _heatmap(ax, pivot: pd.DataFrame, title: str, cmap: str = "RdBu_r",
              center: float = 0.0, fmt: str = ".2f",
              annot_override: pd.DataFrame | None = None,
-             vmin=None, vmax=None) -> None:
+             vmin=None, vmax=None, bw: bool = False) -> None:
     """Draw a heatmap in `ax` with the given pivot table."""
     data = pivot.reindex(index=SUBSTRATES, columns=OUTCOMES)
     # Clamp for display but keep original for annotation
@@ -63,8 +87,12 @@ def _heatmap(ax, pivot: pd.DataFrame, title: str, cmap: str = "RdBu_r",
         vmax_abs = np.nanpercentile(np.abs(data.values), 95)
         vmin, vmax = -vmax_abs, vmax_abs
 
-    im = ax.imshow(data.values, cmap=cmap, aspect="auto",
-                   vmin=vmin, vmax=vmax)
+    if bw:
+        cmap_use, norm = _bw_div_cmap(vmin, vmax, vcenter=center)
+        im = ax.imshow(data.values, cmap=cmap_use, norm=norm, aspect="auto")
+    else:
+        im = ax.imshow(data.values, cmap=cmap, aspect="auto",
+                       vmin=vmin, vmax=vmax)
     plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
 
     ax.set_xticks(range(len(OUTCOMES)))
@@ -83,15 +111,31 @@ def _heatmap(ax, pivot: pd.DataFrame, title: str, cmap: str = "RdBu_r",
                 val = np.nan
             if np.isfinite(val):
                 text = f"{val:{fmt}}"
+                raw_v = data.values[i, j] if not np.isnan(data.values[i, j]) else 0
+                norm_v = im.norm(raw_v)
+                if bw:
+                    # For symmetric BW map: text white on dark, black on white
+                    center_frac = (center - vmin) / (vmax - vmin) if (vmax - vmin) else 0.5
+                    dist = abs(norm_v - center_frac)
+                    text_color = "white" if dist > 0.35 else "black"
+                else:
+                    text_color = "white" if abs(norm_v - 0.5) > 0.3 else "black"
                 ax.text(j, i, text, ha="center", va="center", fontsize=6,
-                        color="white" if abs(im.norm(data.values[i, j]
-                                               if not np.isnan(data.values[i, j])
-                                               else 0) - 0.5) > 0.3 else "black")
+                        color=text_color)
 
 
 def main() -> None:
+    global BW
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bw", action="store_true", help="Produce grayscale B&W version")
+    args = parser.parse_args()
+    BW = args.bw
+    print(f"Mode: {'B&W grayscale' if BW else 'colour'}")
+
     df = pd.read_parquet(DATA)
     base = pd.read_parquet(BASELINE)
+
+    out = FIG_BW if BW else FIG
 
     fig, axes = plt.subplots(3, 2, figsize=(14, 13))
     fig.suptitle("Robustness battery: six checks", fontsize=12, fontweight="bold", y=0.98)
@@ -102,7 +146,7 @@ def main() -> None:
     ax = axes[0, 0]
     piv_base = base.pivot(index="substrate", columns="outcome", values="mediation_share")
     _heatmap(ax, piv_base, "(a) Baseline mediation share",
-             cmap="RdBu_r", center=0.0, fmt=".2f", vmin=-3, vmax=3)
+             cmap="RdBu_r", center=0.0, fmt=".2f", vmin=-3, vmax=3, bw=BW)
 
     # -----------------------------------------------------------------------
     # Panel (b): Continent FE mediation
@@ -111,7 +155,7 @@ def main() -> None:
     cfe = df[df["check"] == "continent_fe"]
     piv_cfe = cfe.pivot(index="substrate", columns="outcome", values="mediation_share")
     _heatmap(ax, piv_cfe, "(b) Continent FE mediation share",
-             cmap="RdBu_r", center=0.0, fmt=".2f", vmin=-3, vmax=3)
+             cmap="RdBu_r", center=0.0, fmt=".2f", vmin=-3, vmax=3, bw=BW)
 
     # -----------------------------------------------------------------------
     # Panel (c): LOO median
@@ -120,7 +164,7 @@ def main() -> None:
     loo = df[df["check"] == "leave_one_out"]
     piv_loo = loo.pivot(index="substrate", columns="outcome", values="loo_median")
     _heatmap(ax, piv_loo, "(c) LOO median mediation share",
-             cmap="RdBu_r", center=0.0, fmt=".2f", vmin=-3, vmax=3)
+             cmap="RdBu_r", center=0.0, fmt=".2f", vmin=-3, vmax=3, bw=BW)
 
     # -----------------------------------------------------------------------
     # Panel (d): Westfall-Young |t| with significance stars
@@ -128,7 +172,6 @@ def main() -> None:
     ax = axes[1, 1]
     wy = df[df["check"] == "wy_correction"]
     piv_t = wy.pivot(index="substrate", columns="outcome", values="t_obs")
-    # Build annotation pivot with stars
     piv_p = wy.pivot(index="substrate", columns="outcome", values="p_adj_wy")
     annot_wy = piv_t.copy().astype(str)
     for s in SUBSTRATES:
@@ -142,7 +185,8 @@ def main() -> None:
                 annot_wy.loc[s, o] = ""
     # Draw heatmap using |t| values (all positive)
     data_t = piv_t.reindex(index=SUBSTRATES, columns=OUTCOMES)
-    im = ax.imshow(data_t.values, cmap="YlOrRd", aspect="auto", vmin=0, vmax=6)
+    wy_cmap = "Greys" if BW else "YlOrRd"
+    im = ax.imshow(data_t.values, cmap=wy_cmap, aspect="auto", vmin=0, vmax=6)
     plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="|t-stat|")
     ax.set_xticks(range(len(OUTCOMES)))
     ax.set_xticklabels([OUT_LABELS[o] for o in OUTCOMES], fontsize=7, rotation=20, ha="right")
@@ -156,13 +200,15 @@ def main() -> None:
                 text = annot_wy.loc[s, o]
             except KeyError:
                 text = ""
-            ax.text(j, i, text, ha="center", va="center", fontsize=6, color="black")
+            raw_v = data_t.values[i, j] if not np.isnan(data_t.values[i, j]) else 0
+            norm_v = im.norm(raw_v)
+            txt_color = "white" if norm_v > 0.65 else "black"
+            ax.text(j, i, text, ha="center", va="center", fontsize=6, color=txt_color)
 
     # -----------------------------------------------------------------------
     # Panel (e): Climate placebos — Shapley R² for sigma_v_T only
     # -----------------------------------------------------------------------
     ax = axes[2, 0]
-    # Compare baseline vs pre-1500 vs modern Shapley R² for sigma_v_T
     from analysis.paper5_horserace.exercise1_shapley import SUBSTRATES as S_LIST
     base_shapley = pd.read_parquet(
         ROOT / "analysis/data/deep_determinants/exercise1_shapley_results.parquet"
@@ -176,9 +222,22 @@ def main() -> None:
 
     x = np.arange(len(OUTCOMES))
     w = 0.25
-    bars1 = ax.bar(x - w, [base_s.get(o, 0) for o in OUTCOMES], w, label="Baseline (1421-1750)", color="#2166ac")
-    bars2 = ax.bar(x, [p1500_s.get(o, 0) for o in OUTCOMES], w, label="Placebo: 1421-1500", color="#f4a582")
-    bars3 = ax.bar(x + w, [pmod_s.get(o, 0) for o in OUTCOMES], w, label="Placebo: 1950-2008", color="#d6604d")
+    if BW:
+        # Use grayscale fills + hatch patterns for distinction
+        c1, c2, c3 = "white", "0.6", "0.25"
+        h1, h2, h3 = "///", "...", "xxx"
+        ec = "black"
+    else:
+        c1, c2, c3 = "#2166ac", "#f4a582", "#d6604d"
+        h1, h2, h3 = None, None, None
+        ec = None
+    bar_kw = lambda c, h: dict(color=c, hatch=h, edgecolor=ec if h else c)
+    ax.bar(x - w, [base_s.get(o, 0) for o in OUTCOMES], w,
+           label="Baseline (1421-1750)", **bar_kw(c1, h1))
+    ax.bar(x, [p1500_s.get(o, 0) for o in OUTCOMES], w,
+           label="Placebo: 1421-1500", **bar_kw(c2, h2))
+    ax.bar(x + w, [pmod_s.get(o, 0) for o in OUTCOMES], w,
+           label="Placebo: 1950-2008", **bar_kw(c3, h3))
     ax.set_xticks(x)
     ax.set_xticklabels([OUT_LABELS[o] for o in OUTCOMES], fontsize=8, rotation=15, ha="right")
     ax.set_ylabel("Shapley R²", fontsize=8)
@@ -193,16 +252,21 @@ def main() -> None:
     ax = axes[2, 1]
     p1950_shapley = df[df["check"] == "pre1900_outcome_shapley"]
 
-    # Full-sample baseline for dt_timing_year
     full_dt = base_shapley[base_shapley.outcome == "dt_timing_year"].set_index("substrate")["shapley_r2"]
     early_dt = p1950_shapley.set_index("substrate")["shapley_r2"]
 
     x = np.arange(len(SUBSTRATES))
     w = 0.35
+    if BW:
+        cf1, cf2 = "white", "0.45"
+        hf1, hf2 = "///", "..."
+    else:
+        cf1, cf2 = "#2166ac", "#d6604d"
+        hf1, hf2 = None, None
     ax.bar(x - w / 2, [full_dt.get(s, 0) for s in SUBSTRATES], w,
-           label="Full sample (n=144)", color="#2166ac")
+           label="Full sample (n=144)", **bar_kw(cf1, hf1))
     ax.bar(x + w / 2, [early_dt.get(s, 0) for s in SUBSTRATES], w,
-           label="Early transition (<1950, n=44)", color="#d6604d")
+           label="Early transition (<1950, n=44)", **bar_kw(cf2, hf2))
     ax.set_xticks(x)
     ax.set_xticklabels([SUB_LABELS[s] for s in SUBSTRATES], fontsize=7, rotation=15, ha="right")
     ax.set_ylabel("Shapley R²", fontsize=8)
@@ -213,9 +277,9 @@ def main() -> None:
     ax.yaxis.grid(True, alpha=0.3)
 
     plt.tight_layout(rect=[0, 0, 1, 0.97])
-    FIG.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(FIG, bbox_inches="tight", dpi=150)
-    print(f"Wrote {FIG}")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(out, bbox_inches="tight", dpi=300)
+    print(f"Wrote {out}")
 
 
 if __name__ == "__main__":

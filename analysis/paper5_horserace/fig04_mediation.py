@@ -8,7 +8,12 @@ interpretable mediation is pandemic_intensity_norm -> log_gdppc_2015 (~0.47).
 All other cells have wide CIs and/or point estimates outside [0, 1]. The figure
 uses y-axis limits of (-3, 6) plus symlog stretch and annotates suppressor /
 over-mediation cells to make this visually unambiguous.
+
+Run:
+    python -m analysis.paper5_horserace.fig04_mediation          # colour
+    python -m analysis.paper5_horserace.fig04_mediation --bw     # grayscale B&W
 """
+import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -16,9 +21,15 @@ import matplotlib.patches as mpatches
 import numpy as np
 import pandas as pd
 
+# ---------------------------------------------------------------------------
+# B&W toggle — set to True to produce grayscale output
+# ---------------------------------------------------------------------------
+BW = False  # default; overridden by --bw CLI flag
+
 ROOT = Path("/Volumes/BIGDATA/HYDE35")
 DATA = ROOT / "analysis/data/deep_determinants/exercise2_mediation_results.parquet"
 FIG = ROOT / "analysis/figures/paper5_horserace/fig04_mediation.pdf"
+FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig04_mediation_bw.pdf"
 TAB = ROOT / "analysis/figures/paper5_horserace/tab05_mediation_table.tex"
 
 SUBSTRATE_LABELS = {
@@ -59,11 +70,33 @@ def classify_cell(y: float, ci_lo: float, ci_hi: float) -> str:
 
 
 def main() -> None:
+    global BW
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bw", action="store_true", help="Produce grayscale B&W version")
+    args = parser.parse_args()
+    BW = args.bw
+    print(f"Mode: {'B&W grayscale' if BW else 'colour'}")
+
     df = pd.read_parquet(DATA)
 
     # ------------------------------------------------------------------ #
     # Figure 4                                                             #
     # ------------------------------------------------------------------ #
+    # Marker / linestyle differentiation for B&W
+    MARKERS = ["o", "s", "^", "D"]   # per substrate position
+    if BW:
+        color_interp = "black"
+        color_suppressor = "0.55"
+        refline_color = "black"
+        ecolor = "0.4"
+    else:
+        color_interp = "C0"
+        color_suppressor = "C1"
+        refline_color = "C3"
+        ecolor = "gray"
+
+    out = FIG_BW if BW else FIG
+
     fig, axes = plt.subplots(1, 4, figsize=(15, 4.5), sharey=True)
 
     for ax, outcome in zip(axes, OUTCOME_ORDER):
@@ -76,20 +109,20 @@ def main() -> None:
         yerr_low = np.clip(y - ci_lo, 0, None)  # always non-negative
         yerr_hi = np.clip(ci_hi - y, 0, None)
 
-        # Color: blue if interpretable, orange otherwise
-        colors = []
         for i in range(len(sub)):
             label = classify_cell(y[i], ci_lo[i], ci_hi[i])
-            colors.append("C0" if label == "" else "C1")
-
-        for i in range(len(sub)):
+            is_suppressor = label != ""
+            pt_color = color_suppressor if is_suppressor else color_interp
+            marker = MARKERS[i] if BW else "o"
+            # In B&W use open markers for suppressors for extra distinction
+            fillstyle = "none" if (BW and is_suppressor) else "full"
             ax.errorbar(
                 x[i], y[i],
                 yerr=[[yerr_low[i]], [yerr_hi[i]]],
-                fmt="o", capsize=4,
-                color=colors[i], ecolor="gray", elinewidth=1, zorder=3,
+                fmt=marker, capsize=4,
+                color=pt_color, ecolor=ecolor, elinewidth=1, zorder=3,
+                fillstyle=fillstyle, markersize=7,
             )
-            label = classify_cell(y[i], ci_lo[i], ci_hi[i])
             if label:
                 # Annotate clipped points — place text at clip boundary
                 ytext = min(max(y[i], YMIN + 0.1), YMAX - 0.3)
@@ -97,7 +130,7 @@ def main() -> None:
                     label,
                     xy=(x[i], ytext),
                     xytext=(x[i] + 0.08, ytext + 0.25),
-                    fontsize=6.5, color=colors[i],
+                    fontsize=6.5, color=pt_color,
                     ha="left",
                 )
                 # Draw arrow when point is above clip
@@ -106,12 +139,13 @@ def main() -> None:
                         "",
                         xy=(x[i], YMAX - 0.05),
                         xytext=(x[i], YMAX - 0.5),
-                        arrowprops=dict(arrowstyle="->", color=colors[i], lw=1.2),
+                        arrowprops=dict(arrowstyle="->", color=pt_color, lw=1.2),
                     )
 
         # Reference lines
         ax.axhline(0, color="black", linewidth=0.6, zorder=2)
-        ax.axhline(1, color="C3", linewidth=0.8, linestyle="--", zorder=2, label="Full mediation")
+        ax.axhline(1, color=refline_color, linewidth=0.8, linestyle="--",
+                   zorder=2, label="Full mediation")
 
         ax.set_ylim(YMIN, YMAX)
         ax.set_xticks(x)
@@ -125,15 +159,37 @@ def main() -> None:
     axes[0].set_ylabel("Mediation share", fontsize=10)
 
     # Shared legend
-    blue_patch = mpatches.Patch(color="C0", label="Interpretable [0, 1]")
-    orange_patch = mpatches.Patch(color="C1", label="Suppressor / over-mediation")
-    red_line = plt.Line2D([0], [0], color="C3", linestyle="--", linewidth=0.9,
-                          label="Full mediation (=1)")
-    fig.legend(
-        handles=[blue_patch, orange_patch, red_line],
-        loc="upper center", ncol=3, fontsize=8.5,
-        bbox_to_anchor=(0.5, 1.02), frameon=False,
-    )
+    if BW:
+        interp_handle = plt.Line2D([0], [0], marker="o", color="black",
+                                   linestyle="None", label="Interpretable [0, 1]",
+                                   markersize=7)
+        supp_handle = plt.Line2D([0], [0], marker="o", color="0.55",
+                                 linestyle="None", fillstyle="none",
+                                 label="Suppressor / over-mediation", markersize=7)
+        ref_line = plt.Line2D([0], [0], color="black", linestyle="--",
+                              linewidth=0.9, label="Full mediation (=1)")
+        # Marker legend (per substrate, B&W only)
+        marker_handles = [
+            plt.Line2D([0], [0], marker=MARKERS[k], color="black",
+                       linestyle="None", markersize=6,
+                       label=list(SUBSTRATE_LABELS.values())[k])
+            for k in range(4)
+        ]
+        fig.legend(
+            handles=[interp_handle, supp_handle, ref_line] + marker_handles,
+            loc="upper center", ncol=4, fontsize=8,
+            bbox_to_anchor=(0.5, 1.04), frameon=False,
+        )
+    else:
+        blue_patch = mpatches.Patch(color="C0", label="Interpretable [0, 1]")
+        orange_patch = mpatches.Patch(color="C1", label="Suppressor / over-mediation")
+        red_line = plt.Line2D([0], [0], color="C3", linestyle="--", linewidth=0.9,
+                              label="Full mediation (=1)")
+        fig.legend(
+            handles=[blue_patch, orange_patch, red_line],
+            loc="upper center", ncol=3, fontsize=8.5,
+            bbox_to_anchor=(0.5, 1.02), frameon=False,
+        )
 
     # Footnote
     fig.text(
@@ -148,8 +204,9 @@ def main() -> None:
     )
 
     plt.tight_layout()
-    plt.savefig(FIG, bbox_inches="tight")
-    print(f"Wrote {FIG}")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(out, bbox_inches="tight", dpi=300)
+    print(f"Wrote {out}")
 
     # ------------------------------------------------------------------ #
     # Table 5 — LaTeX                                                      #

@@ -14,8 +14,13 @@ Right panel: HYDE-features-clustered pathways (Exercise 3)
 The suppressor-structure question: does the fraction of mediation shares
 outside [0,1] persist under both clustering strategies, or does one cluster
 source clean it up?
+
+Run:
+    python -m analysis.paper5_horserace.fig05_pathway_source_robustness          # colour
+    python -m analysis.paper5_horserace.fig05_pathway_source_robustness --bw     # grayscale B&W
 """
 from __future__ import annotations
+import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -24,10 +29,16 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+# ---------------------------------------------------------------------------
+# B&W toggle — set to True to produce grayscale output
+# ---------------------------------------------------------------------------
+BW = False  # default; overridden by --bw CLI flag
+
 ROOT = Path("/Volumes/BIGDATA/HYDE35")
 CLIMATE_RES = ROOT / "analysis/data/deep_determinants/exercise2_mediation_results.parquet"
 HYDE_RES = ROOT / "analysis/data/deep_determinants/exercise3_climate_cluster_results.parquet"
 FIG = ROOT / "analysis/figures/paper5_horserace/fig05_pathway_source_robustness.pdf"
+FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw.pdf"
 
 # Short labels for readability
 SUBSTRATE_LABELS = {
@@ -80,15 +91,32 @@ def _stats(path: Path) -> dict:
 
 
 def _heatmap(ax: plt.Axes, piv: pd.DataFrame, title: str,
-             stats: dict, show_cbar: bool = False) -> None:
+             stats: dict, show_cbar: bool = False, bw: bool = False) -> None:
     """Draw a clipped heatmap with annotations showing raw values."""
     vals = piv.values
 
     # Clip display to [-3, 3] for color scale; annotate with raw values
     vmin, vmax = -3.0, 3.0
-    norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0.5, vmax=vmax)
 
-    im = ax.imshow(vals, cmap="RdBu_r", norm=norm, aspect="auto")
+    if bw:
+        # Diverging-but-grayscale: white at center (0.5 mediation share),
+        # dark gray at extremes.  We map [vmin, vmax] -> [0, 1] and use
+        # a custom white-centred grayscale.
+        import matplotlib.colors as mc
+        # Build: black(0) -> white(center) -> black(1), centred at 0.5 of data range
+        # center_frac = (0.5 - vmin) / (vmax - vmin) ≈ 0.583 for vmin=-3,vmax=3,vcenter=0.5
+        center_frac = (0.5 - vmin) / (vmax - vmin)
+        bw_cmap = mc.LinearSegmentedColormap.from_list(
+            "bw_div",
+            [(0.0, "0.15"), (center_frac, "white"), (1.0, "0.15")],
+        )
+        norm = mc.Normalize(vmin=vmin, vmax=vmax)
+        cmap_use = bw_cmap
+    else:
+        norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0.5, vmax=vmax)
+        cmap_use = "RdBu_r"
+
+    im = ax.imshow(vals, cmap=cmap_use, norm=norm, aspect="auto")
     if show_cbar:
         cb = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
         cb.set_label("Mediation share", fontsize=9)
@@ -105,7 +133,12 @@ def _heatmap(ax: plt.Axes, piv: pd.DataFrame, title: str,
             v = vals[r, c]
             # White text on dark cells, dark on light
             bg_norm = (np.clip(v, vmin, vmax) - vmin) / (vmax - vmin)
-            text_color = "white" if bg_norm < 0.15 or bg_norm > 0.85 else "#202020"
+            if bw:
+                # For symmetric bw map: darkest at extremes, white at center
+                dist_from_center = abs(bg_norm - center_frac) / max(center_frac, 1 - center_frac)
+                text_color = "white" if dist_from_center > 0.6 else "#101010"
+            else:
+                text_color = "white" if bg_norm < 0.15 or bg_norm > 0.85 else "#202020"
             is_suppressor = not (0 <= v <= 1)
             marker = " *" if is_suppressor else ""
             ax.text(c, r, f"{v:+.2f}{marker}", ha="center", va="center",
@@ -119,10 +152,19 @@ def _heatmap(ax: plt.Axes, piv: pd.DataFrame, title: str,
 
 
 def main() -> None:
+    global BW
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bw", action="store_true", help="Produce grayscale B&W version")
+    args = parser.parse_args()
+    BW = args.bw
+    print(f"Mode: {'B&W grayscale' if BW else 'colour'}")
+
     climate_piv = _load_pivot(CLIMATE_RES)
     hyde_piv = _load_pivot(HYDE_RES)
     climate_stats = _stats(CLIMATE_RES)
     hyde_stats = _stats(HYDE_RES)
+
+    out = FIG_BW if BW else FIG
 
     fig, axes = plt.subplots(1, 2, figsize=(14, 5.2))
     fig.subplots_adjust(wspace=0.38)
@@ -130,17 +172,18 @@ def main() -> None:
     _heatmap(axes[0], climate_piv,
              "Climate-only-clustered pathways (Exercise 2)\n"
              r"$\it{Mediator:\ K=5\ on\ climate\ primitives}$",
-             climate_stats, show_cbar=False)
+             climate_stats, show_cbar=False, bw=BW)
     _heatmap(axes[1], hyde_piv,
              "HYDE-features-clustered pathways (Exercise 3)\n"
              r"$\it{Mediator:\ K=5\ on\ HYDE\ trajectory\ outcomes}$",
-             hyde_stats, show_cbar=True)
+             hyde_stats, show_cbar=True, bw=BW)
 
     # Stars = outside [0,1] (suppressor)
+    note_color = "#404040" if not BW else "black"
     fig.text(0.5, 0.01,
              "* = mediation share outside [0,1] (suppressor / amplifier effect). "
-             "Color scale clipped to [−3, 3]; raw values annotated.",
-             ha="center", fontsize=8, color="#404040")
+             "Gray scale clipped to [−3, 3]; raw values annotated.",
+             ha="center", fontsize=8, color=note_color)
 
     fig.suptitle(
         "Figure 5 — Mediation-share robustness: pathway-source comparison\n"
@@ -148,10 +191,10 @@ def main() -> None:
         fontsize=11, y=1.01, x=0.04, ha="left",
     )
 
-    FIG.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(FIG, bbox_inches="tight")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out, bbox_inches="tight", dpi=300)
     plt.close(fig)
-    print(f"Wrote {FIG}")
+    print(f"Wrote {out}")
 
     # Summary
     print(f"\n=== Comparison summary ===")

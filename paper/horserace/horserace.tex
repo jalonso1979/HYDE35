@@ -101,7 +101,7 @@ The four channels are nearly orthogonal in cross-country covariance. Figure~\ref
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.92\textwidth]{../../analysis/figures/paper5_horserace/fig01_substrate_covariance.pdf}
+  \includegraphics[width=0.92\textwidth]{../../analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf}
   \caption{Pairwise covariance of the four pre-industrial channels on 185 countries with non-missing values across all four. Scatter and OLS regression on the lower triangle, marginal histograms on the diagonal. All pairwise correlations $|r|<0.30$; the channels are nearly orthogonal.}
   \label{fig:substrate-covariance}
 \end{figure}
@@ -118,7 +118,7 @@ Figure~\ref{fig:substrate-maps} reports world maps for the four channels: $\sigm
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.98\textwidth]{../../analysis/figures/paper5_horserace/fig02_substrate_maps.pdf}
+  \includegraphics[width=0.98\textwidth]{../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf}
   \caption{World choropleth maps of the four pre-industrial channels: (a) climate volatility $\sigma_v^T$ 1421--1750; (b) ancestry-adjusted predicted heterozygosity $H_i$; (c) log ancestral crop yield $\ln(A_i+1)$; (d) normalised pre-1500 pandemic intensity $\Pi_i$. Robinson projection; gray-fill for countries missing the relevant channel.}
   \label{fig:substrate-maps}
 \end{figure}
@@ -168,7 +168,7 @@ Figure~\ref{fig:shapley-heatmap} and Table~\ref{tab:shapley} report the Shapley 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\textwidth]{../../analysis/figures/paper5_horserace/fig03_shapley_heatmap.pdf}
+  \includegraphics[width=0.85\textwidth]{../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf}
   \caption{Shapley-Owen R\textsuperscript{2} decomposition: per-substrate unique-variance contribution to each of four modern outcomes, conditional on the geography control battery. Bottom of each column reports the total marginal R\textsuperscript{2} contributed by the four substrates jointly.}
   \label{fig:shapley-heatmap}
 \end{figure}
@@ -213,7 +213,7 @@ Figure~\ref{fig:mediation-baseline} reports the headline mediation matrix. Most 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.98\textwidth]{../../analysis/figures/paper5_horserace/fig04_mediation.pdf}
+  \includegraphics[width=0.98\textwidth]{../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf}
   \caption{Pathway-mediation shares for each substrate-outcome pair, with 95\% percentile-bootstrap CIs. Vertical reference lines at 0 (no mediation) and 1 (full mediation). Most cells fall outside $[0,1]$ with wide CIs, indicating suppressor structure rather than clean mediation. The one cell consistently inside $[0,1]$ is ancestral crop yield $\to$ log population growth.}
   \label{fig:mediation-baseline}
 \end{figure}
@@ -237,7 +237,7 @@ Adding six continent fixed effects (Africa, Asia, Europe, North America, South A
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/figA_robustness_battery.pdf}
+  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf}
   \caption{Robustness battery for the mediation analysis: (a)~continent fixed effects; (b)~leave-one-out median across 196 single-country drops; (c)~Westfall-Young FWER-adjusted z-statistic; (d)~pre-1500 climate-volatility window placebo ($\sigma_v^T$ 1421--1500); (e)~modern climate-volatility window placebo ($\sigma_v^T$ 1950--2008); panel (f) is intentionally blank. Each panel reports the 4-substrate-by-4-outcome value matrix with diverging RdBu colormap centred on zero.}
   \label{fig:robustness-battery}
 \end{figure}
@@ -268,7 +268,7 @@ We re-run the mediation specification on five sequential sub-samples, dropping i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/fig06_subsample_stability.pdf}
+  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf}
   \caption{Sub-sample stability ribbons. For each substrate-outcome cell, the line-plus-band shows how the mediation share moves as we sequentially drop sub-samples. Dropping AJR-colonial countries (stage 2) gives the largest single improvement in the suppressor structure; dropping subsequent sub-samples does not further clean up the matrix. The ancestral-crop-yield $\to$ population-growth cell is stable at 0.29--0.34 across all five stages.}
   \label{fig:subsample-stability}
 \end{figure}
@@ -282,7 +282,7 @@ The K=5 pathway typology is constructed by clustering on climate primitives, by 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness.pdf}
+  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw.pdf}
   \caption{Pathway-cluster-source robustness: mediation matrices under climate-only-clustered pathways (left, the baseline used throughout) and HYDE-features-clustered pathways (right). Suppressor structure persists under both clusterings; the HYDE-features version has smaller absolute magnitudes (median $|\text{med-share}|$ 0.117 vs 0.556) but slightly more sign-reversals across cells.}
   \label{fig:pathway-source-robustness}
 \end{figure}

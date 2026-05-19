@@ -8,18 +8,28 @@ X-axis: stage labels. Y-axis: mediation share (shared across panels).
 Reference lines at 0 and 1.
 
 Output: analysis/figures/paper5_horserace/fig06_subsample_stability.pdf
+
+Run:
+    python -m analysis.paper5_horserace.fig06_subsample_stability          # colour
+    python -m analysis.paper5_horserace.fig06_subsample_stability --bw     # grayscale B&W
 """
 from __future__ import annotations
-
+import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# ---------------------------------------------------------------------------
+# B&W toggle — set to True to produce grayscale output
+# ---------------------------------------------------------------------------
+BW = False  # default; overridden by --bw CLI flag
+
 ROOT = Path("/Volumes/BIGDATA/HYDE35")
 DATA = ROOT / "analysis/data/deep_determinants/subsample_stability.parquet"
 FIG = ROOT / "analysis/figures/paper5_horserace/fig06_subsample_stability.pdf"
+FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf"
 
 SUBSTRATES = [
     "sigma_v_T_pre1750",
@@ -63,7 +73,22 @@ STAGE_LABELS = [
 
 
 def main() -> None:
+    global BW
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bw", action="store_true", help="Produce grayscale B&W version")
+    args = parser.parse_args()
+    BW = args.bw
+    print(f"Mode: {'B&W grayscale' if BW else 'colour'}")
+
     df = pd.read_parquet(DATA)
+
+    # B&W style: single dark line with hatched fill band
+    line_color = "black" if BW else "C0"
+    fill_color = "0.6" if BW else "C0"
+    fill_alpha = 0.30 if BW else 0.20
+    fill_hatch = "///" if BW else None
+
+    out = FIG_BW if BW else FIG
 
     fig, axes = plt.subplots(
         4, 4,
@@ -91,13 +116,22 @@ def main() -> None:
             lo = sub["ci_lower"].values
             hi = sub["ci_upper"].values
 
-            ax.fill_between(x, lo, hi, alpha=0.20, color="C0", label="95% CI")
-            ax.plot(x, y, "o-", color="C0", linewidth=1.5,
+            # Ribbon (filled CI band)
+            fill_kw = dict(alpha=fill_alpha, color=fill_color, label="95% CI")
+            if fill_hatch:
+                fill_kw["hatch"] = fill_hatch
+                fill_kw["edgecolor"] = "0.5"
+                fill_kw["facecolor"] = "none"
+                fill_kw.pop("color")
+                fill_kw.pop("alpha")
+            ax.fill_between(x, lo, hi, **fill_kw)
+            ax.plot(x, y, "o-", color=line_color, linewidth=1.5,
                     markersize=4, label="Med. share")
 
             # Reference lines
             ax.axhline(0, color="black", linewidth=0.7, linestyle="-")
-            ax.axhline(1, color="gray", linewidth=0.7, linestyle="--")
+            ax.axhline(1, color="0.45" if BW else "gray",
+                       linewidth=0.7, linestyle="--")
 
             ax.set_xticks(x)
             if i == 3:
@@ -128,7 +162,7 @@ def main() -> None:
                     xytext=(0.03, 0.04),
                     textcoords="axes fraction",
                     fontsize=6.5,
-                    color="gray",
+                    color="0.4" if BW else "gray",
                 )
 
     # Shared y-axis label
@@ -136,9 +170,9 @@ def main() -> None:
              rotation="vertical", fontsize=10)
 
     plt.tight_layout(rect=[0.04, 0, 1, 1])
-    FIG.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(FIG, bbox_inches="tight", dpi=150)
-    print(f"Wrote {FIG}")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(out, bbox_inches="tight", dpi=300)
+    print(f"Wrote {out}")
 
 
 if __name__ == "__main__":
