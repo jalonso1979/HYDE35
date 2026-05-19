@@ -335,17 +335,47 @@ The augmented LS \S5 demographic-outcomes specification adds ancestry-adjusted p
 \subsection{H\_pred coefficient evolution: modern substrates absorb the AG signal}
 \label{sec:h-pred-evolution}
 
-We test directly whether the modern population-genetics substrates absorb what the Ashraf-Galor predicted-heterozygosity measure was capturing. On the same full panel that produces the headline horserace, we run a regression of each of the two FWER-surviving v2 H\_pred outcomes (log GDPpc and log pop growth) on $H^{\text{pwadj}}$ plus controls, then sequentially add (1) the Neolithic-ancestry fraction, and (2) the eight-locus functional-allele bundle.
+We test directly whether the modern population-genetics substrates absorb what the Ashraf-Galor predicted-heterozygosity measure was capturing, with three parallel exercises that together address the multicollinearity between $H^{\text{pwadj}}$ and the functional-allele bundle. Both substrates are constructed by Putterman-Weil ancestry-weighting from continental-anchor values, so they share substantial common variance; the three exercises decompose this common variance from three different angles.
+
+\textbf{Exercise (a): OLS evolution with the full 8-locus bundle.}
+On the same panel that produces the headline horserace, we regress each of the two FWER-surviving v2 H\_pred outcomes (log GDPpc, log pop growth) on $H^{\text{pwadj}}$ plus controls, then sequentially add (1) Neolithic-ancestry fraction and (2) all eight functional alleles as separate regressors.
 
 \begin{table}[H]
 \centering
 \small
-\caption{H\_pred coefficient-evolution test. For each outcome, sequential addition of the modern population-genetics substrates to a baseline regression that contains H\_pred and geography controls. R\textsuperscript{2} substantially increases with the functional-allele bundle, while the coefficient on H\_pred becomes unstable due to multicollinearity with the functional alleles—both measures are ancestry-weighted by the same Putterman-Weil matrix and capture closely related signal.}
+\caption{H\_pred coefficient evolution with full 8-SNP bundle (Exercise a). R\textsuperscript{2} rises substantially with the functional bundle, but the H\_pred coefficient becomes unstable: the standard error inflates and the sign flips on log GDPpc, characteristic of multicollinearity between H\_pred and the bundle. This is the predicted consequence of two PW-ancestry-weighted measures spanning overlapping continental gradients, not an empirical anomaly.}
 \label{tab:h-pred-evolution}
 \input{../../analysis/figures/paper5_horserace/tab_h_pred_evolution.tex}
 \end{table}
 
-The coefficient on H\_pred for log GDPpc moves from $-7.31$ (baseline) to $-9.60$ (with Neolithic) to $+21.51$ (with functional bundle, sign-reversed and SE inflated). For log population growth it moves from $+5.23$ to $+5.03$ to $+18.41$. The Neolithic-fraction addition leaves H\_pred essentially unchanged—Neolithic ancestry is independent information. The functional-allele addition destabilises H\_pred via multicollinearity: both substrates are PW-ancestry-weighted from continental populations and capture closely related underlying signal. R\textsuperscript{2} jumps substantially with the functional bundle (0.46 $\to$ 0.62 for log GDPpc; 0.42 $\to$ 0.64 for log pop growth), confirming that the joint information of H\_pred plus functional alleles is much larger than H\_pred alone. The cleanest single statistic is the Shapley R\textsuperscript{2} comparison: the functional-allele bundle's 0.175 on log GDPpc is 4--5$\times$ the H\_pred Shapley R\textsuperscript{2} of 0.038 reported in horserace v2. The functional bundle is a strictly more informative substrate than H\_pred on the income outcome.
+\textbf{Exercise (b): OLS evolution with PCA-reduced bundle (multicollinearity-controlled).}
+To handle the multicollinearity directly, we replace the 8 SNPs with their first three principal components (standardised), which explain 94\% of the bundle's variance (PC1 = 59\%, PC2 = 30\%, PC3 = 5\%). PC1 loads positively on AMY1, FADS1/2, SLC24A5 and negatively on DARC and HBB—broadly an "agricultural-adaptation versus malaria-exposure" axis. PC2 loads positively on ADH1B and EDAR (East Asian gradient) and negatively on LCT and SLC24A5. PC3 isolates AMY1 and HBB residual variation. With the bundle's 8-dimensional collinearity collapsed to a 3-dimensional orthogonal basis, the H\_pred coefficient evolution becomes interpretable:
+
+\begin{table}[H]
+\centering
+\small
+\caption{H\_pred coefficient evolution with PCA-3 bundle (Exercise b). The 8 functional alleles are replaced by their first three principal components (94\% of bundle variance) to remove within-bundle collinearity. On log GDPpc the H\_pred coefficient attenuates cleanly toward zero ($|t|: 3.35 \to 0.63$); on log pop growth attenuation is partial, indicating H\_pred retains some unique signal on the demographic-growth outcome beyond what the bundle captures.}
+\label{tab:h-pred-evolution-pca}
+\input{../../analysis/figures/paper5_horserace/tab_h_pred_evolution_pca.tex}
+\end{table}
+
+The clean attenuation on log GDPpc (coefficient $-7.31 \to -2.42$, $|t|: 3.35 \to 0.63$) confirms that the functional alleles, expressed as orthogonal principal components, absorb essentially all of H\_pred's signal on income. On log population growth the attenuation is partial ($+5.23 \to +4.67$, $|t|: 4.03 \to 2.11$), indicating H\_pred and the functional bundle partly capture distinct signals on the population-growth outcome—consistent with the commonality decomposition below.
+
+\textbf{Exercise (c): Commonality decomposition.}
+The cleanest multicollinearity-robust quantification partitions the joint R\textsuperscript{2} of $H$ and the bundle into three pieces: unique-$H$ (the marginal R\textsuperscript{2} of $H$ given the bundle), unique-bundle (the marginal R\textsuperscript{2} of the bundle given $H$), and common (their overlap). The sum equals the total R\textsuperscript{2} gain over the controls-only baseline.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Commonality decomposition of joint R\textsuperscript{2} between H\_pred and the 8-locus functional-allele bundle (Exercise c). On both outcomes the bundle's unique contribution dwarfs $H$'s, and the common (multicollinear) component is small. The bundle is strictly the more informative substrate.}
+\label{tab:h-pred-commonality}
+\input{../../analysis/figures/paper5_horserace/tab_h_pred_commonality.tex}
+\end{table}
+
+On log GDPpc the bundle's unique contribution is 0.147 (77\% of the joint gain), $H$'s unique contribution is 0.017 (9\%), and the common component is 0.028 (15\%). On log population growth the bundle's unique contribution is 0.170 (87\%), $H$'s is 0.018 (9\%), and the common component is just 0.008 (4\%). The bundle has $8$--$10\times$ more unique R\textsuperscript{2} than $H$ on both outcomes, while the multicollinear "common" component is modest. The bundle is not merely an alternative parametrisation of the same signal; it carries substantial additional information that the scalar $H$ measure does not.
+
+\textbf{Reading the three exercises together.}
+The OLS instability in Exercise (a) is the predicted consequence of multicollinearity between two PW-ancestry-weighted measures, not a defect of either substrate. The Shapley R\textsuperscript{2} decomposition used in the headline (Table~\ref{tab:shapley}) is multicollinearity-robust by construction—it averages marginal contributions over all $5! = 120$ substrate orderings and assigns shared variance symmetrically. The PCA-reduced regression of Exercise (b) reproduces the same conclusion under a multicollinearity-controlled OLS specification: H\_pred is absorbed on log GDPpc and partially absorbed on log pop growth. The commonality decomposition of Exercise (c) makes the substantive comparison fully transparent: the bundle's unique contribution is an order of magnitude larger than $H$'s on both outcomes. The three exercises agree that the bundle is the more informative substrate and that its substitution for $H^{\text{pwadj}}$ in the headline matrix is empirically defensible, not just conceptually preferable.
 
 The within-bundle decomposition (Table~\ref{tab:functional-subshapley}) clarifies which loci drive the bundle's contribution. FADS1/2 (0.041) and DARC (0.037) are the largest contributors to log GDPpc; FADS1/2 (0.029) and LCT (0.011) lead demographic-transition timing; AMY1 (0.013) is largest on log population density 2025. The interpretation is consistent with the substantive prediction: post-agricultural dietary adaptation (FADS1/2), starch digestion (AMY1), and lactase persistence (LCT) are the dominant signatures.
 
