@@ -301,6 +301,58 @@ The augmented LS \S5 demographic-outcomes specification adds ancestry-adjusted p
 
 The remaining three legs are reported visually in Figure~\ref{fig:robustness-battery} panels~(b)--(d). Leave-one-out (LOO) verifies that the suppressor structure documented in Section~\ref{sec:mediation} is not driven by any single country: the LOO median across 196 single-country drops tracks the full-sample point estimate closely (panel b, IQR $<0.05$ in most cells). The Westfall-Young FWER correction (panel c) and the pre-1500 window placebo (panel d) were discussed in Sections~\ref{sec:wy-correction} and~\ref{sec:window-robustness}.
 
+\subsection{Cumulative conflict and volcanic exposure controls}
+\label{sec:conflict-volcanic}
+
+Two candidate omitted variables for cross-country long-run outcomes are cumulative pre-industrial war exposure---which may have shaped state capacity, institutional development, and population density independently of the four substrates---and cumulative volcanic radiative forcing, which co-varies with climate volatility and could confound the $\sigma_v^T$ channel. We construct both and add them to the baseline control battery.
+
+\textbf{Conflict controls.} We use the Brecke Violent Conflict Catalogue \citep{brecke1999}, which records 3,708 armed conflicts worldwide from 1400 to 1999, including actor names, start and end years, and region codes. Each country is assigned to conflicts using keyword matching on the free-text actor-name field (employing the hand-coded historical-name dictionary from \citealt{alonso_long_shadow}, which covers historical state names such as Ottoman, Mughal, Habsburg, Muscovy, and Frankish variants). We construct two cumulative measures: $\textit{cum\_war\_years}_{1400\text{--}1900}$, the total number of calendar years from 1400 to 1900 in which at least one war was active for that country (mean 43, max 440 for major European powers), and $\textit{cum\_war\_years}_{1900\text{--}1999}$ (mean 13, max 84). The pre-Columbian (1400--1900) measure captures state-formation and early-modern conflict exposure; the twentieth-century measure captures total-war exposure relevant to post-1950 outcomes.
+
+\textbf{Volcanic controls.} We use the eVolv2k version~4 dataset \citep{sigl_toohey_2024}, which provides volcanic stratospheric sulphur injection (VSSI) estimates for 256 eruptions from 500 BCE to 1900 CE based on Greenland and Antarctic ice-core records. For each eruption between 1421 and 1750 (38 events with VSSI~$>0$, total 170~Tg$_S$), we compute a country-level exposure using a distance-weighted Gaussian over latitudinal distance with 30$^\circ$ bandwidth, matching the specification in the LS companion paper:
+\[
+  \text{exposure}_{i,t} = \text{VSSI}_t \cdot \exp\!\left(-\frac{(\lambda_{\text{volcano},t} - \lambda_i)^2}{2 \cdot 30^2}\right),
+\]
+where $\lambda_i$ is the signed centroid latitude of country $i$. The cumulative sum, $\textit{cum\_vssi}_{1421\text{--}1750}$, ranges from 71 to 123 Tg-equivalent (the Northern Hemisphere mid-latitudes cluster near 123 owing to the high prevalence of NH extra-tropical eruptions in this period). Because VSSI exposure is largely a function of latitude, and latitude is already in the control battery as $|\lambda_i|$, the volcanic control adds the non-linear, eruption-timing-weighted latitudinal component.
+
+\textbf{Result.} Table~\ref{tab:extended-controls-shapley} reports the Shapley R\textsuperscript{2} decomposition and Westfall-Young FWER statistics for the baseline and extended-control specifications. All three FWER-surviving findings are robust to the extended control battery. The ancestral-crop-yield $\to$ log-population-growth cell has $|t|=5.155$ ($p_\text{WY}=0.000$, unchanged from baseline), the $H_\text{pred} \to $ log-GDPpc cell strengthens slightly to $|t|=3.862$ ($p_\text{WY}=0.003$, down from 0.010), and the $H_\text{pred} \to$ log-population-growth cell has $|t|=3.154$ ($p_\text{WY}=0.035$, versus 0.015 in the baseline). Shapley R\textsuperscript{2} contributions shift by at most 0.009 across any substrate-outcome cell after adding the three controls.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Shapley $R^2$ and Westfall-Young FWER statistics: baseline vs extended controls.
+  New controls: $\textit{cum\_war\_years}_{1400\text{--}1900}$, $\textit{cum\_war\_years}_{1900\text{--}1999}$,
+  $\textit{cum\_vssi}_{1421\text{--}1750}$. WY $p$-values from 1{,}000 permutations.
+  Bold entries: FWER-surviving cells ($p_\text{WY}<0.05$).}
+\label{tab:extended-controls-shapley}
+\begin{tabular}{llcccc}
+\toprule
+ & & \multicolumn{2}{c}{Shapley $R^2$} & \multicolumn{2}{c}{WY $p$-value} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Substrate & Outcome & Base & Ext. & Base & Ext. \\
+\midrule
+\multirow{4}{*}{Ancestral yield (log)} & $\Delta\ln\text{Pop}$ & 0.136 & 0.127 & \textbf{0.000} & \textbf{0.000} \\
+ & $\Delta\text{Urban}$ & 0.038 & 0.029 & 0.286 & 0.193 \\
+ & $\ln\text{GDPpc}$ & 0.013 & 0.018 & 0.973 & 0.987 \\
+ & DT timing & 0.032 & 0.026 & 0.952 & 0.744 \\
+\midrule
+\multirow{4}{*}{Pred.\ heterozygosity} & $\Delta\ln\text{Pop}$ & 0.048 & 0.051 & \textbf{0.015} & \textbf{0.035} \\
+ & $\Delta\text{Urban}$ & 0.007 & 0.007 & 0.998 & 0.999 \\
+ & $\ln\text{GDPpc}$ & 0.041 & 0.044 & \textbf{0.010} & \textbf{0.003} \\
+ & DT timing & 0.001 & 0.000 & 1.000 & 1.000 \\
+\midrule
+\multirow{4}{*}{Climate vol.\ ($\sigma_T$)} & $\Delta\ln\text{Pop}$ & 0.016 & 0.014 & 1.000 & 1.000 \\
+ & $\Delta\text{Urban}$ & 0.005 & 0.003 & 1.000 & 1.000 \\
+ & $\ln\text{GDPpc}$ & 0.003 & 0.002 & 1.000 & 1.000 \\
+ & DT timing & 0.024 & 0.025 & 1.000 & 0.994 \\
+\midrule
+\multirow{4}{*}{Pandemic intensity} & $\Delta\ln\text{Pop}$ & 0.001 & 0.003 & 0.823 & 0.942 \\
+ & $\Delta\text{Urban}$ & 0.001 & 0.001 & 0.996 & 1.000 \\
+ & $\ln\text{GDPpc}$ & 0.005 & 0.004 & 1.000 & 1.000 \\
+ & DT timing & 0.002 & 0.001 & 0.883 & 0.961 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -409,6 +461,11 @@ Matranga, A. (2024).
 Putterman, L.\ and Weil, D.~N. (2010).
 \newblock Post-1500 population flows and the long-run determinants of economic growth and inequality.
 \newblock {\em Quarterly Journal of Economics}, 125(4):1627--1682.
+
+\bibitem[Sigl and Toohey(2024)]{sigl_toohey_2024}
+Sigl, M.\ and Toohey, M. (2024).
+\newblock Volcanic stratospheric sulfur injections from 500 BCE to 1900 CE, eVolv2k\_version4 [dataset].
+\newblock PANGAEA, \url{https://doi.org/10.1594/PANGAEA.971968}.
 
 \bibitem[Voigtl\"ander and Voth(2013)]{voigtlander2013how}
 Voigtl\"ander, N. and Voth, H.-J. (2013).
