@@ -25,7 +25,18 @@ FIG = ROOT / "analysis/figures/paper5_horserace/fig01_substrate_covariance.pdf"
 FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf"
 TAB1 = ROOT / "analysis/figures/paper5_horserace/tab01_descriptives.tex"
 TAB2 = ROOT / "analysis/figures/paper5_horserace/tab02_substrate_correlations.tex"
+TAB2B = ROOT / "analysis/figures/paper5_horserace/tab02b_climate_subcorrelations.tex"
 
+# Climate bundle members (for descriptives and within-climate sub-correlation)
+CLIMATE_BUNDLE = [
+    "t_mean_pre1750",
+    "p_mean_pre1750",
+    "sigma_v_T_pre1750",
+    "sigma_v_P_pre1750",
+]
+
+# Headline 4 substrates for the cross-substrate scatter and 4×4 correlation table.
+# σᵥᵀ is the natural single-value representative of the climate bundle for display.
 SUBSTRATES = [
     "sigma_v_T_pre1750",
     "H_pred_pwadj",
@@ -33,6 +44,8 @@ SUBSTRATES = [
     "pandemic_intensity_norm",
 ]
 OUTCOMES = [
+    "log_popd_1500",
+    "log_popd_2025",
     "log_pop_growth_1950_2025",
     "urban_change_1950_2025",
     "log_gdppc_2015",
@@ -46,7 +59,7 @@ CONTROLS = [
     "log_dist_neolithic",
 ]
 
-# Long labels for the pairplot axes (LaTeX-safe for matplotlib w/ usetex=False)
+# Long labels for the pairplot axes
 AXIS_LABELS = {
     "sigma_v_T_pre1750": r"$\sigma_v^T$ (1421-1750)",
     "H_pred_pwadj": r"Predicted Het ($H_i$)",
@@ -60,14 +73,21 @@ SHORT_LABELS = {
     "H_pred_pwadj": r"$H_i$",
     "ancestral_yield_log": r"Crop yield",
     "pandemic_intensity_norm": r"Pandemic",
+    "t_mean_pre1750": r"$\bar T$",
+    "p_mean_pre1750": r"$\bar P$",
+    "sigma_v_P_pre1750": r"$\sigma_v^P$",
 }
 
-# Full labels for Table 1 row names
 FULL_LABELS = {
-    "sigma_v_T_pre1750": r"Climate vol.\ $\sigma_v^T$ (pre-1750)",
+    "t_mean_pre1750": r"Climate: mean $T$ 1421--1750",
+    "p_mean_pre1750": r"Climate: mean $P$ 1421--1750",
+    "sigma_v_T_pre1750": r"Climate: $\sigma_v^T$ 1421--1750",
+    "sigma_v_P_pre1750": r"Climate: $\sigma_v^P$ 1421--1750",
     "H_pred_pwadj": r"Predicted heterozygosity $H_i$",
     "ancestral_yield_log": r"Ancestral crop yield (log)",
     "pandemic_intensity_norm": r"Pre-1500 pandemic intensity",
+    "log_popd_1500": r"$\log$ pop density 1500",
+    "log_popd_2025": r"$\log$ pop density 2025",
     "log_pop_growth_1950_2025": r"$\Delta\log P_{1950\to2025}$",
     "urban_change_1950_2025": r"$\Delta$ urban share 1950--2025",
     "log_gdppc_2015": r"$\log$ GDPpc 2015",
@@ -84,15 +104,20 @@ FULL_LABELS = {
 # Table 1 — Descriptive statistics
 # ---------------------------------------------------------------------------
 
-def _descriptives_table(df: pd.DataFrame, cols: list[str], out: Path) -> None:
-    """Write mean / SD / N for each column as a LaTeX tabular."""
-    rows = []
-    for c in cols:
-        s = df[c].dropna()
-        rows.append((FULL_LABELS.get(c, c), s.mean(), s.std(), len(s)))
+def _descriptives_table(df: pd.DataFrame, out: Path) -> None:
+    """Write mean / SD / N for substrates, outcomes, controls as a LaTeX tabular.
 
-    n_sub = len(SUBSTRATES)
-    n_out = len(OUTCOMES)
+    Substrate block: 4 climate-bundle members + H + A + Π (7 rows).
+    Outcome block: 2 density + 4 modern = 6 rows.
+    Controls: 5 geography vars.
+    """
+
+    def _row(c: str):
+        s = df[c].dropna()
+        return (FULL_LABELS.get(c, c), s.mean(), s.std(), len(s))
+
+    substrates_full = CLIMATE_BUNDLE + ["H_pred_pwadj", "ancestral_yield_log",
+                                       "pandemic_intensity_norm"]
 
     with open(out, "w") as f:
         f.write("% Table 1 — Descriptive statistics\n")
@@ -101,15 +126,18 @@ def _descriptives_table(df: pd.DataFrame, cols: list[str], out: Path) -> None:
         f.write("Variable & Mean & SD & $N$ \\\\\n\\midrule\n")
 
         f.write("\\multicolumn{4}{l}{\\textit{Substrates}} \\\\\n")
-        for lbl, mn, sd, n in rows[:n_sub]:
+        for c in substrates_full:
+            lbl, mn, sd, n = _row(c)
             f.write(f"\\quad {lbl} & {mn:.3f} & {sd:.3f} & {n} \\\\\n")
 
         f.write("\\midrule\n\\multicolumn{4}{l}{\\textit{Outcomes}} \\\\\n")
-        for lbl, mn, sd, n in rows[n_sub : n_sub + n_out]:
+        for c in OUTCOMES:
+            lbl, mn, sd, n = _row(c)
             f.write(f"\\quad {lbl} & {mn:.3f} & {sd:.3f} & {n} \\\\\n")
 
         f.write("\\midrule\n\\multicolumn{4}{l}{\\textit{Geography controls}} \\\\\n")
-        for lbl, mn, sd, n in rows[n_sub + n_out :]:
+        for c in CONTROLS:
+            lbl, mn, sd, n = _row(c)
             f.write(f"\\quad {lbl} & {mn:.3f} & {sd:.3f} & {n} \\\\\n")
 
         f.write("\\bottomrule\n\\end{tabular}\n")
@@ -241,19 +269,26 @@ def main() -> None:
 
     # Table 1: descriptives on full sample (dropna per variable) — only in colour mode
     if not BW:
-        _descriptives_table(df, SUBSTRATES + OUTCOMES + CONTROLS, TAB1)
+        _descriptives_table(df, TAB1)
 
-    # Subset to rows with all four substrates present
+    # Subset to rows with all four substrates present (σᵥᵀ represents climate bundle)
     sub = df[SUBSTRATES].dropna()
     print(f"Substrate subset (all 4 non-null): {len(sub)} rows")
 
     if not BW:
-        # Table 2: correlation matrix on substrate subset
+        # Table 2: 4×4 cross-substrate correlation matrix (σᵥᵀ as bundle representative)
         corr = sub.corr().round(3)
         print("\nSubstrate correlations:")
         print(corr.to_string())
         print(f"\nMax |r| off-diagonal: {corr.where(~np.eye(4, dtype=bool)).abs().max().max():.3f}")
         _correlation_table(corr, TAB2)
+
+        # Table 2b: within-climate 4×4 correlation matrix
+        clim_sub = df[CLIMATE_BUNDLE].dropna()
+        clim_corr = clim_sub.corr().round(3)
+        print("\nWithin-climate correlations:")
+        print(clim_corr.to_string())
+        _correlation_table(clim_corr, TAB2B)
 
     # Figure 1
     out = FIG_BW if BW else FIG

@@ -6,21 +6,35 @@ ROOT = Path("/Volumes/BIGDATA/HYDE35")
 OUT = ROOT / "analysis/data/deep_determinants_horserace.parquet"
 
 
-def _sigma_v_T_pre1750() -> pd.DataFrame:
-    """Per-country std of annual temperature 1421-1750 from country_climate_1421_2025."""
-    p = ROOT / "analysis/data/country_climate_1421_2025.parquet"
-    df = pd.read_parquet(p)
-    # Column is t_c (annual mean temperature in Celsius)
-    t_col = "t_c"
-    if t_col not in df.columns:
-        # Fallback: find any column starting with t_
-        candidates = [c for c in df.columns if c.startswith("t_") and c != "t_c_anom_1971_2000"]
-        if not candidates:
-            raise ValueError(f"No annual-T column in {p}. Columns: {list(df.columns)}")
-        t_col = candidates[0]
-    sub = df[(df["year"] >= 1421) & (df["year"] <= 1750)]
-    out = sub.groupby("iso3")[t_col].std()
-    return out.rename("sigma_v_T_pre1750").reset_index()
+def _climate_bundle_pre1750() -> pd.DataFrame:
+    """Climate-bundle substrates: T̄, P̄, σᵥᵀ, σᵥᴾ over 1421-1750.
+
+    Absolute T̄ and absolute annual P̄ are taken from country_seasonality_preindustrial.parquet
+    (which adds back the CRU 1901-1950 climatology to the ModE-RA anomalies, giving
+    physically meaningful absolute values).
+
+    σᵥᵀ and σᵥᴾ are computed as the standard deviation of annual realisations within
+    the 1421-1750 window from country_climate_1421_2025.parquet. (Standard deviation
+    is invariant to whether the underlying series is in level or anomaly form.)
+
+    Returns per-country DataFrame with columns:
+        iso3, t_mean_pre1750, p_mean_pre1750,
+              sigma_v_T_pre1750, sigma_v_P_pre1750
+    """
+    seas = pd.read_parquet(ROOT / "analysis/data/country_seasonality_preindustrial.parquet")
+    seas = seas[["iso3", "t_mean_preind", "p_annual_preind"]].rename(columns={
+        "t_mean_preind": "t_mean_pre1750",
+        "p_annual_preind": "p_mean_pre1750",
+    })
+
+    clim = pd.read_parquet(ROOT / "analysis/data/country_climate_1421_2025.parquet")
+    sub = clim[(clim["year"] >= 1421) & (clim["year"] <= 1750)]
+    vol = sub.groupby("iso3").agg(
+        sigma_v_T_pre1750=("t_c", "std"),
+        sigma_v_P_pre1750=("p_mm", "std"),
+    ).reset_index()
+
+    return seas.merge(vol, on="iso3", how="outer")
 
 
 def _pathway_dummies() -> pd.DataFrame:
@@ -52,7 +66,7 @@ def _pathway_dummies() -> pd.DataFrame:
 
 def main() -> None:
     print("Loading substrate data layers...")
-    sigma = _sigma_v_T_pre1750()
+    climate = _climate_bundle_pre1750()
     pathways = _pathway_dummies()
     geo = pd.read_parquet(ROOT / "analysis/data/deep_determinants_extended.parquet")
     het = pd.read_parquet(ROOT / "analysis/data/deep_determinants/predicted_het_pw_adjusted.parquet")
@@ -61,11 +75,11 @@ def main() -> None:
     pan = pd.read_parquet(ROOT / "analysis/data/deep_determinants/pandemic_intensity_pre1500.parquet")
     out = pd.read_parquet(ROOT / "analysis/data/deep_determinants/modern_outcomes.parquet")
 
-    print(f"  sigma_v_T: {len(sigma)} | pathways: {len(pathways)} | geo: {len(geo)}")
+    print(f"  climate bundle: {len(climate)} | pathways: {len(pathways)} | geo: {len(geo)}")
     print(f"  Het: {len(het)} | state: {len(state)} | yield: {len(yld)} | pandemic: {len(pan)} | outcomes: {len(out)}")
 
-    # Start from sigma (covers all countries with climate data), outer-join with geo
-    df = sigma.merge(geo, on="iso3", how="outer")
+    # Start from climate (covers all countries with climate data), outer-join with geo
+    df = climate.merge(geo, on="iso3", how="outer")
     df = df.merge(pathways, on="iso3", how="left")
     df = df.merge(het[["iso3", "H_pred", "H_pred_pwadj"]], on="iso3", how="left")
     df = df.merge(state[["iso3", "state_hist", "state_hist_pwadj"]], on="iso3", how="left")
@@ -81,11 +95,16 @@ def main() -> None:
 
     df.to_parquet(OUT, index=False)
 
-    full = df.dropna(subset=["sigma_v_T_pre1750", "H_pred_pwadj",
+    # Climate-bundle coverage = all 4 climate vars non-null
+    climate_cols = ["t_mean_pre1750", "p_mean_pre1750",
+                    "sigma_v_T_pre1750", "sigma_v_P_pre1750"]
+    full = df.dropna(subset=climate_cols + ["H_pred_pwadj",
                               "ancestral_yield_log", "pandemic_intensity_norm"])
     print(f"\nWrote {OUT}")
     print(f"  Total rows: {len(df)}")
-    print(f"  Rows with all 4 substrates non-null: {len(full)}")
+    print(f"  Rows with full 4-bundle climate + 3 other substrates: {len(full)}")
+    print(f"  log_popd_1500 non-null: {df['log_popd_1500'].notna().sum()}, "
+          f"log_popd_2025: {df['log_popd_2025'].notna().sum()}")
     print(f"  Columns ({len(df.columns)}): {list(df.columns)}")
 
 

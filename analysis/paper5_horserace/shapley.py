@@ -7,17 +7,30 @@ Equivalent closed form:
 where k is the number of substrates.
 
 The decomposition has the property that sum_s phi_s == R²(full) - R²(baseline).
+
+Grouped/coalition substrates: each element of `substrates` may be either a
+single column name (str) or a tuple/list of column names (a coalition player).
+When a coalition player is in the active subset, all of its variables are
+added to the regression together; when out, none are. The decomposition
+identity above is preserved.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
 from itertools import chain, combinations
 from math import factorial
-from typing import Sequence
+from typing import Sequence, Union
 
-import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+
+SubstrateSpec = Union[str, Sequence[str]]
+
+
+def _expand(spec: SubstrateSpec) -> list[str]:
+    """Normalise a substrate spec to a list of column names."""
+    if isinstance(spec, str):
+        return [spec]
+    return list(spec)
 
 
 def _powerset(iterable):
@@ -33,46 +46,60 @@ def _r2(df: pd.DataFrame, y_col: str, regressors: list[str]) -> float:
     return float(res.rsquared)
 
 
+def _spec_key(spec: SubstrateSpec) -> str:
+    """Stable, human-readable key for a substrate spec."""
+    if isinstance(spec, str):
+        return spec
+    return "+".join(spec)
+
+
 def shapley_r2_decomposition(
     df: pd.DataFrame,
     y_col: str,
-    substrates: Sequence[str],
+    substrates: Sequence[SubstrateSpec],
     controls: Sequence[str],
 ) -> dict:
     """Compute Shapley R² decomposition over substrates, conditioning on controls.
 
+    Each element of `substrates` is either a column name or a sequence of
+    column names (a coalition player added/removed together).
+
     Returns a dict with keys:
-      - shapley: dict[substrate -> shapley value]
-      - full_model_r2: R² of regressing y on all substrates + controls
+      - shapley: dict[substrate_key -> shapley value], where substrate_key is
+        the original string for individual substrates, or "col1+col2+..."
+        for coalition players.
+      - full_model_r2: R² of regressing y on all substrate columns + controls
       - baseline_r2: R² of regressing y on controls alone
       - n_obs: number of observations after listwise deletion
     """
-    needed = list({y_col, *substrates, *controls})
+    expanded = [_expand(s) for s in substrates]
+    keys = [_spec_key(s) for s in substrates]
+    all_substrate_cols = [c for cols in expanded for c in cols]
+    needed = list({y_col, *all_substrate_cols, *controls})
     df = df.dropna(subset=needed).copy()
+
     k = len(substrates)
     baseline_regressors = list(controls)
     baseline_r2 = _r2(df, y_col, baseline_regressors)
 
-    # Compute R²(S + controls) for every subset S of substrates
-    subset_r2 = {}
-    for subset in _powerset(substrates):
-        regressors = baseline_regressors + list(subset)
-        subset_r2[subset] = _r2(df, y_col, regressors)
+    # Enumerate subsets of substrate-indices and compute R²(controls + union of subset cols)
+    indices = tuple(range(k))
+    subset_r2: dict[tuple, float] = {}
+    for subset in _powerset(indices):
+        cols = [c for i in subset for c in expanded[i]]
+        subset_r2[subset] = _r2(df, y_col, baseline_regressors + cols)
 
-    full_model_r2 = subset_r2[tuple(substrates)]
+    full_model_r2 = subset_r2[indices]
 
-    shapley = {s: 0.0 for s in substrates}
-    for s in substrates:
-        others = [t for t in substrates if t != s]
+    shapley = {key: 0.0 for key in keys}
+    for i, key in enumerate(keys):
+        others = tuple(j for j in indices if j != i)
         for subset in _powerset(others):
-            without = subset
-            with_s = tuple(sorted(set(subset) | {s}, key=substrates.index))
-            # Recompute the sorted key so subset_r2 lookups match
-            without_key = tuple(t for t in substrates if t in without)
-            with_key = tuple(t for t in substrates if t in set(without) | {s})
+            without_key = subset
+            with_key = tuple(sorted(set(subset) | {i}))
             marginal = subset_r2[with_key] - subset_r2[without_key]
             weight = factorial(len(subset)) * factorial(k - len(subset) - 1) / factorial(k)
-            shapley[s] += weight * marginal
+            shapley[key] += weight * marginal
 
     return {
         "shapley": shapley,

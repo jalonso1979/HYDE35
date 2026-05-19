@@ -38,12 +38,14 @@ FIG = ROOT / "analysis/figures/paper5_horserace/figA_robustness_battery.pdf"
 FIG_BW = ROOT / "analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf"
 
 SUBSTRATES = [
-    "sigma_v_T_pre1750",
+    "climate_bundle",
     "H_pred_pwadj",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
 OUTCOMES = [
+    "log_popd_1500",
+    "log_popd_2025",
     "log_pop_growth_1950_2025",
     "urban_change_1950_2025",
     "log_gdppc_2015",
@@ -51,12 +53,14 @@ OUTCOMES = [
 ]
 
 SUB_LABELS = {
-    "sigma_v_T_pre1750": r"$\sigma_v^T$ (climate vol.)",
+    "climate_bundle": "Climate bundle",
     "H_pred_pwadj": r"$\hat{H}$ (heterozygosity)",
     "ancestral_yield_log": "Crop yield (log)",
     "pandemic_intensity_norm": "Pandemic intensity",
 }
 OUT_LABELS = {
+    "log_popd_1500": r"$\ln D_{1500}$",
+    "log_popd_2025": r"$\ln D_{2025}$",
     "log_pop_growth_1950_2025": r"$\Delta\ln\text{Pop}$",
     "urban_change_1950_2025": r"$\Delta\text{Urban}$",
     "log_gdppc_2015": r"$\ln\text{GDPpc}$",
@@ -167,11 +171,11 @@ def main() -> None:
              cmap="RdBu_r", center=0.0, fmt=".2f", vmin=-3, vmax=3, bw=BW)
 
     # -----------------------------------------------------------------------
-    # Panel (d): Westfall-Young |t| with significance stars
+    # Panel (d): Westfall-Young |F-stat| with significance stars
     # -----------------------------------------------------------------------
     ax = axes[1, 1]
     wy = df[df["check"] == "wy_correction"]
-    piv_t = wy.pivot(index="substrate", columns="outcome", values="t_obs")
+    piv_t = wy.pivot(index="substrate", columns="outcome", values="f_obs")
     piv_p = wy.pivot(index="substrate", columns="outcome", values="p_adj_wy")
     annot_wy = piv_t.copy().astype(str)
     for s in SUBSTRATES:
@@ -183,16 +187,15 @@ def main() -> None:
                 annot_wy.loc[s, o] = f"{t:.2f}{star}"
             except KeyError:
                 annot_wy.loc[s, o] = ""
-    # Draw heatmap using |t| values (all positive)
     data_t = piv_t.reindex(index=SUBSTRATES, columns=OUTCOMES)
     wy_cmap = "Greys" if BW else "YlOrRd"
-    im = ax.imshow(data_t.values, cmap=wy_cmap, aspect="auto", vmin=0, vmax=6)
-    plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="|t-stat|")
+    im = ax.imshow(data_t.values, cmap=wy_cmap, aspect="auto", vmin=0, vmax=30)
+    plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="F-stat")
     ax.set_xticks(range(len(OUTCOMES)))
     ax.set_xticklabels([OUT_LABELS[o] for o in OUTCOMES], fontsize=7, rotation=20, ha="right")
     ax.set_yticks(range(len(SUBSTRATES)))
     ax.set_yticklabels([SUB_LABELS[s] for s in SUBSTRATES], fontsize=7)
-    ax.set_title("(d) WY-corrected |t-stat| (***p<0.01, **p<0.05, *p<0.10)", fontsize=9,
+    ax.set_title("(d) WY-corrected F-stat (***p<0.01, **p<0.05, *p<0.10)", fontsize=9,
                  fontweight="bold", pad=4)
     for i, s in enumerate(SUBSTRATES):
         for j, o in enumerate(OUTCOMES):
@@ -206,19 +209,18 @@ def main() -> None:
             ax.text(j, i, text, ha="center", va="center", fontsize=6, color=txt_color)
 
     # -----------------------------------------------------------------------
-    # Panel (e): Climate placebos — Shapley R² for sigma_v_T only
+    # Panel (e): Climate placebos — Shapley R² for the climate bundle
     # -----------------------------------------------------------------------
     ax = axes[2, 0]
-    from analysis.paper5_horserace.exercise1_shapley import SUBSTRATES as S_LIST
     base_shapley = pd.read_parquet(
         ROOT / "analysis/data/deep_determinants/exercise1_shapley_results.parquet"
     )
-    base_s = base_shapley[base_shapley.substrate == "sigma_v_T_pre1750"].set_index("outcome")["shapley_r2"]
+    base_s = base_shapley[base_shapley.substrate == "climate_bundle"].set_index("outcome")["shapley_r2"]
 
     p1500 = df[df["check"] == "placebo_pre1500_window"]
-    p1500_s = p1500[p1500.substrate == "sigma_v_T_pre1750"].set_index("outcome")["shapley_r2"]
+    p1500_s = p1500[p1500.substrate == "climate_bundle"].set_index("outcome")["shapley_r2"]
     pmod = df[df["check"] == "placebo_modern_window"]
-    pmod_s = pmod[pmod.substrate == "sigma_v_T_pre1750"].set_index("outcome")["shapley_r2"]
+    pmod_s = pmod[pmod.substrate == "climate_bundle"].set_index("outcome")["shapley_r2"]
 
     x = np.arange(len(OUTCOMES))
     w = 0.25
@@ -241,7 +243,7 @@ def main() -> None:
     ax.set_xticks(x)
     ax.set_xticklabels([OUT_LABELS[o] for o in OUTCOMES], fontsize=8, rotation=15, ha="right")
     ax.set_ylabel("Shapley R²", fontsize=8)
-    ax.set_title(r"(e) Climate-window placebos: $\sigma_v^T$ Shapley R²", fontsize=9, fontweight="bold", pad=4)
+    ax.set_title(r"(e) Climate-window placebos: climate-bundle Shapley R²", fontsize=9, fontweight="bold", pad=4)
     ax.legend(fontsize=7)
     ax.axhline(0, color="black", linewidth=0.5)
     ax.yaxis.grid(True, alpha=0.3)

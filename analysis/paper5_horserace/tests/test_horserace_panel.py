@@ -15,10 +15,31 @@ def test_substrate_columns():
     assert substrates.issubset(set(df.columns))
 
 
+def test_climate_bundle_columns():
+    df = pd.read_parquet(PARQ)
+    bundle = {"t_mean_pre1750", "p_mean_pre1750",
+              "sigma_v_T_pre1750", "sigma_v_P_pre1750"}
+    assert bundle.issubset(set(df.columns))
+    # All four climate bundle columns should have at least 185 non-null countries
+    for col in bundle:
+        n = df[col].notna().sum()
+        assert n >= 185, f"{col} has only {n} non-null countries"
+
+
+def test_density_outcomes():
+    df = pd.read_parquet(PARQ)
+    density = {"log_popd_1500", "log_popd_2025"}
+    assert density.issubset(set(df.columns))
+    for col in density:
+        n = df[col].notna().sum()
+        assert n >= 185, f"{col} has only {n} non-null countries"
+
+
 def test_outcome_columns():
     df = pd.read_parquet(PARQ)
     outcomes = {"log_pop_growth_1950_2025", "urban_change_1950_2025",
-                "log_gdppc_2015", "dt_timing_year"}
+                "log_gdppc_2015", "dt_timing_year",
+                "log_popd_1500", "log_popd_2025"}
     assert outcomes.issubset(set(df.columns))
 
 

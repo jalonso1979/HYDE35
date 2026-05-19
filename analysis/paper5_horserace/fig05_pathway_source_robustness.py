@@ -42,26 +42,29 @@ FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig05_pathway_source_robustne
 
 # Short labels for readability
 SUBSTRATE_LABELS = {
-    "sigma_v_T_pre1750":       "Climate\nvolatility",
+    "climate_bundle":          "Climate\nbundle",
     "H_pred_pwadj":            "Predicted\nheterozygosity",
     "ancestral_yield_log":     "Ancestral\ncrop yield",
     "pandemic_intensity_norm": "Pandemic\nintensity",
 }
 OUTCOME_LABELS = {
+    "log_popd_1500":            "log\n$D_{1500}$",
+    "log_popd_2025":            "log\n$D_{2025}$",
     "log_pop_growth_1950_2025": "Pop growth\n1950-2025",
     "urban_change_1950_2025":   "Urban\nchange",
     "log_gdppc_2015":           "log GDPpc\n2015",
     "dt_timing_year":           "Dem. transition\nyear",
 }
 
-# Ordered for display
 SUBSTRATE_ORDER = [
-    "sigma_v_T_pre1750",
+    "climate_bundle",
     "H_pred_pwadj",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
 OUTCOME_ORDER = [
+    "log_popd_1500",
+    "log_popd_2025",
     "log_pop_growth_1950_2025",
     "urban_change_1950_2025",
     "log_gdppc_2015",

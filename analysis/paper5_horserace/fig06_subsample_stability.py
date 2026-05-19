@@ -32,24 +32,28 @@ FIG = ROOT / "analysis/figures/paper5_horserace/fig06_subsample_stability.pdf"
 FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf"
 
 SUBSTRATES = [
-    "sigma_v_T_pre1750",
+    "climate_bundle",
     "H_pred_pwadj",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
 OUTCOMES = [
+    "log_popd_1500",
+    "log_popd_2025",
     "log_pop_growth_1950_2025",
     "urban_change_1950_2025",
     "log_gdppc_2015",
     "dt_timing_year",
 ]
 SUBSTRATE_LABELS = {
-    "sigma_v_T_pre1750": r"$\sigma_v^T$ (climate vol.)",
+    "climate_bundle": "Climate bundle",
     "H_pred_pwadj": "Predicted Het.",
     "ancestral_yield_log": "Anc. crop yield",
     "pandemic_intensity_norm": "Pre-1500 pandemic",
 }
 OUTCOME_LABELS = {
+    "log_popd_1500": r"$\log D_{1500}$",
+    "log_popd_2025": r"$\log D_{2025}$",
     "log_pop_growth_1950_2025": r"$\Delta\log P$",
     "urban_change_1950_2025": r"$\Delta$ Urban",
     "log_gdppc_2015": r"$\log\!GDPpc$",
@@ -91,8 +95,8 @@ def main() -> None:
     out = FIG_BW if BW else FIG
 
     fig, axes = plt.subplots(
-        4, 4,
-        figsize=(13, 11),
+        len(OUTCOMES), len(SUBSTRATES),
+        figsize=(13, 2.5 * len(OUTCOMES) + 1),
         sharex=True,
         sharey=True,
     )
@@ -134,7 +138,7 @@ def main() -> None:
                        linewidth=0.7, linestyle="--")
 
             ax.set_xticks(x)
-            if i == 3:
+            if i == len(OUTCOMES) - 1:
                 ax.set_xticklabels(STAGE_LABELS, rotation=35, ha="right",
                                    fontsize=7.5)
             else:

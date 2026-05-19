@@ -1,8 +1,11 @@
 """Exercise 1: Shapley-Owen variance decomposition across four substrates,
-for each of four modern demographic outcomes.
+for each of six outcomes (4 modern + 2 population density).
+
+The first substrate is a four-element climate bundle treated as a coalition
+player: (T̄, P̄, σᵥᵀ, σᵥᴾ).
 
 Output: analysis/data/deep_determinants/exercise1_shapley_results.parquet
-        (long-form: 16 rows = 4 outcomes × 4 substrates)
+        (long-form: 24 rows = 6 outcomes × 4 substrates)
         analysis/figures/paper5_horserace/tab03_full_ols.tex
 """
 from pathlib import Path
@@ -15,13 +18,23 @@ ROOT = Path("/Volumes/BIGDATA/HYDE35")
 PANEL = ROOT / "analysis/data/deep_determinants_horserace.parquet"
 OUT = ROOT / "analysis/data/deep_determinants/exercise1_shapley_results.parquet"
 
-SUBSTRATES = [
+CLIMATE_BUNDLE = (
+    "t_mean_pre1750",
+    "p_mean_pre1750",
     "sigma_v_T_pre1750",
+    "sigma_v_P_pre1750",
+)
+SUBSTRATES = [
+    CLIMATE_BUNDLE,
     "H_pred_pwadj",
     "ancestral_yield_log",
     "pandemic_intensity_norm",
 ]
+SUBSTRATE_KEYS = ["climate_bundle", "H_pred_pwadj",
+                  "ancestral_yield_log", "pandemic_intensity_norm"]
 OUTCOMES = [
+    "log_popd_1500",
+    "log_popd_2025",
     "log_pop_growth_1950_2025",
     "urban_change_1950_2025",
     "log_gdppc_2015",
@@ -47,17 +60,20 @@ def _stars(p: float) -> str:
 
 
 def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
-    """Table 3: pooled OLS, 4 columns (one per outcome), all regressors.
+    """Pooled OLS: one column per outcome, all regressors visible.
 
+    Climate bundle expands into 4 variables (T̄, P̄, σᵥᵀ, σᵥᴾ).
     Pathway dummies pathway_1–pathway_4 are included (pathway_0 omitted
     as the reference category to avoid perfect collinearity).
     HC3 heteroskedasticity-robust standard errors.
     """
     import statsmodels.api as sm
 
-    # pathway_0 is the reference (omitted); include pathway_1–pathway_4
     pathway_cols = sorted(c for c in df.columns if c.startswith("pathway_"))[1:]
-    regressors = SUBSTRATES + CONTROLS
+    flat_substrates = list(CLIMATE_BUNDLE) + [
+        s for s in SUBSTRATES if isinstance(s, str)
+    ]
+    regressors = flat_substrates + CONTROLS
 
     fits = {}
     for outcome in OUTCOMES:
@@ -67,9 +83,11 @@ def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
         res = sm.OLS(sub[outcome], X).fit(cov_type="HC3")
         fits[outcome] = res
 
-    # Friendly display labels
     label_map = {
-        "sigma_v_T_pre1750": r"Climate vol.\ ($\sigma_T$)",
+        "t_mean_pre1750": r"~~Mean T ($\bar T$)",
+        "p_mean_pre1750": r"~~Mean P ($\bar P$)",
+        "sigma_v_T_pre1750": r"~~T volatility ($\sigma_v^T$)",
+        "sigma_v_P_pre1750": r"~~P volatility ($\sigma_v^P$)",
         "H_pred_pwadj": r"Pred.\ heterozygosity",
         "ancestral_yield_log": r"Ancestral crop yield (log)",
         "pandemic_intensity_norm": r"Pandemic intensity",
@@ -81,10 +99,12 @@ def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
     }
 
     outcome_labels = {
-        "log_pop_growth_1950_2025": r"$\Delta\ln\text{Pop}$",
-        "urban_change_1950_2025": r"$\Delta\text{Urban}$",
-        "log_gdppc_2015": r"$\ln\text{GDPpc}$",
-        "dt_timing_year": r"DT timing",
+        "log_popd_1500": r"$\ln\!D_{1500}$",
+        "log_popd_2025": r"$\ln\!D_{2025}$",
+        "log_pop_growth_1950_2025": r"$\Delta\!\ln\!P$",
+        "urban_change_1950_2025": r"$\Delta\text{Urb}$",
+        "log_gdppc_2015": r"$\ln\!\text{GDPpc}$",
+        "dt_timing_year": r"DT yr",
     }
 
     with open(out, "w") as f:
@@ -92,15 +112,19 @@ def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
         f.write("\\begin{tabular}{" + col_spec + "}\n")
         f.write("\\toprule\n")
 
-        # Header row
         headers = " & ".join(outcome_labels.get(o, o) for o in OUTCOMES)
         f.write(" & " + headers + " \\\\\n")
         f.write(" & " + " & ".join(f"({i+1})" for i in range(len(OUTCOMES))) + " \\\\\n")
         f.write("\\midrule\n")
 
-        # Substrate block
-        f.write("\\multicolumn{" + str(len(OUTCOMES) + 1) + "}{l}{\\textit{Substrates}} \\\\\n")
-        for r in SUBSTRATES:
+        # Climate bundle block
+        f.write("\\multicolumn{" + str(len(OUTCOMES) + 1) + "}{l}{\\textit{Climate bundle}} \\\\\n")
+        for r in CLIMATE_BUNDLE:
+            _write_regressor_row(f, r, OUTCOMES, fits, label_map)
+
+        # Non-climate substrate block
+        f.write("\\multicolumn{" + str(len(OUTCOMES) + 1) + "}{l}{\\textit{Other substrates}} \\\\\n")
+        for r in ["H_pred_pwadj", "ancestral_yield_log", "pandemic_intensity_norm"]:
             _write_regressor_row(f, r, OUTCOMES, fits, label_map)
 
         # Controls block
@@ -108,32 +132,19 @@ def _emit_full_ols_table(df: pd.DataFrame, out: Path) -> None:
         for r in CONTROLS:
             _write_regressor_row(f, r, OUTCOMES, fits, label_map)
 
-        # Footer
         f.write("\\midrule\n")
         n_obs = [int(fits[o].nobs) for o in OUTCOMES]
         r2_vals = [fits[o].rsquared for o in OUTCOMES]
-        f.write(
-            "$N$ & "
-            + " & ".join(str(n) for n in n_obs)
-            + " \\\\\n"
-        )
-        f.write(
-            "$R^2$ & "
-            + " & ".join(f"{r:.3f}" for r in r2_vals)
-            + " \\\\\n"
-        )
-        f.write(
-            "Pathway dummies & "
-            + " & ".join(["Yes"] * len(OUTCOMES))
-            + " \\\\\n"
-        )
+        f.write("$N$ & " + " & ".join(str(n) for n in n_obs) + " \\\\\n")
+        f.write("$R^2$ & " + " & ".join(f"{r:.3f}" for r in r2_vals) + " \\\\\n")
+        f.write("Pathway dummies & "
+                + " & ".join(["Yes"] * len(OUTCOMES)) + " \\\\\n")
         f.write("\\bottomrule\n\\end{tabular}\n")
 
     print(f"Wrote {out}")
 
 
 def _write_regressor_row(f, r, outcomes, fits, label_map):
-    """Write a coefficient + SE row pair for one regressor."""
     label = label_map.get(r, r)
     coef_cells = []
     se_cells = []
@@ -163,12 +174,18 @@ def main() -> None:
             substrates=SUBSTRATES,
             controls=CONTROLS,
         )
-        for s in SUBSTRATES:
+        # Map result keys to our canonical SUBSTRATE_KEYS for clean output
+        key_map = {"+".join(CLIMATE_BUNDLE): "climate_bundle",
+                   "H_pred_pwadj": "H_pred_pwadj",
+                   "ancestral_yield_log": "ancestral_yield_log",
+                   "pandemic_intensity_norm": "pandemic_intensity_norm"}
+        for raw_key, phi in result["shapley"].items():
+            canonical = key_map[raw_key]
             rows.append(
                 {
                     "outcome": outcome,
-                    "substrate": s,
-                    "shapley_r2": result["shapley"][s],
+                    "substrate": canonical,
+                    "shapley_r2": phi,
                     "baseline_r2": result["baseline_r2"],
                     "full_model_r2": result["full_model_r2"],
                     "n_obs": result["n_obs"],
@@ -184,7 +201,9 @@ def main() -> None:
     )
 
     pivot = out_df.pivot(index="substrate", columns="outcome", values="shapley_r2")
-    print("\nShapley R² decomposition:")
+    # Order substrates and outcomes for display
+    pivot = pivot.reindex(index=SUBSTRATE_KEYS, columns=OUTCOMES)
+    print("\nShapley R² decomposition (4 substrates × 6 outcomes):")
     print(pivot.round(4).to_string())
 
     print("\nLargest substrate per outcome:")

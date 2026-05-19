@@ -11,7 +11,7 @@ def test_parquet_exists():
 
 def test_grid_shape():
     df = pd.read_parquet(PARQ)
-    assert len(df) == 16  # 4 outcomes × 4 substrates
+    assert len(df) == 24  # 6 outcomes × 4 substrates
 
 
 def test_columns():

@@ -33,20 +33,21 @@ FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig04_mediation_bw.pdf"
 TAB = ROOT / "analysis/figures/paper5_horserace/tab05_mediation_table.tex"
 
 SUBSTRATE_LABELS = {
-    "sigma_v_T_pre1750": r"$\sigma_v^T$",
+    "climate_bundle": r"Climate bundle",
     "H_pred_pwadj": r"Pred. Het.",
     "ancestral_yield_log": r"Anc. crop",
-    "pandemic_intensity_norm": r"Pre-1500\npandemic",
+    "pandemic_intensity_norm": "Pre-1500\npandemic",
 }
 
 OUTCOME_LABELS = {
+    "log_popd_1500": r"$\log D_{1500}$",
+    "log_popd_2025": r"$\log D_{2025}$",
     "log_pop_growth_1950_2025": r"$\Delta\log\!P_{50\text{-}25}$",
     "urban_change_1950_2025": r"$\Delta$ Urban$_{50\text{-}25}$",
     "log_gdppc_2015": r"$\log\!GDPpc_{15}$",
     "dt_timing_year": "DT timing",
 }
 
-# Substrate order
 SUBSTRATE_ORDER = list(SUBSTRATE_LABELS.keys())
 OUTCOME_ORDER = list(OUTCOME_LABELS.keys())
 
@@ -97,7 +98,7 @@ def main() -> None:
 
     out = FIG_BW if BW else FIG
 
-    fig, axes = plt.subplots(1, 4, figsize=(15, 4.5), sharey=True)
+    fig, axes = plt.subplots(1, 6, figsize=(18, 4.5), sharey=True)
 
     for ax, outcome in zip(axes, OUTCOME_ORDER):
         sub = df[df["outcome"] == outcome].copy()
@@ -196,9 +197,8 @@ def main() -> None:
         0.5, -0.05,
         (
             "Note: Mediation share = indirect effect / total effect (bootstrap 1000 reps, HC3)."
-            " Values outside [0,1] indicate suppressor structure (negative mediation)"
-            " or over-mediation and are not interpretable as proportion mediated."
-            " Only pandemic$\\to$$\\log$GDPpc yields a clean estimate ($\\approx$0.47)."
+            " Climate-bundle uses partial-R² mediation; H, A, $\\Pi$ use $\\beta$-attenuation."
+            " Values outside [0,1] indicate suppressor structure or over-mediation."
         ),
         ha="center", fontsize=7.5, style="italic", wrap=True,
     )
@@ -235,15 +235,15 @@ def main() -> None:
         f.write(r"\midrule" + "\n")
 
         for sub in SUBSTRATE_ORDER:
-            row_label = SUBSTRATE_LABELS[sub].replace(r"\n", " ")
+            row_label = SUBSTRATE_LABELS[sub].replace("\n", " ")
             cells = []
             for out in OUTCOME_ORDER:
                 share = piv_share.loc[sub, out]
                 lo = piv_lo.loc[sub, out]
                 hi = piv_hi.loc[sub, out]
                 cell_str = f"{share:.2f} [{lo:.2f},\\;{hi:.2f}]"
-                # Bold the one clean interpretable cell
-                if sub == "pandemic_intensity_norm" and out == "log_gdppc_2015":
+                # Bold cleanly-interpretable cells (point in [0,1] and CI almost there)
+                if 0 <= share <= 1 and lo >= -0.1 and hi <= 1.2:
                     cell_str = r"\textbf{" + cell_str + r"}"
                 cells.append(cell_str)
             f.write(row_label + " & " + " & ".join(cells) + r" \\" + "\n")
@@ -254,9 +254,9 @@ def main() -> None:
             + str(n_outcomes + 1)
             + r"}{p{0.95\textwidth}}{\footnotesize "
             r"\textit{Mediation share = indirect / total effect, bootstrapped (1000 reps) "
-            r"with HC3 SEs. Values outside [0,\,1] indicate suppressor effects or "
-            r"over-mediation; bolded cell (Pre-1500 pandemic $\to$ $\log\!GDPpc$) is the "
-            r"only cleanly interpretable estimate ($\approx 0.47$).}}"
+            r"with HC3 SEs. Climate-bundle uses partial-R² mediation; other substrates use "
+            r"$\beta$-attenuation. Bolded cells have point estimate in [0,\,1] with CI "
+            r"nearly contained; the rest indicate suppressor or over-mediation structure.}}"
             r" \\" + "\n"
         )
         f.write(r"\bottomrule" + "\n")

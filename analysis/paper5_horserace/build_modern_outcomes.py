@@ -1,6 +1,7 @@
 """Build modern outcomes panel for the deep-determinants horserace (Paper 5).
 
-Four country-level outcomes assembled from official UN / Maddison data:
+Six country-level outcomes — four "modern" (1950-onward) and two
+population-density outcomes drawn from HYDE 3.5:
 
 1. log_pop_growth_1950_2025
    = log(P_2025 / P_1950)
@@ -32,9 +33,19 @@ Four country-level outcomes assembled from official UN / Maddison data:
      - 1950-2023: OWID crude birth rate 1950-2023 (sourcing UN WPP 2024)
    Cache: analysis/data/deep_determinants/_raw/un_wpp/
 
+5. log_popd_1500
+   = log(country population density in 1500 CE, persons/km²).
+   Source: HYDE 3.5 country-level density file
+   gbc2025_7apr_base/txt/popd_c.txt; column "1500".
+   Mapped via hyde35_country_iso_mapping.csv (iso_num -> iso3).
+
+6. log_popd_2025
+   = log(country population density in 2025, persons/km²).
+   Same source as (5), column "2025".
+
 Output: analysis/data/deep_determinants/modern_outcomes.parquet
 Columns: iso3, log_pop_growth_1950_2025, urban_change_1950_2025,
-         log_gdppc_2015, dt_timing_year, source
+         log_gdppc_2015, dt_timing_year, log_popd_1500, log_popd_2025, source
 """
 from pathlib import Path
 
@@ -243,6 +254,33 @@ def load_cbr_series() -> pd.DataFrame:
     return combined
 
 
+def load_hyde_popd(years: list[int]) -> pd.DataFrame:
+    """Load HYDE 3.5 country-level population density (persons/km²) for the
+    requested years from gbc2025_7apr_base/txt/popd_c.txt.
+
+    Returns DataFrame with columns: iso3, popd_<year> for each year in `years`.
+    """
+    src = ROOT / "gbc2025_7apr_base/txt/popd_c.txt"
+    df = pd.read_csv(src, sep=r"\s+", engine="python")
+    # First column is 'region' (HYDE numeric iso_num)
+    df = df[df["region"].astype(str).str.isdigit()].copy()
+    df["iso_num"] = df["region"].astype(int)
+
+    iso_map = pd.read_csv(ROOT / "hyde35_country_iso_mapping.csv")
+    iso_map = iso_map.dropna(subset=["iso_num", "iso3"]).copy()
+    iso_map["iso_num"] = iso_map["iso_num"].astype(int)
+    df = df.merge(iso_map[["iso_num", "iso3"]], on="iso_num", how="left")
+    df = df.dropna(subset=["iso3"]).copy()
+
+    keep = ["iso3"] + [str(y) for y in years]
+    sub = df[keep].copy()
+    rename = {str(y): f"popd_{y}" for y in years}
+    sub = sub.rename(columns=rename)
+    for y in years:
+        sub[f"popd_{y}"] = pd.to_numeric(sub[f"popd_{y}"], errors="coerce")
+    return sub
+
+
 def compute_dt_timing(cbr_series: pd.DataFrame) -> pd.DataFrame:
     """Return first year CBR < 25/1000 for each country.
 
@@ -296,8 +334,17 @@ def main() -> None:
     n_crossed = dt["dt_timing_year"].notna().sum()
     print(f"    {n_crossed} countries with CBR < 25 crossing identified")
 
-    # 5. Merge into panel
-    print("\n[5] Merging outcomes...")
+    # 5. HYDE pop density 1500 and 2025
+    print("\n[5] HYDE 3.5 population density (1500, 2025)...")
+    popd = load_hyde_popd([1500, 2025])
+    popd["log_popd_1500"] = np.log(popd["popd_1500"].clip(lower=1e-3))
+    popd["log_popd_2025"] = np.log(popd["popd_2025"].clip(lower=1e-3))
+    print(f"    {len(popd)} countries from HYDE")
+    print(f"    1500 non-null: {popd['popd_1500'].notna().sum()}, "
+          f"2025 non-null: {popd['popd_2025'].notna().sum()}")
+
+    # 6. Merge into panel
+    print("\n[6] Merging outcomes...")
     # Start from the union of countries that appear in population data
     df = pop[["iso3", "log_pop_growth_1950_2025"]].copy()
     df = df.merge(
@@ -307,12 +354,15 @@ def main() -> None:
         mad[["iso3", "log_gdppc_2015"]], on="iso3", how="left"
     )
     df = df.merge(dt[["iso3", "dt_timing_year"]], on="iso3", how="left")
+    df = df.merge(popd[["iso3", "log_popd_1500", "log_popd_2025"]],
+                  on="iso3", how="left")
 
     df["source"] = (
         "Pop 1950: OWID/WPP; Pop 2025: Gapminder/WPP2024; "
         "Urban: UN WUP 2025 F02 (Cities+Towns); "
         "GDPpc: Maddison Project DB 2023 (2011$); "
-        "CBR: Gapminder 1800-1949 + OWID/WPP 1950-2023"
+        "CBR: Gapminder 1800-1949 + OWID/WPP 1950-2023; "
+        "PopDensity: HYDE 3.5 gbc2025_7apr_base"
     )
 
     # Sort by iso3
@@ -323,6 +373,8 @@ def main() -> None:
     print(f"  urban_change_1950_2025:   {df['urban_change_1950_2025'].notna().sum()} non-null")
     print(f"  log_gdppc_2015:           {df['log_gdppc_2015'].notna().sum()} non-null")
     print(f"  dt_timing_year:           {dt['dt_timing_year'].notna().sum()} crossed (NaN = not yet)")
+    print(f"  log_popd_1500:            {df['log_popd_1500'].notna().sum()} non-null")
+    print(f"  log_popd_2025:            {df['log_popd_2025'].notna().sum()} non-null")
 
     # Validate ranges
     assert (df["log_pop_growth_1950_2025"].dropna() > -5).all(), "log_pop_growth suspiciously low"
@@ -334,6 +386,10 @@ def main() -> None:
     dt_valid = df["dt_timing_year"].dropna()
     assert (dt_valid >= 1800).all(), "dt_timing_year before 1800 is suspicious"
     assert (dt_valid <= 2023).all(), "dt_timing_year after 2023 is impossible"
+    # log popd should be in a wide but bounded range (e.g. -8 .. 9 for 0.0003 to 8000 ppl/km²)
+    for col in ("log_popd_1500", "log_popd_2025"):
+        v = df[col].dropna()
+        assert v.between(-10, 10).all(), f"{col} out of plausible range: {v.min()} .. {v.max()}"
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     df.to_parquet(OUT, index=False)
