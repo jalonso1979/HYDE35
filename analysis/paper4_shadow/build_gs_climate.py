@@ -29,7 +29,12 @@ COUNTRY_WEIGHTINGS = {
 
 
 def _absolute_levels(mod: pd.DataFrame, entity_col: str) -> pd.DataFrame:
-    """Add CRU 1901-1950 climatology to anomalies to recover absolute T, P."""
+    """Add CRU 1901-1950 climatology to anomalies to recover absolute T, P.
+
+    Works for both country (entity_col='iso3') and sub-national
+    (entity_col='sub_id') inputs because sub-national source files already
+    carry iso3 per row, so the CRU merge keys remain (iso3, month).
+    """
     clim = pd.read_parquet(DATA / "cru_country_climatology_1901_1950.parquet")
     df = mod.merge(clim, on=["iso3", "month"], how="inner")
     df["t_abs"] = df["t_anom_c"] + df["tmp_c_clim"]
@@ -116,8 +121,9 @@ def _build_country() -> None:
     cs = cs_pieces[0]
     for piece in cs_pieces[1:]:
         cs = cs.merge(piece, on="iso3", how="outer")
-    cs["n_gs_months_cropw"] = cs["n_gs_months_cropw"].fillna(0).astype(int)
-    cs["gs_months_mask_cropw"] = cs["gs_months_mask_cropw"].fillna("")
+    for w in COUNTRY_WEIGHTINGS:
+        cs[f"n_gs_months_{w}"] = cs[f"n_gs_months_{w}"].fillna(0).astype(int)
+        cs[f"gs_months_mask_{w}"] = cs[f"gs_months_mask_{w}"].fillna("")
     cs_out = DATA / "country_seasonality_gs_preindustrial.parquet"
     cs.to_parquet(cs_out, index=False)
     print(f"[country] wrote {cs_out} ({len(cs)} countries)")
@@ -125,6 +131,10 @@ def _build_country() -> None:
     panel = panel_pieces[0]
     for piece in panel_pieces[1:]:
         panel = panel.merge(piece, on=["iso3", "year"], how="outer")
+    # Carry n_gs_months_* into the panel so downstream regression scripts can
+    # filter empty-GS rows without a secondary merge against the cross-section.
+    count_cols = ["iso3"] + [f"n_gs_months_{w}" for w in COUNTRY_WEIGHTINGS]
+    panel = panel.merge(cs[count_cols], on="iso3", how="left")
     panel_out = DATA / "country_climate_gs_1421_2025.parquet"
     panel.to_parquet(panel_out, index=False)
     print(f"[country] wrote {panel_out} ({len(panel):,} rows, "

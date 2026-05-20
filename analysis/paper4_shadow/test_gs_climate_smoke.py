@@ -35,9 +35,10 @@ def assert_cross_section() -> None:
     fra = df[df["iso3"] == "FRA"].iloc[0]
     assert 5 <= fra["n_gs_months_cropw"] <= 9, (
         f"France cropw n_gs_months out of range: {fra['n_gs_months_cropw']}")
-    for col in ("sigma_v_T_gs_pre1750_cropw", "sigma_v_P_gs_pre1750_cropw"):
-        valid = df.dropna(subset=[col])
-        assert (valid[col] > 0).all(), f"{col} must be positive when defined"
+    for w in WEIGHTINGS:
+        for col in (f"sigma_v_T_gs_pre1750_{w}", f"sigma_v_P_gs_pre1750_{w}"):
+            valid = df.dropna(subset=[col])
+            assert (valid[col] > 0).all(), f"{col} must be positive when defined"
     print(f"  cross-section: {len(df)} countries, "
           f"{df['n_gs_months_cropw'].notna().sum()} with cropw n_gs defined")
 
@@ -51,16 +52,22 @@ def assert_annual_panel() -> None:
     missing = [c for c in expected_cols if c not in df.columns]
     assert not missing, f"missing panel cols: {missing}"
     assert df.groupby(["iso3", "year"]).size().max() == 1, "duplicate iso3-year"
-    yrs = df["year"].unique()
-    assert yrs.min() == 1421 and yrs.max() >= 2008, (
-        f"unexpected year range: {yrs.min()}-{yrs.max()}")
+    yrs = sorted(df["year"].unique())
+    assert yrs[0] == 1421 and yrs[-1] >= 2008, (
+        f"unexpected year range: {yrs[0]}-{yrs[-1]}")
+    assert list(yrs) == list(range(yrs[0], yrs[-1] + 1)), (
+        f"year range not contiguous: gap detected in 1421-{yrs[-1]}")
+    # Panel must carry n_gs_months_* so downstream filters are self-contained.
+    for w in WEIGHTINGS:
+        assert f"n_gs_months_{w}" in df.columns, (
+            f"panel missing n_gs_months_{w} (needed for downstream filters)")
     pre = df[df["year"].between(1421, 1750)]
     anom_mean = pre.groupby("iso3")["t_gs_anom_cropw"].mean().abs()
     # Tolerance 1e-5 (not 1e-6): source data is float32, so roundtrip gives ~2e-6 residuals
     assert (anom_mean.dropna() < 1e-5).all(), (
         f"t_gs_anom_cropw not centered on 1421-1750: max |mean|={anom_mean.max()}")
     print(f"  annual panel: {len(df)} rows, {df['iso3'].nunique()} countries, "
-          f"years {yrs.min()}-{yrs.max()}")
+          f"years {yrs[0]}-{yrs[-1]}")
 
 
 def main() -> None:
