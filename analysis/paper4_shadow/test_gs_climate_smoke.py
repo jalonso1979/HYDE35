@@ -76,7 +76,8 @@ def assert_subnational() -> None:
     for w in ("area", "pop"):
         for col in (f"sigma_v_T_gs_pre1750_{w}", f"sigma_v_P_gs_pre1750_{w}",
                     f"T_gs_mean_pre1750_{w}", f"P_gs_mean_pre1750_{w}",
-                    f"sigma_v_T_nongs_pre1750_{w}", f"n_gs_months_{w}"):
+                    f"sigma_v_T_nongs_pre1750_{w}", f"n_gs_months_{w}",
+                    f"gs_months_mask_{w}"):
             assert col in cs.columns, f"sub-national cross-section missing {col}"
         for col in (f"t_gs_mean_{w}", f"p_gs_mean_{w}",
                     f"t_gs_anom_{w}", f"p_gs_anom_{w}"):
