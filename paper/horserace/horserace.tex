@@ -97,7 +97,33 @@ The paper rests on a country-level panel of five pre-industrial substrates, six 
 
 The within-bundle correlation structure is moderate (Table~\ref{tab:climate-subcorr}): $\sigma_v^T$ correlates $-0.67$ with $\bar T$ (cold places are more volatile), $\bar P$ correlates $+0.66$ with $\sigma_v^P$ (wetter places have more precipitation variability), and all six pairwise correlations sit in $|r|\in[0.24, 0.67]$. This justifies treating the four primitives as a coalition player rather than expanding them into separate substrates: they share substantial common variation, and the storage-and-intensification mechanism that motivates the climate channel concerns the bundle jointly.
 
-\textbf{Functional-allele bundle.} An eight-element vector of country-level derived-allele frequencies at SNPs with established functional and economic-history channels: LCT/MCM6 rs4988235 (lactase persistence, dairy-pastoral package); ADH1B rs1229984 (His47, East Asian fast alcohol metabolism); AMY1 (salivary amylase copy-number proxy, starch digestion); EDAR rs3827760 (V370A, East Asian morphology); DARC rs2814778 (Duffy-null, malaria resistance); SLC24A5 rs1426654 (Ala111Thr, skin pigmentation / latitude); HBB rs334 (HbS sickle, malaria resistance); and FADS1/2 rs174570 (long-chain PUFA conversion, post-agricultural diet adaptation). Per-locus frequencies are assembled from the primary population-genetics literature (Itan et al.\ 2010, Liebert et al.\ 2017, Howes et al.\ 2011, Piel et al.\ 2010, Norton et al.\ 2007, Sabeti et al.\ 2007, Mathieson et al.\ 2015, Peng et al.\ 2010, Perry et al.\ 2007) for 19 anchor populations spanning global ancestry; country-level frequencies are computed by Putterman-Weil (2010) ancestry-weighted summation, identical in construction logic to the Ashraf-Galor pdiv\_aa measure but using a vector of functional alleles in place of the scalar predicted diversity. Treated as a Shapley coalition player parallel to the climate bundle. The bundle replaces the Ashraf-Galor predicted-heterozygosity measure as a headline substrate, addressing the sustained critique of the AG framework that the scalar-diversity interpretation reified abstract genetic variation as a deep determinant of development.
+\textbf{Functional-allele bundle.} An eight-element vector of country-level derived-allele frequencies at SNPs with established functional and economic-history channels: LCT/MCM6 rs4988235, ADH1B rs1229984, AMY1 copy-number, EDAR rs3827760, DARC rs2814778, SLC24A5 rs1426654, HBB rs334, and FADS1/2 rs174570. Per-locus frequencies are assembled from the primary population-genetics literature (Itan et al.\ 2010, Liebert et al.\ 2017, Howes et al.\ 2011, Piel et al.\ 2010, Norton et al.\ 2007, Sabeti et al.\ 2007, Mathieson et al.\ 2015, Peng et al.\ 2010, Perry et al.\ 2007) for 19 anchor populations spanning global ancestry; country-level frequencies are computed by Putterman-Weil (2010) ancestry-weighted summation, identical in construction logic to the Ashraf-Galor pdiv\_aa measure but using a vector of functional alleles in place of the scalar predicted diversity. Treated as a Shapley coalition player parallel to the climate bundle. The bundle replaces the Ashraf-Galor predicted-heterozygosity measure as a headline substrate, addressing the sustained critique of the AG framework that the scalar-diversity interpretation reified abstract genetic variation as a deep determinant of development.
+
+\textbf{Functional-allele biology and selection signatures.} The eight loci span three thematic groups in the modern ancient-DNA literature, summarised here to support the per-locus reading of Tables~\ref{tab:full-ols} and~\ref{tab:functional-subshapley} in Section~\ref{sec:shapley}.
+
+\emph{(i)~Post-Neolithic dietary adaptations.} Three loci track the post-Holocene shift from animal-rich pre-Neolithic diets to plant- and dairy-rich agricultural diets.
+
+\textbf{LCT/MCM6 rs4988235} is the regulatory variant upstream of the lactase gene that keeps lactase expressed into adulthood; the derived T allele enables adult milk consumption rather than only at weaning. It carries one of the strongest known positive-selection signatures in the human genome: ancient-DNA samples from pre-Bronze-Age Europe show it rare, and it sweeps to $\sim$70\% in Northern Europe within $\sim$4{,}000 years coincident with dairy-pastoral expansion \citep{mathieson2015,allentoft2015}. Frequencies are $\sim$90\% in Scandinavia and the British Isles, $\sim$50\% in Southern Europe, $<$10\% across East Asia and most of Sub-Saharan Africa except specialised dairy-pastoral populations (Maasai, Fulani). The economic channel is direct: cattle-as-portable-storage in the dairy-pastoral package, expanded protein supply, and viability of high-latitude or cold-climate pastoralism.
+
+\textbf{AMY1} salivary-amylase copy-number variation tracks historical dietary-starch intake. \citet{perry2007} documented copy-number elevation in long-agricultural populations and reduction in pastoral and Arctic populations (Maasai, Yakut). Frequencies are highest in cereal-agricultural East Asia and post-Neolithic Eurasia, lower among traditional pastoralists. Among the eight loci, AMY1 is the most direct biological marker of the agricultural-cereal transition: higher copy number = better starch digestion = higher caloric extraction from cereal-based subsistence.
+
+\textbf{FADS1/2 rs174570} variants affect efficient conversion of plant-derived short-chain $\omega$-3/6 fatty acids (ALA, LA) to long-chain forms (EPA, DHA, AA) required for brain and immune function. The derived efficient-converter allele is rare in Mesolithic European hunter-gatherers and at high frequency in Neolithic farmers---a classic post-agricultural selection signature \citep{ameur2012,mathieson2015}. High in long-agricultural populations (East and South Asia, post-Neolithic Europe, agricultural Sub-Saharan Africa); lower in populations with continued marine- or animal-rich diets (Greenland Inuit, Yakut). The economic channel is the nutritional viability of plant-rich agricultural diets without animal-derived essential fatty acids.
+
+\emph{(ii)~Regional dietary specialisation.} One locus reflects an East-Asia-specific dietary signature.
+
+\textbf{ADH1B rs1229984} (His47) accelerates alcohol-to-acetaldehyde conversion 40--100$\times$, producing the ``Asian flush'' reaction. The derived allele swept through East Asia during the Holocene; current frequencies are $\sim$70--90\% in Han Chinese, Japanese, and Korean populations, near zero elsewhere. Selection drivers remain debated \citep{peng2010}: one hypothesis links it to fermented-rice consumption and reduced alcoholism risk, another to acetaldehyde's antimicrobial properties under the disease-burden conditions of dense Holocene rice agriculture. The economic channel runs primarily through East Asian rice-agriculture ancestry rather than through a stand-alone economic mechanism; the bundle treatment captures it via collinearity with other East-Asian-specific signatures.
+
+\emph{(iii)~Infectious-disease resistance.} Two loci are under malaria selection.
+
+\textbf{DARC rs2814778} (Duffy-null) knocks out the chemokine receptor that \emph{Plasmodium vivax} requires to invade erythrocytes; Duffy-null individuals are fully protected from vivax malaria. The variant has been under strong positive selection in Sub-Saharan Africa for at least 33{,}000 years \citep{howes2011}, pre-dating the Holocene by far. Frequencies are $\sim$95--100\% in West and Central Africa, near zero elsewhere; the variant is therefore a sensitive marker of West African ancestry as well as vivax-malaria-zone evolutionary history. The economic channel is two-edged: protection from a major historical disease but also high correlation with African ancestry that historically faced colonial-extractive institutions (the Acemoglu-Johnson-Robinson reversal-of-fortune channel).
+
+\textbf{HBB rs334} (HbS / sickle-cell) protects heterozygotes (HbAS) from severe \emph{P.\ falciparum} infection while imposing fitness costs on homozygotes (HbSS)---the textbook example of balanced polymorphism under infectious-disease pressure \citep{piel2010}. The variant arose independently multiple times in falciparum-endemic regions over the last $\sim$10{,}000 years; frequencies are 5--25\% across Sub-Saharan Africa, the Mediterranean, the Arabian Peninsula, and parts of India. Paired with DARC, it constitutes the bundle's malaria-resistance signature; Section~\ref{sec:malaria-sensitivity} reports the bundle's contribution with DARC and HBB excluded to separate the agricultural-adaptation from the tropical-disease channel.
+
+\emph{(iv)~Environmental adaptation.} Two loci track latitude-by-UV and morphological adaptation.
+
+\textbf{SLC24A5 rs1426654} (Ala111Thr) is the largest single contributor to European-African skin-pigmentation difference ($\sim$25--38\% of the variance). The Thr111 derived allele lightens skin by reducing melanin synthesis in melanocytes and shows extremely strong positive selection in Europe---rare in pre-Bronze-Age Europeans and near-fixation ($\sim$99\%) by $\sim$5{,}000 BP coincident with Yamnaya-related ancestry expansion \citep{mathieson2015}. The favoured selection driver is the folate--vitamin-D balance hypothesis: lighter skin enables UV-driven vitamin D synthesis under low-UV high-latitude conditions. Frequencies are $\sim$99\% in Europe, $\sim$5\% in Sub-Saharan Africa, intermediate in South Asia and the Middle East. Because the variant correlates strongly with absolute latitude (already in the geography control battery), its \emph{independent} contribution beyond latitude is itself the substantive question.
+
+\textbf{EDAR rs3827760} (V370A) affects ectodysplasin-A receptor function---hair morphology (thicker straight hair), sweat-gland density, tooth shape. The variant underwent a massive selective sweep $\sim$30{,}000 years ago in East Asia \citep{sabeti2007}; frequencies are $\sim$95\% in Han Chinese, Japanese, and Native American populations, near zero in Europe and Africa. Selection drivers remain debated---thermoregulation, sexual selection, or pleiotropic effects. Among the eight loci, EDAR has the weakest direct link to economic outcomes; it is included for completeness and serves primarily as a marker of East Asian and Asian-derived ancestry.
 
 \textbf{Neolithic-ancestry fraction} $\nu_i$ is the country-level share of modern ancestry derived from populations that underwent an agricultural-Neolithic transition of any kind, versus pre-Neolithic forager ancestry. The post-Neolithic share aggregates Anatolian Neolithic farmer, Iranian Neolithic, Caucasus-Neolithic, and Yamnaya steppe-pastoralist ancestry in Eurasia \citep{lazaridis2014}; Bantu agriculturalist ancestry in Sub-Saharan Africa \citep{patin2017,lipson2020}; Mesoamerican maize-farmer and Andean potato-farmer ancestry in the Americas \citep{reich2012,posth2018}; Yangtze rice-farmer and Han-Neolithic ancestry in East Asia (Wang et al.\ 2019; Yang et al.\ 2020); and Austronesian ancestry in the Pacific \citep{skoglund2016,bergstrom2017}. Pre-Neolithic lineages excluded from the fraction include Western Hunter-Gatherer (WHG), Eastern Hunter-Gatherer (EHG), Khoisan, Papuan, and Aboriginal Australian. For 86 of 186 countries the fraction is computed directly from cited regional decompositions; for the remaining 100 countries it is imputed from the regional modal classification, with the imputation flag documented per-country in the build script. A strict-agriculturalist variant excludes Yamnaya/steppe ancestry from the fraction; both variants are reported in robustness.
 
@@ -404,7 +430,15 @@ On log GDPpc the bundle's unique contribution is 0.147 (77\% of the joint gain),
 \textbf{Reading the three exercises together.}
 The OLS instability in Exercise (a) is the predicted consequence of multicollinearity between two PW-ancestry-weighted measures, not a defect of either substrate. The Shapley R\textsuperscript{2} decomposition used in the headline (Table~\ref{tab:shapley}) is multicollinearity-robust by construction—it averages marginal contributions over all $5! = 120$ substrate orderings and assigns shared variance symmetrically. The PCA-reduced regression of Exercise (b) reproduces the same conclusion under a multicollinearity-controlled OLS specification: H\_pred is absorbed on log GDPpc and partially absorbed on log pop growth. The commonality decomposition of Exercise (c) makes the substantive comparison fully transparent: the bundle's unique contribution is an order of magnitude larger than $H$'s on both outcomes. The three exercises agree that the bundle is the more informative substrate and that its substitution for $H^{\text{pwadj}}$ in the headline matrix is empirically defensible, not just conceptually preferable.
 
-The within-bundle decomposition (Table~\ref{tab:functional-subshapley}) clarifies which loci drive the bundle's contribution. FADS1/2 (0.041) and DARC (0.037) are the largest contributors to log GDPpc; FADS1/2 (0.029) and LCT (0.011) lead demographic-transition timing; AMY1 (0.013) is largest on log population density 2025. The interpretation is consistent with the substantive prediction: post-agricultural dietary adaptation (FADS1/2), starch digestion (AMY1), and lactase persistence (LCT) are the dominant signatures.
+The within-bundle decomposition (Table~\ref{tab:functional-subshapley}) clarifies which loci drive the bundle's contribution. Reading the table through the biology of Section~\ref{sec:data-channels}: on log GDPpc the two largest contributions are FADS1/2 (0.041) and DARC (0.037); on demographic-transition timing FADS1/2 (0.029) and LCT (0.011) lead; on log population density 2025 AMY1 (0.013) is the largest single locus.
+
+The FADS1/2 lead on log GDPpc is the cleanest agricultural-adaptation signature in the bundle. The variant's derived-allele frequency is the post-Holocene shift to plant-rich diets; its loading on modern per-capita income captures the productive-agricultural-history channel that the Galor-\"Ozak ancestral-yield substrate also picks up, but through a different measurement window---population-genetics frequencies rather than agro-ecological cellular suitability. The same locus leads on demographic-transition timing, which is consistent with Galor's unified-growth account: countries that completed the agricultural transition earliest---and selected most strongly for efficient plant-fat-acid conversion---also reached the post-Malthusian transition first. The LCT contribution on demographic-transition timing reinforces the same reading from a different functional channel: lactase persistence is essentially a marker of the dairy-pastoral package and high-latitude Eurasian agriculture, the populations that completed the transition earliest.
+
+The DARC contribution on log GDPpc is the malaria-resistance signature, but the channel does not run through cellular protection per se. The full-OLS specification (Table~\ref{tab:full-ols}) returns a \emph{negative} coefficient on DARC for log GDPpc, the opposite sign from what cellular vivax-protection would imply for an income-supporting trait. The biologically consistent reading is that DARC frequency is a sensitive marker of West African ancestry and the historical disease-burden geography that ancestry tracks; the negative loading captures the \citet{acemoglu2002reversal} reversal-of-fortune institutional channel rather than a direct disease-resistance effect on income. Section~\ref{sec:malaria-sensitivity} reports the bundle's contribution with DARC and HBB excluded---the remaining six-locus agricultural-adaptation subset retains roughly 70\% of the bundle's contribution on log GDPpc, confirming the FADS1/2--AMY1--LCT signal carries on its own.
+
+AMY1's lead on log population density 2025 is the direct cereal-agricultural-caloric-extraction reading: countries with high salivary-amylase copy-number derive more calories per unit of cereal intake, sustaining higher density through accumulated agricultural productivity. The signal is small relative to the climate and ancestral-crop-yield contributions on this outcome---density 2025 is not primarily a functional-allele story---but the direction matches the biology.
+
+The remaining three loci (ADH1B, EDAR, SLC24A5) contribute primarily through ancestry collinearity rather than as independent economic mechanisms. EDAR and ADH1B mark East Asian agricultural ancestry; SLC24A5 is partially absorbed by the absolute-latitude control already in the geography battery, leaving its independent contribution small. The bundle's coalition treatment captures their shared signal without overweighting any single locus's marker status.
 
 \begin{table}[H]
 \centering
@@ -498,6 +532,11 @@ Acemoglu, D., Johnson, S., and Robinson, J. A. (2001).
 \newblock The colonial origins of comparative development: An empirical investigation.
 \newblock {\em American Economic Review}, 91(5):1369--1401.
 
+\bibitem[Acemoglu, Johnson and Robinson(2002)]{acemoglu2002reversal}
+Acemoglu, D., Johnson, S., and Robinson, J. A. (2002).
+\newblock Reversal of fortune: Geography and institutions in the making of the modern world income distribution.
+\newblock {\em Quarterly Journal of Economics}, 117(4):1231--1294.
+
 \bibitem[Allentoft et al.(2015)]{allentoft2015}
 Allentoft, M.~E., Sikora, M., Sj\"ogren, K.-G., et al. (2015).
 \newblock Population genomics of Bronze Age Eurasia.
@@ -587,6 +626,41 @@ Underhill, P.~A., Poznik, G.~D., Rootsi, S., et al. (2014).
 Wang, C.-C., Reinhold, S., Kalmykov, A., et al. (2019).
 \newblock Ancient human genome-wide data from a 3000-year interval in the Caucasus corresponds with eco-geographic regions.
 \newblock {\em Nature Communications}, 10:590.
+
+\bibitem[Ameur et al.(2012)]{ameur2012}
+Ameur, A., Enroth, S., Johansson, \AA., et al. (2012).
+\newblock Genetic adaptation of fatty-acid metabolism: A human-specific haplotype increasing the biosynthesis of long-chain omega-3 and omega-6 fatty acids.
+\newblock {\em American Journal of Human Genetics}, 90(5):809--820.
+
+\bibitem[Howes et al.(2011)]{howes2011}
+Howes, R.~E., Patil, A.~P., Piel, F.~B., et al. (2011).
+\newblock The global distribution of the Duffy blood group.
+\newblock {\em Nature Communications}, 2:266.
+
+\bibitem[Mathieson et al.(2015)]{mathieson2015}
+Mathieson, I., Lazaridis, I., Rohland, N., et al. (2015).
+\newblock Genome-wide patterns of selection in 230 ancient Eurasians.
+\newblock {\em Nature}, 528(7583):499--503.
+
+\bibitem[Peng et al.(2010)]{peng2010}
+Peng, Y., Shi, H., Qi, X.-B., et al. (2010).
+\newblock The ADH1B Arg47His polymorphism in East Asian populations and expansion of rice domestication in history.
+\newblock {\em BMC Evolutionary Biology}, 10:15.
+
+\bibitem[Perry et al.(2007)]{perry2007}
+Perry, G.~H., Dominy, N.~J., Claw, K.~G., et al. (2007).
+\newblock Diet and the evolution of human amylase gene copy number variation.
+\newblock {\em Nature Genetics}, 39(10):1256--1260.
+
+\bibitem[Piel et al.(2010)]{piel2010}
+Piel, F.~B., Patil, A.~P., Howes, R.~E., et al. (2010).
+\newblock Global distribution of the sickle cell gene and geographical confirmation of the malaria hypothesis.
+\newblock {\em Nature Communications}, 1:104.
+
+\bibitem[Sabeti et al.(2007)]{sabeti2007}
+Sabeti, P.~C., Varilly, P., Fry, B., et al. (2007).
+\newblock Genome-wide detection and characterization of positive selection in human populations.
+\newblock {\em Nature}, 449(7164):913--918.
 
 \bibitem[Alonso Ortiz and Da-Rocha(2026)]{alonso_long_shadow}
 Alonso Ortiz, J.\ and Da-Rocha, J.-M. (2026).
