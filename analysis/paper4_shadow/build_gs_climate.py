@@ -27,6 +27,11 @@ COUNTRY_WEIGHTINGS = {
     "cropw": "modera_country_monthly_cropw.parquet",
 }
 
+SUBNAT_WEIGHTINGS = {
+    "area": "modera_subnational_monthly.parquet",
+    "pop":  "modera_subnational_monthly_popw.parquet",
+}
+
 
 def _absolute_levels(mod: pd.DataFrame, entity_col: str) -> pd.DataFrame:
     """Add CRU 1901-1950 climatology to anomalies to recover absolute T, P.
@@ -148,8 +153,55 @@ def _build_country() -> None:
     print(f"  N={len(short)}: {short}")
 
 
+def _build_subnational() -> None:
+    cs_pieces: list[pd.DataFrame] = []
+    panel_pieces: list[pd.DataFrame] = []
+    for w, fname in SUBNAT_WEIGHTINGS.items():
+        print(f"[subnat/{w}] reading {fname}", flush=True)
+        mod = pd.read_parquet(DATA / fname)
+        abs_df = _absolute_levels(mod, entity_col="sub_id")
+        mask = _gs_mask(abs_df, entity_col="sub_id")
+        cs_pieces.append(_cross_section(abs_df, mask, "sub_id", w))
+        panel_pieces.append(_annual_panel(abs_df, mask, "sub_id", w))
+
+    cs = cs_pieces[0]
+    for piece in cs_pieces[1:]:
+        cs = cs.merge(piece, on="sub_id", how="outer")
+    for w in SUBNAT_WEIGHTINGS:
+        cs[f"n_gs_months_{w}"] = cs[f"n_gs_months_{w}"].fillna(0).astype(int)
+        cs[f"gs_months_mask_{w}"] = cs[f"gs_months_mask_{w}"].fillna("")
+    # Carry iso3 forward for downstream regression merges
+    iso_map = (pd.read_parquet(DATA / SUBNAT_WEIGHTINGS["pop"],
+                                columns=["sub_id", "iso3"])
+                 .drop_duplicates("sub_id"))
+    cs = cs.merge(iso_map, on="sub_id", how="left")
+    cs_out = DATA / "subnational_seasonality_gs_preindustrial.parquet"
+    cs.to_parquet(cs_out, index=False)
+    print(f"[subnat] wrote {cs_out} ({len(cs)} units)")
+
+    panel = panel_pieces[0]
+    for piece in panel_pieces[1:]:
+        panel = panel.merge(piece, on=["sub_id", "year"], how="outer")
+    # Carry iso3 and n_gs_months_* into the panel so downstream regressions
+    # can filter empty-GS rows without a secondary merge.
+    count_cols = ["sub_id"] + [f"n_gs_months_{w}" for w in SUBNAT_WEIGHTINGS]
+    panel = panel.merge(cs[count_cols + ["iso3"]], on="sub_id", how="left")
+    panel_out = DATA / "subnational_climate_gs_1421_2025.parquet"
+    panel.to_parquet(panel_out, index=False)
+    print(f"[subnat] wrote {panel_out} ({len(panel):,} rows, "
+          f"{panel['sub_id'].nunique()} units)")
+
+    print("\n[subnat/diagnostic] empty-GS (pop) sub-units:")
+    empty = cs[cs["n_gs_months_pop"] == 0]
+    print(f"  N={len(empty)} sub-units (in {empty['iso3'].nunique()} countries)")
+    print("[subnat/diagnostic] short-GS (pop, 1-3 months):")
+    short = cs[cs["n_gs_months_pop"].between(1, 3)]
+    print(f"  N={len(short)} sub-units (in {short['iso3'].nunique()} countries)")
+
+
 def main() -> None:
     _build_country()
+    _build_subnational()
 
 
 if __name__ == "__main__":

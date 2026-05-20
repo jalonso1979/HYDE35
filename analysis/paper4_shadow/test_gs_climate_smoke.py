@@ -70,10 +70,35 @@ def assert_annual_panel() -> None:
           f"years {yrs[0]}-{yrs[-1]}")
 
 
+def assert_subnational() -> None:
+    cs = pd.read_parquet(DATA / "subnational_seasonality_gs_preindustrial.parquet")
+    pn = pd.read_parquet(DATA / "subnational_climate_gs_1421_2025.parquet")
+    for w in ("area", "pop"):
+        for col in (f"sigma_v_T_gs_pre1750_{w}", f"sigma_v_P_gs_pre1750_{w}",
+                    f"T_gs_mean_pre1750_{w}", f"P_gs_mean_pre1750_{w}",
+                    f"sigma_v_T_nongs_pre1750_{w}", f"n_gs_months_{w}"):
+            assert col in cs.columns, f"sub-national cross-section missing {col}"
+        for col in (f"t_gs_mean_{w}", f"p_gs_mean_{w}",
+                    f"t_gs_anom_{w}", f"p_gs_anom_{w}"):
+            assert col in pn.columns, f"sub-national panel missing {col}"
+    assert cs["sub_id"].is_unique, "sub_id must be unique in cross-section"
+    assert cs["sub_id"].nunique() >= 3000, f"too few sub-units: {cs['sub_id'].nunique()}"
+    # iso3 carried forward on both files for downstream merges
+    assert "iso3" in cs.columns, "sub-national cross-section missing iso3"
+    assert "iso3" in pn.columns, "sub-national panel missing iso3"
+    # Panel must carry n_gs_months_* so downstream filters are self-contained
+    for w in ("area", "pop"):
+        assert f"n_gs_months_{w}" in pn.columns, (
+            f"sub-national panel missing n_gs_months_{w}")
+    print(f"  sub-national cross-section: {len(cs)} units")
+    print(f"  sub-national panel: {len(pn):,} rows, {pn['sub_id'].nunique()} units")
+
+
 def main() -> None:
     print("Running build_gs_climate smoke tests...")
     assert_cross_section()
     assert_annual_panel()
+    assert_subnational()
     print("All smoke tests passed.")
 
 
