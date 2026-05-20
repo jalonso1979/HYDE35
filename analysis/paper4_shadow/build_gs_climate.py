@@ -170,11 +170,20 @@ def _build_subnational() -> None:
     for w in SUBNAT_WEIGHTINGS:
         cs[f"n_gs_months_{w}"] = cs[f"n_gs_months_{w}"].fillna(0).astype(int)
         cs[f"gs_months_mask_{w}"] = cs[f"gs_months_mask_{w}"].fillna("")
-    # Carry iso3 forward for downstream regression merges
-    iso_map = (pd.read_parquet(DATA / SUBNAT_WEIGHTINGS["pop"],
-                                columns=["sub_id", "iso3"])
-                 .drop_duplicates("sub_id"))
+    # Carry iso3 forward for downstream regression merges. Union both source
+    # files: the pop file has 3146 sub_ids, area has 3187. The 41 area-only
+    # sub_ids would silently end up with iso3=NaN if we read only from pop,
+    # breaking any downstream iso3-keyed merge in 22k+ panel rows.
+    iso_map = pd.concat([
+        pd.read_parquet(DATA / SUBNAT_WEIGHTINGS["pop"],
+                        columns=["sub_id", "iso3"]).drop_duplicates("sub_id"),
+        pd.read_parquet(DATA / SUBNAT_WEIGHTINGS["area"],
+                        columns=["sub_id", "iso3"]).drop_duplicates("sub_id"),
+    ]).drop_duplicates("sub_id")  # pop wins on conflict (concat order)
     cs = cs.merge(iso_map, on="sub_id", how="left")
+    assert cs["iso3"].isna().sum() == 0, (
+        f"sub-national cross-section has {cs['iso3'].isna().sum()} null iso3 "
+        "after pop+area union — check source files for new sub_ids")
     cs_out = DATA / "subnational_seasonality_gs_preindustrial.parquet"
     cs.to_parquet(cs_out, index=False)
     print(f"[subnat] wrote {cs_out} ({len(cs)} units)")

@@ -83,14 +83,25 @@ def assert_subnational() -> None:
                     f"t_gs_anom_{w}", f"p_gs_anom_{w}"):
             assert col in pn.columns, f"sub-national panel missing {col}"
     assert cs["sub_id"].is_unique, "sub_id must be unique in cross-section"
-    assert cs["sub_id"].nunique() >= 3000, f"too few sub-units: {cs['sub_id'].nunique()}"
-    # iso3 carried forward on both files for downstream merges
+    assert cs["sub_id"].nunique() >= 3150, f"too few sub-units: {cs['sub_id'].nunique()}"
+    # iso3 carried forward on both files for downstream merges; must be non-null
     assert "iso3" in cs.columns, "sub-national cross-section missing iso3"
     assert "iso3" in pn.columns, "sub-national panel missing iso3"
+    assert cs["iso3"].isna().sum() == 0, (
+        f"iso3 null in {cs['iso3'].isna().sum()} cross-section rows")
+    assert pn["iso3"].isna().sum() == 0, (
+        f"iso3 null in {pn['iso3'].isna().sum()} panel rows")
     # Panel must carry n_gs_months_* so downstream filters are self-contained
     for w in ("area", "pop"):
         assert f"n_gs_months_{w}" in pn.columns, (
             f"sub-national panel missing n_gs_months_{w}")
+    # Anomalies must center on 1421-1750 (within float32 roundtrip tolerance)
+    pre = pn[pn["year"].between(1421, 1750)]
+    for w in ("area", "pop"):
+        anom_mean = pre.groupby("sub_id")[f"t_gs_anom_{w}"].mean().abs()
+        assert (anom_mean.dropna() < 1e-5).all(), (
+            f"sub-national t_gs_anom_{w} not centered on 1421-1750: "
+            f"max |mean|={anom_mean.max()}")
     print(f"  sub-national cross-section: {len(cs)} units")
     print(f"  sub-national panel: {len(pn):,} rows, {pn['sub_id'].nunique()} units")
 
