@@ -35,9 +35,9 @@ def assert_cross_section() -> None:
     fra = df[df["iso3"] == "FRA"].iloc[0]
     assert 5 <= fra["n_gs_months_cropw"] <= 9, (
         f"France cropw n_gs_months out of range: {fra['n_gs_months_cropw']}")
-    valid = df.dropna(subset=["sigma_v_T_gs_pre1750_cropw"])
-    assert (valid["sigma_v_T_gs_pre1750_cropw"] > 0).all(), (
-        "sigma_v_T_gs must be positive when defined")
+    for col in ("sigma_v_T_gs_pre1750_cropw", "sigma_v_P_gs_pre1750_cropw"):
+        valid = df.dropna(subset=[col])
+        assert (valid[col] > 0).all(), f"{col} must be positive when defined"
     print(f"  cross-section: {len(df)} countries, "
           f"{df['n_gs_months_cropw'].notna().sum()} with cropw n_gs defined")
 
