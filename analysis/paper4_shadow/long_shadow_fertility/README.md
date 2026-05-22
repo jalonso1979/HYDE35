@@ -32,3 +32,49 @@ Spec + plan live in the sibling Fertility repository under
 **Key findings:** within-era OLS β_M=+0.098 (Malthus 1700-1837), β_T=-0.042 (Modern 1938-2008). Smooth-transition identification is challenged by the 1838-1937 industrial gap — addressed by Phase 2.
 
 **Phase 2 (multi-country):** follow-up plan to be written in Fertility repo at `docs/superpowers/plans/YYYY-MM-DD-long-shadow-fertility-phase2-multicountry.md` after user review.
+
+## Phase 2 status: complete (2026-05-22)
+
+**Deliverables (29 commits ahead of Phase 1 baseline):**
+
+**Multi-country data outputs:**
+- `france_fertility_annual.parquet` (HMD FRATNP 1806-2020)
+- `italy_fertility_annual.parquet` (HMD ITA 1862-2019)
+- `sweden_fertility_annual.parquet` (HMD SWE 1749-2022 — Tabellverket era)
+- `france_dept_fertility_annual.parquet` (Cassini 1851-1897 + ModE-RA spine 1421-2008)
+- `country_climate_annual.parquet` (4-country ModE-RA cropland-weighted)
+- `maddison_multicountry_annual.parquet` (GBR/FRA/ITA/SWE GDPpc)
+- `panel_multi_country_year.parquet` (unified Phase 2 panel)
+
+**Controls panels:**
+- `war_panel_country_year.parquet` (Brecke conflict catalogs)
+- `pandemic_panel_country_year.parquet` (pre-1500 plague + Black Death + modern epidemics)
+- `emdat_panel_country_year.parquet` (EMDAT 1962+ — FRA absent from source)
+- `climate_extremes_country_year.parquet` (heat/drought via pre-1900 quantiles)
+- `controls_panel_country_year.parquet` (unified)
+
+**Princeton EFP:** BLOCKED (OPR 403); stub builder + figure ready for manual data fetch.
+
+**Phase 2 figures:**
+- `fig1_rolling_multi_country.{pdf,png}` — 4-panel rolling-window
+- `fig2_pooled_smooth_transition.{pdf,png}` — HEADLINE pooled STR with controls
+- `fig3_stacked_volcanic.{pdf,png}` — 1815/1883/1991 stacked
+- `fig4_country_decade_heatmap.{pdf,png}` — β heatmap
+- `fig6_france_subnational.{pdf,png}` — France dept rolling robustness
+
+**Phase 1 retrospective figures (with controls):**
+- `fig1r_rolling_with_controls_england.{pdf,png}`
+- `fig2r_smooth_transition_with_controls_england.{pdf,png}`
+- `fig3r_volcanic_with_controls_england.{pdf,png}`
+
+**Phase 2 memo:** sibling Fertility repo at `docs/long_shadow_fertility_phase2_memo.md`
+
+**Key findings (honest):**
+- Pooled STR identification failure persists across 4 countries with controls: θ pegs at 5.0, β_M = -0.459 (SE 0.342, n.s.), β_T = -0.026; both regimes negative.
+- Phase 1 Malthusian-positive rolling result shrinks 7× when controls are partialled out (1700 β: +0.035 → +0.005).
+- Volcanic event-study positive signs survive controls in all three regimes (Pinatubo h=0 triples to +0.094).
+- Rolling-window sign-flip pattern visible across all 4 countries (Italy earliest demographic transition).
+
+**Test suite:** ~66 passing (Phase 1 36 + Phase 2 ~30).
+
+**Phase 3 directions:** alternative non-parametric STR (kernel/spline); fill 1838-1937 England gap (Mitchell historical); aggregate FRA dept-level EMDAT for FRA control; unblock EFP via manual download.
