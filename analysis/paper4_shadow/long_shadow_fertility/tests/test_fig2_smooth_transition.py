@@ -12,3 +12,6 @@ def test_makes_pdf():
     assert pdf.exists() and pdf == OUT
     for k in ("beta_M", "beta_T", "c"):
         assert k in fit
+    # Fig 2 is now a two-panel figure (STR on left, within-era OLS on right).
+    for k in ("beta_M_within_era", "beta_T_within_era", "n_malthus", "n_modern"):
+        assert k in fit

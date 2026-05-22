@@ -5,6 +5,11 @@ Spec model (§5b):
     G(z) = 1 / (1 + exp(-theta * (z - c)))
 
 Estimation: scipy.optimize.least_squares; bootstrap SEs.
+
+theta is bounded above by `theta_max` (default 5.0) to keep the logistic
+visibly smooth; pegging at the upper bound indicates the data cluster so
+tightly around c that a sharp-transition step would fit better — diagnose
+with `fit['theta']` close to `theta_max`.
 """
 from __future__ import annotations
 import numpy as np
@@ -26,7 +31,22 @@ def fit_smooth_transition(
     z: str,
     n_boot: int = 200,
     seed: int = 0,
+    theta_max: float = 5.0,
 ) -> dict:
+    """Fit logistic smooth-transition regression.
+
+    Parameters
+    ----------
+    df, y, x, z : panel + column names for outcome, slope-varying regressor,
+        and transition variable.
+    n_boot : bootstrap replications for beta_M / beta_T SEs.
+    seed : RNG seed for the bootstrap.
+    theta_max : upper bound on the transition steepness parameter theta
+        (default 5.0). Keeps the logistic visibly smooth; if `fit['theta']`
+        pegs at `theta_max`, the data cluster so tightly around c that a
+        sharp-transition step would fit better — increase `theta_max` to
+        confirm or switch to an indicator regime model.
+    """
     sub = df[[y, x, z]].dropna().to_numpy()
     yv, xv, zv = sub[:, 0], sub[:, 1], sub[:, 2]
     # init: beta_M from x effect when z low; beta_T when z high
@@ -36,7 +56,7 @@ def fit_smooth_transition(
     p0 = np.array([float(yv.mean()), float(beta_m0), float(beta_t0),
                     float(np.median(zv)), 1.0, 0.0])
     bounds_lo = np.array([-np.inf, -np.inf, -np.inf, zv.min(), 0.05, -np.inf])
-    bounds_hi = np.array([ np.inf,  np.inf,  np.inf, zv.max(), 20.0,  np.inf])
+    bounds_hi = np.array([ np.inf,  np.inf,  np.inf, zv.max(), float(theta_max),  np.inf])
     res = least_squares(_residuals, p0, args=(xv, zv, yv), bounds=(bounds_lo, bounds_hi))
     alpha, beta_m, beta_t, c, theta, gamma = res.x
 
