@@ -41,11 +41,12 @@ def _lag_irf(df, x, controls, year_fe):
 def make_fig17():
     panel = build_france_dept_annual()
     sub = panel.dropna(subset=["log_cbr", "t_growing", "p_growing"]).copy()
+    sub["p_growing_z"] = (sub["p_growing"] - sub["p_growing"].mean()) / sub["p_growing"].std()
 
-    spec1_t = _lag_irf(sub, x="t_growing", controls=["p_growing"], year_fe=False)
-    spec2_t = _lag_irf(sub, x="t_growing", controls=["p_growing"], year_fe=True)
-    spec1_p = _lag_irf(sub, x="p_growing", controls=["t_growing"], year_fe=False)
-    spec2_p = _lag_irf(sub, x="p_growing", controls=["t_growing"], year_fe=True)
+    spec1_t = _lag_irf(sub, x="t_growing", controls=["p_growing_z"], year_fe=False)
+    spec2_t = _lag_irf(sub, x="t_growing", controls=["p_growing_z"], year_fe=True)
+    spec1_p = _lag_irf(sub, x="p_growing_z", controls=["t_growing"], year_fe=False)
+    spec2_p = _lag_irf(sub, x="p_growing_z", controls=["t_growing"], year_fe=True)
 
     # Cross-country beta_F via Fig 7v3 pipeline (recomputed on the fly)
     pooled = assemble_panel_multi()
@@ -72,9 +73,18 @@ def make_fig17():
             "A. Spec 1 (dept FE) — T -> log CBR", color="steelblue")
     _panel(axes[0, 1], spec2_t,
             "B. Spec 2 (dept + year FE) — T -> log CBR", color="navy")
-    _panel(axes[1, 0], spec1_p,
-            "C. Spec 1+2 — P -> log CBR (precip)", color="darkgreen")
-    _panel(axes[1, 0], spec2_p, "", color="forestgreen")
+
+    # Panel C — precip IRFs, both specs, distinct colors + legend
+    ax = axes[1, 0]
+    ax.errorbar(spec1_p["lag"], spec1_p["beta"], yerr=1.96 * spec1_p["se"],
+                fmt="o-", color="darkgreen", capsize=3, label="Spec 1 (dept FE)")
+    ax.errorbar(spec2_p["lag"], spec2_p["beta"], yerr=1.96 * spec2_p["se"],
+                fmt="s-", color="purple", capsize=3, label="Spec 2 (dept + year FE)")
+    ax.axhline(0, color="black", lw=0.6, ls="--")
+    ax.legend(fontsize=8)
+    ax.set_xlabel("Lag (years)")
+    ax.set_ylabel(r"$\beta$")
+    ax.set_title("C. Spec 1 + Spec 2 — P (z-scored) -> log CBR", fontsize=10)
 
     # Panel D — overlay
     ax = axes[1, 1]
