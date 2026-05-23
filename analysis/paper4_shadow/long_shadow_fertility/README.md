@@ -78,3 +78,39 @@ Spec + plan live in the sibling Fertility repository under
 **Test suite:** ~66 passing (Phase 1 36 + Phase 2 ~30).
 
 **Phase 3 directions:** alternative non-parametric STR (kernel/spline); fill 1838-1937 England gap (Mitchell historical); aggregate FRA dept-level EMDAT for FRA control; unblock EFP via manual download.
+
+## Phase 3 status: complete (2026-05-22)
+
+**Four methodological additions:**
+- Distributed-lag climate (k=0..3) replacing contemporaneous T
+- Climate volatility promoted from control to primary regressor
+- Joint fertility + mortality via SUR (with cross-equation Wald)
+- Allen real-wage Z + T → wage → fertility mediation
+
+**New builders:**
+- `build_country_mortality_annual.py` — HMD Deaths_1x1 → log_cdr per (iso3, year)
+- `build_real_wage_panel.py` — Allen (1421-1913) + Maddison GDPpc proxy (1914+)
+
+**New estimators:**
+- `distributed_lag.py` — per-horizon β + cumulative B + HAC SE
+- `bivariate_sur.py` — two-step FGLS + cross-equation Wald
+- `mediation.py` — direct/indirect/total + bootstrap SEs
+
+**New figures (Fig 7-12):**
+- Fig 7 — distributed-lag IRF per country
+- Fig 8 — volatility as treatment
+- Fig 9 — joint fertility+mortality SUR
+- Fig 10 — pooled STR with real-wage Z
+- Fig 11 — mediation diagram
+- Fig 12 — distributed-lag by STR regime
+
+**Phase 3 memo:** sibling Fertility repo at `docs/long_shadow_fertility_phase3_memo.md`
+
+**Key findings (honest):**
+- Distributed lags REVEAL clean negative climate-fertility response across all 4 countries (cum β -0.24 to -0.59, all significant) — Phase 2's mixed-sign contemporaneous-only results were misleading
+- Joint fertility+mortality SUR: both negative in T (cold-mortality channel dominates in temperate Europe)
+- Mediation: 83.7% of climate-fertility effect runs through real wages (caveat: Allen/Maddison splice creates unit discontinuity)
+- Fig 10 STR with wage-Z shows apparent regime flip but is largely an artifact of the pre/post-1914 splice
+- Phase 2 STR threshold c=7.17 turned out to be at the edge of Maddison's England GDPpc support (Malthus regime collapses to 1 obs)
+
+**Test suite:** Phase 1 (36) + Phase 2 (60) + Phase 3 (~15) ≈ 111 passing, 2 skipped (EFP).
