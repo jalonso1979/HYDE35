@@ -13,9 +13,9 @@ def test_columns():
     assert expected.issubset(df.columns)
 
 
-def test_four_countries():
+def test_seven_countries():
     df = build_controls_panel()
-    assert set(df["iso3"].unique()) == {"GBR", "FRA", "ITA", "SWE"}
+    assert set(df["iso3"].unique()) == {"GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"}
 
 
 def test_no_dup_keys():
