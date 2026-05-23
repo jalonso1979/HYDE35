@@ -55,7 +55,7 @@ def run_all_phase5() -> dict[str, Path]:
     artifacts["fig10v2"], _, _ = make_fig10v2()
     artifacts["fig11v3"], _, _ = make_fig11v3()
     artifacts["fig15"], _, _ = make_fig15()
-    artifacts["fig16"], _ = make_fig16()
+    artifacts["fig16"], _, _ = make_fig16()
     return artifacts
 
 
