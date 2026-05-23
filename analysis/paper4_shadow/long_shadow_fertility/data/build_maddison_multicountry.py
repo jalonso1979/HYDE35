@@ -20,7 +20,7 @@ MADDISON = FERTILITY / "data" / "mpd2023_web.xlsx"
 OUT = Path("/Volumes/BIGDATA/HYDE35/analysis/data/long_shadow_fertility/"
            "maddison_multicountry_annual.parquet")
 
-COUNTRIES = ["GBR", "FRA", "ITA", "SWE"]
+COUNTRIES = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"]
 
 
 def build_maddison_multicountry(write: bool = False) -> pd.DataFrame:

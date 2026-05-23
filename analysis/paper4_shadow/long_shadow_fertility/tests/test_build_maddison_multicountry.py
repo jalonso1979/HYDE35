@@ -5,10 +5,10 @@ from analysis.paper4_shadow.long_shadow_fertility.data.build_maddison_multicount
 )
 
 
-def test_four_countries_present():
+def test_seven_countries_present():
     df = build_maddison_multicountry()
     countries = set(df["iso3"].unique())
-    assert {"GBR", "FRA", "ITA", "SWE"}.issubset(countries)
+    assert {"GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"}.issubset(countries)
 
 
 def test_columns():
