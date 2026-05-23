@@ -1,11 +1,10 @@
-"""Splice Sigl VSSI (1421-1900) with NASA GISS Sato AOD (1850-2012) rescaled
+"""Splice Sigl VSSI (1700-1900) with NASA GISS Sato AOD (1850-2012) rescaled
 to VSSI units via OLS on the 1850-1900 overlap.
 
 Returns BLOCKED sentinel propagating from fetch_sato_aod if Sato is unavailable.
 """
 from __future__ import annotations
 from pathlib import Path
-import numpy as np
 import pandas as pd
 
 from analysis.paper4_shadow.long_shadow_fertility.data.fetch_sato_aod import (
@@ -43,7 +42,7 @@ def splice_sigl_sato(sigl: pd.DataFrame,
 
     Parameters
     ----------
-    sigl : DataFrame with columns (year, vssi), coverage <= 1900
+    sigl : DataFrame with columns (year, vssi), coverage 1700-1900
     sato : DataFrame with columns (year, aod_max), or BLOCKED sentinel
     """
     if sato is BLOCKED:
