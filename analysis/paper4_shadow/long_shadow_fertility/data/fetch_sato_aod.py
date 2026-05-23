@@ -81,7 +81,7 @@ def fetch_sato_aod(cache_dir: Path | None = None,
     return annual
 
 
-SATO_NETCDF_URL = "https://data.giss.nasa.gov/modelforce/strataer/data/tau_reff_Sato-Lacis.nc"
+SATO_NETCDF_URL = "https://data.giss.nasa.gov/modelforce/strataer/data/tau_reff_CMIP7-2-2-1.nc"
 
 
 def fetch_sato_aod_netcdf(cache_dir: Path | None = None,
