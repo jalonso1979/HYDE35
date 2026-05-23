@@ -21,6 +21,18 @@ COUNTRY_CAPITAL_COORDS = {
     "ESP": (40.4168, -3.7038),   # Madrid
 }
 
+# Approximate national bounding boxes (lat_min, lat_max, lon_min, lon_max)
+# generous to capture rural climate alongside urban centres.
+COUNTRY_BBOXES: dict[str, tuple[float, float, float, float]] = {
+    "GBR": (49.9, 60.9, -8.6, 1.8),     # UK
+    "FRA": (42.3, 51.1, -5.1, 9.6),     # France (metropolitan)
+    "ITA": (36.6, 47.1, 6.6, 18.5),     # Italy
+    "SWE": (55.3, 69.1, 11.1, 24.2),    # Sweden
+    "BEL": (49.5, 51.5, 2.5, 6.4),      # Belgium
+    "NLD": (50.7, 53.6, 3.4, 7.2),      # Netherlands
+    "ESP": (36.0, 43.8, -9.3, 3.3),     # Spain (peninsula)
+}
+
 
 def _region_bbox(region_id: int) -> tuple[float, float, float, float] | None:
     """Return (lat_min, lat_max, lon_min, lon_max) for an ERA5 region, or None."""
@@ -77,8 +89,35 @@ def build_region_country_map(countries: dict[str, tuple[float, float]] | None = 
     return result
 
 
+def build_region_country_map_with_bboxes(
+    countries: dict[str, tuple[float, float]] | None = None,
+    bboxes: dict[str, tuple[float, float, float, float]] | None = None,
+    n_regions: int = 25,
+) -> dict[str, dict]:
+    """Map ISO3 → {region: int, bbox: (lat_min, lat_max, lon_min, lon_max)}.
+
+    The region tells you which ERA5 tile to read; the bbox tells you which
+    grid points within that tile to average for country-specific values.
+    """
+    if countries is None:
+        countries = COUNTRY_CAPITAL_COORDS
+    if bboxes is None:
+        bboxes = COUNTRY_BBOXES
+    region_map = build_region_country_map(countries=countries, n_regions=n_regions)
+    return {
+        iso: {"region": region_map.get(iso, -1), "bbox": bboxes.get(iso)}
+        for iso in countries
+    }
+
+
 if __name__ == "__main__":
-    mapping = build_region_country_map()
-    print("ISO3 → ERA5 region mapping:")
-    for iso, r in sorted(mapping.items()):
-        print(f"  {iso}: region={r}")
+    full = build_region_country_map_with_bboxes()
+    print("ISO3 → ERA5 region + country bbox:")
+    for iso, entry in sorted(full.items()):
+        bbox = entry["bbox"]
+        if bbox:
+            print(f"  {iso}: region={entry['region']}, "
+                  f"lat [{bbox[0]:.1f}, {bbox[1]:.1f}], "
+                  f"lon [{bbox[2]:.1f}, {bbox[3]:.1f}]")
+        else:
+            print(f"  {iso}: region={entry['region']}, bbox=None")

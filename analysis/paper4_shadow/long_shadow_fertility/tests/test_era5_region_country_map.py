@@ -33,3 +33,23 @@ def test_capital_centroid_resolves():
     except FileNotFoundError:
         pytest.skip("ERA5 download incomplete")
     assert "TEST_GBR" in mapping
+
+
+def test_build_with_bboxes_returns_full_entries():
+    pytest.importorskip("xarray")
+    from analysis.paper4_shadow.long_shadow_fertility.data.era5_region_country_map import (
+        build_region_country_map_with_bboxes,
+        COUNTRY_BBOXES,
+    )
+    try:
+        full = build_region_country_map_with_bboxes()
+    except FileNotFoundError:
+        pytest.skip("ERA5 download incomplete")
+    assert set(full.keys()) == set(COUNTRY_BBOXES.keys())
+    for iso, entry in full.items():
+        assert "region" in entry
+        assert "bbox" in entry
+        assert entry["bbox"] is not None
+        lat_min, lat_max, lon_min, lon_max = entry["bbox"]
+        assert lat_min < lat_max
+        assert lon_min < lon_max
