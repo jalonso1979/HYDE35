@@ -146,3 +146,28 @@ Spec + plan live in the sibling Fertility repository under
 - Teleconnection IV BLOCKED (NOAA 404); manual download needed.
 
 **Test suite:** Phase 1 (36) + Phase 2 (60) + Phase 3 (~21) + Phase 4 (~13) ≈ ~130 passing, 3 skipped.
+
+## Phase 5 status: complete (2026-05-22)
+
+Three pillars:
+- **Pillar 1 (gap fix):** HFD → HMD swap for England. Gap shrinks 100yr → 3yr (1838-1840 only). GBR log_cbr observations 376 → 473.
+- **Pillar 2 (statistical refinements):** harmonized Allen↔Maddison wages (eliminates 1914 unit discontinuity); 3-equation SUR (fertility+mortality+wages jointly); wild cluster bootstrap (Cameron-Gelbach-Miller).
+- **Pillar 3 (expansion):** 7-country panel — added BEL/NLD/ESP. Skipped DEU (reunification).
+
+**New builders:** `build_england_fertility_annual.py` (v2 HMD), `build_bel_fertility_annual.py`, `build_nld_fertility_annual.py`, `build_esp_fertility_annual.py`, `build_real_wage_panel_v2.py`. Mortality/climate/Maddison panels extended in-place.
+
+**New estimators:** `triple_sur.py`, `wild_cluster_bootstrap.py`.
+
+**New figures:**
+- Fig 1v3 — 7-panel rolling-window
+- Fig 7v3 — pooled DL on 7-country gap-filled panel
+- Fig 10v2 — STR with harmonized wage Z
+- Fig 11v3 — mediation with harmonized wages + wild cluster bootstrap
+- Fig 15 — 3-equation SUR
+- Fig 16 — cross-phase progression chart
+
+**Phase 5 memo:** sibling Fertility repo at `docs/long_shadow_fertility_phase5_memo.md`
+
+**Key findings:** Phase 4 reversal CONFIRMED on better panel (cum β = +0.009, n.s.). **Mediated share rises to 100% with harmonized wages** — direct climate-fertility effect ≈ 0; entire transmission via wage channel. Triple SUR: T raises wages (+0.50), lowers fertility (-0.20), lowers mortality (-0.16) — all distinct.
+
+**Test suite:** ~155 passing (Phase 1-4: 135 + Phase 5: ~20).
