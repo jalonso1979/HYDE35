@@ -12,7 +12,7 @@ ROOT = Path("/Volumes/BIGDATA/HYDE35/analysis")
 MODERA = ROOT / "data" / "modera_country_monthly_cropw.parquet"
 OUT = ROOT / "data" / "long_shadow_fertility" / "country_climate_annual.parquet"
 
-COUNTRIES = ["GBR", "FRA", "ITA", "SWE"]
+COUNTRIES = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"]
 
 
 def _annual_seasonal_means(monthly: pd.DataFrame) -> pd.DataFrame:

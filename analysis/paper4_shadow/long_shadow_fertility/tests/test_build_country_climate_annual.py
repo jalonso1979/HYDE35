@@ -5,9 +5,9 @@ from analysis.paper4_shadow.long_shadow_fertility.data.build_country_climate_ann
 )
 
 
-def test_four_iso3():
+def test_seven_iso3():
     df = build_country_climate_annual()
-    assert set(df["iso3"].unique()) == {"GBR", "FRA", "ITA", "SWE"}
+    assert set(df["iso3"].unique()) == {"GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"}
 
 
 def test_columns():
