@@ -23,7 +23,7 @@ def make_fig10v2():
     wages = build_real_wage_panel_v2()[["iso3", "year", "log_real_wage"]]
     df = panel.merge(wages, on=["iso3", "year"], how="left")
     sub = df.dropna(subset=["log_cbr", "t_growing", "log_real_wage"])
-    fit = fit_pooled_smooth_transition(sub, y="log_cbr", x="t_growing", z="log_real_wage")
+    fit = fit_pooled_smooth_transition(sub, y="log_cbr", x="t_growing", z="log_real_wage", theta_max=3.0)
 
     z_grid = np.linspace(sub["log_real_wage"].min(), sub["log_real_wage"].max(), 200)
     g = 1.0 / (1.0 + np.exp(-fit["theta"] * (z_grid - fit["c"])))
