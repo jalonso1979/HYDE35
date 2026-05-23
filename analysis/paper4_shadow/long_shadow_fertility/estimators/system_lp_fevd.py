@@ -9,6 +9,19 @@ Approach (mirrors Paper 3 v2 and Paper 4 v2 house tool):
 4. For each (outcome i, shock j, horizon h): regress y_{i,c,t+h} on u_{j,c,t}
    plus country FE -> Theta_{ij,h} = impulse response.
 5. FEVD share at horizon h: sum_{s=0..h} Theta_{ij,s}^2 / sum_{j'} sum_{s} Theta_{ij',s}^2.
+
+Design choice — no year FE
+--------------------------
+Both the reduced-form residualization (step 1) and the per-horizon LP
+regressions (step 4) use country FE only, not year FE. This is intentional:
+the Cholesky ordering with climate placed first identifies the climate
+structural shock from common time variation in the climate series itself
+(e.g. paleoclimate volcanic shocks, secular temperature trends). Adding year
+FE would absorb exactly the variation the SVAR is trying to identify. For
+long-run cross-country paleo panels, common time shocks are part of the
+structural transmission story rather than nuisance to absorb. (Contrast
+`system_lp_france_dept.py`, which DOES include year FE because its
+identifying variation is within-year cross-dept climate differences.)
 """
 from __future__ import annotations
 from typing import Iterable, Sequence
