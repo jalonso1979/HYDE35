@@ -13,7 +13,10 @@ MADDISON = FERTILITY / "data" / "mpd2023_web.xlsx"
 OUT = Path("/Volumes/BIGDATA/HYDE35/analysis/data/long_shadow_fertility/"
            "country_mortality_annual.parquet")
 
-ISO_MAP = {"GBRTENW": "GBR", "FRATNP": "FRA", "ITA": "ITA", "SWE": "SWE"}
+ISO_MAP = {
+    "GBRTENW": "GBR", "FRATNP": "FRA", "ITA": "ITA", "SWE": "SWE",
+    "BEL": "BEL", "NLD": "NLD", "ESP": "ESP",
+}
 
 
 def _hmd_deaths_one(hmd_code: str) -> pd.DataFrame:
