@@ -171,3 +171,15 @@ Three pillars:
 **Key findings:** Phase 4 reversal CONFIRMED on better panel (cum β = +0.009, n.s.). **Mediated share rises to 100% with harmonized wages** — direct climate-fertility effect ≈ 0; entire transmission via wage channel. Triple SUR: T raises wages (+0.50), lowers fertility (-0.20), lowers mortality (-0.16) — all distinct.
 
 **Test suite:** ~155 passing (Phase 1-4: 135 + Phase 5: ~20).
+
+## Phase 6 status: complete (2026-05-22, autonomous)
+
+User-delegated execution while away. Two non-code deliverables plus one test fix:
+
+1. **Stale Phase 2 test fix** — `test_four_countries` → `test_seven_countries` (BIGDATA branch `long-shadow-fertility-phase6`).
+2. **Paper draft v0.1** — `Fertility/docs/paper_long_shadow_fertility.{tex,pdf}`. 14 pages, 7 headline figures, structured for workshop submission.
+3. **Beamer slides v0.1** — `Fertility/docs/slides_long_shadow_fertility.{tex,pdf}`. 18 slides for 30-minute seminar (2 backup slides).
+
+**Phase 6 memo:** `Fertility/docs/long_shadow_fertility_phase6_memo.md`
+
+**Test suite:** 160 passing, 5 skipped, 0 failed.
