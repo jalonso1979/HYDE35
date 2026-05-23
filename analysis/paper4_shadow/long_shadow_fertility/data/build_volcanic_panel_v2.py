@@ -86,7 +86,13 @@ def splice_sigl_sato(sigl: pd.DataFrame,
 def build_volcanic_panel_v2(write: bool = False) -> pd.DataFrame | object:
     sato = fetch_sato_aod(cache_dir=OUT.parent, raise_on_failure=False)
     if sato is BLOCKED:
-        return BLOCKED
+        # Phase 8: try NetCDF fallback (NASA migrated .txt -> NetCDF)
+        from analysis.paper4_shadow.long_shadow_fertility.data.fetch_sato_aod import (
+            fetch_sato_aod_netcdf,
+        )
+        sato = fetch_sato_aod_netcdf(cache_dir=OUT.parent, raise_on_failure=False)
+        if sato is BLOCKED:
+            return BLOCKED
     sigl = _load_sigl()
     out = splice_sigl_sato(sigl, sato)
     if out is BLOCKED:

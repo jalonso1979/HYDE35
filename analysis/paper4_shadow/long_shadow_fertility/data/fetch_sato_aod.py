@@ -81,6 +81,72 @@ def fetch_sato_aod(cache_dir: Path | None = None,
     return annual
 
 
+SATO_NETCDF_URL = "https://data.giss.nasa.gov/modelforce/strataer/tau_reff_Sato-Lacis.nc"
+
+
+def fetch_sato_aod_netcdf(cache_dir: Path | None = None,
+                            raise_on_failure: bool = False) -> pd.DataFrame | object:
+    """Fetch Sato AOD via NetCDF (post-2020 NASA distribution).
+
+    Returns DataFrame (year, aod_max) — global-mean stratospheric AOD aggregated
+    to annual maximum across months. Returns BLOCKED on network/schema failure.
+    """
+    import tempfile
+    try:
+        import xarray as xr
+    except ImportError:
+        if raise_on_failure:
+            raise
+        return BLOCKED
+
+    if cache_dir is not None:
+        cache_dir = Path(cache_dir)
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        nc_path = cache_dir / "tau_reff_Sato-Lacis.nc"
+    else:
+        nc_path = Path(tempfile.mkstemp(suffix=".nc")[1])
+
+    if not nc_path.exists():
+        try:
+            with urllib.request.urlopen(SATO_NETCDF_URL, timeout=60) as resp:
+                nc_path.write_bytes(resp.read())
+        except (urllib.error.URLError, urllib.error.HTTPError, OSError):
+            if raise_on_failure:
+                raise
+            return BLOCKED
+
+    try:
+        ds = xr.open_dataset(nc_path)
+        # Find the AOD variable — likely named 'tau' or 'aod' or 'optical_depth'
+        candidates = [v for v in ds.data_vars if "tau" in v.lower() or "aod" in v.lower()]
+        if not candidates:
+            raise ValueError(f"No AOD variable in {list(ds.data_vars)}")
+        aod_var = candidates[0]
+        aod = ds[aod_var]
+
+        # If 3D (time, lat, lon), take global mean over space
+        spatial_dims = [d for d in aod.dims if d not in ("time", "month")]
+        if spatial_dims:
+            aod = aod.mean(dim=spatial_dims)
+
+        df = aod.to_dataframe().reset_index()
+        time_col = "time" if "time" in df.columns else "month"
+        if df[time_col].dtype.kind == "M":
+            df["year"] = pd.to_datetime(df[time_col]).dt.year
+        else:
+            # numeric month-since-epoch; assume month-since-1850 convention
+            df["year"] = (df[time_col] // 12 + 1850).astype(int)
+        annual = df.groupby("year", as_index=False)[aod_var].max().rename(columns={aod_var: "aod_max"})
+    except Exception:  # noqa: BLE001
+        if raise_on_failure:
+            raise
+        return BLOCKED
+
+    if cache_dir is not None:
+        annual.to_parquet(cache_dir / "sato_aod_annual_from_netcdf.parquet", index=False)
+    return annual
+
+
 if __name__ == "__main__":
     out_dir = Path("/Volumes/BIGDATA/HYDE35/analysis/data/long_shadow_fertility")
     res = fetch_sato_aod(cache_dir=out_dir, raise_on_failure=False)
