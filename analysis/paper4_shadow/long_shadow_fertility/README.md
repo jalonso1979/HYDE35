@@ -114,3 +114,35 @@ Spec + plan live in the sibling Fertility repository under
 - Phase 2 STR threshold c=7.17 turned out to be at the edge of Maddison's England GDPpc support (Malthus regime collapses to 1 obs)
 
 **Test suite:** Phase 1 (36) + Phase 2 (60) + Phase 3 (~15) ≈ 111 passing, 2 skipped (EFP).
+
+## Phase 4 status: complete (2026-05-22)
+
+**Two-tier methodological refinement** (Tier 1 = pooled rigor, Tier 2 = IV identification):
+
+**New builders:**
+- `build_sigl_volcanic_panel.py` — Sigl-Toohey 2024 eVolv2k VSSI (500 BCE - 1900 CE)
+- `build_teleconnection_panel.py` — NAO/AMO/ENSO from NOAA (BLOCKED on fetch; stub committed)
+
+**New estimators:**
+- `pooled_distributed_lag.py` — country FE + year FE + cluster SE
+- `pooled_volatility_dl.py` — joint level + volatility DL
+- `cluster_bootstrap.py` — block-bootstrap utility
+- `iv_2sls.py` — 2SLS with first-stage F + Anderson-Rubin diagnostics
+
+**New figures:**
+- `fig7v2_pooled_dl_irf` — supersedes Phase 3 Fig 7
+- `fig8v2_pooled_vol_dl` — supersedes Phase 3 Fig 8
+- `fig11v2_mediation_cluster_bootstrap` — supersedes Phase 3 Fig 11
+- `fig13_sigl_volcanic_iv` — new 2SLS figure
+- `fig14_teleconnection_iv` — stub (teleconnection BLOCKED)
+
+**Phase 4 memo:** sibling Fertility repo at `docs/long_shadow_fertility_phase4_memo.md`
+
+**Key findings:**
+- Phase 3 distributed-lag cum β -0.41 (significant) shrinks to **-0.016 (NOT significant)** in pooled spec with FE + 9 controls + cluster SE. Phase 3 finding was largely OVB + iid SE understatement.
+- Phase 3 volatility-as-treatment sign-flip (FRA/ITA β^V positive) DISAPPEARS with controls.
+- Mediation through wages SURVIVES cluster bootstrap (indirect SE inflates 2.5× but still 4.4σ).
+- Sigl volcanic-IV: 2SLS β = -1.10 (vs OLS -0.016 → 70× LATE-vs-ATE wedge), weak F=7.4. AR p-value 1e-60.
+- Teleconnection IV BLOCKED (NOAA 404); manual download needed.
+
+**Test suite:** Phase 1 (36) + Phase 2 (60) + Phase 3 (~21) + Phase 4 (~13) ≈ ~130 passing, 3 skipped.
