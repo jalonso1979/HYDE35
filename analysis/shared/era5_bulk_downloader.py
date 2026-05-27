@@ -16,7 +16,9 @@ Usage:
 
 import argparse
 import cdsapi
+import ctypes
 import logging
+import sys
 import time
 import zipfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -55,6 +57,55 @@ CDS_SLEEP_MAX = 60      # poll interval (seconds)
 def _set_batch_size(n: int):
     global BATCH_MONTHS
     BATCH_MONTHS = n
+
+
+# ── HDF5 stderr-noise suppression ────────────────────────────────────────────
+# netCDF4's nc_create(NC_CLOBBER) probes the destination path with
+# H5Fis_accessible(); when the file does not yet exist (the normal case for a
+# fresh per-month write), HDF5 emits a multi-line stderr diagnostic. Its
+# auto-error handler is per-thread, so each ThreadPoolExecutor worker prints
+# the noise until we silence its handler. We resolve netCDF4's bundled
+# libhdf5 dynamically and call H5Eset_auto2 from every writer thread.
+
+_HDF5_LIB = None  # ctypes.CDLL once initialized; False if unavailable
+
+
+def _silence_hdf5_thread() -> None:
+    """Disable HDF5 automatic error printing in the calling thread."""
+    global _HDF5_LIB
+    if _HDF5_LIB is None:
+        try:
+            import netCDF4
+            nc_dir = Path(netCDF4._netCDF4.__file__).parent
+            env_lib = Path(sys.prefix) / "lib"
+            cand = (
+                list((nc_dir / ".dylibs").glob("libhdf5.*.dylib"))             # macOS wheel
+                or list((nc_dir.parent / "netCDF4.libs").glob("libhdf5*.so*"))   # Linux wheel
+                or list(env_lib.glob("libhdf5.dylib"))                           # conda macOS
+                or list(env_lib.glob("libhdf5.so*"))                             # conda Linux
+            )
+            if not cand:
+                _HDF5_LIB = False
+                return
+            lib = ctypes.CDLL(str(cand[0]))
+            lib.H5open.argtypes = []
+            lib.H5open.restype = ctypes.c_int
+            lib.H5Eset_auto2.argtypes = [ctypes.c_int64, ctypes.c_void_p, ctypes.c_void_p]
+            lib.H5Eset_auto2.restype = ctypes.c_int
+            _HDF5_LIB = lib
+        except Exception:
+            _HDF5_LIB = False
+            return
+    if _HDF5_LIB is False:
+        return
+    try:
+        _HDF5_LIB.H5open()
+        _HDF5_LIB.H5Eset_auto2(0, None, None)  # H5E_DEFAULT == 0
+    except Exception:
+        pass
+
+
+_silence_hdf5_thread()  # silence the main thread's HDF5 handler at import
 
 
 # ── Shared helpers (from original downloader) ────────────────────────────────
@@ -185,9 +236,12 @@ def download_batch(
         "area": [bbox["north"], bbox["west"], bbox["south"], bbox["east"]],
     }
 
-    tmp_dir = ERA5_ROOT / "_tmp"
-    tmp_dir.mkdir(exist_ok=True)
-    tmp_path = tmp_dir / f"batch_{region}_{year}_{'_'.join(month_strs)}.download"
+    # Save zip directly into year folder so it can act as a permanent fallback
+    # if the splitter fails. Cleanup logic below removes the zip only after we
+    # have verified every expected per-month file is present on disk.
+    out_dir = ERA5_ROOT / f"region={region}" / f"year={year}"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    tmp_path = out_dir / f"_batch_{'_'.join(month_strs)}.zip"
 
     for attempt in range(1, MAX_RETRIES + 1):
         try:
@@ -208,7 +262,24 @@ def download_batch(
             # Split into monthly files
             split_results = _split_download(tmp_path, region, year, months, logger)
             results.extend(split_results)
-            tmp_path.unlink(missing_ok=True)
+
+            # Verify every expected per-month file exists at the target size
+            # before deleting the source zip. Otherwise quarantine the zip so
+            # the data can be recovered without a second CDS round-trip.
+            all_present = all(
+                is_downloaded(region, year, m) for m in months
+            )
+            if all_present:
+                tmp_path.unlink(missing_ok=True)
+            else:
+                quarantine = out_dir / "_raw_zips"
+                quarantine.mkdir(exist_ok=True)
+                final = quarantine / f"batch_{'_'.join(month_strs)}.zip"
+                tmp_path.replace(final)
+                logger.warning(
+                    f"    quarantined source zip → {final} "
+                    f"(per-month split incomplete; data preserved for retry)"
+                )
             return results
 
         except Exception as e:
@@ -283,8 +354,11 @@ def _split_download(
                         mask_accum = pd.to_datetime(ds_accum.valid_time.values).month == m
                         sub_inst = ds_inst.isel(valid_time=mask_inst)
                         sub_accum = ds_accum.isel(valid_time=mask_accum)
-                        # Combine t2m (instant) + tp (accum) into one dataset
-                        combined = xr.merge([sub_inst, sub_accum])
+                        # Combine t2m (instant) + tp (accum) into one dataset.
+                        # compat="override" silences xarray's FutureWarning and
+                        # matches the future default; safe here because t2m and
+                        # tp don't overlap and coords come from the same CDS source.
+                        combined = xr.merge([sub_inst, sub_accum], compat="override")
                         combined.to_netcdf(out_file)
                         combined.close()
                     ds_inst.close()
@@ -377,6 +451,31 @@ def _split_download(
 
 # ── Orchestration ────────────────────────────────────────────────────────────
 
+class _RobustFileHandler(logging.FileHandler):
+    """FileHandler that reopens the log file after a transient OSError.
+
+    The default FileHandler keeps writing to a stale FD after an EIO on
+    /Volumes/BIGDATA (USB/APFS hiccup), so every subsequent emit fails. We
+    catch the OSError, close + reopen the file, and retry once. handleError
+    runs only if the reopen also fails.
+    """
+
+    def emit(self, record):
+        try:
+            super().emit(record)
+        except OSError:
+            try:
+                if self.stream is not None:
+                    try:
+                        self.stream.close()
+                    except OSError:
+                        pass
+                self.stream = self._open()
+                super().emit(record)
+            except Exception:
+                self.handleError(record)
+
+
 def run_batch_downloads(
     regions: list[int],
     year_start: int,
@@ -393,7 +492,7 @@ def run_batch_downloads(
             logging.Formatter("%(asctime)s %(message)s", datefmt="%H:%M:%S")
         )
         logger.addHandler(handler)
-        fh = logging.FileHandler(ERA5_ROOT / "_bulk_download.log")
+        fh = _RobustFileHandler(ERA5_ROOT / "_bulk_download.log")
         fh.setFormatter(
             logging.Formatter("%(asctime)s %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
         )
@@ -441,7 +540,9 @@ def run_batch_downloads(
         client = make_cds_client()
         return download_batch(client, job, logger)
 
-    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+    with ThreadPoolExecutor(
+        max_workers=max_workers, initializer=_silence_hdf5_thread
+    ) as pool:
         futures = {pool.submit(worker_fn, job): job for job in jobs}
 
         for future in as_completed(futures):
