@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from long_shadow_fertility.data.modera_ensstd import aggregate_ensstd_to_country_year
+from analysis.paper4_shadow.long_shadow_fertility.data.modera_ensstd import aggregate_ensstd_to_country_year
 
 
 def test_growing_season_mean():
