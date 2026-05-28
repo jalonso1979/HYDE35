@@ -5,7 +5,7 @@ Run with: pytest long_shadow_fertility/tests/test_event_study_threshold.py
 import pandas as pd
 import numpy as np
 import pytest
-from long_shadow_fertility.estimators.event_study_threshold import (
+from analysis.paper4_shadow.long_shadow_fertility.estimators.event_study_threshold import (
     crossing_year,
     rolling_elasticity,
 )

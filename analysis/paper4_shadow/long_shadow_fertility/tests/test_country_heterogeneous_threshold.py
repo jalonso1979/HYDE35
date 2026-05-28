@@ -3,7 +3,7 @@ import pandas as pd
 
 sys.path.insert(0, "/Volumes/BIGDATA/HYDE35")
 
-from long_shadow_fertility.estimators.country_heterogeneous_threshold import (
+from analysis.paper4_shadow.long_shadow_fertility.estimators.country_heterogeneous_threshold import (
     fit_country_specific_thresholds,
 )
 from analysis.paper4_shadow.long_shadow_fertility.data.build_real_wage_panel_v2 import (

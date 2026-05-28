@@ -119,7 +119,10 @@ class TestComputeSPEI:
             assert col in spei.columns, f"Missing column: {col}"
 
     def test_all_countries_present(self, spei):
-        expected = {"GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"}
+        expected = {
+            "GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP",
+            "NOR", "DNK", "FIN", "ISL", "CHE",
+        }
         assert set(spei["iso3"].unique()) == expected
 
     def test_year_range(self, spei):

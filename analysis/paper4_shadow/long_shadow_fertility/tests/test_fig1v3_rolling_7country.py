@@ -8,4 +8,7 @@ OUT = Path("/Volumes/BIGDATA/HYDE35/analysis/figures/long_shadow_fertility/"
 def test_makes_pdf():
     pdf, png, est = make_fig1v3()
     assert pdf.exists() and pdf == OUT
-    assert set(est.keys()) == {"GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"}
+    assert set(est.keys()) == {
+        "GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP",
+        "NOR", "DNK", "FIN", "ISL", "CHE",
+    }
