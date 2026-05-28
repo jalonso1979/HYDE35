@@ -1,0 +1,60 @@
+{
+  "hansen_wage": {
+    "full12": {
+      "c_hat": 10.140230685738777,
+      "p": 0.002,
+      "beta_M": -0.060093080942621016,
+      "beta_T": -0.38791966194227995,
+      "n": 1789
+    },
+    "drop_finisl": {
+      "c_hat": 10.10274406511099,
+      "p": 0.012,
+      "beta_M": -0.06998427812997675,
+      "beta_T": -0.38786272303330627,
+      "n": 1599
+    }
+  },
+  "regime_fevd_h15": {
+    "malthusian": {
+      "full12_n": 1073,
+      "drop_finisl_n": 978,
+      "full12_shares": {
+        "spei_growing": 0.03770484115806066,
+        "log_real_wage": 0.03751178971740936,
+        "log_cdr": 0.18081430524608372,
+        "log_cbr": 0.7439690638784463
+      },
+      "drop_finisl_shares": {
+        "spei_growing": 0.03889118585010746,
+        "log_real_wage": 0.03965545501639235,
+        "log_cdr": 0.16841388103648652,
+        "log_cbr": 0.7530394780970137
+      },
+      "max_abs_delta": 0.012400424209597194
+    },
+    "modern": {
+      "full12_n": 367,
+      "drop_finisl_n": 308,
+      "full12_shares": {
+        "spei_growing": 0.06830674937784324,
+        "log_real_wage": 0.01920355576952985,
+        "log_cdr": 0.0162553717309423,
+        "log_cbr": 0.8962343231216845
+      },
+      "drop_finisl_shares": {
+        "spei_growing": 0.04174581358111178,
+        "log_real_wage": 0.06315544338245896,
+        "log_cdr": 0.012831714878272206,
+        "log_cbr": 0.882267028158157
+      },
+      "max_abs_delta": 0.043951887612929105
+    }
+  },
+  "verdict": {
+    "c_hat_delta": 0.03748662062778685,
+    "max_fevd_share_delta": 0.043951887612929105,
+    "headline_stable": true,
+    "note": "Stable (c_hat within 0.15, FEVD shares within 5pp)"
+  }
+}
