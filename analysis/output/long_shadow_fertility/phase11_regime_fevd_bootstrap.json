@@ -38,65 +38,65 @@
     "seed": 0
   },
   "malthusian": {
-    "n_obs": 803,
-    "n_countries": 7,
+    "n_obs": 1073,
+    "n_countries": 12,
     "n_boot": 500,
     "n_failed": 0,
     "n_succeeded": 500,
     "weather": {
-      "point": 0.04402,
-      "ci_lo": 0.01059,
-      "ci_med": 0.07321,
-      "ci_hi": 0.23273
+      "point": 0.0377,
+      "ci_lo": 0.01119,
+      "ci_med": 0.05168,
+      "ci_hi": 0.16957
     },
     "wages": {
-      "point": 0.03843,
-      "ci_lo": 0.01668,
-      "ci_med": 0.04154,
-      "ci_hi": 0.12149
+      "point": 0.03751,
+      "ci_lo": 0.01369,
+      "ci_med": 0.03848,
+      "ci_hi": 0.11028
     },
     "mortality": {
-      "point": 0.17836,
-      "ci_lo": 0.10912,
-      "ci_med": 0.19526,
-      "ci_hi": 0.38846
+      "point": 0.18081,
+      "ci_lo": 0.11736,
+      "ci_med": 0.1871,
+      "ci_hi": 0.35462
     },
     "own": {
-      "point": 0.73919,
-      "ci_lo": 0.41237,
-      "ci_med": 0.67233,
-      "ci_hi": 0.79157
+      "point": 0.74397,
+      "ci_lo": 0.51743,
+      "ci_med": 0.70483,
+      "ci_hi": 0.79617
     }
   },
   "modern": {
-    "n_obs": 198,
-    "n_countries": 7,
+    "n_obs": 367,
+    "n_countries": 12,
     "n_boot": 500,
     "n_failed": 0,
     "n_succeeded": 500,
     "weather": {
-      "point": 0.13431,
-      "ci_lo": 0.05116,
-      "ci_med": 0.13298,
-      "ci_hi": 0.28367
+      "point": 0.06831,
+      "ci_lo": 0.02411,
+      "ci_med": 0.08791,
+      "ci_hi": 0.23137
     },
     "wages": {
-      "point": 0.15422,
-      "ci_lo": 0.07866,
-      "ci_med": 0.15291,
-      "ci_hi": 0.37705
+      "point": 0.0192,
+      "ci_lo": 0.01005,
+      "ci_med": 0.03522,
+      "ci_hi": 0.10754
     },
     "mortality": {
-      "point": 0.01071,
-      "ci_lo": 0.00999,
-      "ci_med": 0.03631,
-      "ci_hi": 0.18527
+      "point": 0.01626,
+      "ci_lo": 0.00658,
+      "ci_med": 0.03256,
+      "ci_hi": 0.10081
     },
     "own": {
-      "point": 0.70075,
-      "ci_lo": 0.4466,
-      "ci_med": 0.63754,
-      "ci_hi": 0.74409
+      "point": 0.89623,
+      "ci_lo": 0.68385,
+      "ci_med": 0.83265,
+      "ci_hi": 0.91192
     }
   }
 }
