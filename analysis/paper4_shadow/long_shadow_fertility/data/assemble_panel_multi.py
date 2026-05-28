@@ -1,6 +1,6 @@
 """Assemble unified multi-country panel for Phase 2 pooled estimation.
 
-Concatenates 7 country-year fertility series (Phase 1 England + Phase 2
+Concatenates 12 country-year fertility series (Phase 1 England + Phase 2
 France/Italy/Sweden + Phase 5 Belgium/Netherlands/Spain) and merges with
 climate, Maddison GDPpc, and controls.
 """

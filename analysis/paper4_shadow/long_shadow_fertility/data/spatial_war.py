@@ -29,6 +29,11 @@ CAPITALS: dict[str, tuple[float, float]] = {
     "BEL": (50.85, 4.35),    # Brussels
     "NLD": (52.37, 4.90),    # Amsterdam
     "ESP": (40.42, -3.70),   # Madrid
+    "NOR": (59.91, 10.75),   # Oslo
+    "DNK": (55.68, 12.57),   # Copenhagen
+    "FIN": (60.17, 24.94),   # Helsinki
+    "ISL": (64.15, -21.94),  # Reykjavik
+    "CHE": (46.95, 7.45),    # Bern
 }
 
 _EARTH_RADIUS_KM = 6371.0088

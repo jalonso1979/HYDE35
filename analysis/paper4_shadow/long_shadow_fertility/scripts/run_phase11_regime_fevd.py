@@ -64,7 +64,6 @@ EXTENDED_VARS = [
     "log_cdr",
     "log_cbr",
 ]
-N_COUNTRIES = 7  # for the per-equation dof budget (country FE dummies)
 
 
 def build_panel() -> pd.DataFrame:
@@ -122,12 +121,13 @@ def run_core_by_regime(df: pd.DataFrame, variables: list[str], climate_col: str)
 def run_extended_pooled(df: pd.DataFrame) -> dict:
     """Estimate the 8-var extended system on the full pooled complete-case sample."""
     cc = df.dropna(subset=EXTENDED_VARS).copy()
+    n_countries = cc["iso3"].nunique()
     res = fit_system_lp_fevd(cc, variables=EXTENDED_VARS, horizons=HORIZONS, p=P_LAGS)
     return {
         "variables": EXTENDED_VARS,
         "horizons": HORIZONS,
         "n": int(len(cc)),
-        "n_params_per_eq": _n_params_per_eq(len(EXTENDED_VARS), P_LAGS, N_COUNTRIES),
+        "n_params_per_eq": _n_params_per_eq(len(EXTENDED_VARS), P_LAGS, n_countries),
         "fevd_log_cbr_h15": _fevd_shares_at(res, "log_cbr", -1),
         "fevd_log_cbr_path": _fevd_path(res, "log_cbr"),
     }
@@ -136,19 +136,23 @@ def run_extended_pooled(df: pd.DataFrame) -> dict:
 def run_extended_by_regime(df: pd.DataFrame) -> dict:
     """Estimate the 8-var system per regime IF dof permits; else record fallback."""
     cc = df.dropna(subset=EXTENDED_VARS).copy()
-    n_params = _n_params_per_eq(len(EXTENDED_VARS), P_LAGS, N_COUNTRIES)
-    dof_floor = 10 * n_params
     out: dict = {
         "variables": EXTENDED_VARS,
         "horizons": HORIZONS,
-        "n_params_per_eq": n_params,
-        "dof_floor": dof_floor,
     }
     for regime, label in ((0, "malthusian"), (1, "modern")):
         sub = cc[cc["regime"] == regime].copy()
         n = int(len(sub))
+        n_countries = sub["iso3"].nunique()
+        n_params = _n_params_per_eq(len(EXTENDED_VARS), P_LAGS, n_countries)
+        dof_floor = 10 * n_params
         if n < dof_floor:
-            out[label] = {"status": "insufficient_dof", "n": n, "dof_floor": dof_floor}
+            out[label] = {
+                "status": "insufficient_dof",
+                "n": n,
+                "n_params_per_eq": n_params,
+                "dof_floor": dof_floor,
+            }
             continue
         try:
             res = fit_system_lp_fevd(sub, variables=EXTENDED_VARS, horizons=HORIZONS, p=P_LAGS)
@@ -158,11 +162,19 @@ def run_extended_by_regime(df: pd.DataFrame) -> dict:
             out[label] = {
                 "status": "ok",
                 "n": n,
+                "n_params_per_eq": n_params,
+                "dof_floor": dof_floor,
                 "fevd_log_cbr_h15": shares,
                 "fevd_log_cbr_path": _fevd_path(res, "log_cbr"),
             }
         except (np.linalg.LinAlgError, ValueError) as exc:
-            out[label] = {"status": "insufficient_dof", "n": n, "error": str(exc)}
+            out[label] = {
+                "status": "insufficient_dof",
+                "n": n,
+                "n_params_per_eq": n_params,
+                "dof_floor": dof_floor,
+                "error": str(exc),
+            }
     return out
 
 
@@ -229,10 +241,11 @@ def _print_summary(result: dict) -> None:
         print(f"    {k:>22}: {v:.3f}")
 
     extr = result["extended_by_regime"]
-    print(f"\nExtended-by-regime (C): dof_floor={extr['dof_floor']}")
+    print(f"\nExtended-by-regime (C):")
     for lab in ("malthusian", "modern"):
         entry = extr[lab]
-        print(f"    {lab:>10}: status={entry.get('status')}  n={entry.get('n')}")
+        print(f"    {lab:>10}: status={entry.get('status')}  n={entry.get('n')}  "
+              f"dof_floor={entry.get('dof_floor')}")
     print(f"\nwrote {OUTPUT_PATH}")
 
 

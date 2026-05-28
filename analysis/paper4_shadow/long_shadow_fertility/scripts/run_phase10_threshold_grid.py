@@ -1,6 +1,6 @@
 """Phase 10 Pillar B2: Hansen threshold grid for multiple development proxies.
 
-Runs fit_threshold_grid on the 7-country panel with four candidate threshold
+Runs fit_threshold_grid on the 12-country panel with four candidate threshold
 variables: log_real_wage, log_cdr, log_gdppc, and log_tfr (if available).
 
 Output: /Volumes/BIGDATA/HYDE35/analysis/output/long_shadow_fertility/phase10_threshold_grid.json

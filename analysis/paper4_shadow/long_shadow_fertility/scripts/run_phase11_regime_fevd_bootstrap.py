@@ -1,7 +1,7 @@
 """Phase 11 — Block-bootstrap confidence intervals on regime-FEVD shares.
 
 Unit of resampling: country (cluster/block bootstrap, to respect within-country
-serial correlation). For each regime we draw 7 iso3 codes with replacement,
+serial correlation). For each regime we draw 12 iso3 codes with replacement,
 stack the full series for those countries (giving duplicated countries distinct
 pseudo-iso3 labels so country FE work), restrict to the regime's rows, and run
 fit_system_lp_fevd. We record the h=15 fertility FEVD shares for

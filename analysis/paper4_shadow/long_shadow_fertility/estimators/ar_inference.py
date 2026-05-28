@@ -69,7 +69,8 @@ def anderson_rubin_ci(
 
     grid = np.linspace(beta_range[0], beta_range[1], grid_n)
     z_dem = z - z.mean()
-    crit = stats.f.ppf(1.0 - alpha, 1, n - 1)
+    # Residual dof: n minus the intercept and the z slope partialled out (n - 2).
+    crit = stats.f.ppf(1.0 - alpha, 1, n - 2)
 
     accept = []
     for b in grid:
@@ -82,7 +83,7 @@ def anderson_rubin_ci(
         if sse <= 0:
             f = np.inf
         else:
-            f = num_e / (sse / (n - 1))
+            f = num_e / (sse / (n - 2))
         if f <= crit:
             accept.append(float(b))
 
