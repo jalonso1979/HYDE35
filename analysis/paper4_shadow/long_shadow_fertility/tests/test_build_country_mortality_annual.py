@@ -5,9 +5,12 @@ from analysis.paper4_shadow.long_shadow_fertility.data.build_country_mortality_a
 )
 
 
-def test_seven_iso3():
+def test_twelve_iso3():
     df = build_country_mortality_annual()
-    assert set(df["iso3"].unique()) == {"GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"}
+    assert set(df["iso3"].unique()) == {
+        "GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP",
+        "NOR", "DNK", "FIN", "ISL", "CHE",
+    }
 
 
 def test_columns():
