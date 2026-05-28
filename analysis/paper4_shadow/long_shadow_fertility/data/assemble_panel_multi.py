@@ -16,6 +16,11 @@ SWE = ROOT / "sweden_fertility_annual.parquet"
 BEL = ROOT / "bel_fertility_annual.parquet"
 NLD = ROOT / "nld_fertility_annual.parquet"
 ESP = ROOT / "esp_fertility_annual.parquet"
+NOR = ROOT / "nor_fertility_annual.parquet"
+DNK = ROOT / "dnk_fertility_annual.parquet"
+FIN = ROOT / "fin_fertility_annual.parquet"
+ISL = ROOT / "isl_fertility_annual.parquet"
+CHE = ROOT / "che_fertility_annual.parquet"
 CLIM = ROOT / "country_climate_annual.parquet"
 GDP = ROOT / "maddison_multicountry_annual.parquet"
 CTRL = ROOT / "controls_panel_country_year.parquet"
@@ -44,6 +49,11 @@ def assemble_panel_multi(write: bool = False) -> pd.DataFrame:
         _normalize_other(BEL),
         _normalize_other(NLD),
         _normalize_other(ESP),
+        _normalize_other(NOR),
+        _normalize_other(DNK),
+        _normalize_other(FIN),
+        _normalize_other(ISL),
+        _normalize_other(CHE),
     ], ignore_index=True)
 
     clim = pd.read_parquet(CLIM)

@@ -16,7 +16,8 @@ MODERA = ROOT / "data" / "modera_country_monthly_cropw.parquet"
 MODERA_ENSSTD = ROOT / "data" / "modera_country_uncertainty.parquet"
 OUT = ROOT / "data" / "long_shadow_fertility" / "country_climate_annual.parquet"
 
-COUNTRIES = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"]
+COUNTRIES = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP",
+             "NOR", "DNK", "FIN", "ISL", "CHE"]
 
 
 def _annual_seasonal_means(monthly: pd.DataFrame) -> pd.DataFrame:

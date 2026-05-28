@@ -69,6 +69,11 @@ COUNTRY_LATITUDES: dict[str, float] = {
     "BEL": 50.62,
     "NLD": 52.24,
     "ESP": 40.04,
+    "NOR": 64.57,
+    "DNK": 56.26,
+    "FIN": 64.57,
+    "ISL": 64.96,
+    "CHE": 46.82,
 }
 
 # Default paths

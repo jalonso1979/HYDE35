@@ -16,6 +16,7 @@ OUT = Path("/Volumes/BIGDATA/HYDE35/analysis/data/long_shadow_fertility/"
 ISO_MAP = {
     "GBRTENW": "GBR", "FRATNP": "FRA", "ITA": "ITA", "SWE": "SWE",
     "BEL": "BEL", "NLD": "NLD", "ESP": "ESP",
+    "NOR": "NOR", "DNK": "DNK", "FIN": "FIN", "ISL": "ISL", "CHE": "CHE",
 }
 
 

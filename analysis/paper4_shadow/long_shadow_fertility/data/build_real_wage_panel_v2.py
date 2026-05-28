@@ -18,7 +18,8 @@ ALLEN = BIGDATA / "data" / "allen_wage_climate_panel.parquet"
 MADDISON = FERTILITY / "data" / "mpd2023_web.xlsx"
 OUT = BIGDATA / "data" / "long_shadow_fertility" / "real_wage_panel_v2.parquet"
 
-COUNTRIES = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"]
+COUNTRIES = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP",
+             "NOR", "DNK", "FIN", "ISL", "CHE"]
 OVERLAP = (1820, 1850)
 
 
