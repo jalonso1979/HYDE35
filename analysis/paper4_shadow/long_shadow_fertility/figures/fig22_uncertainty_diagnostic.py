@@ -36,6 +36,19 @@ COUNTRY_LABELS = {
 }
 
 
+ERUPTIONS = [
+    (1600, "Huaynaputina"),
+    (1660, "Long Island"),
+    (1783, "Laki"),
+    (1815, "Tambora"),
+    (1835, "Coseguina"),
+    (1883, "Krakatoa"),
+    (1902, "Santa María"),
+    (1963, "Agung"),
+    (1991, "Pinatubo"),
+]
+
+
 def make_fig22() -> None:
     df = pd.read_parquet(PANEL)
 
@@ -62,6 +75,30 @@ def make_fig22() -> None:
             lw=0.9,
         )
 
+    # --- Eruption reference lines (top panel) ---
+    first = True
+    for ev_year, ev_name in ERUPTIONS:
+        if first:
+            axes[0].axvline(
+                ev_year,
+                color="darkred",
+                lw=0.6,
+                alpha=0.4,
+                linestyle=":",
+                zorder=0,
+                label="Major eruptions",
+            )
+            first = False
+        else:
+            axes[0].axvline(
+                ev_year,
+                color="darkred",
+                lw=0.6,
+                alpha=0.4,
+                linestyle=":",
+                zorder=0,
+            )
+
     axes[0].set_title(
         "Headline: within-growing-season realized SD of monthly temperature anomaly",
         fontsize=10,
@@ -75,7 +112,7 @@ def make_fig22() -> None:
         color="dimgray",
         va="top",
     )
-    axes[0].legend(ncol=7, loc="upper right", fontsize=7.5, framealpha=0.7)
+    axes[0].legend(ncol=8, loc="upper right", fontsize=7.5, framealpha=0.7)
 
     # --- Bottom panel: ModE-RA ensemble SD (COMPARATOR — data-density artifact) ---
     for iso3, sub in df.groupby("iso3"):
@@ -86,6 +123,17 @@ def make_fig22() -> None:
             label=COUNTRY_LABELS.get(iso3, iso3),
             alpha=0.75,
             lw=0.9,
+        )
+
+    # --- Eruption reference lines (bottom panel) ---
+    for ev_year, ev_name in ERUPTIONS:
+        axes[1].axvline(
+            ev_year,
+            color="darkred",
+            lw=0.6,
+            alpha=0.4,
+            linestyle=":",
+            zorder=0,
         )
 
     axes[1].set_title(
