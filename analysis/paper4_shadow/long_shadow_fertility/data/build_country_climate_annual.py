@@ -76,6 +76,19 @@ def build_country_climate_annual(write: bool = False) -> pd.DataFrame:
           .merge(p_sd, on=["iso3", "year"], how="left")
           .merge(ens_annual, on=["iso3", "year"], how="left"))
 
+    # Phase 10 follow-up: 10-year centered rolling SD of annual growing-season anomaly
+    # (alternative uncertainty proxy with more dof than the 6-month within-season SD)
+    annual = df.sort_values(["iso3", "year"]).copy()
+    annual["t_growing_rolling10_sd"] = (
+        annual.groupby("iso3")["t_growing"]
+              .transform(lambda s: s.rolling(window=10, center=True, min_periods=5).std(ddof=1))
+    )
+    annual["p_growing_rolling10_sd"] = (
+        annual.groupby("iso3")["p_growing"]
+              .transform(lambda s: s.rolling(window=10, center=True, min_periods=5).std(ddof=1))
+    )
+    df = annual.copy()
+
     df["source"] = "ModE-RA_cropw"
     df = df.sort_values(["iso3", "year"]).reset_index(drop=True)
     if write:
