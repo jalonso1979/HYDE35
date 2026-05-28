@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 from analysis.paper4_shadow.long_shadow_fertility.data.within_season_variance import add_within_season_sd
 from analysis.paper4_shadow.long_shadow_fertility.data.modera_ensstd import aggregate_ensstd_to_country_year
+from analysis.paper4_shadow.long_shadow_fertility.data.spei_index import compute_spei
 
 ROOT = Path("/Volumes/BIGDATA/HYDE35/analysis")
 MODERA = ROOT / "data" / "modera_country_monthly_cropw.parquet"
@@ -88,6 +89,16 @@ def build_country_climate_annual(write: bool = False) -> pd.DataFrame:
               .transform(lambda s: s.rolling(window=10, center=True, min_periods=5).std(ddof=1))
     )
     df = annual.copy()
+
+    # Phase 10 Pillar #5: SPEI joint climate-stress index ------------------
+    # Path A: Thornthwaite PET from reconstructed absolute T (CRU 1901-1950
+    # baseline) + ModE-RA anomalies.  See data/spei_index.py for full docs.
+    spei = compute_spei(countries=COUNTRIES)
+    df = df.merge(
+        spei[["iso3", "year", "spei_growing", "spei_winter", "spei_annual"]],
+        on=["iso3", "year"],
+        how="left",
+    )
 
     df["source"] = "ModE-RA_cropw"
     df = df.sort_values(["iso3", "year"]).reset_index(drop=True)
