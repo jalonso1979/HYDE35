@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "description": "Phase 13. Paired block-bootstrap (cluster=country) CI on the WITHIN-DRAW DIFFERENCE in h=15 fertility FEVD mortality share between Hansen wage regimes: \u0394_mortality = mortality_share_Malthusian \u2212 mortality_share_Modern. A single 12-country-cluster draw is split by regime each iteration so the two regime estimates are computed on identical resampled countries. Also reports \u0394_wage = wage_share_Modern \u2212 wage_share_Malthusian. One-sided bootstrap p-value = share of draws with \u0394 <= 0. Mirrors run_phase11_regime_fevd_bootstrap.py settings.",
+    "variables": [
+      "spei_growing",
+      "log_real_wage",
+      "log_cdr",
+      "log_cbr"
+    ],
+    "shock_labels": [
+      "weather",
+      "wages",
+      "mortality",
+      "own"
+    ],
+    "horizons": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "h_target": 15,
+    "p_lags": 2,
+    "hansen_threshold": 9.97,
+    "n_boot": 500,
+    "seed": 0,
+    "n_clusters": 12,
+    "countries": [
+      "BEL",
+      "CHE",
+      "DNK",
+      "ESP",
+      "FIN",
+      "FRA",
+      "GBR",
+      "ISL",
+      "ITA",
+      "NLD",
+      "NOR",
+      "SWE"
+    ],
+    "n_obs_total": 1440,
+    "n_obs_malthusian": 1073,
+    "n_obs_modern": 367,
+    "n_succeeded": 500,
+    "n_failed": 0,
+    "p_value_definition": "one-sided H0: \u0394 <= 0 ; p = mean(boot_draw <= 0)"
+  },
+  "delta_mortality": {
+    "point": 0.164559,
+    "boot_mean": 0.160054,
+    "ci_lo": 0.056482,
+    "ci_med": 0.15101,
+    "ci_hi": 0.313981,
+    "p_one_sided_le0": 0.006
+  },
+  "delta_wage": {
+    "point": -0.018308,
+    "boot_mean": -0.004173,
+    "ci_lo": -0.0793,
+    "ci_med": -0.002904,
+    "ci_hi": 0.072074,
+    "p_one_sided_le0": 0.552
+  },
+  "marginal_mortality_shares": {
+    "malthusian": {
+      "point": 0.180814,
+      "boot_mean": 0.200891,
+      "ci_lo": 0.117361,
+      "ci_med": 0.187099,
+      "ci_hi": 0.354621
+    },
+    "modern": {
+      "point": 0.016255,
+      "boot_mean": 0.040836,
+      "ci_lo": 0.006328,
+      "ci_med": 0.033553,
+      "ci_hi": 0.112828
+    }
+  }
+}

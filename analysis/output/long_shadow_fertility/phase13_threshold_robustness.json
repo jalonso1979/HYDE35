@@ -1,0 +1,453 @@
+{
+  "meta": {
+    "phase": 13,
+    "description": "Threshold robustness: (A) regime-split sweep, (B) placebo-threshold falsification.",
+    "core_variables": [
+      "spei_growing",
+      "log_real_wage",
+      "log_cdr",
+      "log_cbr"
+    ],
+    "horizons": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "p_lags": 2,
+    "headline_split": 9.97,
+    "wage_c_hat": 10.14,
+    "documented_wage_pvalue": 0.002,
+    "panel_read_only": true
+  },
+  "A_split_sweep": {
+    "grid": [
+      9.5,
+      9.55,
+      9.6,
+      9.65,
+      9.7,
+      9.75,
+      9.8,
+      9.85,
+      9.9,
+      9.95,
+      9.97,
+      10.0,
+      10.05,
+      10.1,
+      10.14,
+      10.15,
+      10.2,
+      10.25,
+      10.3,
+      10.35,
+      10.4,
+      10.45,
+      10.5
+    ],
+    "window": [
+      9.66,
+      10.14
+    ],
+    "path": [
+      {
+        "c": 9.5,
+        "n_malthusian": 900,
+        "n_modern": 540,
+        "malthusian_mortality_share": 0.12404774973382707,
+        "modern_mortality_share": 0.04159014874393504,
+        "malthusian_wage_share": 0.015818455156574637,
+        "modern_wage_share": 0.03501164587105012,
+        "mortality_collapse": 0.08245760098989202,
+        "estimable": true
+      },
+      {
+        "c": 9.55,
+        "n_malthusian": 916,
+        "n_modern": 524,
+        "malthusian_mortality_share": 0.13477970585073135,
+        "modern_mortality_share": 0.03167881838866591,
+        "malthusian_wage_share": 0.0178858937534217,
+        "modern_wage_share": 0.05054075412052496,
+        "mortality_collapse": 0.10310088746206544,
+        "estimable": true
+      },
+      {
+        "c": 9.6,
+        "n_malthusian": 937,
+        "n_modern": 503,
+        "malthusian_mortality_share": 0.1501946890016009,
+        "modern_mortality_share": 0.01279151489821294,
+        "malthusian_wage_share": 0.018733073539375394,
+        "modern_wage_share": 0.057070288250060566,
+        "mortality_collapse": 0.13740317410338795,
+        "estimable": true
+      },
+      {
+        "c": 9.65,
+        "n_malthusian": 953,
+        "n_modern": 487,
+        "malthusian_mortality_share": 0.15851169330536924,
+        "modern_mortality_share": 0.007462323031927004,
+        "malthusian_wage_share": 0.01629503276969876,
+        "modern_wage_share": 0.03097111609929809,
+        "mortality_collapse": 0.15104937027344223,
+        "estimable": true
+      },
+      {
+        "c": 9.7,
+        "n_malthusian": 968,
+        "n_modern": 472,
+        "malthusian_mortality_share": 0.17242166071632617,
+        "modern_mortality_share": 0.006486297750077384,
+        "malthusian_wage_share": 0.01745705797782881,
+        "modern_wage_share": 0.02122030364843702,
+        "mortality_collapse": 0.16593536296624878,
+        "estimable": true
+      },
+      {
+        "c": 9.75,
+        "n_malthusian": 981,
+        "n_modern": 459,
+        "malthusian_mortality_share": 0.17791990448823103,
+        "modern_mortality_share": 0.009771321992381638,
+        "malthusian_wage_share": 0.017465943784010493,
+        "modern_wage_share": 0.028245802202878447,
+        "mortality_collapse": 0.16814858249584938,
+        "estimable": true
+      },
+      {
+        "c": 9.8,
+        "n_malthusian": 999,
+        "n_modern": 441,
+        "malthusian_mortality_share": 0.18485397605491036,
+        "modern_mortality_share": 0.0072639700898351235,
+        "malthusian_wage_share": 0.01703177044727331,
+        "modern_wage_share": 0.02176256581839893,
+        "mortality_collapse": 0.17759000596507524,
+        "estimable": true
+      },
+      {
+        "c": 9.85,
+        "n_malthusian": 1021,
+        "n_modern": 419,
+        "malthusian_mortality_share": 0.18535512761889297,
+        "modern_mortality_share": 0.011526296278204208,
+        "malthusian_wage_share": 0.01889177553965061,
+        "modern_wage_share": 0.02132621705688455,
+        "mortality_collapse": 0.17382883134068877,
+        "estimable": true
+      },
+      {
+        "c": 9.9,
+        "n_malthusian": 1038,
+        "n_modern": 402,
+        "malthusian_mortality_share": 0.1914004469377255,
+        "modern_mortality_share": 0.013678465196858747,
+        "malthusian_wage_share": 0.021715707963438767,
+        "modern_wage_share": 0.027423894069381612,
+        "mortality_collapse": 0.17772198174086676,
+        "estimable": true
+      },
+      {
+        "c": 9.95,
+        "n_malthusian": 1065,
+        "n_modern": 375,
+        "malthusian_mortality_share": 0.18751545690935,
+        "modern_mortality_share": 0.015088822391124454,
+        "malthusian_wage_share": 0.029429536733356878,
+        "modern_wage_share": 0.019871523786273566,
+        "mortality_collapse": 0.17242663451822554,
+        "estimable": true
+      },
+      {
+        "c": 9.97,
+        "n_malthusian": 1073,
+        "n_modern": 367,
+        "malthusian_mortality_share": 0.18081430524608455,
+        "modern_mortality_share": 0.016255371730945913,
+        "malthusian_wage_share": 0.03751178971739084,
+        "modern_wage_share": 0.01920355576950562,
+        "mortality_collapse": 0.16455893351513864,
+        "estimable": true
+      },
+      {
+        "c": 10.0,
+        "n_malthusian": 1088,
+        "n_modern": 352,
+        "malthusian_mortality_share": 0.167091101370564,
+        "modern_mortality_share": 0.01977652661813908,
+        "malthusian_wage_share": 0.04180732068270511,
+        "modern_wage_share": 0.032677274468747554,
+        "mortality_collapse": 0.1473145747524249,
+        "estimable": true
+      },
+      {
+        "c": 10.05,
+        "n_malthusian": 1119,
+        "n_modern": 321,
+        "malthusian_mortality_share": 0.1394805618401674,
+        "modern_mortality_share": 0.05519828375113348,
+        "malthusian_wage_share": 0.05446936593926208,
+        "modern_wage_share": 0.04724395187697818,
+        "mortality_collapse": 0.08428227808903394,
+        "estimable": true
+      },
+      {
+        "c": 10.1,
+        "n_malthusian": 1149,
+        "n_modern": 291,
+        "malthusian_mortality_share": 0.12819190088671242,
+        "modern_mortality_share": 0.14153796609802408,
+        "malthusian_wage_share": 0.06056933822627801,
+        "modern_wage_share": 0.06459260534873029,
+        "mortality_collapse": -0.013346065211311653,
+        "estimable": true
+      },
+      {
+        "c": 10.14,
+        "n_malthusian": 1171,
+        "n_modern": 269,
+        "malthusian_mortality_share": 0.12394514217684909,
+        "modern_mortality_share": 0.08851337342908072,
+        "malthusian_wage_share": 0.05900519398013036,
+        "modern_wage_share": 0.06106694339115227,
+        "mortality_collapse": 0.035431768747768363,
+        "estimable": true
+      },
+      {
+        "c": 10.15,
+        "n_malthusian": 1180,
+        "n_modern": 260,
+        "malthusian_mortality_share": 0.12162615699492334,
+        "modern_mortality_share": 0.04105386580130059,
+        "malthusian_wage_share": 0.057429155635335905,
+        "modern_wage_share": 0.0696626292711265,
+        "mortality_collapse": 0.08057229119362275,
+        "estimable": true
+      },
+      {
+        "c": 10.2,
+        "n_malthusian": 1210,
+        "n_modern": 230,
+        "malthusian_mortality_share": 0.11208551460912733,
+        "modern_mortality_share": 0.08382846681844978,
+        "malthusian_wage_share": 0.0539561015757936,
+        "modern_wage_share": 0.1910930977354667,
+        "mortality_collapse": 0.028257047790677545,
+        "estimable": true
+      },
+      {
+        "c": 10.25,
+        "n_malthusian": 1244,
+        "n_modern": 196,
+        "malthusian_mortality_share": 0.10424002701076579,
+        "modern_mortality_share": 0.06072424617182771,
+        "malthusian_wage_share": 0.0511164118460026,
+        "modern_wage_share": 0.20231025027563046,
+        "mortality_collapse": 0.04351578083893808,
+        "estimable": true
+      },
+      {
+        "c": 10.3,
+        "n_malthusian": 1279,
+        "n_modern": 161,
+        "malthusian_mortality_share": 0.09515684355785219,
+        "modern_mortality_share": 0.06429698051963732,
+        "malthusian_wage_share": 0.04890387170723282,
+        "modern_wage_share": 0.21961005669500838,
+        "mortality_collapse": 0.030859863038214863,
+        "estimable": true
+      },
+      {
+        "c": 10.35,
+        "n_malthusian": 1299,
+        "n_modern": 141,
+        "malthusian_mortality_share": 0.09153611459173781,
+        "modern_mortality_share": 0.259468521941079,
+        "malthusian_wage_share": 0.04397062833061715,
+        "modern_wage_share": 0.3197936509081955,
+        "mortality_collapse": -0.16793240734934117,
+        "estimable": true
+      },
+      {
+        "c": 10.4,
+        "n_malthusian": 1318,
+        "n_modern": 122,
+        "malthusian_mortality_share": 0.08694531206429451,
+        "modern_mortality_share": null,
+        "malthusian_wage_share": 0.036560125977731665,
+        "modern_wage_share": null,
+        "mortality_collapse": null,
+        "estimable": false
+      },
+      {
+        "c": 10.45,
+        "n_malthusian": 1346,
+        "n_modern": 94,
+        "malthusian_mortality_share": 0.07818429829629735,
+        "modern_mortality_share": 0.08504427369696406,
+        "malthusian_wage_share": 0.03653175440928868,
+        "modern_wage_share": 0.08981371252190759,
+        "mortality_collapse": -0.006859975400666712,
+        "estimable": true
+      },
+      {
+        "c": 10.5,
+        "n_malthusian": 1370,
+        "n_modern": 70,
+        "malthusian_mortality_share": 0.061865846938829405,
+        "modern_mortality_share": null,
+        "malthusian_wage_share": 0.03404657744946091,
+        "modern_wage_share": null,
+        "mortality_collapse": null,
+        "estimable": false
+      }
+    ],
+    "summary": {
+      "window_collapse_holds_everywhere": false,
+      "n_window_points_estimable": 11,
+      "malthusian_mortality_range_in_window": [
+        0.12394514217684909,
+        0.1914004469377255
+      ],
+      "modern_mortality_range_in_window": [
+        0.006486297750077384,
+        0.14153796609802408
+      ],
+      "collapse_range_in_window": [
+        -0.013346065211311653,
+        0.17772198174086676
+      ],
+      "min_collapse_in_window": -0.013346065211311653,
+      "headline_9_97": {
+        "c": 9.97,
+        "n_malthusian": 1073,
+        "n_modern": 367,
+        "malthusian_mortality_share": 0.18081430524608455,
+        "modern_mortality_share": 0.016255371730945913,
+        "malthusian_wage_share": 0.03751178971739084,
+        "modern_wage_share": 0.01920355576950562,
+        "mortality_collapse": 0.16455893351513864,
+        "estimable": true
+      },
+      "phase11_reference": {
+        "malthusian_mortality_share": 0.18081430524608455,
+        "modern_mortality_share": 0.016255371730945913
+      }
+    }
+  },
+  "B_placebo_falsification": {
+    "settings": {
+      "y": "log_cbr",
+      "x": "t_growing",
+      "n_boot": 500,
+      "seed": 0,
+      "trim": [
+        0.15,
+        0.85
+      ],
+      "reject_alpha": 0.05,
+      "pvalue_floor": 0.002
+    },
+    "results": {
+      "wage_real": {
+        "z": "log_real_wage",
+        "c_hat": 10.140230685738777,
+        "c_ci_lo": 10.140230685738777,
+        "c_ci_hi": 10.140230685738777,
+        "sup_wald_pvalue": 0.002,
+        "observed_sup_wald": 141.0635898062556,
+        "beta_M": -0.060093080942620364,
+        "beta_T": -0.38791966194227945,
+        "n": 1789
+      },
+      "placebo_year": {
+        "z": "year",
+        "c_hat": 1981.0,
+        "c_ci_lo": 1981.0,
+        "c_ci_hi": 1981.0,
+        "sup_wald_pvalue": 0.002,
+        "observed_sup_wald": 215.89195916144382,
+        "beta_M": -0.08355342838972663,
+        "beta_T": -0.4824546914237542,
+        "n": 2215
+      },
+      "placebo_wage_shuffle": {
+        "z": "wage_shuffle",
+        "c_hat": 8.172800560659079,
+        "c_ci_lo": 8.172800560659079,
+        "c_ci_hi": 10.140230685738777,
+        "sup_wald_pvalue": 0.336,
+        "observed_sup_wald": 3.143985903560592,
+        "beta_M": -0.0983843812646396,
+        "beta_T": -0.16243713243370106,
+        "n": 1789
+      },
+      "placebo_gauss": {
+        "z": "gauss_noise",
+        "c_hat": -0.9083929779954706,
+        "c_ci_lo": -1.036987360362363,
+        "c_ci_hi": 1.0633875516302118,
+        "sup_wald_pvalue": 0.852,
+        "observed_sup_wald": 1.490935738502966,
+        "beta_M": -0.21260515468858546,
+        "beta_T": -0.1751251168347618,
+        "n": 2215
+      }
+    },
+    "wage_real_pvalue": 0.002,
+    "wage_real_observed_sup_wald": 141.0635898062556,
+    "structurefree_placebos_that_reject": [],
+    "any_structurefree_placebo_rejects": false,
+    "documented_wage_pvalue": 0.002,
+    "placebo_assessment": {
+      "placebo_year": {
+        "sup_wald_pvalue": 0.002,
+        "observed_sup_wald": 215.89195916144382,
+        "structure_free": false,
+        "expected_to_reject": true,
+        "rejects_at_0.05": true,
+        "sup_wald_vs_wage": 1.5304584227436828,
+        "weaker_than_wage": false
+      },
+      "placebo_wage_shuffle": {
+        "sup_wald_pvalue": 0.336,
+        "observed_sup_wald": 3.143985903560592,
+        "structure_free": true,
+        "expected_to_reject": false,
+        "rejects_at_0.05": false,
+        "sup_wald_vs_wage": 0.022287720792294546,
+        "weaker_than_wage": true
+      },
+      "placebo_gauss": {
+        "sup_wald_pvalue": 0.852,
+        "observed_sup_wald": 1.490935738502966,
+        "structure_free": true,
+        "expected_to_reject": false,
+        "rejects_at_0.05": false,
+        "sup_wald_vs_wage": 0.010569245689484424,
+        "weaker_than_wage": true
+      }
+    },
+    "verdict": "PASS: the structure-free placebos (cross-row-shuffled wage, i.i.d. Gaussian) do NOT reject \u2014 the Hansen sup-Wald test does not mechanically fire on a threshold variable that carries no relationship to fertility. (The linear time trend DOES reject, but that is substantive, not mechanical: in this near-monotone-in-time panel a calendar threshold partitions the genuine secular change in the temperature->fertility slope across the demographic transition.)"
+  },
+  "figure": {
+    "pdf": "/Volumes/BIGDATA/HYDE35/analysis/figures/long_shadow_fertility/fig26_threshold_sweep.pdf",
+    "png": "/Volumes/BIGDATA/HYDE35/analysis/figures/long_shadow_fertility/fig26_threshold_sweep.png",
+    "paper_pdf": "/Users/jalonso/Library/CloudStorage/GoogleDrive-jorge.alonsoortiz@gmail.com/My Drive/Fertility/long_shadow/figures/fig26_threshold_sweep.pdf"
+  }
+}
