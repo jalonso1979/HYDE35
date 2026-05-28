@@ -1,0 +1,51 @@
+{
+  "pre_1700": {
+    "slope_per_century": 0.08748776879283032,
+    "se": 0.006759994450126596,
+    "n": 1953,
+    "countries_present": [
+      "BEL",
+      "ESP",
+      "FRA",
+      "GBR",
+      "ITA",
+      "NLD",
+      "SWE"
+    ]
+  },
+  "1700_1850": {
+    "slope_per_century": 0.23577344038091155,
+    "se": 0.021150389721571395,
+    "n": 1050,
+    "countries_present": [
+      "BEL",
+      "ESP",
+      "FRA",
+      "GBR",
+      "ITA",
+      "NLD",
+      "SWE"
+    ]
+  },
+  "1850_2008": {
+    "slope_per_century": -0.022923122299474404,
+    "se": 0.02079876092226642,
+    "n": 1113,
+    "countries_present": [
+      "BEL",
+      "ESP",
+      "FRA",
+      "GBR",
+      "ITA",
+      "NLD",
+      "SWE"
+    ]
+  },
+  "wald_post1850_vs_pre1700": {
+    "diff_slope_per_century": -0.11041089109230473,
+    "z": -5.048566593950766,
+    "chi2": 25.488024653555637,
+    "p": 4.451373070146758e-07
+  },
+  "interpretation": "Pre-1700 trend (0.0875 deg C/century) exceeds post-1850 (-0.0229 deg C/century) \u2014 consistent with paleo-smoothing recovery toward true variance as instrumental observations densify (Wald p=0.0000)."
+}
