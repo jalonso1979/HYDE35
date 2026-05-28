@@ -24,6 +24,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
+from analysis.paper4_shadow.long_shadow_fertility.figures.pub_style import apply_pub_style
+
+# Apply publication style at module import time
+apply_pub_style()
+
 # Input data
 PRECIP_JSON = Path(
     "/Volumes/BIGDATA/HYDE35/analysis/output/long_shadow_fertility/phase10p5_hansen_precip.json"
@@ -43,12 +48,16 @@ LR95 = 7.35  # Hansen 2000 95% LR cutoff
 
 
 def _panel(ax, lr_path, c_hat, c_ci_lo, c_ci_hi, beta_M, beta_T, p, n, xlabel, title_prefix):
-    """Draw one Hansen LR path panel."""
+    """Draw one Hansen LR path panel (grayscale, print-safe)."""
     cs, lrs = zip(*lr_path)
-    ax.plot(cs, lrs, color="C0", lw=1.3)
-    ax.axhline(LR95, color="grey", lw=0.8, linestyle="--", label=f"95\\% LR cutoff = {LR95}")
-    ax.axvspan(c_ci_lo, c_ci_hi, alpha=0.20, color="C0", label="95\\% LR CI")
-    ax.axvline(c_hat, color="C3", linestyle="--", lw=1.1,
+    # Single series per panel: solid black LR path
+    ax.plot(cs, lrs, color="#000000", lw=1.4)
+    # 95% cutoff: dashed dark gray (clearly distinct from the LR path)
+    ax.axhline(LR95, color="#555555", lw=0.9, linestyle="--", label=f"95\\% LR cutoff = {LR95}")
+    # CI shading: light gray fill
+    ax.axvspan(c_ci_lo, c_ci_hi, alpha=0.20, color="#888888", label="95\\% LR CI")
+    # c_hat vertical: densely dashed dark line (distinct from cutoff dashes)
+    ax.axvline(c_hat, color="#222222", linestyle=(0, (5, 1)), lw=1.2,
                label=rf"$\hat c$ = {c_hat:.3f}")
     ax.set_xlabel(xlabel, fontsize=9)
     ax.set_ylabel("LR statistic", fontsize=9)
@@ -107,12 +116,12 @@ def make_fig21v2() -> None:
         xlabel="log real wage (threshold variable)",
         title_prefix="(C) Precipitation shock",
     )
-    # Annotate the non-significance clearly
+    # Annotate the non-significance clearly (grayscale-safe)
     ax_c.text(
         0.05, 0.95, "No regime change detected",
-        transform=ax_c.transAxes, fontsize=8, color="C3",
+        transform=ax_c.transAxes, fontsize=8, color="#333333",
         va="top", ha="left",
-        bbox=dict(boxstyle="round,pad=0.3", facecolor="lightyellow", edgecolor="C3", alpha=0.8)
+        bbox=dict(boxstyle="round,pad=0.3", facecolor="#f5f5f5", edgecolor="#555555", alpha=0.9)
     )
 
     # --- Panel D: GDP per capita threshold + Temperature (development-proxy comparison) ---

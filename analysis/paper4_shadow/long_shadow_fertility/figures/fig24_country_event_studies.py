@@ -30,6 +30,14 @@ from analysis.paper4_shadow.long_shadow_fertility.estimators.event_study_thresho
     crossing_year,
     rolling_elasticity,
 )
+from analysis.paper4_shadow.long_shadow_fertility.figures.pub_style import (
+    apply_pub_style,
+    GRAYS,
+    LINESTYLES,
+)
+
+# Apply publication style globally
+apply_pub_style()
 
 FIG_DIR = Path("/Volumes/BIGDATA/HYDE35/analysis/figures/long_shadow_fertility")
 PAPER_FIG_DIR = Path(
@@ -63,8 +71,12 @@ def make_fig24():
 
     crossing_info = {}  # iso3 -> crossing year or None
 
-    for ax, iso3 in zip(flat_axes, countries):
+    for idx, (ax, iso3) in enumerate(zip(flat_axes, countries)):
         ax.set_visible(True)
+
+        # Per-country grayscale + linestyle (cycle through GRAYS/LINESTYLES)
+        gray = GRAYS[idx % len(GRAYS)]
+        ls = LINESTYLES[idx % len(LINESTYLES)]
 
         sub = df[df["iso3"] == iso3].copy()
 
@@ -91,17 +103,19 @@ def make_fig24():
         elas = elas.copy()
         elas["event_time"] = elas["year"] - cross
 
-        # --- plot ---
-        ax.axhline(0, color="grey", lw=0.7, linestyle=":")
-        ax.axvline(0, color="C3", lw=1.2, linestyle="--",
+        # --- plot (grayscale-safe: distinct gray + linestyle per country) ---
+        ax.axhline(0, color="#aaaaaa", lw=0.7, linestyle=":")
+        # Threshold-crossing marker: densely dashed dark gray
+        ax.axvline(0, color="#333333", lw=1.2, linestyle=(0, (5, 1)),
                    label=f"crossing ({cross})")
+        # CI shading in matching gray
         ax.fill_between(
             elas["event_time"],
             elas["beta"] - 1.96 * elas["se"],
             elas["beta"] + 1.96 * elas["se"],
-            alpha=0.25, color="C0",
+            alpha=0.20, color=gray,
         )
-        ax.plot(elas["event_time"], elas["beta"], color="C0", lw=1.4)
+        ax.plot(elas["event_time"], elas["beta"], color=gray, lw=1.4, linestyle=ls)
 
         ax.set_xlim(-60, 60)
         ax.set_title(f"{iso3}  (crossed {cross})", fontsize=9)

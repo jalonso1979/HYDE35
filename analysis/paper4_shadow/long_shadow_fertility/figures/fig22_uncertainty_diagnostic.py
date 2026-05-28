@@ -15,6 +15,14 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from analysis.paper4_shadow.long_shadow_fertility.figures.pub_style import (
+    apply_pub_style,
+    style_lines,
+)
+
+# Apply publication style globally
+apply_pub_style()
+
 PANEL = Path(
     "/Volumes/BIGDATA/HYDE35/analysis/data/long_shadow_fertility/panel_multi_country_year.parquet"
 )
@@ -64,6 +72,10 @@ def make_fig22() -> None:
 
     fig, axes = plt.subplots(2, 1, figsize=(9, 6.5), sharex=True)
 
+    # Apply grayscale + linestyle cycler to both panels (7 countries)
+    style_lines(axes[0], n=7)
+    style_lines(axes[1], n=7)
+
     # --- Top panel: within-season realized SD (HEADLINE) ---
     for iso3, sub in df.groupby("iso3"):
         sub = sub.sort_values("year").dropna(subset=["t_anom_c_within_season_sd"])
@@ -71,19 +83,19 @@ def make_fig22() -> None:
             sub["year"],
             sub["t_anom_c_within_season_sd"],
             label=COUNTRY_LABELS.get(iso3, iso3),
-            alpha=0.75,
-            lw=0.9,
+            alpha=0.85,
+            lw=1.1,
         )
 
-    # --- Eruption reference lines (top panel) ---
+    # --- Eruption reference lines (top panel): thin gray dotted vertical lines ---
     first = True
     for ev_year, ev_name in ERUPTIONS:
         if first:
             axes[0].axvline(
                 ev_year,
-                color="darkred",
-                lw=0.6,
-                alpha=0.4,
+                color="#999999",
+                lw=0.7,
+                alpha=0.6,
                 linestyle=":",
                 zorder=0,
                 label="Major eruptions",
@@ -92,9 +104,9 @@ def make_fig22() -> None:
         else:
             axes[0].axvline(
                 ev_year,
-                color="darkred",
-                lw=0.6,
-                alpha=0.4,
+                color="#999999",
+                lw=0.7,
+                alpha=0.6,
                 linestyle=":",
                 zorder=0,
             )
@@ -121,17 +133,17 @@ def make_fig22() -> None:
             sub["year"],
             sub["ensstd_t_growing"],
             label=COUNTRY_LABELS.get(iso3, iso3),
-            alpha=0.75,
-            lw=0.9,
+            alpha=0.85,
+            lw=1.1,
         )
 
-    # --- Eruption reference lines (bottom panel) ---
+    # --- Eruption reference lines (bottom panel): thin gray dotted vertical lines ---
     for ev_year, ev_name in ERUPTIONS:
         axes[1].axvline(
             ev_year,
-            color="darkred",
-            lw=0.6,
-            alpha=0.4,
+            color="#999999",
+            lw=0.7,
+            alpha=0.6,
             linestyle=":",
             zorder=0,
         )
@@ -164,6 +176,16 @@ def make_fig22() -> None:
         fig.savefig(f"{OUT}.{ext}", bbox_inches="tight")
     plt.close(fig)
     print(f"Wrote {OUT}.pdf and {OUT}.png")
+
+    # Copy PDF to paper repo figures/
+    import shutil
+    copy_pdf = Path(
+        "/Users/jalonso/Library/CloudStorage/GoogleDrive-jorge.alonsoortiz@gmail.com"
+        "/My Drive/Fertility/long_shadow/figures/fig22_uncertainty_diagnostic.pdf"
+    )
+    copy_pdf.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(f"{OUT}.pdf", str(copy_pdf))
+    print(f"Copied PDF to {copy_pdf}")
 
 
 if __name__ == "__main__":
