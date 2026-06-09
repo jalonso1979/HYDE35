@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  9 JUN 2026 15:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  9 JUN 2026 16:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -581,7 +581,7 @@ Overfull \hbox (6.97766pt too wide) in paragraph at lines 234--235
 [17]
 
 [18]
-<../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf, id=631, 1294.8
+<../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf, id=632, 1294.8
 6568pt x 366.93085pt>
 File: ../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf Graphic fi
 le (type pdf)
@@ -599,7 +599,7 @@ Overfull \hbox (89.88414pt too wide) in paragraph at lines 4--279
 
 
 [20 <../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf>]
-<../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf, id=764
+<../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf, id=765
 , 1003.21492pt x 923.73065pt>
 File: ../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf Gr
 aphic file (type pdf)
@@ -610,51 +610,51 @@ s_battery_bw.pdf  used on input line 290.
 
 
 [21 <../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf>]
+
+[22]
 <../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf, id=9
-10, 924.3333pt x 1171.59926pt>
+13, 924.3333pt x 1171.59926pt>
 File: ../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf 
 Graphic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig06_subsampl
-e_stability_bw.pdf  used on input line 314.
+e_stability_bw.pdf  used on input line 317.
 (pdftex.def)             Requested size: 465.06004pt x 589.46301pt.
 
 
-[22]
+[23]
 Overfull \vbox (17.03302pt too high) has occurred while \output is active []
 
 
 
-[23 <../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf>]
+[24 <../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf>]
 <../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw.pdf
-, id=1020, 915.53162pt x 405.96732pt>
+, id=1023, 915.53162pt x 405.96732pt>
 File: ../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_b
 w.pdf Graphic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw
 .pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig05_pathway_
-source_robustness_bw.pdf  used on input line 328.
+source_robustness_bw.pdf  used on input line 331.
 (pdftex.def)             Requested size: 465.06004pt x 206.2229pt.
 
 
-[24 <../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw
+[25 <../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw
 .pdf>] (../../analysis/figures/paper5_horserace/tab_gs_subshapley.tex)
 
-[25]
+[26]
 
-[26] (../../analysis/figures/paper5_horserace/tab_h_pred_evolution.tex)
-Overfull \hbox (5.03972pt too wide) in paragraph at lines 383--385
+[27] (../../analysis/figures/paper5_horserace/tab_h_pred_evolution.tex)
+Overfull \hbox (5.03972pt too wide) in paragraph at lines 386--388
 []\T1/cmr/bx/n/10.95 Exercise (b): OLS evo-lu-tion with PCA-reduced bun-dle (mu
 lticollinearity-controlled).
  []
 
 (../../analysis/figures/paper5_horserace/tab_h_pred_evolution_pca.tex)
 
-[27] (../../analysis/figures/paper5_horserace/tab_h_pred_commonality.tex)
+[28] (../../analysis/figures/paper5_horserace/tab_h_pred_commonality.tex)
 
-[28] (../../analysis/figures/paper5_horserace/tab07_functional_subshapley.tex)
-
-[29]
+[29] (../../analysis/figures/paper5_horserace/tab07_functional_subshapley.tex)
 
 [30]
 
@@ -663,30 +663,30 @@ lticollinearity-controlled).
 [32]
 
 [33]
-Overfull \hbox (8.8044pt too wide) in paragraph at lines 536--537
+
+[34]
+Overfull \hbox (8.8044pt too wide) in paragraph at lines 539--540
 \T1/cmr/m/n/10.95 com-po-si-tion ex-er-cise that we re-tain here as a ro-bust-n
 ess an-chor. The 2014 Lazaridis ANF/YAM/WHG
  []
 
 
 
-[34]
-
 [35]
-Overfull \hbox (19.42088pt too wide) in paragraph at lines 558--559
+
+[36]
+Overfull \hbox (19.42088pt too wide) in paragraph at lines 561--562
 \T1/cmr/m/n/10.95 predicted-heterozygosity scalar with eight in-ter-pretable lo
 ci, three of them an-chor-ing a clean agricultural-
  []
 
 
-Overfull \hbox (4.9241pt too wide) in paragraph at lines 558--559
+Overfull \hbox (4.9241pt too wide) in paragraph at lines 561--562
 \T1/cmr/m/n/10.95 adaptation chan-nel (FADS1/2, AMY1, LCT) and two an-chor-ing 
 a malaria-resistance chan-nel (DARC,
  []
 
 
-
-[36]
 
 [37]
 
@@ -696,7 +696,9 @@ a malaria-resistance chan-nel (DARC,
 
 [40]
 
-[41] (./horserace.aux)
+[41]
+
+[42] (./horserace.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -705,13 +707,13 @@ Package rerunfilecheck Info: File `horserace.out' has not changed.
 (rerunfilecheck)             Checksum: FDFB8DD8873A31359A7D743D3B151903;5475.
  ) 
 Here is how much of TeX's memory you used:
- 13341 strings out of 473190
- 214272 string characters out of 5715801
- 641307 words of memory out of 5000000
+ 13342 strings out of 473190
+ 214279 string characters out of 5715801
+ 640307 words of memory out of 5000000
  36222 multiletter control sequences out of 15000+600000
  590314 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,13n,79p,2600b,648s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,13n,79p,2897b,640s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
@@ -749,10 +751,10 @@ r/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/
 sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sf
 tt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt
 1095.pfb>
-Output written on horserace.pdf (41 pages, 1645568 bytes).
+Output written on horserace.pdf (42 pages, 1649764 bytes).
 PDF statistics:
- 1516 PDF objects out of 1728 (max. 8388607)
- 794 compressed objects within 8 object streams
- 146 named destinations out of 1000 (max. 500000)
+ 1519 PDF objects out of 1728 (max. 8388607)
+ 796 compressed objects within 8 object streams
+ 147 named destinations out of 1000 (max. 500000)
  236 words of extra memory for PDF output out of 10000 (max. 10000000)
 
