@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  19 MAY 2026 19:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  9 JUN 2026 15:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,196 +496,222 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local
 /texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 
 [2]
-Overfull \hbox (6.20908pt too wide) in paragraph at lines 49--50
-\T1/cmr/m/n/10.95 agricultural-Neolithic share---aggregated glob-ally from Laza
-ridis (Eura-sia), Patin and Lip-son (Africa),
- []
-
-
 
 [3]
 
 [4]
 
 [5]
+Overfull \hbox (7.26538pt too wide) in paragraph at lines 90--91
+\T1/cmr/m/n/10.95 HBB rs334, and FADS1/2 rs174570. Per-locus fre-quen-cies are 
+as-sem-bled from the pri-mary population-
+ []
+
+
 
 [6]
+
+[7]
+Overfull \hbox (3.53654pt too wide) in paragraph at lines 116--117
+[]\T1/cmr/bx/n/10.95 EDAR rs3827760 \T1/cmr/m/n/10.95 (V370A) af-fects ectodysp
+lasin-A re-cep-tor function---hair mor-phol-ogy (thicker
+ []
+
+
+
+[8]
 <../../analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf, id=
-240, 786.0562pt x 804.8291pt>
+328, 786.0562pt x 804.8291pt>
 File: ../../analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf
  Graphic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf>
 
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig01_substrat
-e_covariance_bw.pdf  used on input line 114.
+e_covariance_bw.pdf  used on input line 130.
 (pdftex.def)             Requested size: 432.17375pt x 442.49773pt.
 
 
-[7] (../../analysis/figures/paper5_horserace/tab02_substrate_correlations.tex)
+[9] (../../analysis/figures/paper5_horserace/tab02_substrate_correlations.tex)
 
-[8 <../../analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf>]
-(../../analysis/figures/paper5_horserace/tab02b_climate_subcorrelations.tex)
-<../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf, id=346, 9
+[10 <../../analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf>
+] (../../analysis/figures/paper5_horserace/tab02b_climate_subcorrelations.tex)
+<../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf, id=432, 9
 02.63174pt x 566.04834pt>
 File: ../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf Graph
 ic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig02_substrat
-e_maps_bw.pdf  used on input line 139.
+e_maps_bw.pdf  used on input line 155.
 (pdftex.def)             Requested size: 460.35791pt x 288.68947pt.
 
 
-[9]
-
-[10 <../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf>]
-(../../analysis/figures/paper5_horserace/tab01_descriptives.tex)
-
 [11]
 
-[12]
-<../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf, id=446, 
+[12 <../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf>]
+(../../analysis/figures/paper5_horserace/tab01_descriptives.tex)
+
+[13]
+
+[14]
+<../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf, id=533, 
 597.53033pt x 317.46605pt>
 File: ../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf Grap
 hic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig03_shapley_
-heatmap_bw.pdf  used on input line 193.
+heatmap_bw.pdf  used on input line 203.
 (pdftex.def)             Requested size: 432.17375pt x 229.6217pt.
  (../../analysis/figures/paper5_horserace/tab04_shapley_table.tex)
-Overfull \hbox (4.33234pt too wide) in paragraph at lines 1--204
+Overfull \hbox (4.33234pt too wide) in paragraph at lines 1--214
  [][] 
  []
 
 
 
-[13 <../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf>]
-(../../analysis/figures/paper5_horserace/tab06_climate_subshapley.tex)
-Overfull \hbox (6.97766pt too wide) in paragraph at lines 222--223
+[15 <../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf>]
+
+[16] (../../analysis/figures/paper5_horserace/tab06_climate_subshapley.tex)
+Overfull \hbox (6.97766pt too wide) in paragraph at lines 234--235
 \T1/cmr/m/n/10.95 stituent columns. The signs are in-tu-itive: an-ces-tral crop
  yield has neg-a-tive co-ef-fi-cients on convergence-
  []
 
+(../../analysis/figures/paper5_horserace/tab03_full_ols.tex)
 
+[17]
 
-[14] (../../analysis/figures/paper5_horserace/tab03_full_ols.tex)
-
-[15]
-<../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf, id=540, 1294.8
+[18]
+<../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf, id=631, 1294.8
 6568pt x 366.93085pt>
 File: ../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf Graphic fi
 le (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig04_mediatio
-n_bw.pdf  used on input line 256.
+n_bw.pdf  used on input line 268.
 (pdftex.def)             Requested size: 460.35791pt x 130.45451pt.
 
 
-[16] (../../analysis/figures/paper5_horserace/tab05_mediation_table.tex)
-Overfull \hbox (88.46782pt too wide) in paragraph at lines 4--267
+[19] (../../analysis/figures/paper5_horserace/tab05_mediation_table.tex)
+Overfull \hbox (89.88414pt too wide) in paragraph at lines 4--279
  [][] 
  []
 
-<../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf, id=555
+
+
+[20 <../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf>]
+<../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf, id=764
 , 1003.21492pt x 923.73065pt>
 File: ../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf Gr
 aphic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/figA_robustnes
-s_battery_bw.pdf  used on input line 278.
+s_battery_bw.pdf  used on input line 290.
 (pdftex.def)             Requested size: 465.06004pt x 428.21948pt.
 
 
-[17 <../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf>]
-
-[18 <../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf>]
-<../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf, id=8
-17, 924.3333pt x 1171.59926pt>
+[21 <../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf>]
+<../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf, id=9
+10, 924.3333pt x 1171.59926pt>
 File: ../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf 
 Graphic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig06_subsampl
-e_stability_bw.pdf  used on input line 309.
+e_stability_bw.pdf  used on input line 314.
 (pdftex.def)             Requested size: 465.06004pt x 589.46301pt.
 
 
-[19]
+[22]
 Overfull \vbox (17.03302pt too high) has occurred while \output is active []
 
 
 
-[20 <../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf>]
+[23 <../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf>]
 <../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw.pdf
-, id=929, 915.53162pt x 405.96732pt>
+, id=1020, 915.53162pt x 405.96732pt>
 File: ../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_b
 w.pdf Graphic file (type pdf)
 <use ../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw
 .pdf>
 Package pdftex.def Info: ../../analysis/figures/paper5_horserace/fig05_pathway_
-source_robustness_bw.pdf  used on input line 323.
+source_robustness_bw.pdf  used on input line 328.
 (pdftex.def)             Requested size: 465.06004pt x 206.2229pt.
 
 
-[21 <../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw
+[24 <../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw
 .pdf>] (../../analysis/figures/paper5_horserace/tab_gs_subshapley.tex)
 
-[22] (../../analysis/figures/paper5_horserace/tab_h_pred_evolution.tex)
+[25]
 
-[23]
-Overfull \hbox (5.03972pt too wide) in paragraph at lines 376--378
+[26] (../../analysis/figures/paper5_horserace/tab_h_pred_evolution.tex)
+Overfull \hbox (5.03972pt too wide) in paragraph at lines 383--385
 []\T1/cmr/bx/n/10.95 Exercise (b): OLS evo-lu-tion with PCA-reduced bun-dle (mu
 lticollinearity-controlled).
  []
 
 (../../analysis/figures/paper5_horserace/tab_h_pred_evolution_pca.tex)
 
-[24] (../../analysis/figures/paper5_horserace/tab_h_pred_commonality.tex)
-(../../analysis/figures/paper5_horserace/tab07_functional_subshapley.tex)
+[27] (../../analysis/figures/paper5_horserace/tab_h_pred_commonality.tex)
 
-[25]
+[28] (../../analysis/figures/paper5_horserace/tab07_functional_subshapley.tex)
 
-[26]
-Overfull \hbox (8.8044pt too wide) in paragraph at lines 447--448
+[29]
+
+[30]
+
+[31]
+
+[32]
+
+[33]
+Overfull \hbox (8.8044pt too wide) in paragraph at lines 536--537
 \T1/cmr/m/n/10.95 com-po-si-tion ex-er-cise that we re-tain here as a ro-bust-n
 ess an-chor. The 2014 Lazaridis ANF/YAM/WHG
  []
 
 
 
-[27]
+[34]
 
-[28]
+[35]
+Overfull \hbox (19.42088pt too wide) in paragraph at lines 558--559
+\T1/cmr/m/n/10.95 predicted-heterozygosity scalar with eight in-ter-pretable lo
+ci, three of them an-chor-ing a clean agricultural-
+ []
 
-[29]
 
-[30]
-Overfull \hbox (7.4849pt too wide) in paragraph at lines 486--487
-[]\T1/cmr/m/n/10.95 The $\OML/cmm/m/it/10.95 H[]$ \T1/cmr/m/n/10.95 coefficient
--evolution test on the full panel shows that the AG-style predicted-heterozygos
-ity
+Overfull \hbox (4.9241pt too wide) in paragraph at lines 558--559
+\T1/cmr/m/n/10.95 adaptation chan-nel (FADS1/2, AMY1, LCT) and two an-chor-ing 
+a malaria-resistance chan-nel (DARC,
  []
 
 
 
-[31]
+[36]
 
-[32]
+[37]
 
-[33] (./horserace.aux)
+[38]
+
+[39]
+
+[40]
+
+[41] (./horserace.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `horserace.out' has not changed.
-(rerunfilecheck)             Checksum: 971714780A42A09ED066460FF3BBED2E;5169.
+(rerunfilecheck)             Checksum: FDFB8DD8873A31359A7D743D3B151903;5475.
  ) 
 Here is how much of TeX's memory you used:
- 13287 strings out of 473190
- 213366 string characters out of 5715801
- 639374 words of memory out of 5000000
- 36190 multiletter control sequences out of 15000+600000
- 590655 words of font info for 115 fonts, out of 8000000 for 9000
+ 13341 strings out of 473190
+ 214272 string characters out of 5715801
+ 641307 words of memory out of 5000000
+ 36222 multiletter control sequences out of 15000+600000
+ 590314 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,13n,79p,2527b,598s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,13n,79p,2600b,648s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
@@ -699,34 +725,34 @@ al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local
 exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
 ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
 /2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/202
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-
-dist/fonts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist
-/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2025/texmf-dist/fonts
-/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
-ype1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/typ
-e1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
-/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pub
-lic/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publi
-c/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
-cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
--super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-s
-uper/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-sup
-er/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super
-/sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/s
-ftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sft
-t1095.pfb>
-Output written on horserace.pdf (33 pages, 1606887 bytes).
+25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fo
+nts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/font
+s/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/
+type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
+1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
+public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pu
+blic/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publ
+ic/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
+/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/c
+m-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-
+super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-su
+per/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-supe
+r/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/
+sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sf
+tt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt
+1095.pfb>
+Output written on horserace.pdf (41 pages, 1645568 bytes).
 PDF statistics:
- 1366 PDF objects out of 1440 (max. 8388607)
- 652 compressed objects within 7 object streams
- 123 named destinations out of 1000 (max. 500000)
- 228 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1516 PDF objects out of 1728 (max. 8388607)
+ 794 compressed objects within 8 object streams
+ 146 named destinations out of 1000 (max. 500000)
+ 236 words of extra memory for PDF output out of 10000 (max. 10000000)
 
