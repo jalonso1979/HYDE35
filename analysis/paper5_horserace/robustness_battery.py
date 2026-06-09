@@ -82,26 +82,34 @@ def _joint_f_stat(
     substrate_cols: list[str],
     pathway_dummies: list[str],
     controls: list[str],
-) -> float:
-    """Joint F-statistic for the null β_substrate = 0 in the mediation regression."""
+    return_df: bool = False,
+):
+    """Joint F-statistic for the null β_substrate = 0 in the mediation regression.
+
+    If return_df is True, returns (F, df_num, df_den) where df_num = number of
+    restricted substrate columns and df_den = residual df of the regression.
+    Otherwise returns the scalar F (back-compat).
+    """
     needed = [y_col, *substrate_cols, *pathway_dummies, *controls]
     d = df.dropna(subset=needed)
     if len(d) < 10:
-        return np.nan
+        return (np.nan, np.nan, np.nan) if return_df else np.nan
     X = sm.add_constant(d[substrate_cols + controls + pathway_dummies])
     try:
         res = sm.OLS(d[y_col], X).fit()
         # Joint F-test of substrate_cols (excluding constant, controls, pathways)
-        hypotheses = " = ".join(substrate_cols) + " = 0" if len(substrate_cols) > 1 else f"{substrate_cols[0]} = 0"
         # Build the R matrix manually to be safe across statsmodels versions
         param_names = list(res.params.index)
         R = np.zeros((len(substrate_cols), len(param_names)))
         for i, c in enumerate(substrate_cols):
             R[i, param_names.index(c)] = 1.0
         ft = res.f_test(R)
-        return float(np.asarray(ft.fvalue).flatten()[0])
+        f_val = float(np.asarray(ft.fvalue).flatten()[0])
+        if return_df:
+            return f_val, float(ft.df_num), float(ft.df_denom)
+        return f_val
     except Exception:
-        return np.nan
+        return (np.nan, np.nan, np.nan) if return_df else np.nan
 
 
 # ---------------------------------------------------------------------------
@@ -202,11 +210,30 @@ def check_leave_one_out(df: pd.DataFrame) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # Check 3: Westfall-Young multi-testing correction
 # ---------------------------------------------------------------------------
-def check_wy_correction(df: pd.DataFrame, n_perm: int = 1000) -> pd.DataFrame:
-    """Westfall-Young FWER on joint F-statistics for 24-cell mediation matrix.
+def check_wy_correction(
+    df: pd.DataFrame, n_perm: int = 1000, primary: str = "minp"
+) -> pd.DataFrame:
+    """Westfall-Young single-step FWER on the 30-cell mediation matrix.
 
-    Statistic: F-stat for joint significance of substrate columns
-    (vector for climate bundle; scalar for single-column substrates → F = t²).
+    Statistic per cell: the joint F-stat for significance of the substrate
+    columns (vector for the climate/functional coalitions; scalar t² for the
+    single-column substrates). Cells have heterogeneous numerator df
+    (scalars df_num=1, climate coalition df_num=4, functional coalition
+    df_num=8), so raw F-values are NOT comparable across cells.
+
+    We therefore implement single-step **minP** as the primary correction:
+    each cell's F is converted to a p-value via its OWN F(df_num, df_den)
+    reference, and per permutation we take the MIN p across all 30 cells under
+    the complete (global) null. The adjusted p for an observed cell is the
+    fraction of permutations whose min-p is <= that cell's observed p. This is
+    df-fair, unlike maxT-over-raw-F which systematically under-tests the
+    high-df coalitions.
+
+    Both corrections are stored for reproducibility:
+      - p_adj_wy_minp : single-step minP (df-fair)  [primary]
+      - p_adj_wy_maxt : single-step maxT over raw F  [legacy, df-biased]
+    The ``p_adj_wy`` column aliases whichever is selected by ``primary``
+    ('minp' or 'maxt') so downstream survivor logic stays compatible.
     """
     t0 = time.time()
     pw_cols = _pathway_cols(df)
@@ -217,10 +244,29 @@ def check_wy_correction(df: pd.DataFrame, n_perm: int = 1000) -> pd.DataFrame:
         for skey, scols, method in _substrate_cells():
             cells.append((outcome, skey, scols))
 
-    # Observed F-stats
-    obs_F = {}
+    from scipy.stats import f as f_dist
+
+    def _f_to_p(f_val, df_num, df_den):
+        if (
+            f_val is None or np.isnan(f_val)
+            or np.isnan(df_num) or np.isnan(df_den)
+        ):
+            return 1.0  # null result -> least significant
+        return float(f_dist.sf(f_val, df_num, df_den))
+
+    # Observed F-stats, df, and per-cell p-values (own-F reference)
+    obs_F: dict[tuple, float] = {}
+    obs_dfnum: dict[tuple, float] = {}
+    obs_dfden: dict[tuple, float] = {}
+    obs_p: dict[tuple, float] = {}
     for outcome, skey, scols in cells:
-        obs_F[(outcome, skey)] = _joint_f_stat(df, outcome, scols, pw_cols, CONTROLS)
+        f_val, dn, dd = _joint_f_stat(
+            df, outcome, scols, pw_cols, CONTROLS, return_df=True
+        )
+        obs_F[(outcome, skey)] = f_val
+        obs_dfnum[(outcome, skey)] = dn
+        obs_dfden[(outcome, skey)] = dd
+        obs_p[(outcome, skey)] = _f_to_p(f_val, dn, dd)
 
     # Pre-filter data per cell
     cell_dfs: dict[tuple, pd.DataFrame] = {}
@@ -229,35 +275,52 @@ def check_wy_correction(df: pd.DataFrame, n_perm: int = 1000) -> pd.DataFrame:
         cell_dfs[(outcome, skey)] = df.dropna(subset=needed).copy()
 
     rng = np.random.default_rng(46)
-    max_F_perm = np.zeros(n_perm)
+    max_F_perm = np.zeros(n_perm)   # legacy maxT (raw F)
+    min_p_perm = np.ones(n_perm)    # primary minP
 
     print(f"  WY: running {n_perm} permutations across {len(cells)} cells ...")
     for p in range(n_perm):
         perm_F = []
+        perm_p = []
         for outcome, skey, scols in cells:
             d = cell_dfs[(outcome, skey)].copy()
             d[outcome] = rng.permutation(d[outcome].values)
-            f = _joint_f_stat(d, outcome, scols, pw_cols, CONTROLS)
+            f, dn, dd = _joint_f_stat(
+                d, outcome, scols, pw_cols, CONTROLS, return_df=True
+            )
             perm_F.append(f if not np.isnan(f) else 0.0)
+            perm_p.append(_f_to_p(f, dn, dd))
         max_F_perm[p] = max(perm_F)
+        min_p_perm[p] = min(perm_p)
         if (p + 1) % 200 == 0:
             print(f"  WY: {p+1}/{n_perm} permutations done ...")
 
     rows = []
     for outcome, skey, _ in cells:
         f_obs = obs_F[(outcome, skey)]
-        p_adj = float(np.mean(max_F_perm >= f_obs))
+        p_obs = obs_p[(outcome, skey)]
+        # Single-step maxT over raw F (legacy, df-biased)
+        p_adj_maxt = float(np.mean(max_F_perm >= f_obs))
+        # Single-step minP over own-F p-values (df-fair, primary)
+        p_adj_minp = float(np.mean(min_p_perm <= p_obs))
+        p_adj_wy = p_adj_minp if primary == "minp" else p_adj_maxt
         rows.append({
             "check": "wy_correction",
             "outcome": outcome,
             "substrate": skey,
             "f_obs": f_obs,
-            "p_adj_wy": p_adj,
+            "df_num": obs_dfnum[(outcome, skey)],
+            "df_den": obs_dfden[(outcome, skey)],
+            "p_obs": p_obs,
+            "p_adj_wy_minp": p_adj_minp,
+            "p_adj_wy_maxt": p_adj_maxt,
+            "p_adj_wy": p_adj_wy,
             "mediation_share": f_obs,  # alias for figure
             "n_obs": len(cell_dfs[(outcome, skey)]),
         })
         print(f"  WY: {outcome[:22]:22s} ~ {skey:22s}"
-              f"  F={f_obs:.3f}  p_wy={p_adj:.3f}")
+              f"  F={f_obs:7.3f}  df_num={obs_dfnum[(outcome, skey)]:.0f}"
+              f"  p_obs={p_obs:.4f}  p_minP={p_adj_minp:.3f}  p_maxT={p_adj_maxt:.3f}")
     print(f"  check_wy_correction done in {time.time()-t0:.0f}s")
     return pd.DataFrame(rows)
 
@@ -475,9 +538,12 @@ def main() -> None:
     print("SUMMARY")
     print("=" * 70)
 
-    print("\n[3] Westfall-Young FWER: cells with p_adj_wy < 0.05")
+    print("\n[3] Westfall-Young single-step minP FWER: cells with p_adj_wy < 0.05")
     wy = out_df[out_df["check"] == "wy_correction"]
-    survivors = wy[wy["p_adj_wy"] < 0.05][["outcome", "substrate", "f_obs", "p_adj_wy"]]
+    survivors = wy[wy["p_adj_wy"] < 0.05][
+        ["outcome", "substrate", "f_obs", "df_num", "p_obs",
+         "p_adj_wy_minp", "p_adj_wy_maxt"]
+    ]
     if len(survivors) == 0:
         print("  No cells survive FWER correction at 0.05 level.")
     else:
