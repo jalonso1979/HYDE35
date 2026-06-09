@@ -115,6 +115,18 @@ def run() -> pd.DataFrame:
                                             "eur_colonized"],
                               "+ state_hist + SSA + EUR-colonised"),
     }
+    # Fix the estimation sample across all specs: restrict to rows non-missing
+    # on the union of every regressor used in any spec, so that moving from
+    # "baseline" to "+state_hist" reflects conditioning rather than the 18
+    # countries that drop out when the (incomplete) state-history index enters.
+    pathway_cols = sorted(c for c in panel.columns if c.startswith("pathway_"))[1:]
+    union_regs = base_regs + ["state_hist", "ssa_ancestry_pw", "eur_colonized"]
+    common_keep = [outcome] + union_regs + CONTROLS + pathway_cols
+    n_before = len(panel)
+    panel = panel.dropna(subset=common_keep).copy()
+    print(f"\nFixed common estimation sample: N={len(panel)} "
+          f"(dropped {n_before - len(panel)} rows missing any spec regressor)")
+
     fits = {name: _fit(panel, outcome, regs, lbl) for name, (regs, lbl) in specs.items()}
 
     print(f"\n=== Per-allele coefficients on {outcome} ===")

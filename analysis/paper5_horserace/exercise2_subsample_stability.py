@@ -19,6 +19,7 @@ import pandas as pd
 from analysis.paper5_horserace.mediation import (
     mediation_share_with_ci,
     mediation_share_partial_r2_with_ci,
+    stable_seed,
 )
 from analysis.paper5_horserace.exercise1_shapley import (
     CLIMATE_BUNDLE, FUNCTIONAL_BUNDLE, OUTCOMES, CONTROLS,
@@ -60,7 +61,7 @@ def main() -> None:
         )
         for outcome in OUTCOMES:
             for substrate_key, sub_arg, method in cells:
-                seed = (44 + abs(hash((stage, outcome, substrate_key)))) % (2**31)
+                seed = stable_seed("subsample", stage, outcome, substrate_key)
                 if method == "partial_r2":
                     r = mediation_share_partial_r2_with_ci(
                         sub, y_col=outcome, substrate=sub_arg,

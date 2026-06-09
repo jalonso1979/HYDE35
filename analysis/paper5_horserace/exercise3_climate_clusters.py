@@ -14,6 +14,7 @@ import pandas as pd
 from analysis.paper5_horserace.mediation import (
     mediation_share_with_ci,
     mediation_share_partial_r2_with_ci,
+    stable_seed,
 )
 from analysis.paper5_horserace.exercise1_shapley import (
     CLIMATE_BUNDLE, OUTCOMES, CONTROLS,
@@ -54,7 +55,7 @@ def main() -> None:
     for outcome in OUTCOMES:
         for skey, sub_arg, method in cells:
             i += 1
-            seed = abs(hash((outcome, skey, "hyde"))) % (2**31)
+            seed = stable_seed("climate_clusters", outcome, skey, "hyde")
             print(f"[{i:02d}/{total}] {outcome} ~ {skey}  ({method})")
             if method == "partial_r2":
                 r = mediation_share_partial_r2_with_ci(

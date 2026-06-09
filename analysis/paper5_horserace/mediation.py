@@ -30,6 +30,18 @@ import statsmodels.api as sm
 SubstrateSpec = Union[str, Sequence[str]]
 
 
+def stable_seed(*parts) -> int:
+    """Deterministic 31-bit RNG seed from arbitrary key parts.
+
+    Uses hashlib rather than the built-in ``hash``, which is salted per process
+    via ``PYTHONHASHSEED`` and therefore makes bootstrap draws non-reproducible
+    run-to-run.
+    """
+    import hashlib
+    digest = hashlib.sha256("|".join(map(str, parts)).encode()).hexdigest()
+    return int(digest, 16) % (2**31)
+
+
 def _expand(spec: SubstrateSpec) -> list[str]:
     if isinstance(spec, str):
         return [spec]

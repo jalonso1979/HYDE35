@@ -23,6 +23,7 @@ import statsmodels.api as sm
 from analysis.paper5_horserace.mediation import (
     mediation_share_with_ci,
     mediation_share_partial_r2_with_ci,
+    stable_seed,
 )
 from analysis.paper5_horserace.shapley import shapley_r2_decomposition
 from analysis.paper5_horserace.exercise1_shapley import (
@@ -120,7 +121,7 @@ def check_continent_fe(df: pd.DataFrame) -> pd.DataFrame:
     for outcome in OUTCOMES:
         for skey, scols, method in _substrate_cells():
             done += 1
-            seed = abs(hash(("continent_fe", outcome, skey))) % (2**31)
+            seed = stable_seed("continent_fe", outcome, skey)
             if method == "partial_r2":
                 r = mediation_share_partial_r2_with_ci(
                     df, y_col=outcome, substrate=scols,
@@ -356,7 +357,7 @@ def check_pre1900_outcome(df: pd.DataFrame) -> pd.DataFrame:
 
     mediation_rows = []
     for skey, scols, method in _substrate_cells():
-        seed = abs(hash(("pre1900_mediation", outcome, skey))) % (2**31)
+        seed = stable_seed("pre1900_mediation", outcome, skey)
         if method == "partial_r2":
             r = mediation_share_partial_r2_with_ci(
                 pre1900_df, y_col=outcome, substrate=scols,
