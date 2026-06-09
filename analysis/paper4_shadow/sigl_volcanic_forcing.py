@@ -131,7 +131,9 @@ def main() -> None:
     annual_clim = annual_clim[["iso3", "year", "t_c"]]
     df["t_anom_int"] = 0.0
     for i, r in df.iterrows():
-        sub = annual_clim.query("iso3 == @r['iso3'] and year >= @r['year'] and year < @r['year_next']")
+        sub = annual_clim[(annual_clim["iso3"] == r["iso3"])
+                          & (annual_clim["year"] >= r["year"])
+                          & (annual_clim["year"] < r["year_next"])]
         if len(sub) >= 3:
             df.at[i, "t_anom_int"] = sub["t_c"].mean()
     # demean within country
