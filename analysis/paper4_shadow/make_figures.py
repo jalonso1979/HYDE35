@@ -372,14 +372,14 @@ def fig_ensemble() -> None:
 
 def main() -> None:
     print("Generating figures...")
-    fig_calibration()
+    # fig_calibration (fig02) read ERA5 and the figure was removed from the paper;
+    # fig_long_shadow (fig08) read the ERA5 extended panel and is not in long_shadow.tex;
+    # fig_ensemble (fig09) is superseded by make_fig09_combined (2x2, ModE-RA only).
     fig_storage()
     fig_subnational()
     fig_malthus_pathway()
     fig_subperiods()
     fig_volcanic()
-    fig_long_shadow()
-    fig_ensemble()
     print(f"\nAll figures saved to {FIG}")
 
 

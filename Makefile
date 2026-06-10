@@ -100,6 +100,7 @@ analysis: panels
 	$(PYTHON) -m analysis.paper4_shadow.long_shadow_extra_outcomes
 	$(PYTHON) -m analysis.paper4_shadow.placebo_period_and_rolling
 	$(PYTHON)   analysis/paper4_shadow/make_figures.py
+	$(PYTHON) -m analysis.paper4_shadow.make_fig09_combined
 	$(PYTHON)   analysis/paper4_shadow/make_fig1_map.py
 
 # ── KK10 country aggregation (population-independent cross-validation) ──────
