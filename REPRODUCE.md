@@ -60,19 +60,9 @@ Only the four ensemble-statistic files are needed for the headline analyses:
 - `ModE-RA_ensstd_temp2_anom_wrt_1901-2000_1421-2008_mon.nc`
 - `ModE-RA_ensstd_totprec_anom_wrt_1901-2000_1421-2008_mon.nc`
 
-### ERA5 reanalysis
+### ERA5 reanalysis — not required
 
-ERA5 must be requested from the Copernicus Climate Data Store and is the largest download (~366 GB). Use the included bulk downloader:
-
-```bash
-# Configure your ~/.cdsapirc with the CDS API key
-python -m analysis.shared.era5_bulk_downloader  \
-       --year-start 1950 --year-end 2025  \
-       --regions 1-32  \
-       --output-dir $HYDE35_ROOT/ERA5
-```
-
-The downloader makes one CDS request per (region, year-quarter) for `2m_temperature` and `total_precipitation`. Expect 12–24 hours of CDS queue wait, plus the network transfer.
+ERA5 has been removed from this project. It was previously used to calibrate ModE-RA in the 1950–2008 overlap and to extend the panel past 2008, but the calibration was a per-country additive bias that is absorbed exactly by the within-country fixed effects in every regression (verified: headline coefficients identical with and without it), so it is not load-bearing. Absolute levels are now anchored to the CRU 1901–1950 climatology and the panel ends at ModE-RA's 2008 horizon. The ~366 GB ERA5 download is no longer needed.
 
 ### KK10 land-use reconstruction (cross-validation, §4.5)
 
@@ -113,10 +103,7 @@ python -m analysis.shared.build_cru_climatology
 # Country-year seasonality measures: ~1 min
 python -m analysis.shared.build_seasonality
 
-# Country-monthly ERA5 from raw zips: ~35 min (longest single step)
-python -m analysis.shared.build_era5_country_monthly
-
-# Calibrated annual 1421-2025 panel: ~1 min
+# Calibrated annual panel, ModE-RA + CRU only (1421-2008): ~1 min
 python -m analysis.shared.build_calibrated_annual
 
 # ModE-RA ensemble uncertainty: ~3 min
@@ -221,9 +208,8 @@ After the full pipeline finishes, the headline numbers below should appear in th
 
 ## Troubleshooting
 
-- **CDS API timeouts during ERA5 download.** The bulk downloader is configured to retry up to 6 times per request with exponential backoff. If it stalls, kill it and restart; downloaded files are skipped.
 - **Memory pressure during sub-national aggregation.** Default peak is ~5 GB. If your machine has <8 GB, edit `build_subnational.py` to process ModE-RA in chunks of 1000 months instead of loading all 7056 at once.
-- **h5netcdf import errors.** ERA5 raw files are zipped netCDFs. Install both `h5netcdf` and `h5py` (already in `requirements.txt`).
+- **h5netcdf import errors.** ModE-RA raw files are netCDFs. Install both `h5netcdf` and `h5py` (already in `requirements.txt`).
 - **Figures look wrong.** Make sure `matplotlib` is using Helvetica or Arial fonts. On Linux, `apt-get install ttf-mscorefonts-installer` provides Arial; on macOS it should work out of the box.
 
 ## When in doubt

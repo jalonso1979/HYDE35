@@ -27,7 +27,6 @@ panels: \
 	$(DATA)/modera_country_monthly.parquet \
 	$(DATA)/cru_country_climatology_1901_1950.parquet \
 	$(DATA)/country_seasonality_1421_2008.parquet \
-	$(DATA)/era5_country_monthly.parquet \
 	$(DATA)/country_climate_1421_2025.parquet \
 	$(DATA)/modera_country_uncertainty.parquet \
 	$(DATA)/modera_subnational_monthly.parquet \
@@ -44,12 +43,9 @@ $(DATA)/country_seasonality_1421_2008.parquet: \
 		$(DATA)/cru_country_climatology_1901_1950.parquet
 	$(PYTHON) -m analysis.shared.build_seasonality
 
-$(DATA)/era5_country_monthly.parquet:
-	$(PYTHON) -m analysis.shared.build_era5_country_monthly
-
+# country_climate_1421_2025.parquet is ModE-RA + CRU only (1421-2008); ERA5 removed.
 $(DATA)/country_climate_1421_2025.parquet: \
-		$(DATA)/country_seasonality_1421_2008.parquet \
-		$(DATA)/era5_country_monthly.parquet
+		$(DATA)/country_seasonality_1421_2008.parquet
 	$(PYTHON) -m analysis.shared.build_calibrated_annual
 
 $(DATA)/modera_country_uncertainty.parquet:
@@ -170,4 +166,4 @@ distclean: clean
 # ── Raw-data download (placeholder; see REPRODUCE.md) ───────────────────────
 download-data:
 	@echo "See REPRODUCE.md section 1 for one-line download commands."
-	@echo "Total ~460 GB across HYDE 3.5, ModE-RA, ERA5, CRU TS."
+	@echo "Total ~95 GB across HYDE 3.5, ModE-RA, CRU TS (ERA5 no longer required)."

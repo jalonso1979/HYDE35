@@ -29,17 +29,12 @@ def _build_panel() -> pd.DataFrame:
     fd = fd.rename(columns={"code": "iso3"})
     fd = fd[fd["year"] >= 1900].copy()
 
-    # ERA5 country-monthly for 1950+
-    era5 = pd.read_parquet(DATA / "era5_country_monthly.parquet")
-    era5_ann = era5.groupby(["iso3", "year"], as_index=False).agg(
-        t_c=("t2m_c", "mean"), p_mm=("tp_mm", "sum"))
-
-    # 1900-1949: use ModE-RA + CRU absolute T from country_climate_1421_2025
+    # ModE-RA + CRU absolute T/P for the whole modern window (1900-2008).
+    # ERA5 removed: the modern climate is now the same ModE-RA+CRU panel used
+    # throughout the paper, which ends at ModE-RA's 2008 horizon.
     mod = pd.read_parquet(DATA / "country_climate_1421_2025.parquet")
-    mod = mod[["iso3", "year", "t_c", "p_mm"]]
-    pre = mod[(mod["year"] >= 1900) & (mod["year"] < 1950)]
-    post = era5_ann[era5_ann["year"] >= 1950]
-    clim = pd.concat([pre, post], ignore_index=True)
+    clim = mod[["iso3", "year", "t_c", "p_mm"]]
+    clim = clim[clim["year"] >= 1900]
 
     panel = fd.merge(clim, on=["iso3", "year"], how="inner")
     g = panel.groupby("iso3")

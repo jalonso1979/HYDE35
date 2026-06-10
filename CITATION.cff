@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this replication package, please cite both the paper and the dataset."
+
+title: "The Long Shadow of Seasonality: Climate Endowments, Agricultural Pathways, and Escape from the Malthusian Trap — replication package"
+
+authors:
+  - family-names: Alonso Ortiz
+    given-names: Jorge
+    email: jorge.alonso@icloud.com
+
+version: "1.0.0"
+date-released: "2026-05-14"
+license: MIT
+repository-code: "https://github.com/<user>/long-shadow-seasonality"
+
+abstract: >
+  Code and intermediate datasets for the paper "The Long Shadow of Seasonality."
+  The package reproduces a country-level and sub-national monthly climate panel
+  spanning 1421-2008 CE, built by area-weighting the ModE-RA paleo-reanalysis
+  onto HYDE 3.5 sub-units and anchoring absolute levels to the CRU 1901-1950
+  climatology, together with all
+  regressions, figures, and tables in the manuscript.
+
+keywords:
+  - Malthusian trap
+  - unified growth theory
+  - climate endowments
+  - paleoclimate reanalysis
+  - HYDE 3.5
+  - ModE-RA
+
+preferred-citation:
+  type: unpublished
+  title: "The Long Shadow of Seasonality: Climate Endowments, Agricultural Pathways, and Escape from the Malthusian Trap"
+  authors:
+    - family-names: Alonso Ortiz
+      given-names: Jorge
+  year: 2026
+  notes: "Working paper, May 2026 draft."
