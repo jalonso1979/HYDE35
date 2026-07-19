@@ -35,7 +35,7 @@
 
 \begin{abstract}
 \noindent
-We use HYDE~3.5 historical land-use and population data (10,000~BCE--2025~CE) combined with ERA5 reanalysis climate data to investigate the mechanisms of Malthusian population dynamics across 197 countries. We document three sets of findings. First, we identify five distinct agricultural transition pathways---high-density intensive, early extensifiers, crop-dominant late developers, pastoral/mixed late developers, and irrigation pioneers---that exhibit fundamentally different Malthusian dynamics. Second, using climate-determined crop composition as instruments for agricultural productivity, we show that OLS estimates of the agricultural productivity--population growth relationship are biased downward by reverse causality; the IV estimate reveals a positive causal effect of exogenous productivity gains on population growth, consistent with the core Malthusian mechanism. Third, we establish ``iron laws'' of climate--agriculture linkages: temperature shocks reduce agricultural land growth ($\beta = -0.012$, $p = 0.01$), crop-dominant economies are significantly more climate-resilient than pastoral ones (7.7$\times$ less sensitive), and warming paradoxically increases population growth despite reducing agricultural output. The Manski bounds on the Malthusian coefficient are entirely negative across all HYDE uncertainty scenarios, confirming robustness to measurement error in historical data.
+We use HYDE~3.5 historical land-use and population data (10,000~BCE--2025~CE) combined with ERA5 reanalysis climate data to investigate the mechanisms of Malthusian population dynamics across 197 countries. We document three sets of findings. First, we identify five distinct agricultural transition pathways---high-density intensive, early extensifiers, crop-dominant late developers, pastoral/mixed late developers, and irrigation pioneers---that exhibit fundamentally different Malthusian dynamics. Second, using climate-determined crop composition as instruments for agricultural productivity, we show that OLS estimates of the agricultural productivity--population growth relationship are biased downward by reverse causality; the IV estimate reveals a positive causal effect of exogenous productivity gains on population growth, consistent with the core Malthusian mechanism. Third, we establish ``iron laws'' of climate--agriculture linkages on the full 1950--2025 panel: temperature shocks reduce agricultural land growth ($\beta = -0.0054$, $p < 0.0001$), higher crop shares buffer climate shocks, and---contrary to the ``warming paradox'' suggested by the 1950--1969 subsample---warming reduces population growth ($\beta = -0.0055$, $p < 0.0001$), with the positive population response confined to the pre--Green Revolution decades. The Manski bounds on the Malthusian coefficient are entirely negative across all HYDE uncertainty scenarios, confirming robustness to measurement error in historical data.
 
 \vspace{0.5em}
 \noindent\textbf{JEL Codes:} N50, O13, O44, Q54, J11\\
@@ -62,7 +62,7 @@ This paper exploits the unprecedented spatial and temporal resolution of the HYD
 
 Our identification strategy rests on a simple but powerful insight: climate endowments determine \textit{what} a society grows (rice vs.\ wheat, irrigated vs.\ rainfed, crops vs.\ pasture), and crop composition in turn determines agricultural productivity. Because climate operates at centennial-to-millennial timescales, lagged crop composition is plausibly exogenous to contemporaneous population growth decisions, satisfying the exclusion restriction required for valid instrumental variables.
 
-We make three contributions to the literature. First, we document a five-pathway typology of agricultural transitions using unsupervised learning on trajectory features extracted from the HYDE~3.5 panel. The typology reveals that the ``Great Divergence'' in population density was already 6-fold at the start of the Common Era and widened to nearly 10-fold by 1750, far earlier than conventionally studied. Second, our IV estimates reveal that OLS is biased downward by reverse causality: the true causal effect of exogenous agricultural productivity gains on population growth is \textit{positive}, consistent with the Malthusian prediction that productivity gains are absorbed by population expansion. Third, we establish robust ``iron laws'' linking climate variability to agricultural and demographic outcomes, showing that pastoral economies are 7.7 times more climate-sensitive than intensive agricultural societies.
+We make three contributions to the literature. First, we document a five-pathway typology of agricultural transitions using unsupervised learning on trajectory features extracted from the HYDE~3.5 panel. The typology reveals that the ``Great Divergence'' in population density was already 6-fold at the start of the Common Era and widened to nearly 10-fold by 1750, far earlier than conventionally studied. Second, our IV estimates reveal that OLS is biased downward by reverse causality: the true causal effect of exogenous agricultural productivity gains on population growth is \textit{positive}, consistent with the Malthusian prediction that productivity gains are absorbed by population expansion. Third, we establish robust ``iron laws'' linking climate variability to agricultural and demographic outcomes, and we show that a ``warming paradox'' visible in the early postwar decades---warming apparently raising population growth---reverses sign once the panel is extended to 2025.
 
 % ══════════════════════════════════════════════════════════════════════════════
 \section{Data}
@@ -286,42 +286,44 @@ Instrument strength also varies by pathway: $F = 383.5$ for crop-dominant late d
 \label{sec:iron_laws}
 % ══════════════════════════════════════════════════════════════════════════════
 
-Using the merged HYDE--ERA5 panel (154 countries, 1950--1967), we test for robust, universal relationships between climate variability and agricultural/demographic outcomes.
+Using the merged HYDE--ERA5 panel (197 countries, 1950--2025; 14{,}972 country-year observations), we test for robust, universal relationships between climate variability and agricultural/demographic outcomes. All estimates are within-country fixed-effects regressions with standard errors clustered by country. Earlier drafts of this paper used the 1950--1967 subsample then available (154 countries); where the full sample overturns a subsample result, we say so explicitly.
 
 \subsection{Law 1: Temperature Reduces Agricultural Growth}
 
-A 1$^\circ$C positive temperature anomaly reduces agricultural land growth by 1.2 percentage points ($\beta = -0.012$, $p = 0.01$, $N = 2{,}576$). This effect is robust to country fixed effects ($\beta = -0.013$, $p = 0.002$ after entity demeaning). Precipitation anomalies show no significant effect.
+A 1$^\circ$C positive temperature anomaly reduces agricultural land growth by 0.54 percentage points ($\beta = -0.0054$, $p < 0.0001$, $N = 14{,}359$); the effect on cropland growth alone is similar ($\beta = -0.0047$, $p < 0.0001$). Precipitation anomalies show no significant contemporaneous effect. The full-sample estimate is smaller than the $-0.012$ obtained on the 1950--1967 subsample but far more precisely estimated.
 
-\subsection{Law 2: The Warming Paradox}
+\subsection{Law 2: Warming Reduces Population Growth---the Paradox Does Not Survive}
 
-Temperature anomalies have a \textit{positive} effect on population growth ($\beta = +0.002$, $p = 0.015$), despite reducing agricultural land. This ``Malthusian climate paradox'' implies a non-agricultural channel through which warming benefits population dynamics---possibly reduced winter mortality, improved disease ecology in temperate zones, or labor reallocation from agriculture to other sectors.
+On the 1950--1967 subsample, temperature anomalies appeared to \textit{raise} population growth ($\beta = +0.002$, $p = 0.015$) while reducing agricultural land---a ``Malthusian climate paradox'' suggesting a non-agricultural channel through which warming benefits population dynamics. The full 1950--2025 panel reverses this result: warming significantly \textit{reduces} population growth ($\beta = -0.0055$, $p < 0.0001$, $N = 14{,}775$), the same sign as the agricultural effect.
+
+Splitting the panel at the Green Revolution shows the earlier finding was a regime-specific artifact: the temperature coefficient on population growth is $+0.0024$ ($p = 0.004$) in 1950--1969 but $-0.0050$ ($p < 0.0001$) in 1970--2025. Rolling 20-year windows sharpen the picture: the positive response is significant only in the earliest window (1950--1969), hovers near zero from 1970 through 2005, and turns strongly negative in the most recent windows (2000--2019: $\beta = -0.0033$; 2005--2024: $\beta = -0.0038$; both $p < 0.0001$)---consistent with warming becoming a net demographic burden as anomalies push further above the historical baseline. Precipitation anomalies also reduce population growth at horizons of 5--10 years (local projections, $p < 0.001$).
 
 \subsection{Law 3: Crop Composition Buffers Climate Shocks}
 
-The interaction between temperature anomalies and crop share is significantly positive ($\beta = +0.002$, $p = 0.002$), indicating that economies with higher crop shares (relative to grazing) are more resilient to temperature shocks. This is consistent with the greater adaptability of crop agriculture (variety switching, irrigation, seasonal adjustment) compared to pastoral systems.
+The interaction between temperature anomalies and crop share in the cropland-growth equation is significantly positive ($\beta = +0.0025$, $p = 0.015$), indicating that economies with higher crop shares (relative to grazing) are more resilient to temperature shocks. This is consistent with the greater adaptability of crop agriculture (variety switching, irrigation, seasonal adjustment) compared to pastoral systems, though the full-sample interaction is estimated less sharply than on the early subsample.
 
-\subsection{Law 4: Climate Sensitivity by Pathway}
+\subsection{Law 4: Climate Sensitivity by Pathway Is Muted on the Full Sample}
 
-Climate sensitivity differs dramatically across agricultural pathways:
+The 1950--1967 subsample suggested a dramatic sensitivity gradient across agricultural pathways, with pastoral/mixed economies 7.7 times more climate-sensitive than high-density intensive ones. The full-sample estimates do not support that gradient:
 
 \begin{table}[H]
 \centering
-\caption{Temperature Sensitivity of Agricultural Growth by Pathway}
+\caption{Temperature Sensitivity of Agricultural Growth by Pathway (FE, 1950--2025)}
 \label{tab:sensitivity}
 \small
-\begin{tabular}{lrrl}
+\begin{tabular}{lrrr}
 \toprule
-Pathway & $\hat{\beta}$ (temp $\to$ ag growth) & $N$ & \\
+Pathway & $\hat{\beta}$ (temp $\to$ ag growth) & $p$ & $N$ \\
 \midrule
-High-density intensive & $-0.003$ & 267 & (least sensitive) \\
-Early extensifiers & $-0.005$ & 449 & \\
-Crop-dominant late & $-0.008^{*}$ & 749 & \\
-Pastoral/mixed late & $-0.022^{*}$ & 1,094 & (most sensitive) \\
+Pastoral/mixed late & $-0.0033$ & 0.006 & 4,875 \\
+Crop-dominant late & $-0.0039$ & 0.012 & 3,350 \\
+Early extensifiers & $-0.0056$ & 0.049 & 2,025 \\
+High-density intensive & $-0.0087$ & 0.085 & 1,199 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Pastoral/mixed economies are \textbf{7.7 times more climate-sensitive} than high-density intensive ones. This maps directly onto the pathway typology from Section~\ref{sec:pathways}: the same agricultural systems that enabled earlier escape from the Malthusian trap also provided the greatest resilience to climate variability.
+All four point estimates are negative and lie within a factor of 2.7 of one another, the ordering from the subsample is not preserved, and the pathway-by-temperature interactions are jointly insignificant (Wald $\chi^2(3) = 1.43$, $p = 0.70$). We conclude that Law 1 is a genuinely universal law---temperature harms agricultural growth across all pathways---but the earlier claim that pastoral systems are an order of magnitude more exposed was an artifact of the short early sample and does not survive.
 
 % ══════════════════════════════════════════════════════════════════════════════
 \section{Discussion}
@@ -339,17 +341,17 @@ Our findings provide granular empirical support for several predictions of Unifi
   \item \textbf{The ``Great Divergence'' has deep roots.} The 6-fold density gap at 0~CE implies that the divergence between eventually-rich and eventually-poor regions was established during the Neolithic, not during the early modern period. This is consistent with \citet{diamond1997} but provides the first systematic quantification using comparable data across all regions.
 \end{enumerate}
 
-\subsection{The Malthusian Climate Paradox}
+\subsection{The Transient Warming--Population Response}
 
-The finding that warming reduces agricultural land but increases population growth deserves careful interpretation. Three mechanisms could explain this paradox:
+Early drafts of this paper, working from the 1950--1967 panel then available, reported a ``Malthusian climate paradox'': warming reduced agricultural land yet appeared to increase population growth. The completed 1950--2025 panel resolves the paradox by dissolving it---the positive population response is confined to 1950--1969 and reverses thereafter (Section~\ref{sec:iron_laws}). Three readings of the transient early-period sign are worth distinguishing:
 
 \begin{enumerate}[nosep]
-  \item \textbf{Mortality channel:} Warmer temperatures reduce cold-related mortality, particularly in temperate regions, directly increasing population growth independently of agriculture.
-  \item \textbf{Intensive margin:} While extensive agricultural land may shrink, yields per hectare could increase with moderate warming, particularly for heat-tolerant crops.
-  \item \textbf{Structural transformation:} Warming-driven agricultural land loss may push labor into non-agricultural sectors, accelerating urbanization and the demographic transition---a proto-modern growth channel.
+  \item \textbf{Mortality channel, since exhausted:} In the 1950s--60s, cold-related mortality still dominated heat-related mortality in much of the world, so warm anomalies could raise survival. As anomalies climbed further above the historical baseline, the balance shifted and the net mortality effect of additional warming turned negative.
+  \item \textbf{Demographic-transition timing:} The early window coincides with peak global fertility. Any climate effect on births had maximal room to operate; after the fertility transition, population growth became less responsive to short-run material conditions, leaving the (negative) mortality and migration margins dominant.
+  \item \textbf{Small-sample fragility:} Eighteen annual observations per country cannot separate a climate signal from decade-specific shocks (postwar recovery, decolonization); the early-period coefficient may simply never have been structural.
 \end{enumerate}
 
-Distinguishing among these mechanisms requires within-country variation in climate exposure, which the ERA5--HYDE panel can provide once the full 1950--2025 download is complete.
+A nuance survives at longer horizons: local projections show the cumulative population response to a temperature shock turning positive at 4--10-year horizons ($\beta_{h=10} = +0.012$, $p < 0.0001$) even though the contemporaneous effect is negative---a rebound pattern consistent with demographic catch-up after transitory shocks, and a reminder that the annual fixed-effects coefficient should not be read as a long-run elasticity.
 
 \subsection{Limitations}
 
@@ -363,7 +365,7 @@ This paper demonstrates that the Malthusian trap was not a monolithic phenomenon
 
 Our instrumental variables strategy, using climate-determined crop composition as instruments for agricultural productivity, reveals that the true causal effect of productivity on population growth is positive---the core Malthusian prediction---masked in OLS by reverse causality. The instruments strengthen over time as agriculture intensifies, confirming rather than refuting the climate--agriculture linkage.
 
-The ``iron laws'' we establish---temperature harms agriculture, crop composition buffers climate shocks, pastoral economies are 7.7$\times$ more climate-sensitive---provide a quantitative foundation for understanding how pre-industrial societies mediated climate risk through agricultural technology. The Malthusian climate paradox (warming reduces agriculture but increases population) points to important non-agricultural channels that merit further investigation.
+The ``iron laws'' we establish on the full 1950--2025 panel---temperature harms agricultural growth universally across pathways, and crop composition buffers climate shocks---provide a quantitative foundation for understanding how societies mediate climate risk through agricultural technology. Two headline results from earlier drafts did not survive the completed panel and we report their reversal explicitly: the ``Malthusian climate paradox'' (warming apparently raising population growth) is confined to 1950--1969 and reverses sign thereafter, and the claimed 7.7$\times$ pathway sensitivity gradient is jointly insignificant on the full sample.
 
 These findings contribute to ongoing debates about the origins of the Great Divergence, the role of geography versus institutions in long-run development, and the vulnerability of agricultural systems to climate change---past and future.
 
@@ -475,14 +477,14 @@ Stock, J.H. and Yogo, M. (2005).
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../analysis/figures/fig11_iron_laws.pdf}
-\caption{\textbf{Iron Laws of Climate--Agriculture Linkages.} (A)~Temperature anomaly vs.\ agricultural growth. (B)~Buffering by crop share (binscatter by tercile). (C)~Climate sensitivity by pathway.}
+\caption{\textbf{Iron Laws of Climate--Agriculture Linkages (1950--2025).} (A)~Temperature anomaly vs.\ agricultural land growth; the line is the within-country fixed-effects fit ($\beta = -0.0054$, $p < 0.0001$). (B)~Buffering by crop share (binscatter of cropland growth by tercile; FE interaction $+0.0025$, $p = 0.015$). (C)~Climate sensitivity by pathway: all pathways negative, gradient muted and differences jointly insignificant ($p = 0.70$). All estimates computed from the same panel and estimator as the text.}
 \label{fig:iron_laws}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../analysis/figures/fig12_climate_channel.pdf}
-\caption{\textbf{The Malthusian Climate Paradox.} (A)~Positive temperature--population relationship. (B)~Schematic of the dual channel: warming reduces agriculture but increases population.}
+\caption{\textbf{The Malthusian Climate Channel (1950--2025).} (A)~Temperature--population relationship: the full-sample fixed-effects fit is negative ($\beta = -0.0055$, $p < 0.0001$); the dashed line shows the transient positive 1950--1969 fit that generated the ``warming paradox'' in earlier drafts. (B)~Schematic of the dual channel: on the full sample warming reduces both agricultural land and population growth.}
 \label{fig:paradox}
 \end{figure}
 
