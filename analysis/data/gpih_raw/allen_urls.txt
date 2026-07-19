@@ -1,0 +1,17 @@
+/media/2125/amsterdam.xls
+/media/2124/antwerp.xls
+/media/2131/augsburg.xls
+/media/2133/gdansk.xls
+/media/2134/krakow.xls
+/media/2129/leipzig.xls
+/media/2139/london.xls
+/media/2132/lwow.xls
+/media/2140/madrid.xls
+/media/2123/munich.xls
+/media/2122/naples.xls
+/media/2121/northern-italy.xls
+/media/2127/paris.xls
+/media/2126/strasbourg.xls
+/media/2128/valencia.xls
+/media/2135/vienna.xls
+/media/2130/warsaw.xls

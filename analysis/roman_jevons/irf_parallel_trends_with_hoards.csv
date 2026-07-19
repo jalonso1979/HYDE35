@@ -1,0 +1,21 @@
+treatment,spec,lead_F,lead_p,verdict,N
+volcanic,baseline (no ctrl),1.6050124855400558,0.15621387110945614,PASS,829
+volcanic,+ hoards_empire_z,1.4519651447002822,0.2033337742397606,PASS,829
+volcanic,+ hoards_italy_z,1.3427118945711534,0.24406443255521004,PASS,829
+volcanic,+ both,1.9050822759604409,0.09113462480942944,FAIL,829
+pandemic_v2_intensity,baseline (no ctrl),1.6385568370030839,0.14728124943279328,PASS,829
+pandemic_v2_intensity,+ hoards_empire_z,2.186731966645116,0.05379807974394571,FAIL,829
+pandemic_v2_intensity,+ hoards_italy_z,2.6273646945012774,0.022863134786014663,FAIL,829
+pandemic_v2_intensity,+ both,2.037723192802571,0.07126213942680384,FAIL,829
+pandemic_v2_family_antonine,baseline (no ctrl),11.362757583795648,1.2960442455531648e-10,FAIL,829
+pandemic_v2_family_antonine,+ hoards_empire_z,10.701539810284705,5.624219040475455e-10,FAIL,829
+pandemic_v2_family_antonine,+ hoards_italy_z,10.904444450993278,3.585472785973199e-10,FAIL,829
+pandemic_v2_family_antonine,+ both,9.681501615815815,5.4138396684456536e-09,FAIL,829
+pandemic_v2_family_cyprian,baseline (no ctrl),5.374967580901094,7.173532081146686e-05,FAIL,829
+pandemic_v2_family_cyprian,+ hoards_empire_z,4.378762988175753,0.0006119621793867026,FAIL,829
+pandemic_v2_family_cyprian,+ hoards_italy_z,3.833293524897944,0.0019399944598626462,FAIL,829
+pandemic_v2_family_cyprian,+ both,3.5305123649703574,0.0036503423231480487,FAIL,829
+pandemic_v2_family_justinianic,baseline (no ctrl),1.6102207571530969,0.1547960399149868,PASS,829
+pandemic_v2_family_justinianic,+ hoards_empire_z,1.8827682896387956,0.09494254504918369,FAIL,829
+pandemic_v2_family_justinianic,+ hoards_italy_z,2.2457432936516653,0.04806916744767774,FAIL,829
+pandemic_v2_family_justinianic,+ both,1.8371782098317042,0.10318764097191852,PASS,829

@@ -1,0 +1,652 @@
+[
+  {
+    "paper": "long_shadow",
+    "severity": "blocker",
+    "type": "overclaim",
+    "location": "long_shadow.tex:247 (\\S4.1 body, pathway-stratified joint VAR)",
+    "old_text": "both Bonferroni-significant across the twelve pathway-by-equation tests, both robust to re-clustering on climate primitives orthogonal to HYDE, and both surviving restriction to the post-1700 decadal portion of HYDE where the demographic back-projection is less dependent on land-use imputation (Appendix~\\ref{app:joint-var-robustness}).",
+    "new_text": "both Bonferroni-significant across the twelve pathway-by-equation tests and both robust to re-clustering on climate primitives orthogonal to HYDE; the crop-dominant late coefficient additionally survives restriction to the post-1700 decadal portion of HYDE ($p \\le 0.018$ in every post-1700 window), where the demographic back-projection is less dependent on land-use imputation, whereas the pastoral/mixed late coefficient is identified off the pre-1700 century cells and its significance does not survive that restriction ($p = 0.95$ post-1700; Appendix~\\ref{app:joint-var-robustness}).",
+    "source": "joint_var_post1700_results.parquet (2026-06-18): crop-dominant late post-1700 p<=0.018 (survives every window); pastoral/mixed late post-1700 p=0.95/0.74/0.49 (collapses). Matches Appendix L.3 / tab:joint-var-post1700.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "blocker",
+    "type": "overclaim",
+    "location": "long_shadow.tex:48 (Intro, First finding)",
+    "old_text": "both Bonferroni-significant across twelve pathway-by-equation tests, both robust to a Webb wild-cluster bootstrap, both robust to re-clustering pathways on climate primitives orthogonal to HYDE outcomes, and both surviving restriction to the post-1700 decadal portion of HYDE.",
+    "new_text": "both Bonferroni-significant across twelve pathway-by-equation tests, both robust to a Webb wild-cluster bootstrap, and both robust to re-clustering pathways on climate primitives orthogonal to HYDE outcomes; the crop-dominant-late coefficient additionally survives restriction to the post-1700 decadal portion of HYDE, whereas the pastoral/mixed-late coefficient is identified largely off the pre-1700 century-resolution cells and does not survive that restriction.",
+    "source": "joint_var_post1700_results.parquet pop_p: crop-dominant late survives every post-1700 window (p<=0.018); pastoral/mixed late insignificant in every post-1700 window (p>=0.49). Bootstrap and orthogonal re-clustering hold for both.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "blocker",
+    "type": "overclaim",
+    "location": "long_shadow.tex:29 (Abstract)",
+    "old_text": "Crop-dominant late and pastoral/mixed late countries lose population at $-9.7$ and $-5.5\\!\\cdot\\!10^{-5}$ per Tg of stratospheric sulfur injection respectively, Bonferroni-significant and robust across every stress test we run;",
+    "new_text": "Crop-dominant late and pastoral/mixed late countries lose population at $-9.7\\!\\cdot\\!10^{-5}$ and $-5.5\\!\\cdot\\!10^{-5}$ per Tg of stratospheric sulfur injection respectively, both Bonferroni-significant on the full panel; the crop-dominant-late response is robust across every stress test we run, while the pastoral/mixed-late response is identified off the pre-1700 century-resolution cells and does not survive restriction to the post-1700 decadal portion of HYDE;",
+    "source": "joint_var_post1700_results.parquet; pastoral/mixed late full-panel significance comes entirely from pre-1700 century-resolution cells.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "blocker",
+    "type": "overclaim",
+    "location": "long_shadow.tex:422 (Conclusion)",
+    "old_text": "both surviving a Webb wild-cluster bootstrap, and both surviving restriction to the post-1700 portion of the panel.",
+    "new_text": "and both surviving a Webb wild-cluster bootstrap; the crop-dominant late coefficient additionally survives restriction to the post-1700 portion of the panel, whereas the pastoral/mixed late coefficient does not (its significance comes from the pre-1700 century-resolution cells).",
+    "source": "joint_var_post1700_results.parquet; Appendix L.3.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "blocker",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:801 (Table tab:prevpos-modern, 1900--2022 full row)",
+    "old_text": "1900--2022 full & $+0.0001$ & $(0.0007)$ & $0.840$ & $2{,}117$ \\\\",
+    "new_text": "1900--2022 full & $+0.0074$ & $(0.0038)$ & $0.049$ & $2{,}023$ \\\\",
+    "source": "prevpos_modern.parquet, subperiod='1900-2022 full', outcome=m0, regressor=t_anom: beta=0.007444, se=0.003775, p=0.048592, n=2023.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "blocker",
+    "type": "stale_claim",
+    "location": "long_shadow.tex:800 (Table tab:prevpos-modern, window label)",
+    "old_text": "1950--2008 & $+0.0057$ & $(0.0057)$ & $0.32$ & $1{,}364$ \\\\",
+    "new_text": "1950--2022 & $+0.0057$ & $(0.0057)$ & $0.32$ & $1{,}364$ \\\\",
+    "source": "prevpos_modern.parquet script window is 1950-2022 (m0/t_anom: beta=0.005718, p=0.319, n=1364 matches); label '1950-2008' is stale.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "blocker",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:791 (caption to Table tab:prevpos-modern)",
+    "old_text": "The channel collapses monotonically as sanitation, refrigeration, and antibiotics develop.",
+    "new_text": "The sub-period channel attenuates as sanitation, refrigeration, and antibiotics develop, though the pooled full-period coefficient stays positive and marginally significant.",
+    "source": "Full-period coefficient (+0.0074, p=0.049) exceeds the 1950-2022 sub-period coefficient (+0.0057, p=0.32), so the monotone-collapse claim is false.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "blocker",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:343 (\\S5.3, climate-window placebos)",
+    "old_text": "The five FWER-surviving cells in the Shapley/mediation matrix are unchanged across the two placebos.",
+    "new_text": "The eight FWER-surviving cells in the Shapley/mediation matrix are unchanged across the two placebos.",
+    "source": "robustness_battery.parquet (check=wy_correction, p_adj_wy_minp<0.05): 8 cells survive; the minP correction is the paper's primary (line 302 enumerates all eight).",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "blocker",
+    "type": "stale_claim",
+    "location": "horserace.tex:543 (\\S5.9, R1b-M269)",
+    "old_text": "Adding R1b-M269 frequency as an additional control on the full 162-country panel leaves the five FWER findings of horserace v3 unchanged at qualitatively the same $F$-statistics.",
+    "new_text": "Adding R1b-M269 frequency (available for 195 countries) as an additional control leaves the eight FWER-surviving cells unchanged at qualitatively the same $F$-statistics.",
+    "source": "No 162-country R1b panel exists; R1b-M269 coverage is 195 (consistent with line 541). '162' is a horserace-v3-era figure contradicting line 541's '195'. Eight FWER survivors per robustness_battery.parquet.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "blocker",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:548 (\\S5.9, R1b-M269/Lazaridis)",
+    "old_text": "conditioning on it does not dislodge the five FWER findings of horserace v3.",
+    "new_text": "conditioning on it does not dislodge the eight FWER-surviving cells.",
+    "source": "robustness_battery.parquet: eight FWER survivors; 'horserace v3' version label also to be struck per editorial finding.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:557 (Discussion)",
+    "old_text": "Three of the five cells that survive multi-testing correction are ancestral-yield cells: population growth, density at 1500, and density at 2025.",
+    "new_text": "Two of the eight cells that survive multi-testing correction are ancestral-yield cells: log population growth ($F=26.97$, the largest joint statistic in the matrix) and log population density at 1500 ($F=15.55$); its contribution to cumulative density at 2025 is the lone near-miss ($F=10.40$, $p_{\\text{WY}}=0.054$).",
+    "source": "robustness_battery.parquet: 8 survivors; ancestral_yield survivors = 2 (pop_growth, popd_1500). Density-2025 survivors are neolithic_frac and functional_alleles, not ancestral_yield.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "number_mismatch",
+    "location": "horserace.tex:559 (Discussion, GS dominance range)",
+    "old_text": "non-growing-season variance dominates growing-season variance by factors of 1.8 to 17 across the within-bundle decomposition",
+    "new_text": "non-growing-season variance dominates growing-season variance by factors of roughly 2.8$\\times$ to 23$\\times$ across the demographically informative cells of the within-bundle decomposition (the one exception being $\\ln D_{2025}$, where the growing-season term marginally leads)",
+    "source": "tab_gs_subshapley.tex: within-bundle non-GS/GS ratios = 11.2x (D1500), 22.4x (pop growth), 2.8x (urban); GS exceeds non-GS on D2025. The '1.8 to 17' is the long_shadow within-country panel range, not the horserace within-bundle decomposition.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "stale_claim",
+    "location": "horserace.tex:534 (\\S5.8, extended control battery)",
+    "old_text": "The five FWER-surviving findings (Section~\\ref{sec:wy-correction}) are robust to the extended conflict/volcanic control battery.",
+    "new_text": "The eight FWER-surviving cells (Section~\\ref{sec:wy-correction}) are robust to the extended conflict/volcanic control battery.",
+    "source": "robustness_battery.parquet (check=wy_correction, p_adj_wy_minp<0.05) yields eight FWER survivors.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "stale_claim",
+    "location": "horserace.tex:534 (\\S5.8, enumeration of further survivors)",
+    "old_text": "The two further ancestral-crop-yield density cells (density 1500 and density 2025), the two Neolithic-ancestry-fraction cells (density 2025 and demographic-transition timing), and the climate-bundle's pathway-mediated contributions to density 1500 and population growth all survive the extended controls qualitatively unchanged.",
+    "new_text": "The further ancestral-crop-yield density-1500 cell, the three further functional-allele cells (GDP per capita 2015, demographic-transition timing, and density 2025), the two Neolithic-ancestry-fraction cells (density 2025 and demographic-transition timing), and the climate-bundle's pathway-mediated contributions to density 1500 and population growth all survive the extended controls qualitatively unchanged.",
+    "source": "robustness_battery.parquet: ancestral-yield density-2025 is the non-surviving near-miss (p_WY=0.054); density-2025 survivors are neolithic_frac and functional_alleles.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "stale_claim",
+    "location": "horserace.tex:543 (\\S5.9, Lazaridis)",
+    "old_text": "leaves the five FWER findings of horserace v3 unchanged at qualitatively the same $F$-statistics. On the 79-country Eurasian sub-sample",
+    "new_text": "leaves the eight FWER-surviving cells unchanged at qualitatively the same $F$-statistics. On the 79-country Eurasian sub-sample",
+    "source": "robustness_battery.parquet: eight FWER survivors.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:228 (Table 6 caption, tab:climate-subshapley)",
+    "old_text": "Within-bundle Shapley R\\textsuperscript{2} decomposition for the four climate primitives, conditional on the four non-climate substrates (functional bundle, Neolithic fraction, ancestral crop yield, pandemic intensity) plus geography controls. By construction the column sum equals the climate bundle's Shapley R\\textsuperscript{2} from Table~\\ref{tab:shapley}.",
+    "new_text": "Within-bundle Shapley R\\textsuperscript{2} decomposition for the four climate primitives, conditional on the three non-climate scalar substrates (predicted heterozygosity, ancestral crop yield, pandemic intensity) plus geography controls. The column sum is the marginal R\\textsuperscript{2} of the climate bundle conditional on everything else and is therefore smaller than the climate bundle's grouped Shapley value in Table~\\ref{tab:shapley}.",
+    "source": "exercise1_climate_subshapley.parquet column sum=0.0534 vs headline climate_bundle Shapley=0.0875; conditioning set is 3 scalar substrates, not 4. Not equal by construction.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "number_mismatch",
+    "location": "horserace.tex:343 (\\S5.3, climate-window placebos)",
+    "old_text": "The pre-1500 placebo bundle generates a noticeably smaller climate Shapley R\\textsuperscript{2} on log population density 1500 (0.024 vs 0.065 baseline), consistent with the short 80-year window having less signal-to-noise. The modern-window placebo generates a strikingly larger climate Shapley R\\textsuperscript{2} on log population growth (0.163 vs 0.082 baseline) and a comparable contribution on density 1500 (0.024 vs 0.065).",
+    "new_text": "The pre-1500 placebo bundle generates a noticeably smaller climate Shapley R\\textsuperscript{2} on log population density 1500 (0.040 vs 0.088 baseline), consistent with the short 80-year window having less signal-to-noise. The modern-window placebo generates a strikingly larger climate Shapley R\\textsuperscript{2} on log population growth (0.136 vs 0.077 baseline) and a comparable contribution on density 1500 (0.028 vs 0.088).",
+    "source": "Shapley parquets: pre-1500 climate on D1500=0.040; modern-window climate on pop growth=0.136; modern climate on D1500=0.028; baselines D1500=0.0875, pop growth=0.0766. The 0.163 was a mixed-up row (placebo_pre1500/functional/gdppc).",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "number_mismatch",
+    "location": "horserace.tex:515 (\\S5.7, climate--A partialling)",
+    "old_text": "The five FWER-surviving cells are unchanged. The climate-bundle Shapley R\\textsuperscript{2} on density 1500 moves from 0.065 to 0.069; the ancestral-yield Shapley R\\textsuperscript{2} on density 1500 moves from 0.049 to 0.045. On log population growth the climate-bundle Shapley R\\textsuperscript{2} moves from 0.082 to 0.096 and the ancestral-yield contribution from 0.122 to 0.106.",
+    "new_text": "The eight FWER-surviving cells are unchanged. The climate-bundle Shapley R\\textsuperscript{2} on density 1500 moves from 0.087 to 0.092; the ancestral-yield Shapley R\\textsuperscript{2} on density 1500 moves from 0.012 to 0.007. On log population growth the climate-bundle Shapley R\\textsuperscript{2} moves from 0.077 to 0.090 and the ancestral-yield contribution from 0.096 to 0.077. The climate bundle and the ancestral-yield channel are substantively distinguishable; the GAEZ-implied correlation is not driving the principal pattern.",
+    "source": "exercise1_shapley_results.parquet (headline) and robustness_battery.parquet (climate_A_partial residualised). D1500 climate 0.087->0.092, ancestral 0.012->0.007; pop growth climate 0.077->0.090, ancestral 0.096->0.077.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "major",
+    "type": "stale_claim",
+    "location": "long_shadow.tex:786 (footnote, pathway country composition)",
+    "old_text": "High-density intensive: France and the Netherlands. Early extensifiers: Britain, Sweden, Denmark, Norway, Switzerland. Pastoral/mixed late: Italy, Iceland, Finland.",
+    "new_text": "High-density intensive: France, Italy, and the Netherlands. Early extensifiers: Britain, Switzerland, and Denmark. Pastoral/mixed late: Norway and Sweden.",
+    "source": "Replicating prevpos_pathway_stratified.py: High-density intensive={FRA,ITA,NLD}; Early extensifiers={CHE,DNK,GBR}; Pastoral/mixed late={NOR,SWE}. Finland alone in crop-dominant late; Iceland absent from merged panel.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:910 (Appendix J, CF2 welfare)",
+    "old_text": "Using the Allen Malthus regression of \\S\\ref{sec:allen} ($\\hat\\beta_{\\ln \\text{pop}} = -0.285$), the per-capita welfare gain for crop-dominant late under CF2 is $-0.32$ log-units",
+    "new_text": "CF2 is the substantive demographic counterfactual: crop-dominant late countries gain $+0.21$ log-units of cumulative population growth in the no-volcanism world (a $+23\\%$ level increase). Using the Allen Malthus regression of \\S\\ref{sec:allen} ($\\hat\\beta_{\\ln \\text{pop}} = -0.325$, Spec~4), the per-capita welfare gain for crop-dominant late under CF2 is $-0.07$ log-units",
+    "source": "structural_counterfactuals.py / parquet: CF2 crop-dominant late median dlnP=+0.2087 (+23.2%), not +1.14. Welfare = -0.325 x 0.2087 = -0.068 ~ -0.07 log-units, not -0.32.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:291 (\\S4.3, stale welfare cross-reference)",
+    "old_text": "quantifies this at $-0.32$ log-units of cumulative per-capita welfare loss",
+    "new_text": "quantifies this at $-0.07$ log-units of cumulative per-capita welfare loss",
+    "source": "Refreshed CF2 figure (see line 910). Leave the '+0.95% real-wage rise' and beta=-0.325 untouched; both are internally consistent.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:910 (Appendix J, pathway proportional gains)",
+    "old_text": "pastoral/mixed late countries lose a similar amount in proportional terms, intensive and extensifier pathways less",
+    "new_text": "pastoral/mixed late countries gain a smaller $+0.66$ log-units ($+93\\%$), with intensive and extensifier pathways smaller still ($+0.24$ and $+0.17$ log-units)",
+    "source": "structural_3eq_counterfactuals.parquet CF2-minus-baseline: crop-dominant +1.14 (+212%), pastoral/mixed +0.66 (+93%), high-density +0.24, extensifiers +0.17. All GAIN, none lose.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:370 (Figure fig:long-shadow-map caption)",
+    "old_text": "the regression coefficient is $\\hat\\beta = -2.48$ ($p < 10^{-24}$, $R^2 = 0.45$)",
+    "new_text": "the regression coefficient is $\\hat\\beta = -2.48$ ($p < 10^{-15}$, $R^2 = 0.45$)",
+    "source": "long_shadow_rerun.parquet pathway-FE spec: beta=-2.484, p=3.82e-16, rsq=0.445, n=154. The p<10^-24 is the N=199 deep-determinants baseline (R^2=0.19), mis-paired with the N=154 pathway-FE coefficient/R^2.",
+    "confidence": "high"
+  },
+  {
+    "paper": "both",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:427 (Table 7 caption, tab:functional-subshapley)",
+    "old_text": "Column sums equal the functional bundle's Shapley R\\textsuperscript{2} from Table~\\ref{tab:shapley}.",
+    "new_text": "Column sums give the per-locus partition of the bundle's variance contribution on each outcome; they approximate the functional bundle's Shapley R\\textsuperscript{2} from Table~\\ref{tab:shapley} (e.g.\\ 0.166 vs 0.175 on log GDPpc) but differ because the within-bundle decomposition uses a different residual baseline.",
+    "source": "tab07 GDPpc column sum=0.166 (baseline R2=0.464) vs tab04 bundle total=0.175 (baseline R2=0.426); computed against different baselines, not equal.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:436 (\\S5.7, malaria-locus exclusion)",
+    "old_text": "a reduced but still substantial Shapley R\\textsuperscript{2} of $0.175 - 0.037 - 0.017 = 0.121$ on log GDPpc",
+    "new_text": "a reduced but still substantial Shapley R\\textsuperscript{2} of roughly $0.166 - 0.037 - 0.017 \\approx 0.11$ on log GDPpc, using the within-bundle decomposition of Table~\\ref{tab:functional-subshapley} (the joint-bundle figure in Table~\\ref{tab:shapley} is 0.175 against a different residual baseline, so the two scales are not directly subtractable)",
+    "source": "tab04 functional bundle GDPpc=0.175 (different baseline) vs tab07 within-bundle column sum=0.166 with DARC=0.037, HBB=0.017. The subtraction must be on the consistent within-bundle scale.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:194 (eq:shapley-formula)",
+    "old_text": "\\phi_s^{(k)} = \\sum_{S \\subseteq \\{1,\\dots,4\\} \\setminus \\{s\\}} \\frac{|S|!\\,(4-|S|-1)!}{4!} \\big[R^2(S \\cup \\{s\\}) - R^2(S)\\big]",
+    "new_text": "\\phi_s^{(k)} = \\sum_{S \\subseteq \\{1,\\dots,5\\} \\setminus \\{s\\}} \\frac{|S|!\\,(5-|S|-1)!}{5!} \\big[R^2(S \\cup \\{s\\}) - R^2(S)\\big]",
+    "source": "Five substrates (players), not four; surrounding text at lines 51, 192, 413 references five.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "major",
+    "type": "presentation",
+    "location": "horserace.tex:474 (\\S4.7, typo)",
+    "old_text": "reflecting that the principal specificationification's pathway dummies and ancestral-crop-yield substrate already absorb most of the colonial-history variance",
+    "new_text": "reflecting that the principal specification's pathway dummies and ancestral-crop-yield substrate already absorb most of the colonial-history variance",
+    "source": "Doubled-suffix typo 'specificationification'.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:38 (Intro, Tambora sulfur mass)",
+    "old_text": "In April 1815, Mount Tambora ejected roughly 60 teragrams of sulfur into the stratosphere---the largest historically documented eruption---and triggered the ``year without a summer'' of 1816 across the Northern Hemisphere.",
+    "new_text": "In April 1815, Mount Tambora ejected roughly 30 teragrams of sulfur into the stratosphere (about 60~Tg of SO$_2$)---the largest historically documented eruption---and triggered the ``year without a summer'' of 1816 across the Northern Hemisphere.",
+    "source": "eVolv2k VSSI for Tambora 1815 = 28.08 Tg S (underlies the paper's own '30-Tg Tambora-class decade'). '60 teragrams of sulfur' is the SO2 mass mislabeled as sulfur.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "unsourced_number",
+    "location": "long_shadow.tex:44 (Intro, eruption count window)",
+    "old_text": "Volcanic eruptions provide the identifying variation: 1500--1900 contains roughly sixty distinct eruption years with stratospheric sulfur injection above the noise floor of the eVolv2k record, and the decadal HYDE temporal grid is fine enough to resolve their demographic and land-use consequences.",
+    "new_text": "Volcanic eruptions provide the identifying variation: the panel window 1421--1900 contains roughly sixty distinct eruption years with stratospheric sulfur injection above the noise floor of the eVolv2k record, and the decadal HYDE temporal grid is fine enough to resolve their demographic and land-use consequences.",
+    "source": "eVolv2k: 1500-1900 has 52 distinct eruption years; 1421-1900 has 61. 'Roughly sixty' fits the panel window, not 1500-1900.",
+    "confidence": "medium"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "presentation",
+    "location": "long_shadow.tex:48 (Intro, First finding, Allen coefficient label)",
+    "old_text": "The Allen real-wage panel for six European countries 1421--1850 returns the canonical Malthusian price-on-population coefficient at city resolution",
+    "new_text": "The Allen real-wage panel for six European countries 1421--1850 returns the canonical Malthusian real-wage-on-population coefficient at city resolution",
+    "source": "The estimated coefficient is real-wage-on-population, not price-on-population.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:101 (\\S2.4, productive-months ANOVA)",
+    "old_text": "A one-way ANOVA on productive months returns $F=6.31$, $p<0.001$",
+    "new_text": "A one-way ANOVA on productive months returns $F=6.30$, $p<0.001$",
+    "source": "stage1_storage_results.parquet productive_months F=6.304824 (rounds to 6.30); F=6.3098 belongs to dry_months.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:106 (\\S2.4, figure caption ANOVA)",
+    "old_text": "ANOVA $F=6.31$, $p<0.001$.",
+    "new_text": "ANOVA $F=6.30$, $p<0.001$.",
+    "source": "stage1_storage_results.parquet productive_months F=6.304824; figure plots productive months.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:849 (Appendix, productive-months ANOVA)",
+    "old_text": "($F=6.31$, $p<10^{-3}$)",
+    "new_text": "($F=6.30$, $p<10^{-3}$)",
+    "source": "stage1_storage_results.parquet productive_months F=6.304824 (rounds to 6.30).",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:247 (\\S4.1, crop-dominant coefficient rounding)",
+    "old_text": "Crop-dominant late and pastoral/mixed late pathways show large negative demographic coefficients ($-9.7\\!\\cdot\\!10^{-5}$, $p<10^{-6}$ and $-5.5\\!\\cdot\\!10^{-5}$, $p<10^{-5}$ respectively on $\\Delta \\log P$)",
+    "new_text": "Crop-dominant late and pastoral/mixed late pathways show large negative demographic coefficients ($-9.6\\!\\cdot\\!10^{-5}$, $p<10^{-6}$ and $-5.5\\!\\cdot\\!10^{-5}$, $p<10^{-5}$ respectively on $\\Delta \\log P$)",
+    "source": "joint_landuse_var_results.parquet pop_vssi_beta = -9.6465e-5 (rounds to -9.6e-5). Note: abstract/intro round to -9.7; if standardising, harmonise.",
+    "confidence": "medium"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:129 (\\S3.1, within/between ratio)",
+    "old_text": "The within-country point estimates are 3.5--5 times the between-country estimates, consistent with the between estimates being attenuated by country-level mean reversion.",
+    "new_text": "The within-country point estimates are 3.5--6 times the between-country estimates, consistent with the between estimates being attenuated by country-level mean reversion.",
+    "source": "stage1_subnational.py within/between ratios span 3.56-5.85; two log-density ratios (5.08, 5.85) exceed the stated upper bound of 5.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:296 (\\S4.5, prevpos panel spec)",
+    "old_text": "with country FE, country-linear trends, and country-clustered SEs.",
+    "new_text": "with country FE, a common linear time trend, and country-clustered SEs.",
+    "source": "preventive_positive_check.py: a single common within-demeaned linear trend, not trend x iso3 interactions.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:1059 (Appendix L, bootstrap agreement)",
+    "old_text": "a Webb (2014) six-point wild-cluster bootstrap (1{,}999 replications, restricted residuals re-signed at the country level) gives bootstrap p-values that track the cluster-robust asymptotic p-values closely (the two columns of Table~\\ref{tab:joint-var-bootstrap} agree to within rounding).",
+    "new_text": "a Webb (2014) six-point wild-cluster bootstrap (1{,}999 replications, restricted residuals re-signed at the country level) gives bootstrap p-values that track the cluster-robust asymptotic p-values closely for the demographic and cropland margins (Table~\\ref{tab:joint-var-bootstrap}); the two urban-equation off-margin slopes move more---the pastoral/mixed late urban slope from $p_{\\text{asymp}}=0.086$ to $p_{\\text{boot}}=0.280$ and the crop-dominant late urban slope from $0.126$ to $0.045$---but neither comes anywhere near Bonferroni significance under either method.",
+    "source": "joint_var_bootstrap_pvalues.parquet: two urban-equation cells diverge enough to flip stars; both far above Bonferroni 0.0042 under either method. The other 10 of 12 cells track closely.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:765 (Appendix, volatility coefficient p-value)",
+    "old_text": "the within-interval temperature-volatility coefficient moves from $+0.0038$ ($p=0.036$) to $+0.0034$ ($p=0.052$)",
+    "new_text": "the within-interval temperature-volatility coefficient moves from $+0.0038$ ($p=0.035$) to $+0.0034$ ($p=0.052$)",
+    "source": "baseline t_std_int: coef=+0.003831, p=0.035093 (rounds to 0.035).",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "overclaim",
+    "location": "long_shadow.tex:642 (Appendix, urban-share long shadow)",
+    "old_text": "Modern $\\Delta$ urban share shows no relationship with pre-industrial $\\sigma_v^T$ at any specification ($p > 0.30$).",
+    "new_text": "Modern $\\Delta$ urban share shows no significant relationship with pre-industrial $\\sigma_v^T$ at any specification (the largest $|\\hat\\beta|$ carries $p=0.30$; the other two have $p>0.69$).",
+    "source": "long_shadow_extra_outcomes.parquet: +|lat| cell p=0.298 < 0.30, contradicting categorical 'p > 0.30 at any specification'.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:799 (Table tab:prevpos-modern, 1900--1950 row)",
+    "old_text": "1900--1950 & $+0.0078$ & $(0.0057)$ & $0.175$ & $659$ \\\\",
+    "new_text": "1900--1950 & $+0.0079$ & $(0.0058)$ & $0.169$ & $659$ \\\\",
+    "source": "prevpos_modern.parquet subperiod='1900-1950', m0/t_anom: beta=0.007927, se=0.005759, p=0.1686, n=659.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "unsourced_number",
+    "location": "long_shadow.tex:733 (Appendix, two-way clustering p-value)",
+    "old_text": "Two-way clustering by country and 10$^\\circ$ latitude band inflates $p$ on the pooled $\\hat\\gamma_T$ to $0.008$ from $<10^{-7}$",
+    "new_text": "Two-way clustering by country and 10$^\\circ$ latitude band raises $p$ on the pooled $\\hat\\gamma_T$ to $0.020$ from $<10^{-7}$",
+    "source": "spatial_se_robustness.py: two-way gamma_T p=0.0195 (~0.02); the 0.008 is stale. Significance at 5% holds.",
+    "confidence": "low"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:816 (Appendix, precipitation uncertainty)",
+    "old_text": "precipitation uncertainty traces the same secular decline from $31.6$ to $15.4$~mm/month",
+    "new_text": "precipitation uncertainty traces the same secular decline from $31.5$ to $15.4$~mm/month",
+    "source": "Value is 31.5449 mm/month (rounds to 31.5).",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:894 (Table tab:struct-cf, CF2 crop-dominant)",
+    "old_text": "$-0.12$ (\\!$-$12\\%)",
+    "new_text": "$-0.12$ (\\!$-$11\\%)",
+    "source": "structural_3eq_counterfactuals.parquet: crop-dominant late cf2 dlog_crop=-0.11974; exp(-0.11974)-1 = -11.28% (rounds to -11%).",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "long_shadow.tex:900 (Table tab:struct-cf, high-density baseline)",
+    "old_text": "$+0.36$ ($+$43\\%)",
+    "new_text": "$+0.36$ ($+$44\\%)",
+    "source": "structural_3eq_counterfactuals.parquet: high-density baseline dlog_crop=0.363731; exp-1 = +43.87% (rounds to +44%).",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:483 (Appendix, conflict within-variance range)",
+    "old_text": "The regressors retain 58--98\\% of total variance under city + decade FE, so the two-way design has plenty of identifying variation.",
+    "new_text": "The regressors retain 81--98\\% of total variance under city + decade FE, so the two-way design has plenty of identifying variation.",
+    "source": "conflict_variance_decomp.parquet: four named regressors span 80.6-97.6% (rounds 81-98%). The 58% lower bound is log_fatalities, which is not named and never appears in the .tex.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "stale_claim",
+    "location": "long_shadow.tex:483 (Appendix, Kuwae date)",
+    "old_text": "Kuwae~1453 alongside the fall of Constantinople",
+    "new_text": "Kuwae~1458 alongside the fall of Constantinople (1453)",
+    "source": "eVolv2k v4: Kuwae (Vanuatu) at year 1458 (VSSI=32.98 Tg); abstract reads 'Kuwae (Vanuatu, 1458)'. 1453 is a distinct unattributed event.",
+    "confidence": "medium"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "presentation",
+    "location": "long_shadow.tex:552 (Appendix, spurious significance stars)",
+    "old_text": "$\\beta_{L=2}$           & $+0.0091^{*}$ & $+0.0090^{*}$ & $+0.0294^{**}$ & $+0.0103^{*}$ \\\\",
+    "new_text": "$\\beta_{L=2}$           & $+0.0091$ & $+0.0090$ & $+0.0294^{**}$ & $+0.0103^{*}$ \\\\",
+    "source": "First two cells should carry no stars.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:442 (Appendix, Allen city counts)",
+    "old_text": "yielding 4{,}739 city-year observations across 18 cities, with 568 pre-1500 observations",
+    "new_text": "yielding 4{,}739 city-year observations across these 17 cities (568 of them pre-1500), and is augmented with a further 560 Tuscan observations from \\citet{malanima2002}, for 18 cities in all",
+    "source": "allen_silver_wheat_prices parquet: 4,739 obs, 17 cities, 568 pre-1500. The 18th city is the 560-obs Malanima Tuscany series.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "presentation",
+    "type": "internal_inconsistency",
+    "location": "long_shadow.tex:29 (Abstract, modern collapse magnitude)",
+    "old_text": "with the response collapsing to zero by 1950 as sanitation develops.",
+    "new_text": "with the response collapsing by an order of magnitude by 1950 as sanitation develops.",
+    "source": "phase11_regime_fevd_bootstrap.json: modern point 0.0163 (CI excludes zero); Malthusian 0.1808; collapse = 11.1x (one order of magnitude), not literally zero.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:55 (Abstract/Intro, robust margins label)",
+    "old_text": "ancestral crop yield and the Neolithic fraction robust on the deep-past density margins",
+    "new_text": "ancestral crop yield and the Neolithic fraction robust on the deep-past density, convergence-growth, and transition-timing margins",
+    "source": "WY survivors: ancestral_yield on popd_1500 (density) and pop_growth (convergence); neolithic_frac on popd_2025 (density) and dt_timing (transition timing). 'Density margins' mislabels both second margins.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:88 (\\S2, pairwise correlation range)",
+    "old_text": "all six pairwise correlations sit in $|r|\\in[0.24, 0.67]$",
+    "new_text": "all six pairwise correlations sit in $|r|\\in[0.23, 0.67]$",
+    "source": "min |r| = 0.2350 (sigma_v^T x sigma_v^P); Table 2b shows -0.23.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:167 (\\S3, Maddison 1500 country list)",
+    "old_text": "The Maddison Project at 1500 has GDPpc for 11 countries (Belgium, China, Egypt, France, Germany, Italy via inferred series, Netherlands, Poland, Spain, Sweden, Turkey, the United Kingdom), too few to support cross-country inference.",
+    "new_text": "The Maddison Project at 1500 has GDPpc for 11 countries (Belgium, China, Egypt, France, Germany, Netherlands, Poland, Spain, Sweden, Turkey, the United Kingdom), too few to support cross-country inference.",
+    "source": "Maddison Project 2023: exactly 11 countries at 1500; Italy's 1500 gdppc is NaN. Listing Italy made the named list (12) disagree with the count (11).",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "horserace.tex:224 (\\S4, climate Shapley D1500)",
+    "old_text": "its Shapley R\\textsuperscript{2} is 0.088 on log population density 1500 (the largest of the five substrates, though the bootstrap difference-CI against the functional bundle straddles zero, so the lead is not statistically distinguishable)",
+    "new_text": "its Shapley R\\textsuperscript{2} is 0.087 on log population density 1500 (the largest of the five substrates, though the bootstrap difference-CI against the functional bundle straddles zero, so the lead is not statistically distinguishable)",
+    "source": "exercise1_shapley_results.parquet: climate_bundle on log_popd_1500 = 0.087485; tab04 = 0.087.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "horserace.tex:224 (\\S4, pandemic Shapley range)",
+    "old_text": "Pre-1500 pandemic intensity has smaller Shapley R\\textsuperscript{2} contributions (0.001--0.015 across outcomes)",
+    "new_text": "Pre-1500 pandemic intensity has smaller Shapley R\\textsuperscript{2} contributions (0.002--0.015 across outcomes)",
+    "source": "exercise1_shapley_results.parquet pandemic_intensity_norm: min=0.001685 (rounds to 0.002), max=0.014815 (rounds to 0.015).",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "stale_claim",
+    "location": "horserace.tex:249 (\\S4, scalar substrate list)",
+    "old_text": "For scalar substrate $s$ (predicted heterozygosity, ancestral crop yield, pandemic intensity) the mediation share is the standard $\\beta$-attenuation form:",
+    "new_text": "For scalar substrate $s$ (the agricultural-Neolithic ancestry fraction, ancestral crop yield, pandemic intensity) the mediation share is the standard $\\beta$-attenuation form:",
+    "source": "SCALAR_SUBSTRATES = [neolithic_frac, ancestral_yield_log, pandemic_intensity_norm]; no predicted-heterozygosity row exists in the mediation matrix.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "horserace.tex:302 (\\S4.3, functional GDPpc p-value)",
+    "old_text": "yet on its own reference that cell's $p$ is $2.4\\times10^{-9}$, more extreme than any scalar survivor",
+    "new_text": "yet on its own reference that cell's $p$ is $2.7\\times10^{-9}$, more extreme than any scalar survivor",
+    "source": "robustness_battery.parquet, functional_alleles x log_gdppc_2015: p_obs=2.703e-09 (rounds to 2.7e-9), the smallest p_obs across all 30 wy_correction cells.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "horserace.tex:322 (\\S5.1, sub-sample mediation fraction)",
+    "old_text": "The fraction of cells with mediation share in $[0,1]$ rises modestly from 58\\% at baseline to 62\\% under the AJR-colonial drop and stays at 54--62\\% across subsequent drops.",
+    "new_text": "The fraction of cells with mediation share in $[0,1]$ rises modestly from 63\\% at baseline to 70\\% under the AJR-colonial drop and stays in the neighbourhood of 63--67\\% across subsequent drops.",
+    "source": "subsample_stability.parquet: baseline 63.3%, drop_ajr 70.0%, subsequent stages 63-67%.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "horserace.tex:313 (\\S5.1, Americas country count)",
+    "old_text": "(iii) post-Columbian Americas countries (24 ISO3)",
+    "new_text": "(iii) post-Columbian Americas countries (26 ISO3)",
+    "source": "len(subsamples.AMERICAS_POST_1492) == 26.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:356 (\\S5.4, climate D2025 ranking)",
+    "old_text": "the climate bundle's total contribution there is already the smallest of the six ($\\phi = 0.034$)",
+    "new_text": "the absolute magnitudes are small and the climate bundle's total contribution there is already among the smallest of the six ($\\phi = 0.034$)",
+    "source": "exercise1_climate_gs_shapley_results.parquet: D2025=0.034 is third-smallest (gdppc=0.012, dt_timing=0.029 are smaller), not the smallest.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "minor",
+    "type": "number_mismatch",
+    "location": "horserace.tex:532 (\\S5.8, cum_vssi range)",
+    "old_text": "The cumulative sum, $\\textit{cum\\_vssi}_{1421\\text{--}1750}$, ranges from 71 to 123 Tg-equivalent (the Northern Hemisphere mid-latitudes cluster near 123 owing to the high prevalence of NH extra-tropical eruptions in this period).",
+    "new_text": "The cumulative sum, $\\textit{cum\\_vssi}_{1421\\text{--}1750}$, ranges from 30 to 123 Tg-equivalent (equatorial countries cluster near 123 because the largest eruptions of this period were tropical, so the latitudinal Gaussian kernel concentrates exposure near the equator; high-latitude Northern Hemisphere countries such as Svalbard and Greenland receive the least).",
+    "source": "volcanic_controls.parquet: min=30.37 (Svalbard), max=123.45; near-123 cluster is equatorial (KEN,UGA,SGP,STP,GNQ); VSSI-weighted mean eruption latitude +7.7 deg (tropical).",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "presentation",
+    "type": "overclaim",
+    "location": "horserace.tex:29 (Abstract, functional bundle dominance)",
+    "old_text": "The functional-allele bundle is the dominant determinant of the modern outcomes",
+    "new_text": "The functional-allele bundle is the broadest of the five substrates over the modern outcomes---the largest variance share on per-capita income in 2015 and on demographic-transition timing (the only two outcomes on which a substrate's lead is statistically distinguishable from the runner-up), and family-wise robust on four of the six outcomes",
+    "source": "Shapley parquets: functional bundle is argmax on 3 of 4 modern outcomes (not urban change, where climate leads); pop-growth lead is a dead-heat with ancestral yield; lead is statistically distinguishable only on gdppc and dt-timing.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "presentation",
+    "type": "internal_inconsistency",
+    "location": "horserace.tex:447 (\\S4.7, Table tab:colonial-partial caption)",
+    "old_text": "Pathway dummies, climate bundle, the three scalar substrates, and the geography control battery are in all four columns. The right-hand column is the DARC and HBB attenuation under the broader European-colonised binary.",
+    "new_text": "Pathway dummies, climate bundle, the three scalar substrates, and the geography control battery are in all three estimated columns. The right-hand column is the per-allele attenuation of the coefficient from column (1) to column (3) under the broader European-colonised binary.",
+    "source": "Table has 4 data columns but only 3 are estimated regressions; the 4th is a derived per-allele attenuation column (computed for all eight alleles, not DARC/HBB only).",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "presentation",
+    "type": "presentation",
+    "location": "horserace.tex:210 (Table 4 caption)",
+    "old_text": "Shapley R\\textsuperscript{2} decomposition across four pre-industrial channels and six outcomes.",
+    "new_text": "Shapley R\\textsuperscript{2} decomposition across five pre-industrial substrates and six outcomes.",
+    "source": "Five substrates, not four.",
+    "confidence": "high"
+  },
+  {
+    "paper": "horserace",
+    "severity": "presentation",
+    "type": "presentation",
+    "location": "horserace.tex:178 (Table 1 caption)",
+    "old_text": "Descriptive statistics for the four pre-industrial channels (climate bundle expanded into its four primitives)",
+    "new_text": "Descriptive statistics for the five pre-industrial substrates (climate bundle expanded into its four primitives)",
+    "source": "Five substrates, not four.",
+    "confidence": "high"
+  },
+  {
+    "paper": "long_shadow",
+    "severity": "presentation",
+    "type": "overclaim",
+    "location": "long_shadow.tex:48 (Intro, panel-VAR shorthand)",
+    "old_text": "Estimating a joint three-equation reduced-form panel system (a reduced-form panel VAR, with the identifying VSSI entering contemporaneously)",
+    "new_text": "Estimating a joint three-equation reduced-form within-country panel system (a set of contemporaneously-identified FE-OLS equations rather than a structural VAR; see Section~\\ref{sec:joint-var}), with the identifying VSSI entering contemporaneously",
+    "source": "joint_landuse_var.py estimates three separate within-country FE-OLS regressions; no SUR/companion/IRF structure. The 'panel VAR' shorthand overclaims.",
+    "confidence": "high"
+  }
+]
