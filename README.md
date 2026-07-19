@@ -23,7 +23,7 @@ This package reproduces every figure, table, and reported coefficient in **"The 
 
 ## Quick start
 
-Reproduce everything in one command (requires Python 3.10+, ~30 GB free for downloads, ~6 hours wall time):
+Reproduce everything in one command (requires Python 3.10+, ~95 GB free for downloads, ~6 hours wall time):
 
 ```bash
 make all
@@ -36,11 +36,12 @@ Or step-by-step:
 pip install -r requirements.txt
 pip install -e .
 
-# 2. Download raw data (see data/README.md for sources, ~366 GB total)
+# 2. Download raw data (see analysis/data/README.md for sources; ~95 GB for
+#    the headline papers, +1.5 TB ERA5 only for long_shadow_fertility)
 make download-data
 
 # 3. Build the country and sub-national climate panels
-make build-panels
+make panels
 
 # 4. Run all analyses (figures, tables, regression outputs)
 make analysis

@@ -30,8 +30,8 @@ OUT = Path(
     "/Volumes/BIGDATA/HYDE35/analysis/figures/long_shadow_fertility/fig22_uncertainty_diagnostic"
 )
 
-# The 7 Long Shadow countries
-LS7 = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"]
+# The 12 Long Shadow countries
+LS7 = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP", "NOR", "DNK", "FIN", "ISL", "CHE"]
 
 COUNTRY_LABELS = {
     "GBR": "England",
@@ -41,6 +41,11 @@ COUNTRY_LABELS = {
     "BEL": "Belgium",
     "NLD": "Netherlands",
     "ESP": "Spain",
+    "NOR": "Norway",
+    "DNK": "Denmark",
+    "FIN": "Finland",
+    "ISL": "Iceland",
+    "CHE": "Switzerland",
 }
 
 
@@ -72,9 +77,9 @@ def make_fig22() -> None:
 
     fig, axes = plt.subplots(2, 1, figsize=(9, 6.5), sharex=True)
 
-    # Apply grayscale + linestyle cycler to both panels (7 countries)
-    style_lines(axes[0], n=7)
-    style_lines(axes[1], n=7)
+    # Apply grayscale + linestyle cycler to both panels (12 countries)
+    style_lines(axes[0], n=12)
+    style_lines(axes[1], n=12)
 
     # --- Top panel: within-season realized SD (HEADLINE) ---
     for iso3, sub in df.groupby("iso3"):
@@ -124,7 +129,7 @@ def make_fig22() -> None:
         color="dimgray",
         va="top",
     )
-    axes[0].legend(ncol=8, loc="upper right", fontsize=7.5, framealpha=0.7)
+    axes[0].legend(ncol=6, loc="upper right", fontsize=7, framealpha=0.7)
 
     # --- Bottom panel: ModE-RA ensemble SD (COMPARATOR — data-density artifact) ---
     for iso3, sub in df.groupby("iso3"):
@@ -162,7 +167,7 @@ def make_fig22() -> None:
         color="dimgray",
         va="top",
     )
-    axes[1].legend(ncol=7, loc="upper right", fontsize=7.5, framealpha=0.7)
+    axes[1].legend(ncol=6, loc="upper right", fontsize=7, framealpha=0.7)
 
     fig.suptitle(
         "Two measures of climate uncertainty: realized vs paleo-ensemble",

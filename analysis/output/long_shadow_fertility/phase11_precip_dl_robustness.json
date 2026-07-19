@@ -3,64 +3,64 @@
   "control_coverage": {
     "war_active": {
       "n_nonnull": 2403,
-      "total": 4203,
-      "pct_nonnull": 57.2,
+      "total": 7209,
+      "pct_nonnull": 33.3,
       "year_min": 1421,
       "year_max": 2022
     },
     "log_war_fatalities": {
       "n_nonnull": 2403,
-      "total": 4203,
-      "pct_nonnull": 57.2,
+      "total": 7209,
+      "pct_nonnull": 33.3,
       "year_min": 1421,
       "year_max": 2022
     },
     "pandemic_active": {
       "n_nonnull": 2403,
-      "total": 4203,
-      "pct_nonnull": 57.2,
+      "total": 7209,
+      "pct_nonnull": 33.3,
       "year_min": 1421,
       "year_max": 2022
     },
     "disaster_count": {
       "n_nonnull": 487,
-      "total": 4203,
-      "pct_nonnull": 11.6,
+      "total": 7209,
+      "pct_nonnull": 6.8,
       "year_min": 1900,
       "year_max": 2022
     },
     "log_disaster_deaths": {
       "n_nonnull": 487,
-      "total": 4203,
-      "pct_nonnull": 11.6,
+      "total": 7209,
+      "pct_nonnull": 6.8,
       "year_min": 1900,
       "year_max": 2022
     },
     "heat_extreme": {
-      "n_nonnull": 4116,
-      "total": 4203,
+      "n_nonnull": 7056,
+      "total": 7209,
       "pct_nonnull": 97.9,
       "year_min": 1421,
       "year_max": 2008
     },
     "drought": {
-      "n_nonnull": 4116,
-      "total": 4203,
+      "n_nonnull": 7056,
+      "total": 7209,
       "pct_nonnull": 97.9,
       "year_min": 1421,
       "year_max": 2008
     },
     "vol_t_10y": {
-      "n_nonnull": 4088,
-      "total": 4203,
-      "pct_nonnull": 97.3,
+      "n_nonnull": 7008,
+      "total": 7209,
+      "pct_nonnull": 97.2,
       "year_min": 1425,
       "year_max": 2008
     },
     "vol_p_10y": {
-      "n_nonnull": 4088,
-      "total": 4203,
-      "pct_nonnull": 97.3,
+      "n_nonnull": 7008,
+      "total": 7209,
+      "pct_nonnull": 97.2,
       "year_min": 1425,
       "year_max": 2008
     }
@@ -154,25 +154,25 @@
       "spec": "c_minimal",
       "shock": "p_growing",
       "controls": [],
-      "N": 1398,
-      "N_countries": 7,
+      "N": 2179,
+      "N_countries": 12,
       "year_min": 1544,
       "year_max": 2008,
-      "cum_beta": -0.00401,
-      "se": 0.00408,
-      "t": -0.983
+      "cum_beta": -0.00259,
+      "se": 0.00156,
+      "t": -1.663
     },
     {
       "spec": "c_minimal",
       "shock": "t_growing",
       "controls": [],
-      "N": 1398,
-      "N_countries": 7,
+      "N": 2179,
+      "N_countries": 12,
       "year_min": 1544,
       "year_max": 2008,
-      "cum_beta": -0.01796,
-      "se": 0.06022,
-      "t": -0.298
+      "cum_beta": 0.00572,
+      "se": 0.03801,
+      "t": 0.151
     }
   ]
 }

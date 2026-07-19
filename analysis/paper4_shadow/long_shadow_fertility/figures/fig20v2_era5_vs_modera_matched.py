@@ -1,8 +1,10 @@
 """Fig 20v2 — ERA5 (Apr-Sep anomaly, 1961-1990 baseline) vs ModE-RA growing-season anomaly.
 
-Re-comparison with matched aggregation. Phase 9 finding: ERA5 raw downloads
-are only complete through 1967, so the overlap window is 1950-1967 (18 years
-× 7 countries = 126 obs) rather than 1950-2008 as originally planned.
+Re-comparison with matched aggregation over the full 1950-2008 overlap
+(59 years × 7 countries). The Phase 9 run was limited to 1950-1967 because
+the raw ERA5 download was partial; the archive completed in July 2026 and
+the v2 panel now spans 1950-2025 (ModE-RA ends 2008, which caps the
+comparison window).
 """
 from __future__ import annotations
 from pathlib import Path

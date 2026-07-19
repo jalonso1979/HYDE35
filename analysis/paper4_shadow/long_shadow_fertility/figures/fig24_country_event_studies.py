@@ -60,9 +60,9 @@ def make_fig24():
     n_c = len(countries)
 
     # -----------------------------------------------------------------
-    # 2. Grid: 2 rows x 4 cols (7 panels + 1 spare)
+    # 2. Grid: 3 rows x 4 cols (12 panels)
     # -----------------------------------------------------------------
-    fig, axes = plt.subplots(2, 4, figsize=(14, 6), sharey=False)
+    fig, axes = plt.subplots(3, 4, figsize=(16, 9), sharey=False)
     flat_axes = axes.ravel()
 
     # Hide all panels by default; turn on as we fill them
@@ -123,11 +123,9 @@ def make_fig24():
 
     # Shared axis labels — bottom row visible panels
     for ax in axes[-1]:
-        if ax.get_visible():
-            ax.set_xlabel("event time (years from threshold crossing)", fontsize=8)
+        ax.set_xlabel("event time (years from threshold crossing)", fontsize=8)
     for ax in axes[:, 0]:
-        if ax.get_visible():
-            ax.set_ylabel("rolling climate elasticity\n(log CBR on growing-season T)", fontsize=8)
+        ax.set_ylabel("rolling climate elasticity\n(log CBR on growing-season T)", fontsize=8)
 
     fig.suptitle(
         "Fig 24 — Climate-fertility elasticity aligned to country-specific log $W$ = 9.97 crossing\n"

@@ -7,9 +7,13 @@ SPEI is computed via Thornthwaite PET using **absolute** T and P reconstructed f
   `analysis/data/cru_country_climatology_1901_1950.parquet`. The CRU 1901-1950
   baseline is complete for all 7 study countries and is standard in pre-instrumental
   SPEI work (Vicente-Serrano et al. 2010 use it for historical reconstructions).
-  The canonical WMO 1961-1990 baseline was not used because ERA5 country monthly
-  data has large gaps in 1968-1987 for most European countries due to the ERA5
-  aggregation pipeline.
+  The canonical WMO 1961-1990 baseline was not used because, at the time, ERA5
+  country monthly data had large gaps in 1968-1987 for most European countries.
+  *(Update 2026-07-18: those gaps were an artifact of the then-partial ERA5
+  download, which completed 2026-07-17; `era5_country_monthly.parquet` now has
+  full 1950-2025 coverage. The CRU 1901-1950 choice remains defensible on its
+  own merits — standard in pre-instrumental SPEI work — but a WMO 1961-1990
+  baseline robustness run is now feasible.)*
 - **Anomalies**: ModE-RA ensemble-mean cropland-weighted monthly anomalies,
   `modera_country_monthly_cropw.parquet` (1421-2008).
 - **PET method**: Thornthwaite (1948) with astronomical daylight-hour correction

@@ -20,7 +20,7 @@ python -c "from analysis.shared import build_modera_panel; print('ok')"
 
 ## 1. Download the raw data
 
-The pipeline expects raw inputs in fixed locations under `/Volumes/BIGDATA/` (or set `HYDE35_ROOT` and `MODERA_ROOT` environment variables). Total disk: ~460 GB.
+The pipeline expects raw inputs in fixed locations under `/Volumes/BIGDATA/` (or set `HYDE35_ROOT` and `MODERA_ROOT` environment variables). Total disk: ~95 GB for the long_shadow/horserace papers; add ~1.5 TB if the ERA5 archive is needed (long_shadow_fertility only, see below).
 
 ### HYDE 3.5 sub-national rasters and CSVs
 
@@ -60,9 +60,11 @@ Only the four ensemble-statistic files are needed for the headline analyses:
 - `ModE-RA_ensstd_temp2_anom_wrt_1901-2000_1421-2008_mon.nc`
 - `ModE-RA_ensstd_totprec_anom_wrt_1901-2000_1421-2008_mon.nc`
 
-### ERA5 reanalysis — not required
+### ERA5 reanalysis — not required for the headline papers
 
-ERA5 has been removed from this project. It was previously used to calibrate ModE-RA in the 1950–2008 overlap and to extend the panel past 2008, but the calibration was a per-country additive bias that is absorbed exactly by the within-country fixed effects in every regression (verified: headline coefficients identical with and without it), so it is not load-bearing. Absolute levels are now anchored to the CRU 1901–1950 climatology and the panel ends at ModE-RA's 2008 horizon. The ~366 GB ERA5 download is no longer needed.
+ERA5 has been removed from the long_shadow and horserace papers. It was previously used to calibrate ModE-RA in the 1950–2008 overlap and to extend the panel past 2008, but the calibration was a per-country additive bias that is absorbed exactly by the within-country fixed effects in every regression (verified: headline coefficients identical with and without it), so it is not load-bearing. Absolute levels are now anchored to the CRU 1901–1950 climatology and the panel ends at ModE-RA's 2008 horizon.
+
+The `long_shadow_fertility` subpackage, however, still consumes modern ERA5 (growing-season anomalies 1950–2025 spliced onto ModE-RA, and the England 2009+ monthly splice). Its raw input is the full hourly archive at `$HYDE35_ROOT/ERA5/` — 1.5 TB, 22,800 monthly files (25 regions × 1950–2025), hourly t2m + tp, completed 2026-07-17. Two container formats coexist (CDS zip containers at 1.0° for ≤1966/67; plain merged netCDF4 at 0.25° after); all readers handle both. To re-download from scratch: `python -m analysis.shared.era5_bulk_downloader` (months of CDS queue time; prefer the compact derived parquets in `analysis/data/` if they suffice).
 
 ### KK10 land-use reconstruction (cross-validation, §4.5)
 

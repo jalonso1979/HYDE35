@@ -35,9 +35,19 @@ paper/*.blg
 paper/*.synctex.gz
 paper/*.fls
 paper/*.fdb_latexmk
+paper/**/*.fls
+paper/**/*.fdb_latexmk
+texput.log
+
+# Overleaf packaging output (regenerate with paper/build_overleaf_packages.sh)
+paper/overleaf/
+
+# Local agent/editor state
+.claude/
 
 # Raw data — too large for git, point to OSF / upstream sources
 ERA5/
+ERA5_derived/
 MODERA/
 climate_reconstructions/
 gbc2025_7apr_base/
@@ -51,6 +61,8 @@ analysis/data/deep_determinants/_raw/
 # Generated artifacts (kept in the OSF deposit but not in source git)
 analysis/data/*.parquet
 analysis/data/*.csv
+# ERA5 compact laptop bundle, ~0.9 GB (rebuild: analysis/shared/build_era5_compact.py)
+analysis/data/era5_derived/
 analysis/figures/paper4/*.png
 analysis/figures/paper4_v2/*.png
 analysis/shared/_tmp/

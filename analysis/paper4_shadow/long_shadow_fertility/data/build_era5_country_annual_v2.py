@@ -7,18 +7,21 @@ Output schema parallels ModE-RA's country_climate_annual.parquet for splicing.
 
 Notes
 -----
-Region 11 raw downloads are stored as one zipped NetCDF per (region, year,
-month) under ``ERA5/region=R/year=YYYY/era5_R_YYYYMM.nc``. Each zip contains
-two streams (``data_stream-oper_stepType-instant.nc`` with t2m and
-``data_stream-oper_stepType-accum.nc`` with tp), each holding *hourly* fields
-for that single month. For each (iso3, year, month) we accumulate (sum, count)
-over all hourly spatial means, then derive a monthly mean by division. Annual
-growing-season values are produced only when all six months (Apr-Sep) are
-present.
+Raw downloads are stored as one file per (region, year, month) under
+``ERA5/region=R/year=YYYY/era5_R_YYYYMM.nc`` in two container formats: the
+May-2026 CDS deliveries are ZIP archives holding two streams
+(``data_stream-oper_stepType-instant.nc`` with t2m and
+``data_stream-oper_stepType-accum.nc`` with tp), while the July-2026 bulk
+completion wrote plain merged netCDF4 files carrying both variables in one
+dataset. Both hold *hourly* fields for a single month; the zip-era months
+through 1966/67 are 1.0-degree grids, everything later is 0.25-degree. For
+each (iso3, year, month) we accumulate (sum, count) over all hourly spatial
+means, then derive a monthly mean by division. Annual growing-season values
+are produced only when all six months (Apr-Sep) are present.
 
-We read directly from the zips because the on-disk ``_extracted/`` cache for
-years >=1968 was overwritten month-by-month and only retains the last month
-extracted, which would produce truncated/incorrect annual means.
+We read the per-month files directly because the on-disk ``_extracted/``
+cache for years >=1968 was overwritten month-by-month and only retains the
+last month extracted, which would produce truncated/incorrect annual means.
 """
 from __future__ import annotations
 from pathlib import Path
@@ -50,12 +53,15 @@ KELVIN_OFFSET = 273.15
 _MONTH_ZIP_RE = re.compile(r"era5_\d+_(\d{4})(\d{2})\.nc$")
 
 
-def _iter_region_monthly_datasets(region_id: int):
-    """Yield (year, month, xarray.Dataset) for each zipped monthly file.
+def _iter_region_monthly_datasets(region_id: int,
+                                  months: tuple[int, ...] | None = GROWING_MONTHS):
+    """Yield (year, month, xarray.Dataset) for each monthly file.
 
-    Each zip contains two NetCDF members (instant t2m + accum tp). We open both
-    and merge them into a single Dataset so callers see ``t2m`` and ``tp``
-    together for the same (year, month).
+    Handles both on-disk container formats: zip archives with two NetCDF
+    members (instant t2m + accum tp), which are merged into a single Dataset,
+    and plain merged netCDF4 files that already carry ``t2m`` and ``tp``
+    together. ``months=None`` yields every month; the default restricts to
+    the growing season.
     """
     reg_dir = ERA5_ROOT / f"region={region_id}"
     if not reg_dir.exists():
@@ -67,8 +73,21 @@ def _iter_region_monthly_datasets(region_id: int):
                 continue
             year = int(mat.group(1))
             month = int(mat.group(2))
-            if month not in GROWING_MONTHS:
-                continue  # skip months outside growing season entirely
+            if months is not None and month not in months:
+                continue
+            # Leading-magic check: zipfile.is_zipfile() false-positives on
+            # some HDF5 files (it scans the file tail for the EOCD signature).
+            with open(nc_zip, "rb") as fh:
+                is_zip = fh.read(4) == b"PK\x03\x04"
+            if not is_zip:
+                # July-2026 bulk completion: plain merged netCDF4, t2m + tp
+                # in one dataset.
+                try:
+                    ds = xr.open_dataset(nc_zip).load()
+                except Exception:
+                    continue
+                yield year, month, ds
+                continue
             try:
                 with zipfile.ZipFile(nc_zip) as zf:
                     members = zf.namelist()
@@ -212,7 +231,18 @@ def _aggregate_country_growing_season(
     return out
 
 
+_MEMO: dict[str, pd.DataFrame] = {}
+
+
 def build_era5_country_annual_v2(write: bool = False) -> pd.DataFrame:
+    # With the complete archive the raw sweep takes ~35 min; memoize within
+    # the process so tests and the splice builder don't re-sweep region 11.
+    if "df" in _MEMO:
+        df = _MEMO["df"].copy()
+        if write:
+            OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+            df.to_parquet(OUT_PATH, index=False)
+        return df
     region_map = build_region_country_map()
     # accum[iso][(year, month)] = {"T": [sum, count], "P": [sum, count]}
     accum: dict[str, dict[tuple[int, int], dict[str, list[float]]]] = {
@@ -296,6 +326,7 @@ def build_era5_country_annual_v2(write: bool = False) -> pd.DataFrame:
     df = pd.concat(anom_parts, ignore_index=True)
     df["source"] = "ERA5_apr_sep_anom_61-90"
     df = df.sort_values(["iso3", "year"]).reset_index(drop=True)
+    _MEMO["df"] = df.copy()
 
     if write:
         OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

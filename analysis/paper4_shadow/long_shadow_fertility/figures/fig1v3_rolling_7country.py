@@ -1,6 +1,7 @@
-"""Fig 1v3 -- 7-panel rolling-window IRF (gap-filled England + 6 other countries)."""
+"""Fig 1v3 -- 12-panel rolling-window IRF (gap-filled England + 11 other countries)."""
 from __future__ import annotations
 from pathlib import Path
+import shutil
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -12,13 +13,18 @@ from analysis.paper4_shadow.long_shadow_fertility.estimators.rolling_window impo
 )
 
 FIG_DIR = Path("/Volumes/BIGDATA/HYDE35/analysis/figures/long_shadow_fertility")
-ORDER = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP"]
+PAPER_FIG_DIR = Path(
+    "/Users/jalonso/Library/CloudStorage/GoogleDrive-jorge.alonsoortiz@gmail.com/"
+    "My Drive/Fertility/long_shadow/figures"
+)
+ORDER = ["GBR", "FRA", "ITA", "SWE", "BEL", "NLD", "ESP", "NOR", "DNK", "FIN", "ISL", "CHE"]
 
 
 def make_fig1v3(window: int = 40):
     df = assemble_panel_multi()
     estimates: dict[str, pd.DataFrame] = {}
-    fig, axes = plt.subplots(3, 3, figsize=(13, 9), sharey=True)
+    # 3x4 grid for 12 countries — no spare panels
+    fig, axes = plt.subplots(3, 4, figsize=(16, 9), sharey=True)
     for ax, iso in zip(axes.flat, ORDER):
         sub = df.loc[df["iso3"] == iso]
         est = rolling_elasticity(sub, y="log_cbr", x="t_growing", window=window)
@@ -30,14 +36,18 @@ def make_fig1v3(window: int = 40):
         for v in (1600, 1641, 1815, 1883, 1991):
             ax.axvline(v, color="gray", lw=0.4, alpha=0.5)
         ax.set_title(iso)
-    for j in (7, 8):
-        axes.flat[j].axis("off")
-    fig.suptitle("Phase 5 rolling-window IRF -- 7 countries (gap-filled England via HMD)", fontsize=12)
+    fig.suptitle("Rolling-window IRF -- 12 countries (gap-filled England via HMD)", fontsize=12)
     fig.tight_layout()
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     pdf = FIG_DIR / "fig1v3_rolling_7country.pdf"
     png = FIG_DIR / "fig1v3_rolling_7country.png"
     fig.savefig(pdf); fig.savefig(png, dpi=200); plt.close(fig)
+    # Copy to paper figures folder
+    try:
+        PAPER_FIG_DIR.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(pdf, PAPER_FIG_DIR / "fig1v3_rolling_7country.pdf")
+    except OSError as exc:
+        print(f"WARNING: could not copy PDF to paper repo: {exc}")
     return pdf, png, estimates
 
 

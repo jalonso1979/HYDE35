@@ -12,9 +12,16 @@ Usage:  python verify_against_paper.py
 import json, sys, pathlib
 
 OUT = pathlib.Path("/Volumes/BIGDATA/HYDE35/analysis/output/long_shadow_fertility")
-PAPER = pathlib.Path(
+# The 2026-05-29 repo reorg moved long_shadow/ -> papers/long_shadow/. Try the
+# new location first, fall back to the pre-reorg path.
+_FERT = pathlib.Path(
     "/Users/jalonso/Library/CloudStorage/GoogleDrive-jorge.alonsoortiz@gmail.com/"
-    "My Drive/Fertility/long_shadow/paper.tex"
+    "My Drive/Fertility"
+)
+PAPER = next(
+    (p for p in (_FERT / "papers/long_shadow/paper.tex", _FERT / "long_shadow/paper.tex")
+     if p.exists()),
+    _FERT / "papers/long_shadow/paper.tex",
 )
 
 def load(name):

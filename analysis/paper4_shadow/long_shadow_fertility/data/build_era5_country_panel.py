@@ -4,6 +4,12 @@ All 7 countries map to ERA5 region 11 (Europe tile, lat 27-80N, lon 25W-31E).
 For each country we average grid points within its bbox to get country-year
 means of t2m + tp.
 
+Reads the per-month raw files directly (zip container or plain merged
+netCDF4) via the shared iterator from build_era5_country_annual_v2. The
+previous version read the ``_extracted/`` cache, which for years >=1968 was
+overwritten month-by-month and retained only the last month extracted —
+silently turning those "annual" means into single-month means.
+
 Output: era5_country_annual.parquet (columns: iso3, year, T, P)
 """
 from __future__ import annotations
@@ -17,28 +23,16 @@ from analysis.paper4_shadow.long_shadow_fertility.data.era5_region_country_map i
     COUNTRY_BBOXES,
     build_region_country_map,
 )
+from analysis.paper4_shadow.long_shadow_fertility.data.build_era5_country_annual_v2 import (
+    _iter_region_monthly_datasets,
+)
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-ERA5_ROOT = Path("/Volumes/BIGDATA/HYDE35/ERA5")
 OUT_PATH = Path(
     "/Volumes/BIGDATA/HYDE35/analysis/data/long_shadow_fertility/"
     "era5_country_annual.parquet"
 )
-
-
-def _load_region_files(region_id: int) -> list[Path]:
-    """All extracted NetCDFs for a given region, sorted by year/month."""
-    reg_dir = ERA5_ROOT / f"region={region_id}"
-    if not reg_dir.exists():
-        return []
-    files: list[Path] = []
-    for yr_dir in sorted(reg_dir.glob("year=*")):
-        ext_dir = yr_dir / "_extracted"
-        if not ext_dir.exists():
-            continue
-        files.extend(sorted(ext_dir.glob("*.nc")))
-    return files
 
 
 def _ds_var_names(ds: xr.Dataset) -> tuple[str | None, str | None]:
@@ -149,37 +143,31 @@ def build_era5_country_panel(write: bool = False, verbose: bool = False) -> pd.D
     # Per-country, per-year accumulators (sum + count of monthly grid means)
     accum: dict[str, dict[int, dict[str, float]]] = {iso: {} for iso in COUNTRY_BBOXES}
 
-    # For efficiency, we load each region NetCDF once and process all matching
-    # countries against that single dataset.
+    # For efficiency, we load each region-month dataset once and process all
+    # matching countries against that single dataset. months=None: full-year
+    # panel, not just the growing season.
     region_ids = set(region_map.values()) - {-1}
     for r in sorted(region_ids):
-        files = _load_region_files(r)
-        if verbose:
-            print(f"region={r}: {len(files)} NCs")
         countries_in_r = [iso for iso, rid in region_map.items() if rid == r]
-        for idx, nc_path in enumerate(files):
-            try:
-                ds = xr.open_dataset(nc_path)
-            except Exception as exc:
-                if verbose:
-                    print(f"  skip {nc_path.name}: {exc}")
-                continue
+        n_files = 0
+        for year, month, ds in _iter_region_monthly_datasets(r, months=None):
             try:
                 for iso in countries_in_r:
                     bbox = COUNTRY_BBOXES[iso]
                     year_rows = _aggregate_country_year(ds, iso, bbox)
-                    for year, vals in year_rows.items():
-                        if year not in accum[iso]:
-                            accum[iso][year] = {
+                    for yr, vals in year_rows.items():
+                        if yr not in accum[iso]:
+                            accum[iso][yr] = {
                                 "T_sum": 0.0, "T_n": 0,
                                 "P_sum": 0.0, "P_n": 0,
                             }
                         for k, v in vals.items():
-                            accum[iso][year][k] += v
+                            accum[iso][yr][k] += v
             finally:
                 ds.close()
-            if verbose and (idx + 1) % 50 == 0:
-                print(f"  processed {idx + 1}/{len(files)} files in region {r}")
+            n_files += 1
+            if verbose and n_files % 50 == 0:
+                print(f"  processed {n_files} monthly files in region {r}")
 
     rows = []
     for iso, by_year in accum.items():

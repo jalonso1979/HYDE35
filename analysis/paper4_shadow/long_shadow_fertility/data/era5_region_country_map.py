@@ -6,11 +6,14 @@ bounding box.
 """
 from __future__ import annotations
 from pathlib import Path
+import io
+import zipfile
 import xarray as xr
 
 ERA5_ROOT = Path("/Volumes/BIGDATA/HYDE35/ERA5")
 
-# Approximate capital coordinates for the 7 Long Shadow countries
+# Approximate capital coordinates for the 12 Long Shadow panel countries
+# (all fall inside ERA5 region 11: lat 27-80N, lon 25W-31E)
 COUNTRY_CAPITAL_COORDS = {
     "GBR": (51.5074, -0.1278),   # London
     "FRA": (48.8566, 2.3522),    # Paris
@@ -19,6 +22,11 @@ COUNTRY_CAPITAL_COORDS = {
     "BEL": (50.8503, 4.3517),    # Brussels
     "NLD": (52.3676, 4.9041),    # Amsterdam
     "ESP": (40.4168, -3.7038),   # Madrid
+    "NOR": (59.9139, 10.7522),   # Oslo
+    "DNK": (55.6761, 12.5683),   # Copenhagen
+    "FIN": (60.1699, 24.9384),   # Helsinki
+    "ISL": (64.1466, -21.9426),  # Reykjavik
+    "CHE": (46.9480, 7.4474),    # Bern
 }
 
 # Approximate national bounding boxes (lat_min, lat_max, lon_min, lon_max)
@@ -31,38 +39,58 @@ COUNTRY_BBOXES: dict[str, tuple[float, float, float, float]] = {
     "BEL": (49.5, 51.5, 2.5, 6.4),      # Belgium
     "NLD": (50.7, 53.6, 3.4, 7.2),      # Netherlands
     "ESP": (36.0, 43.8, -9.3, 3.3),     # Spain (peninsula)
+    "NOR": (57.9, 71.3, 4.5, 31.0),     # Norway (mainland incl. Finnmark)
+    "DNK": (54.5, 57.8, 8.0, 15.2),     # Denmark (Jutland + isles + Bornholm)
+    "FIN": (59.7, 70.1, 20.5, 31.0),    # Finland
+    "ISL": (63.2, 66.6, -24.6, -13.4),  # Iceland
+    "CHE": (45.8, 47.9, 5.9, 10.5),     # Switzerland
 }
 
 
+def _open_monthly_any_format(nc_path: Path) -> xr.Dataset | None:
+    """Open a raw monthly file (zip container or plain merged netCDF4)."""
+    try:
+        with open(nc_path, "rb") as fh:
+            is_zip = fh.read(4) == b"PK\x03\x04"
+        if is_zip:
+            with zipfile.ZipFile(nc_path) as zf:
+                names = zf.namelist()
+                if not names:
+                    return None
+                return xr.open_dataset(io.BytesIO(zf.read(names[0])))
+        return xr.open_dataset(nc_path)
+    except Exception:
+        return None
+
+
 def _region_bbox(region_id: int) -> tuple[float, float, float, float] | None:
-    """Return (lat_min, lat_max, lon_min, lon_max) for an ERA5 region, or None."""
+    """Return (lat_min, lat_max, lon_min, lon_max) for an ERA5 region, or None.
+
+    Reads the newest per-month raw file directly (either container format);
+    the tile bbox is resolution-invariant, so any month works. The
+    ``_extracted/`` cache is no longer consulted.
+    """
     reg_dir = ERA5_ROOT / f"region={region_id}"
     if not reg_dir.exists():
         return None
     for yr_dir in sorted(reg_dir.glob("year=*"), reverse=True):
-        ext_dir = yr_dir / "_extracted"
-        if not ext_dir.exists():
-            continue
-        nc_files = sorted(ext_dir.glob("*.nc"))
-        if not nc_files:
-            continue
-        try:
-            ds = xr.open_dataset(nc_files[0])
-        except Exception:
-            continue
-        lat_name = "latitude" if "latitude" in ds.coords else "lat"
-        lon_name = "longitude" if "longitude" in ds.coords else "lon"
-        if lat_name not in ds.coords or lon_name not in ds.coords:
+        for nc_path in sorted(yr_dir.glob("era5_*.nc")):
+            ds = _open_monthly_any_format(nc_path)
+            if ds is None:
+                continue
+            lat_name = "latitude" if "latitude" in ds.coords else "lat"
+            lon_name = "longitude" if "longitude" in ds.coords else "lon"
+            if lat_name not in ds.coords or lon_name not in ds.coords:
+                ds.close()
+                continue
+            bbox = (
+                float(ds[lat_name].min()),
+                float(ds[lat_name].max()),
+                float(ds[lon_name].min()),
+                float(ds[lon_name].max()),
+            )
             ds.close()
-            continue
-        bbox = (
-            float(ds[lat_name].min()),
-            float(ds[lat_name].max()),
-            float(ds[lon_name].min()),
-            float(ds[lon_name].max()),
-        )
-        ds.close()
-        return bbox
+            return bbox
     return None
 
 

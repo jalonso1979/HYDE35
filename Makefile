@@ -150,10 +150,15 @@ paper/cover_letter_aejmacro.pdf: paper/cover_letter_aejmacro.tex
 	cd paper && pdflatex -interaction=nonstopmode cover_letter_aejmacro.tex
 
 # ── Diagnostics ─────────────────────────────────────────────────────────────
+manifest:
+	$(PYTHON) -m analysis.make_manifest
+
 check:
 	$(PYTHON) -m analysis.paper4_shadow.robustness_v2 | tail -10
 	@echo
-	@echo "Expected: median |bias| 0.61°C, monthly t-corr 0.971, annual anomaly corr 0.938"
+	@echo "Expected: median |bias| 0.52°C, monthly t-corr 0.977, annual anomaly corr 0.832"
+	@echo "(recomputed 2026-07-19 from the complete ERA5 archive; the pre-completion"
+	@echo " pins 0.61/0.971/0.938 came from the seasonally-truncated partial panel)"
 
 # ── Cleaning ────────────────────────────────────────────────────────────────
 clean:
@@ -167,4 +172,7 @@ distclean: clean
 # ── Raw-data download (placeholder; see REPRODUCE.md) ───────────────────────
 download-data:
 	@echo "See REPRODUCE.md section 1 for one-line download commands."
-	@echo "Total ~95 GB across HYDE 3.5, ModE-RA, CRU TS (ERA5 no longer required)."
+	@echo "Total ~95 GB across HYDE 3.5, ModE-RA, CRU TS."
+	@echo "ERA5 is NOT required for the long_shadow/horserace papers; the"
+	@echo "long_shadow_fertility pipeline needs the full ERA5 archive (1.5 TB,"
+	@echo "25 regions x 1950-2025 hourly t2m+tp; see analysis/shared/era5_bulk_downloader.py)."

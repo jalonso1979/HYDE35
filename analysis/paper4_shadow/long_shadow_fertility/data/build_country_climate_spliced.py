@@ -17,11 +17,13 @@ OVERLAP = (1950, 2008)
 def build_country_climate_spliced(write: bool = False) -> pd.DataFrame:
     """ModE-RA + ERA5 spliced country-year climate panel (Phase 9 Pillar A3).
 
-    Layout:
+    Layout (data-driven — ERA5 is used wherever the v2 builder has data):
     - 1421-1949: ModE-RA
-    - 1950-1967: ERA5 v2 (mean-shifted to ModE-RA's overlap baseline) — the only
-      window where the ERA5 raw download has complete growing-season coverage
-    - 1968-2008: ModE-RA (fills the ERA5 gap; preserves Phase 7 panel coverage)
+    - 1950-2025: ERA5 v2 (mean-shifted to ModE-RA's 1950-2008 overlap
+      baseline). With the raw archive complete (July 2026) the v2 panel
+      covers all of 1950-2025, so the former 1968-2008 ModE-RA gap-fill
+      branch below no longer contributes rows; it is kept as a fallback for
+      partial rebuilds.
 
     Output schema matches country_climate_annual.parquet for drop-in use.
     """
