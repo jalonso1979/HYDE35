@@ -1,0 +1,825 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[round,authoryear]{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multirow}
+
+\title{Good genes, good weather and a prosperous land\\
+{\large A re-examination of the deep root factors of economic development}}
+
+\author{Jorge Alonso Ortiz\thanks{Centro de Investigaci\'on Econ\'omica, ITAM. Email: \texttt{jorge.alonso@itam.mx}.}
+  \and Jos\'e-Mar\'ia Da-Rocha\thanks{Universidade de Vigo, RGEA, Spain.}}
+\date{Draft: May 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+The deep-roots literature has identified at least five distinct pre-industrial channels through which a country's past predicts its present: ancient genetic diversity, the climate regime that selected its agricultural system, the caloric potential of its native crops, the historical depth of its state institutions, and exposure to the great pre-modern pandemics. Each carries its own causal-identification programme on its own preferred outcome; the channels have rarely been placed on a single panel. This paper assembles a 196-country panel that joins them under internally consistent measurement, replaces the Ashraf-Galor scalar predicted-heterozygosity measure with two functionally interpretable alternatives drawn from the modern ancient-DNA literature (an eight-locus functional-allele bundle and a global agricultural-Neolithic ancestry fraction), and decomposes their joint contribution to six outcomes spanning the Malthusian-to-post-Malthusian transition via a grouped Shapley-Owen decomposition with Westfall-Young multi-testing correction. The pattern is layered rather than a clean one-substrate-per-epoch partition. The functional-allele bundle is the broadest of the five substrates over the modern outcomes---the largest variance share on per-capita income in 2015 and on demographic-transition timing (the only two outcomes on which a substrate's lead is statistically distinguishable from the runner-up), and family-wise robust on four of the six outcomes. Pre-industrial endowments retain family-wise-robust signal on the deep-past margins: ancestral caloric-yield potential on Malthusian density at 1500 and convergence-window population growth 1950--2025, and the agricultural-Neolithic ancestry fraction on cumulative density at 2025 and demographic-transition timing; the climate bundle, mediated by agricultural-pathway selection, carries the largest but not multiplicity-robust variance share on Malthusian density at 1500. A graded partialling exercise on the bundle's most-discussed locus, DARC, shows that the variant's negative coefficient on log per-capita income is not robust: it is carried by the eighteen predominantly Sub-Saharan African and Gulf countries that lack pre-colonial state-history coverage, and turns positive and insignificant once the sample is restricted to the countries where state history is observed. The malaria-resistance subset of the bundle therefore does not deliver a robust per-capita-income signal, and the appearance of attenuation ``by state history'' is a sample-composition artifact rather than evidence that DARC proxies for state capacity. The deep-roots literature has been organised for over a decade around scalar indices of abstract diversity; the present investigation reorganises it around interpretable selection signatures and post-Neolithic institutional differentiation, each with a name, a channel, and a date.
+
+\medskip
+\noindent\textbf{JEL Codes:} O11, O13, O44, N50, Q54.\\
+\textbf{Keywords:} Deep determinants, unified growth theory, population density, ancient DNA, functional alleles, Neolithic ancestry, climate volatility, ancestral crop yield, Shapley decomposition.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+The accumulation of cross-country economic differences over the very long run is one of the largest stylised facts in development economics. A representative person in Switzerland today produces some eighty times the per-capita output of a representative person in Burundi, and most of the gap was already implied a millennium before any contemporary income data was generated. A handful of pre-industrial covariates---measured between ten and a hundred generations ago, in epochs separated from the present by the demographic transition, the industrial revolution, two centuries of colonial reorganisation, and an order-of-magnitude expansion in population---account for the lion's share of contemporary cross-country variation in log GDP per capita. The persistence is striking enough that the project of explaining it has organised an entire branch of growth theory under the name of \emph{deep-roots} or \emph{deep-determinants} economics.
+
+The literature has answered the persistence question in many voices, and the voices do not always agree. A first generation of answers focused on geography. \citet{diamond1997guns} argued that the east--west axis of Eurasia enabled the rapid diffusion of domesticated species and accelerated the Neolithic transition there; the Americas and Sub-Saharan Africa, on north--south axes, faced steeper climatic barriers to crop diffusion and converged onto agriculture later and less completely. The macroeconomics-of-climate tradition that followed \citep{dell2012temperature, burke2015global, hsiang2017global} identified large temperature effects on modern output, with non-linear damages concentrated in already-hot regions. \citet{matranga2024} pushed the climate channel deep into the pre-industrial past: it was the inter-annual volatility of climate, he argued, that selected which agricultural system a society adopted, and storage-intensive crop regimes emerged precisely where volatility was high enough to make storage worth its cost. A companion to the present investigation \citep{alonso_long_shadow} documents the within-country demographic consequences of this pathway selection on a paleo-economic panel from 1421~CE forward, identifying the Malthusian channel through which pre-industrial climate volatility translated into mortality and ultimately into modern demographic trajectories.
+
+A second generation of answers turned to deep biological and demographic substrates. \citet{ashraf2013out} argued that the ancestral genetic diversity of a population, predicted by its out-of-Africa migration history and adjusted for post-1500 migrations \citep{putterman2010}, drives an inverted-U relationship with development. The argument, controversial at publication and the subject of a sustained critique in \citet{guedes2013}, established that a scalar summary of ancestral population history carries non-trivial weight in cross-country growth regressions. \citet{galor2016agricultural} replied with a competing scalar: the agricultural-yield potential of a country's land, computed from agro-ecological projections under pre-Columbian climate, was argued to have shaped long-run economic outcomes through its effect on time-preference selection. \citet{voigtlander2013how} placed pre-1500 pandemic exposure in the same conversation, arguing that the Black Death and its predecessors left persistent factor-ratio and demographic-trajectory consequences observable in early modern Europe. \citet{bockstette2002} and \citet{borcan2018}, working in a parallel tradition, argued that the depth and continuity of pre-colonial state organisation---summarised in their state-history index, which counts millennia of supratribal political existence back to year~1~CE---is itself a deep determinant comparable in explanatory power to the geographic and ancestral candidates.
+
+A third generation has begun to disaggregate the ancestral channel into the specific biological signatures that ancient-DNA evidence has revealed. The Holocene was an era of intense positive selection on the human genome. The accumulating sequencing literature has identified strong selection signatures at a small number of loci with clear functional consequences: at LCT/MCM6 for adult lactase persistence \citep{mathieson2015, allentoft2015}, at the AMY1 amylase copy-number variant for starch digestion \citep{perry2007}, at the FADS1/2 cluster for long-chain fatty-acid conversion required by plant-rich diets \citep{ameur2012}, at DARC and HBB for resistance to vivax and falciparum malaria \citep{howes2011, piel2010}, at SLC24A5 for skin pigmentation under low-UV regimes, and at ADH1B and EDAR for East-Asia-specific Holocene adaptations \citep{peng2010, sabeti2007}. Each of these variants has been studied in its own population-genetics literature with its own ancient-DNA selection-signature evidence; their joint relevance for cross-country economic variation has been recognised at the level of broad ancestry markers but not at the locus level.
+
+The five literatures have each conducted their own causal-identification programme on their own preferred outcome, with their own preferred controls and competitors. Diversity has been tested against geography; yield against diversity; pandemics against urbanisation; state history against latitude. The empirical claim of each is conditional on the controls it chose, and the resulting picture is a set of pairwise comparisons rather than a joint variance decomposition. No exercise has placed the five channels on the same panel under internally consistent measurement and asked which carries unique-variance weight on which outcome. The literature has accumulated, in effect, a multi-witness case in which each witness has been deposed separately. The present paper convenes them in the same room.
+
+The metaphor extends to the substantive finding, with one qualification the data force: the contributions sort by epoch, but they do not sort \emph{cleanly}, and one substrate is broader than the rest. The eight-locus functional-allele bundle is the dominant determinant of the modern outcomes---it carries the largest variance contribution on per-capita income in 2015 and on demographic-transition timing (the only two of the six outcomes on which any substrate's lead is statistically distinguishable from the runner-up), and it is family-wise robust on four of the six outcomes. The pre-industrial endowments retain family-wise-robust signal on the deep-past margins: ancestral caloric-yield potential on Malthusian density at 1500 and on convergence-window population growth 1950--2025; the agricultural-Neolithic ancestry fraction---the share of a country's modern ancestry traceable to populations that underwent an agricultural-Neolithic transition---on cumulative density at 2025 and on demographic-transition timing; while the climate bundle, mediated by agricultural-pathway selection, carries the largest (though neither distinguishable nor multiplicity-robust) variance share on Malthusian-era density. Pre-1500 pandemic intensity contributes a smaller, non-robust signal. The pattern is therefore not a clean one-protagonist-per-chapter partition, and not the coronation of a single master determinant for the whole transition, but a \emph{layered} structure: a broad modern-selection signature over the modern outcomes, with distinct pre-industrial endowments retaining robust signal on the Malthusian-density and convergence margins.
+
+The decomposition relies on a Shapley-Owen variance attribution that treats climate and the functional-allele bundle as coalition players and averages each substrate's marginal R\textsuperscript{2} contribution across all $5!=120$ substrate orderings, conditional on a geography control battery and pathway dummies. The procedure is multicollinearity-robust by construction: shared variance between substrates is split symmetrically rather than awarded to whichever variable enters the regression first. A bootstrap pathway-mediation exercise asks how much of each substrate's contribution operates through agricultural-pathway selection, in the spirit of \citet{matranga2024}'s storage-and-intensification mechanism. Both exercises are subjected to Westfall-Young family-wise error-rate correction across the thirty substrate-by-outcome tests, the joint testing scale at which the layered pattern emerges as a statistically defensible structure rather than as a constellation of nominally significant but multiply-tested individual cells.
+
+The investigation's most discussed cell---the functional-allele bundle's large contribution to per-capita income---turns out, on closer inspection, to be more nuanced than the variance decomposition initially suggests. The cell decomposes biologically into a clean agricultural-adaptation channel anchored by FADS1/2, AMY1, and LCT, and a malaria-resistance channel anchored by DARC and HBB. The latter pair carry high correlation with African-tropical ancestry and accordingly with several historical conditions that depress modern income through institutional rather than biological channels. A graded partialling exercise on the DARC coefficient---running through colonial-origin indicators, the Putterman-Weil-weighted Sub-Saharan African ancestry fraction, and the Bockstette-Putterman pre-colonial state-history index---reveals that DARC's negative loading on log per-capita income is not robust to the sample on which it is estimated. The state-history index is missing for eighteen predominantly Sub-Saharan African and Gulf countries, and once the sample is held fixed to the 136 countries for which it is observed, DARC is already positive and insignificant ($+0.62$, $p=0.67$) before any institutional control enters; adding state history moves it only marginally. Roughly $91\%$ of the apparent ``attenuation'' that an earlier specification attributed to state history is in fact the drop of those eighteen countries. We therefore do not read DARC as an institutional proxy: its negative coefficient is confined to the countries that lack the institutional measure, and the malaria-resistance subset of the bundle does not contribute a robust per-capita-income signal.
+
+Three contributions follow. Methodologically, the investigation places five pre-industrial channels on internally consistent measurement in a 196-country panel and applies a grouped-Shapley variance decomposition with Westfall-Young multi-testing correction across the resulting thirty substrate-by-outcome cells. Substantively, the layered structure documented here organises a literature that has been argued in pairwise comparisons into a single joint variance decomposition: it assigns family-wise-robust signal to specific channels on specific margins---with the functional-allele bundle the broadest, dominant on the modern outcomes, and ancestral crop yield and the Neolithic fraction robust on the deep-past density, convergence-growth, and transition-timing margins---and recovers the major existing causal-identification results of the literature as the cells in which the channel they identify carries robust unique-variance weight. The graded partialling on DARC shows that the bundle's malaria-resistance subset does not carry a robust per-capita-income signal once the estimation sample is held fixed---a cautionary result on reading individual loci out of a coalition Shapley player. Conceptually, the investigation replaces the Ashraf-Galor scalar predicted-heterozygosity measure with two functionally interpretable alternatives drawn from the modern ancient-DNA literature---the eight-locus functional-allele bundle and the global agricultural-Neolithic ancestry fraction---and identifies ancestral caloric-yield potential as a family-wise-robust predictor on the Malthusian-density and convergence-growth margins. The deep-roots literature has been organised for over a decade around scalar indices of abstract diversity; the present investigation reorganises it around interpretable selection signatures and post-Neolithic institutional differentiation, each with a name, a channel, and a date.
+
+The paper proceeds as follows. Section~\ref{sec:theory} sets up the climate-bundle and pathway-selection skeleton that motivates the joint exercise. Section~\ref{sec:data} introduces the panel, the five substrates, and the six outcomes. Sections~\ref{sec:shapley} and~\ref{sec:mediation} report the variance decomposition and the mediation analysis. Section~\ref{sec:robustness} reports a nine-leg robustness battery, with the growing-season climate decomposition and the colonial-origin partialling extension carrying the substantively most interesting results. Section~\ref{sec:discussion} discusses implications for the deep-determinants literature; Section~\ref{sec:conclusion} concludes.
+
+\section{Climate, pathway selection, and the demographic transition: a UGT skeleton}
+\label{sec:theory}
+
+Consider a country $i$ with a pre-industrial climate endowment $\mathbf{C}_i = (\bar T_i, \bar P_i, \sigma_{v,i}^T, \sigma_{v,i}^P)$ summarising the central tendency and inter-annual variability of temperature and precipitation over a multi-century pre-industrial window. Climate shapes agricultural-system selection: societies facing high volatility or strong seasonality face strong incentives to adopt storage-intensive crop systems with granaries and reserves, while societies in low-volatility benign climates can rely on shorter-horizon production and societies in arid or marginally cultivable climates default to pastoralism \citep{matranga2024}. The climate bundle therefore maps into a discrete agricultural pathway $\tau_i \in \{$intensive crop, pastoral, mixed late, early extensifier$\}$ via
+\begin{equation}
+  \tau_i = \tau^*(\mathbf{C}_i, \mathbf{X}_i; \theta) + \xi_i
+  \label{eq:thy-pathway}
+\end{equation}
+where $\mathbf{X}_i$ is a vector of geography controls (absolute latitude, log land area, ruggedness, log Neolithic distance, landlocked indicator) and $\xi_i$ captures historical contingency. The pathway $\tau_i$ in turn shapes pre-industrial demographic dynamics through a Malthusian regression in the spirit of \citet{ashraf2011dynamics}:
+\begin{equation}
+  \Delta \ln P_{i,t} \;=\; \alpha_i \;+\; \beta(\tau_i)\, d_{i,t-1} \;+\; \gamma(\tau_i)\, T_{i,t} \;+\; \delta(\tau_i)\, \mathbf{C}_i \;+\; \eta(\tau_i)\, h_{i,t} \;+\; \varepsilon_{i,t},
+  \label{eq:thy-malthus}
+\end{equation}
+with pathway-specific coefficients $\beta(\tau), \gamma(\tau), \delta(\tau)$, and a human-capital term $\eta(\tau)\, h_{i,t}$ that captures the rate at which the Malthusian feedback weakens with secular accumulation. The companion paper \citep{alonso_long_shadow} estimates equation~\eqref{eq:thy-malthus} directly on the 1421--1950 panel; we treat it as motivational here and ask what its long-run implications for both pre-industrial and modern outcomes look like once competing channels are conditioned.
+
+Outcomes $y_i^{(k)}$ span the Malthusian-to-post-Malthusian transition: log population density at 1500 (the Malthusian-era margin, where productivity translates into people rather than per-capita output), log population density at 2025 (the cumulative margin, reflecting productivity accumulated through industrialisation), and four post-industrial outcomes covering population growth 1950--2025, urbanisation change, log GDP per capita 2015, and demographic-transition timing. They inherit two types of climate dependence: an indirect channel through $\tau_i$ via the pathway-specific coefficients of equation~\eqref{eq:thy-malthus}, and a direct channel through any persistent mechanism that bypasses pathway. Three competing pre-industrial channels enter the investigation alongside the climate bundle. The first is the Ashraf-Galor ancestry-adjusted predicted heterozygosity measure $H_i$, the ancestral-genetic-diversity scalar that has organised the deep-roots literature for over a decade; we retain it as a benchmark and discuss its replacement by interpretable selection signatures in Section~\ref{sec:data-channels}. The second is the Galor-\"Ozak Caloric Suitability Index $A_i$, the gridded pre-1500 caloric-yield potential of Old-World crops aggregated to country level---a competing pre-industrial channel motivated by a time-preference-selection mechanism that may dominate the climate bundle on agricultural-system outcomes. The third is a pre-1500 pandemic-intensity index $\Pi_i$ in the spirit of \citet{voigtlander2013how}, summarising exposure to the Antonine, Cyprian, Justinianic, and Black-Death pandemics with their post-1500 recurrences. The empirical exercises decompose cross-country variance in $y_i^{(k)}$ across the five substrates (with climate and functional alleles as coalition players) and ask which survive multi-testing correction.
+
+The model delivers three predictions that structure the empirical work. \textbf{Prediction~1.} The Shapley R\textsuperscript{2} contribution of the climate bundle $\mathbf{C}_i$ is positive and largest on outcomes most closely tied to the Malthusian steady state---population density at 1500 above all---because the bundle's influence operates through agricultural-system selection that determines pre-industrial carrying capacity. \textbf{Prediction~2.} Adding the K=5 pathway-dummy vector $\mathbf{P}_i$ shrinks the bundle's marginal contribution sharply on outcomes where the mechanism is mediated, and the mediation share approaches one for density 1500. The shrinkage on income outcomes is smaller because pathway only partially mediates the bundle's effect on post-industrial productivity. \textbf{Prediction~3.} Within the climate bundle, inter-annual temperature volatility $\sigma_v^T$ is the dominant primitive for Malthusian-era density (since storage demand and intensification respond to volatility), while mean precipitation $\bar P$ is the dominant primitive for modern population-growth and urbanisation outcomes (since these reflect water availability for modern agricultural and urban systems).
+
+\section{Data}
+\label{sec:data}
+
+The paper rests on a country-level panel of five pre-industrial substrates, six outcomes spanning the demographic transition, and a standard battery of geography controls, covering 196 countries (162 with non-missing values on all five substrates).
+
+\subsection{Channels}
+\label{sec:data-channels}
+
+\textbf{Climate bundle} $\mathbf{C}_i = (\bar T_i, \bar P_i, \sigma_{v,i}^T, \sigma_{v,i}^P)$ is the four-element vector of country-level pre-industrial climate primitives over 1421--1750. Mean temperature $\bar T_i$ and mean annual precipitation $\bar P_i$ are absolute country-level averages computed from the monthly ModE-RA paleo-reanalysis \citep{franke2023modera} aggregated to country level by cosine-latitude-weighted area sums; the CRU TS 4.09 \citep{harris2020cruts} 1901--1950 country-month climatology is added back to ModE-RA anomalies to yield absolute T and P values. Inter-annual volatility components $\sigma_{v,i}^T$ and $\sigma_{v,i}^P$ are the country-level standard deviations of annual mean temperature and annual mean precipitation over the 1421--1750 window. The country-level monthly panel is constructed in the companion paper \citep{alonso_long_shadow} from ModE-RA anomalies anchored to the CRU~TS~4.09 1901--1950 climatology.
+
+The within-bundle correlation structure is moderate (Table~\ref{tab:climate-subcorr}): $\sigma_v^T$ correlates $-0.67$ with $\bar T$ (cold places are more volatile), $\bar P$ correlates $+0.66$ with $\sigma_v^P$ (wetter places have more precipitation variability), and all six pairwise correlations sit in $|r|\in[0.23, 0.67]$. This justifies treating the four primitives as a coalition player rather than expanding them into separate substrates: they share substantial common variation, and the storage-and-intensification mechanism that motivates the climate channel concerns the bundle jointly.
+
+\textbf{Functional-allele bundle.} An eight-element vector of country-level derived-allele frequencies at SNPs with established functional and economic-history channels: LCT/MCM6 rs4988235, ADH1B rs1229984, AMY1 copy-number, EDAR rs3827760, DARC rs2814778, SLC24A5 rs1426654, HBB rs334, and FADS1/2 rs174570. Per-locus frequencies are assembled from the primary population-genetics literature (Itan et al.\ 2010, Liebert et al.\ 2017, Howes et al.\ 2011, Piel et al.\ 2010, Norton et al.\ 2007, Sabeti et al.\ 2007, Mathieson et al.\ 2015, Peng et al.\ 2010, Perry et al.\ 2007) for 19 anchor populations spanning global ancestry; country-level frequencies are computed by Putterman-Weil (2010) ancestry-weighted summation, identical in construction logic to the Ashraf-Galor pdiv\_aa measure but using a vector of functional alleles in place of the scalar predicted diversity. Treated as a Shapley coalition player parallel to the climate bundle. The bundle replaces the Ashraf-Galor predicted-heterozygosity measure as a principal substrate, addressing the sustained critique of the AG framework that the scalar-diversity interpretation reified abstract genetic variation as a deep determinant of development.
+
+\textbf{Functional-allele biology and selection signatures.} The eight loci span three thematic groups in the modern ancient-DNA literature, summarised here to support the per-locus reading of Tables~\ref{tab:full-ols} and~\ref{tab:functional-subshapley} in Section~\ref{sec:shapley}.
+
+\emph{(i)~Post-Neolithic dietary adaptations.} Three loci track the post-Holocene shift from animal-rich pre-Neolithic diets to plant- and dairy-rich agricultural diets.
+
+\textbf{LCT/MCM6 rs4988235} is the regulatory variant upstream of the lactase gene that keeps lactase expressed into adulthood; the derived T allele enables adult milk consumption rather than only at weaning. It carries one of the strongest known positive-selection signatures in the human genome: ancient-DNA samples from pre-Bronze-Age Europe show it rare, and it sweeps to $\sim$70\% in Northern Europe within $\sim$4{,}000 years coincident with dairy-pastoral expansion \citep{mathieson2015,allentoft2015}. Frequencies are $\sim$90\% in Scandinavia and the British Isles, $\sim$50\% in Southern Europe, $<$10\% across East Asia and most of Sub-Saharan Africa except specialised dairy-pastoral populations (Maasai, Fulani). The economic channel is direct: cattle-as-portable-storage in the dairy-pastoral package, expanded protein supply, and viability of high-latitude or cold-climate pastoralism.
+
+\textbf{AMY1} salivary-amylase copy-number variation tracks historical dietary-starch intake. \citet{perry2007} documented copy-number elevation in long-agricultural populations and reduction in pastoral and Arctic populations (Maasai, Yakut). Frequencies are highest in cereal-agricultural East Asia and post-Neolithic Eurasia, lower among traditional pastoralists. Among the eight loci, AMY1 is the most direct biological marker of the agricultural-cereal transition: higher copy number = better starch digestion = higher caloric extraction from cereal-based subsistence.
+
+\textbf{FADS1/2 rs174570} variants affect efficient conversion of plant-derived short-chain $\omega$-3/6 fatty acids (ALA, LA) to long-chain forms (EPA, DHA, AA) required for brain and immune function. The derived efficient-converter allele is rare in Mesolithic European hunter-gatherers and at high frequency in Neolithic farmers---a classic post-agricultural selection signature \citep{ameur2012,mathieson2015}. High in long-agricultural populations (East and South Asia, post-Neolithic Europe, agricultural Sub-Saharan Africa); lower in populations with continued marine- or animal-rich diets (Greenland Inuit, Yakut). The economic channel is the nutritional viability of plant-rich agricultural diets without animal-derived essential fatty acids.
+
+\emph{(ii)~Regional dietary specialisation.} One locus reflects an East-Asia-specific dietary signature.
+
+\textbf{ADH1B rs1229984} (His47) accelerates alcohol-to-acetaldehyde conversion 40--100$\times$, producing the ``Asian flush'' reaction. The derived allele swept through East Asia during the Holocene; current frequencies are $\sim$70--90\% in Han Chinese, Japanese, and Korean populations, near zero elsewhere. Selection drivers remain debated \citep{peng2010}: one hypothesis links it to fermented-rice consumption and reduced alcoholism risk, another to acetaldehyde's antimicrobial properties under the disease-burden conditions of dense Holocene rice agriculture. The economic channel runs primarily through East Asian rice-agriculture ancestry rather than through a stand-alone economic mechanism; the bundle treatment captures it via collinearity with other East-Asian-specific signatures.
+
+\emph{(iii)~Infectious-disease resistance.} Two loci are under malaria selection.
+
+\textbf{DARC rs2814778} (Duffy-null) knocks out the chemokine receptor that \emph{Plasmodium vivax} requires to invade erythrocytes; Duffy-null individuals are fully protected from vivax malaria. The variant has been under strong positive selection in Sub-Saharan Africa for at least 33{,}000 years \citep{howes2011}, pre-dating the Holocene by far. Frequencies are $\sim$95--100\% in West and Central Africa, near zero elsewhere; the variant is therefore a sensitive marker of West African ancestry as well as vivax-malaria-zone evolutionary history. The economic channel is multi-stranded: protection from a major historical disease, but also strong correlation with African-tropical ancestry that tracks correlated historical conditions---pre-colonial state-formation history, tropical-disease burden beyond vivax (\emph{P.\ falciparum}, trypanosomiasis, schistosomiasis, hookworm), slave-trade exposure, and colonial-extractive institutions of the \citet{acemoglu2002reversal} reversal-of-fortune type. Section~\ref{sec:colonial-partial} runs a graded partialling test on the principal specification and finds that DARC's negative loading on log GDPpc is \emph{not robust to sample composition}: the Bockstette-Putterman state-history index is missing for eighteen predominantly Sub-Saharan African and Gulf countries, and restricting to the 136 countries for which it is observed already turns DARC positive and insignificant ($+0.62$, $p=0.67$) before any control enters. DARC's negative GDPpc loading is thus confined to the countries that lack the institutional measure and is best read as a fragile, ancestry-driven artifact rather than as a robust biological or institutional signal.
+
+\textbf{HBB rs334} (HbS / sickle-cell) protects heterozygotes (HbAS) from severe \emph{P.\ falciparum} infection while imposing fitness costs on homozygotes (HbSS)---the textbook example of balanced polymorphism under infectious-disease pressure \citep{piel2010}. The variant arose independently multiple times in falciparum-endemic regions over the last $\sim$10{,}000 years; frequencies are 5--25\% across Sub-Saharan Africa, the Mediterranean, the Arabian Peninsula, and parts of India. Paired with DARC, it constitutes the bundle's malaria-resistance signature; Section~\ref{sec:malaria-sensitivity} reports the bundle's contribution with DARC and HBB excluded to separate the agricultural-adaptation from the tropical-disease channel.
+
+\emph{(iv)~Environmental adaptation.} Two loci track latitude-by-UV and morphological adaptation.
+
+\textbf{SLC24A5 rs1426654} (Ala111Thr) is the largest single contributor to European-African skin-pigmentation difference ($\sim$25--38\% of the variance). The Thr111 derived allele lightens skin by reducing melanin synthesis in melanocytes and shows extremely strong positive selection in Europe---rare in pre-Bronze-Age Europeans and near-fixation ($\sim$99\%) by $\sim$5{,}000 BP coincident with Yamnaya-related ancestry expansion \citep{mathieson2015}. The favoured selection driver is the folate--vitamin-D balance hypothesis: lighter skin enables UV-driven vitamin D synthesis under low-UV high-latitude conditions. Frequencies are $\sim$99\% in Europe, $\sim$5\% in Sub-Saharan Africa, intermediate in South Asia and the Middle East. Because the variant correlates strongly with absolute latitude (already in the geography control battery), its \emph{independent} contribution beyond latitude is itself the substantive question.
+
+\textbf{EDAR rs3827760} (V370A) affects ectodysplasin-A receptor function---hair morphology (thicker straight hair), sweat-gland density, tooth shape. The variant underwent a massive selective sweep $\sim$30{,}000 years ago in East Asia \citep{sabeti2007}; frequencies are $\sim$95\% in Han Chinese, Japanese, and Native American populations, near zero in Europe and Africa. Selection drivers remain debated---thermoregulation, sexual selection, or pleiotropic effects. Among the eight loci, EDAR has the weakest direct link to economic outcomes; it is included for completeness and serves primarily as a marker of East Asian and Asian-derived ancestry.
+
+\textbf{Neolithic-ancestry fraction} $\nu_i$ is the country-level share of modern ancestry derived from populations that underwent an agricultural-Neolithic transition of any kind, versus pre-Neolithic forager ancestry. The post-Neolithic share aggregates Anatolian Neolithic farmer, Iranian Neolithic, Caucasus-Neolithic, and Yamnaya steppe-pastoralist ancestry in Eurasia \citep{lazaridis2014}; Bantu agriculturalist ancestry in Sub-Saharan Africa \citep{patin2017,lipson2020}; Mesoamerican maize-farmer and Andean potato-farmer ancestry in the Americas \citep{reich2012,posth2018}; Yangtze rice-farmer and Han-Neolithic ancestry in East Asia (Wang et al.\ 2019; Yang et al.\ 2020); and Austronesian ancestry in the Pacific \citep{skoglund2016,bergstrom2017}. Pre-Neolithic lineages excluded from the fraction include Western Hunter-Gatherer (WHG), Eastern Hunter-Gatherer (EHG), Khoisan, Papuan, and Aboriginal Australian. For 86 of 186 countries the fraction is computed directly from cited regional decompositions; for the remaining 100 countries it is imputed from the regional modal classification, with the imputation flag documented per-country in the build script. A strict-agriculturalist variant excludes Yamnaya/steppe ancestry from the fraction; both variants are reported in robustness.
+
+\textbf{Predicted heterozygosity} $H_i$ remains in the panel as a baseline comparison but is not a principal substrate in horserace v3. It is the ancestry-adjusted predicted heterozygosity of \citet{ashraf2013out}, drawn directly from their AER replication archive. We demote $H_i$ from principal substrate to the coefficient-evolution robustness exercise (Section~\ref{sec:h-pred-evolution}), where we document how its coefficient changes as the modern-genetics substrates are progressively added.
+
+\textbf{Ancestral crop yield} $A_i$ is the country-level mean of the pre-1500 Caloric Suitability Index of \citet{galor2016agricultural}, drawn from their publicly archived replication data. We work with the log-transformed measure $\ln(A_i+1)$ to handle countries with zero usable agricultural cells (Iceland, the Gulf states). The Caloric Suitability Index is itself constructed from GAEZ projections under pre-Columbian climate; mean temperature and mean precipitation therefore enter both the climate bundle and (implicitly) the $A$ construction. We pre-emptively flag this in the robustness battery (Section~\ref{sec:climate-A-partial}), where we report a climate-A partialling robustness column that regresses $A$ on $(\bar T, \bar P)$ and uses the residual as a ``climate-residualised'' ancestral yield. The eight FWER-surviving cells are unchanged under this robustness specification.
+
+\textbf{Pre-1500 pandemic intensity} $\Pi_i$ is a country-level exposure index built from hand-coded historical recurrences of the Antonine plague (165--189 CE, weight 1.0), Cyprian plague (249--262, weight 0.7), Justinianic plague initial outbreak (541--549, weight 1.0) and recurrences (550--770, weight 0.3), Black Death (1346--1353, weight 1.0), and late-medieval recurrences (1361--1500, weight 0.3). The affected-region lists are hand-coded from the historical-demography literature (\citealp{benedictow2004}, among others); each country accumulates weighted plague-active years summed across all events, then normalised to $[0,1]$ across countries. Pre-Columbian Americas are correctly zero. The construction is documented in Appendix~A.
+
+The cross-substrate correlations are modest. Treating $\sigma_v^T$ as the climate bundle's representative and AMY1 as the functional-allele bundle's representative for the 5$\times$5 display, Figure~\ref{fig:substrate-covariance} reports pairwise scatters with marginal histograms; the largest cross-substrate correlation is $r=0.41$ (climate volatility vs AMY1, both broadly reflecting agricultural-cereal regions), and all others sit below $|r|=0.35$ (Table~\ref{tab:substrate-correlations}). Within the climate bundle the correlations are higher (Table~\ref{tab:climate-subcorr}) but bounded, justifying the bundle treatment.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{../../analysis/figures/paper5_horserace/fig01_substrate_covariance_bw.pdf}
+  \caption{Pairwise covariance of the five substrates on 162 countries with non-missing values. The climate bundle is represented by $\sigma_v^T$ and the functional-allele bundle by AMY1 (the most central member of each bundle for display); within-bundle correlation matrices are in Tables~\ref{tab:climate-subcorr} and the appendix. Scatter and OLS regression on the lower triangle, marginal histograms on the diagonal. The largest cross-substrate correlation is $r=0.41$ (climate volatility vs AMY1); all others are below $|r|=0.35$.}
+  \label{fig:substrate-covariance}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \caption{Pairwise correlations of the five substrates ($\sigma_v^T$ as climate-bundle representative; AMY1 as functional-allele bundle representative).}
+  \label{tab:substrate-correlations}
+  \small
+  \input{../../analysis/figures/paper5_horserace/tab02_substrate_correlations.tex}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Within-climate-bundle pairwise correlations (1421--1750, 196 countries).}
+  \label{tab:climate-subcorr}
+  \small
+  \input{../../analysis/figures/paper5_horserace/tab02b_climate_subcorrelations.tex}
+\end{table}
+
+Figure~\ref{fig:substrate-maps} reports world maps for four characteristic channels: $\sigma_v^T$ (climate-bundle representative) is bright in continental Europe and East Asia; ancestry-adjusted predicted heterozygosity $H_i^{\text{pwadj}}$ (a baseline benchmark retained for §6.x robustness; not a principal substrate in v3) traces the out-of-Africa migration gradient; $A_i$ is bright in temperate Old-World agricultural cores; $\Pi_i$ concentrates in Mediterranean Europe and the Near East. The functional-allele bundle and Neolithic-ancestry fraction are not visualised as world maps individually but trace patterns broadly consistent with the agricultural-Neolithic origins of their underlying source-population frequencies.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{../../analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf}
+  \caption{World choropleth maps of four characteristic substrate channels (climate bundle represented by $\sigma_v^T$; $H_i$ retained as a baseline comparison): (a) climate volatility $\sigma_v^T$ 1421--1750; (b) ancestry-adjusted predicted heterozygosity $H_i$; (c) log ancestral crop yield $\ln(A_i+1)$; (d) normalised pre-1500 pandemic intensity $\Pi_i$. Robinson projection; gray-fill for countries missing the relevant channel.}
+  \label{fig:substrate-maps}
+\end{figure}
+
+\subsection{Outcomes}
+\label{sec:data-outcomes}
+
+Six outcomes capture distinct moments of the Malthusian-to-post-Malthusian transition. The first two are population-density measures spanning the period before and after industrialisation. Log population density in 1500, denoted $\ln D_i^{1500}$, is the country-level population density in persons per square kilometre drawn from the HYDE~3.5 gridded historical-population reconstruction \citep{goldewijk2017}; under Malthusian logic, pre-industrial productivity translates into population density rather than into per-capita income, so this outcome is the canonical Ashraf-Galor (2013) test of how pre-industrial channels predicted carrying capacity. Log population density in 2025, $\ln D_i^{2025}$, is the analogous country-level density drawn from the same HYDE series and reflects the cumulative productivity accumulated through industrialisation. We use raw geographic density at both dates rather than the post-1500 ancestry-adjusted reweighting employed by Ashraf-Galor; the asymmetry with the PW-ancestry-weighted substrates is flagged here and addressed in Section~\ref{sec:h-pred-evolution} via the predicted-heterozygosity coefficient-evolution exercise.
+
+The remaining four outcomes are post-1950 demographic measures. Log population growth from 1950 to 2025 is the convergence-window growth-rate measure $\Delta\ln P_i = \ln(P_i^{2025}/P_i^{1950})$, constructed from UN World Population Prospects 2024 via the Our World in Data and Gapminder mirrors; it captures the post-industrial demographic expansion path. Urbanisation-share change from 1950 to 2025 is $\Delta \text{Urban}_i = u_i^{2025} - u_i^{1950}$ from UN World Urbanization Prospects 2025, the analogous structural-change measure for the share of population living in urban areas. Log GDP per capita in 2015 is $\ln \text{GDPpc}_i^{2015}$ from the Maddison Project Database 2023 \citep{maddison2023} in 2011 international dollars, the canonical comparative-development outcome. Finally, demographic-transition timing $\tau_i^{\text{DT}}$ is defined as the first year in which the crude birth rate fell below 25 per 1{,}000 from above, taken from Gapminder 1800--2015 series spliced with UN-WPP-derived OWID 1950--2023 estimates; countries that have not yet completed the transition take missing values.
+
+A pre-industrial income outcome would complete the symmetry of the outcome grid---density at 1500 and 2025 on one axis, income at 1500 and 2015 on the other---and would provide a direct test of the unified-growth-theory prediction that pre-industrial productivity flows into people rather than per-capita income. We do not include one. The Maddison Project at 1500 has GDPpc for 11 countries (Belgium, China, Egypt, France, Germany, Netherlands, Poland, Spain, Sweden, Turkey, the United Kingdom), too few to support cross-country inference. The 1820 benchmark---Maddison's first year of broader cross-sectional coverage and the standard pre/early-industrial income proxy in the deep-roots literature---reaches $N=54$, but this sample compresses substrate variance materially relative to the full panel (ancestral crop yield to 37\% of full-sample standard deviation, FADS1/2 to 65\%, AMY1 to 58\%, HBB and DARC to 44--52\%, all reflecting the near-absence of sub-Saharan Africa from Maddison's pre-industrial coverage). Re-running the joint $F$ tests on the same 54-country sub-panel, most of the full panel's FWER-surviving cells collapse to $F<1.5$, so a non-significant 1820 income test cannot be cleanly read as a Malthusian falsification: it is equally consistent with the sample being too power-limited at this size to surface any signal. We therefore restrict the principal matrix to six outcomes and leave the pre-industrial income margin to a future paper that can either expand the income source (e.g., Allen real wages, urbanisation rates, or skeletal-stature proxies as Malthusian-era welfare measures) or accept the AG-style scalar-diversity scope condition that pre-industrial income variation be left as an unobserved gap.
+
+\subsection{Pathway typology and master panel}
+\label{sec:data-pathways}
+
+The K=5 agricultural-pathway typology of LS is constructed by $k$-means clustering on six pre-industrial climate primitives 1421--1750 (productive months, intra-annual temperature range, intra-annual precipitation range, mean temperature, mean precipitation, and inter-annual temperature volatility), so the clustering is orthogonal to HYDE land-use outcomes by construction.\footnote{The clustering basis nonetheless shares the inter-annual temperature volatility $\sigma_v^T$ and the mean-climate primitives with the climate-bundle substrate, so the climate bundle's pathway-mediation share is in part a decomposition of one climate object into a clustered version of itself; the orthogonality is to the HYDE land-use \emph{outcomes}, not to the climate substrate, and we read the mediation share descriptively rather than as a sequential-ignorability causal estimate.} Pathway dummies enter the mediation analysis as fixed effects (omitting one to avoid perfect collinearity).
+
+The master horserace panel joins the five substrates, six outcomes, K-1 pathway dummies, and a standard geography control battery (absolute latitude, log land area, landlocked indicator, ruggedness proxy, log Neolithic distance, log migratory distance from Addis Ababa) on the 196 ISO3 countries. Table~\ref{tab:descriptives} reports descriptives.
+
+\begin{table}[H]
+  \centering
+  \caption{Descriptive statistics for the five pre-industrial substrates (climate bundle expanded into its four primitives), six outcomes, and geography controls. The 162-country sub-panel with non-missing values across all five substrates is the analysis sample for the principal exercises; per-outcome listwise samples vary (e.g.\ 194 on log population density, 161 on log GDP per capita, 144 on demographic-transition timing).}
+  \label{tab:descriptives}
+  \small
+  \input{../../analysis/figures/paper5_horserace/tab01_descriptives.tex}
+\end{table}
+
+\section{Variance decomposition: Shapley-Owen contributions}
+\label{sec:shapley}
+
+For each outcome $y_i^{(k)}$ we estimate the OLS specification
+\begin{equation}
+  y_i^{(k)} \;=\; \alpha^{(k)} \;+\; \boldsymbol{\beta}^{(k)\prime} \mathbf{S}_i \;+\; \boldsymbol{\gamma}^{(k)\prime} \mathbf{P}_i \;+\; \boldsymbol{\delta}^{(k)\prime} \mathbf{X}_i \;+\; \varepsilon_i^{(k)},
+  \label{eq:shapley-spec}
+\end{equation}
+where $\mathbf{S}_i = (\mathbf{C}_i, \mathbf{F}_i, \nu_i, \ln A_i, \Pi_i)$ is the substrate vector with the climate bundle $\mathbf{C}_i$ entering as four columns and the functional-allele bundle $\mathbf{F}_i$ entering as eight columns. $\mathbf{P}_i$ is the K-1 pathway-dummy vector, and $\mathbf{X}_i$ is the geography control battery. Standard errors are heteroskedasticity-robust HC3. The principal Shapley decomposition treats the five substrates---climate bundle, functional-allele bundle, Neolithic-ancestry fraction, ancestral crop yield, pandemic intensity---as five coalition players. The climate bundle is added or removed as a unit (all four climate columns together); the functional-allele bundle is added or removed as a unit (all eight SNP columns together). The grouped Shapley value of substrate $s$ is the average over all $5!=120$ orderings of the marginal R\textsuperscript{2} contribution of adding $s$'s column set at that point in the ordering, conditional on $\mathbf{X}_i$:
+\begin{equation}
+  \phi_s^{(k)} \;=\; \sum_{S \subseteq \{1,\dots,5\} \setminus \{s\}} \frac{|S|!\,(5-|S|-1)!}{5!} \big[R^2(S \cup \{s\}) - R^2(S)\big],
+  \label{eq:shapley-formula}
+\end{equation}
+where $R^2(S)$ is the OLS R\textsuperscript{2} of regressing $y$ on the columns of substrates in $S$ plus controls. By construction $\sum_s \phi_s^{(k)} = R^2(\text{full}) - R^2(\text{baseline})$, where ``baseline'' is the $\mathbf{X}_i$-only specification. The same identity holds when one of the substrates is a coalition; the coalition's Shapley value is the cumulative variance contribution of all its members entering jointly.
+
+Figure~\ref{fig:shapley-heatmap} and Table~\ref{tab:shapley} report the principal decomposition. Three observations stand out.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{../../analysis/figures/paper5_horserace/fig03_shapley_heatmap_bw.pdf}
+  \caption{Shapley-Owen R\textsuperscript{2} decomposition: per-substrate unique-variance contribution to each of six outcomes (two Malthusian-era / cumulative population-density outcomes, four post-1950 modern outcomes), conditional on the geography control battery. The climate bundle is a coalition player containing four primitives ($\bar T$, $\bar P$, $\sigma_v^T$, $\sigma_v^P$); the functional-allele bundle is a coalition player containing eight SNPs (LCT, ADH1B, AMY1, EDAR, DARC, SLC24A5, HBB, FADS1/2); the other three substrates are scalar. Bottom of each column reports the total marginal R\textsuperscript{2} contributed by the five substrates jointly.}
+  \label{fig:shapley-heatmap}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \caption{Shapley R\textsuperscript{2} decomposition across five pre-industrial substrates and six outcomes. Climate bundle treated as a coalition player. Row totals are the per-substrate contribution averaged across outcomes; column totals are the joint marginal R\textsuperscript{2} per outcome.}
+  \label{tab:shapley}
+  \small
+  \input{../../analysis/figures/paper5_horserace/tab04_shapley_table.tex}
+\end{table}
+
+We report each substrate-outcome cell on three complementary footings: its \emph{Shapley R\textsuperscript{2}} (share of explained cross-country variance); whether its Shapley lead over the runner-up substrate is \emph{statistically distinguishable} (95\% country-bootstrap difference-CI excluding zero); and whether it \emph{survives the Westfall-Young FWER correction} (Section~\ref{sec:wy-correction}, df-fair minP). The three do not always coincide---a substrate can carry the largest variance share without that lead being separable from the runner-up, or be FWER-robust without carrying the largest share---and we flag which footing underwrites each claim. Every substrate carries an individually non-zero Shapley contribution (all bootstrap CIs exclude zero), but only two of the six per-outcome dominance \emph{orderings} are statistically distinguishable from their runners-up.
+
+The functional-allele bundle is the broadest and most robust substrate in the matrix. It carries the largest Shapley share on log GDP per capita 2015 (0.175) and on demographic-transition timing (0.122), and on both its lead over the runner-up is statistically distinguishable (bootstrap difference-CIs $[+0.08,+0.25]$ and $[+0.04,+0.16]$)---the only two of the six outcomes where the top-ranked substrate separates from the second. It is also the most broadly FWER-robust substrate, surviving the df-fair Westfall-Young correction on four outcomes: GDP per capita ($p_{\text{WY}}<0.001$), demographic-transition timing ($p_{\text{WY}}<0.001$), population growth ($p_{\text{WY}}<0.001$), and cumulative density 2025 ($p_{\text{WY}}=0.024$). Its income contribution is carried by the agricultural-adaptation loci---FADS1/2 (post-agricultural fatty-acid metabolism), AMY1 (starch digestion), LCT (lactase persistence)---with the malaria-resistance pair (DARC, HBB) contributing no robust independent income signal (Section~\ref{sec:colonial-partial}); dropping the pair retains roughly 70\% of the bundle's GDP-per-capita contribution. The bundle is roughly 4--5$\times$ what predicted heterozygosity contributed on income in horserace v2, and implements the population-genetics view that long-run human variation is best analysed through specific selection signatures rather than abstract diversity indices.
+
+Ancestral crop yield is FWER-robust on two density-trajectory margins---log population growth 1950--2025 ($F=26.97$, $p_{\text{WY}}<0.001$, the strongest scalar survivor) and log population density 1500 ($p_{\text{WY}}=0.004$)---with its cumulative-density 2025 cell a near-miss ($p_{\text{WY}}=0.054$). On raw Shapley share it is less commanding: its growth contribution of 0.096 is a statistical near-tie with the functional bundle (0.096; the bootstrap difference-CI straddles zero), and on density 1500 its share is only 0.012 (behind the climate bundle, the functional bundle, and pandemic intensity), so its prominence rests on FWER-robustness rather than on a distinguishable variance lead. The pattern is consistent with Malthusian logic: pre-industrial caloric potential translates into pre-industrial carrying capacity (high-$A$ countries reached high density by 1500), which then dampens the post-1950 growth path. The Galor-\"Ozak (2016) literature focused on the time-preference channel; the cross-country demographic-density extension here is the natural quantitative counterpart.
+
+The agricultural-Neolithic ancestry fraction is FWER-robust on cumulative population density 2025 ($p_{\text{WY}}=0.001$) and demographic-transition timing ($p_{\text{WY}}=0.015$). It does not carry the largest Shapley share on either---the functional bundle's 0.064 and 0.122 exceed its 0.039 and 0.032---and on neither outcome is the leading substrate's Shapley lead distinguishable from the Neolithic fraction's contribution (the density-2025 difference-CI straddles zero), so on these two margins the functional bundle and the Neolithic fraction are best read as co-robust contributors rather than one dominating the other. Populations descended from agricultural-Neolithic source populations have larger modern population density and earlier demographic transitions, consistent with the post-Holocene cultural-technological inheritance carried by ancestry composition.
+
+The climate bundle carries the largest variance share on Malthusian-era density and contributes meaningfully across all outcomes, but its lead is not robust: its Shapley R\textsuperscript{2} is 0.087 on log population density 1500 (the largest of the five substrates, though the bootstrap difference-CI against the functional bundle straddles zero, so the lead is not statistically distinguishable), 0.077 on log population growth, 0.076 on urbanisation change (the largest), and 0.027 on demographic-transition timing. The climate bundle survives the FWER correction on no outcome (Section~\ref{sec:wy-correction}); its contribution is one of variance share and pathway mediation, not of multiplicity-robust unique significance. The within-bundle decomposition (Table~\ref{tab:climate-subshapley}) is informative: on density 1500 the contribution is dominated by $\sigma_v^T$, consistent with the Matranga (2024) storage-and-intensification mechanism that selected pre-industrial agricultural intensification. Pre-1500 pandemic intensity has smaller Shapley R\textsuperscript{2} contributions (0.002--0.015 across outcomes); it does not dominate any outcome in the full-sample analysis but contributes 0.015 to log population density 1500, consistent with the Voigtl\"ander-Voth literature's emphasis on pre-industrial demographic shocks.
+
+\begin{table}[H]
+  \centering
+  \caption{Within-bundle Shapley R\textsuperscript{2} decomposition for the four climate primitives, conditional on the three non-climate scalar substrates (predicted heterozygosity, ancestral crop yield, pandemic intensity) plus geography controls. The column sum is the marginal R\textsuperscript{2} of the climate bundle conditional on everything else and is therefore smaller than the climate bundle's grouped Shapley value in Table~\ref{tab:shapley}.}
+  \label{tab:climate-subshapley}
+  \small
+  \input{../../analysis/figures/paper5_horserace/tab06_climate_subshapley.tex}
+\end{table}
+
+Table~\ref{tab:full-ols} reports the full-specification OLS coefficients (equation~\ref{eq:shapley-spec}) for each outcome with HC3 standard errors. The climate-bundle and functional-allele bundle entries unpack into their constituent columns. The signs are intuitive: ancestral crop yield has negative coefficients on convergence-window growth outcomes (high-yield places were already dense by 1950) and positive coefficients on density 1500 and 2025; mean precipitation has positive coefficients on most modern outcomes; LCT and FADS1/2 have positive coefficients on log GDP per capita.
+
+\begin{table}[H]
+  \centering
+  \caption{Full-specification OLS estimates of equation~\eqref{eq:shapley-spec} for the six outcomes. Climate bundle expands into its four primitives ($\bar T$, $\bar P$, $\sigma_v^T$, $\sigma_v^P$); functional-allele bundle expands into eight SNP columns. HC3 standard errors in parentheses. Pathway dummies included as controls (coefficients suppressed).}
+  \label{tab:full-ols}
+  \scriptsize
+  \input{../../analysis/figures/paper5_horserace/tab03_full_ols.tex}
+\end{table}
+
+\section{Pathway mediation}
+\label{sec:mediation}
+
+The Shapley decomposition asks how much unique cross-country variance each substrate absorbs; it does not ask whether the substrate operates through pathway selection or as a direct channel. We answer this with a bootstrap mediation-share estimator. Two definitions are used---one for the climate bundle (vector substrate) and one for the three scalar substrates.
+
+For scalar substrate $s$ (the agricultural-Neolithic ancestry fraction, ancestral crop yield, pandemic intensity) the mediation share is the standard $\beta$-attenuation form:
+\begin{equation}
+  \text{med-share}_s^{(k)} \;=\; 1 \;-\; \frac{\hat{\beta}_s^{(k)} \mid \mathbf{X}_i, \mathbf{P}_i}{\hat{\beta}_s^{(k)} \mid \mathbf{X}_i}.
+  \label{eq:mediation-beta}
+\end{equation}
+
+For the climate bundle, whose coefficient is a vector rather than a scalar, the natural extension is the partial-R\textsuperscript{2} form:
+\begin{equation}
+  \text{med-share}_{\mathbf{C}}^{(k)} \;=\; 1 \;-\; \frac{R^2(\mathbf{X}_i + \mathbf{C}_i + \mathbf{P}_i) - R^2(\mathbf{X}_i + \mathbf{P}_i)}{R^2(\mathbf{X}_i + \mathbf{C}_i) - R^2(\mathbf{X}_i)}.
+  \label{eq:mediation-r2}
+\end{equation}
+The numerator is the climate bundle's partial R\textsuperscript{2} when pathway dummies are already in the model; the denominator is the partial R\textsuperscript{2} without pathway. The ratio collapses to the $\beta$-attenuation share for a single-column substrate under linearity, so the two specifications are conceptually aligned. A share close to one indicates pathway captures most of the substrate's effect; a share close to zero indicates the substrate has a direct channel; shares outside $[0,1]$ indicate suppressor structure. Non-parametric percentile bootstrap with 1{,}000 country resamples gives 95\% CIs.
+
+\subsection{Baseline mediation results}
+
+Figure~\ref{fig:mediation-baseline} reports the principal five-substrate-by-six-outcome mediation matrix. The climate bundle's mediation shares are well-behaved on the two outcomes it dominates, 0.75 on log population density 1500 and 0.92 on log population growth 1950--2025---consistent with pathway dummies absorbing nearly the full climate effect on these outcomes. Ancestral crop yield's mediation share on the same outcomes is 0.24 (density 1500) and 0.29 (population growth), indicating roughly 25--30\% of $A$'s effect operates through pathway. Mediation is far from clean across the full matrix, however: 11 of the 30 cells have shares outside $[0,1]$ (a suppressor structure in which adding the pathway mediator moves the substrate coefficient away from zero), concentrated in the pandemic-intensity (5 cells) and Neolithic-ancestry-fraction (3 cells) rows, with two functional-allele cells and one climate-bundle cell (on log GDP per capita) also outside the interval; only 6 of the 30 mediation-share confidence intervals exclude zero. We read the pathway-mediation channel as established for the climate bundle and ancestral crop yield specifically, not as a clean decomposition across all substrates.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{../../analysis/figures/paper5_horserace/fig04_mediation_bw.pdf}
+  \caption{Pathway-mediation shares for each substrate-outcome pair, with 95\% percentile-bootstrap CIs. Vertical reference lines at 0 (no mediation) and 1 (full mediation). The climate bundle is well-mediated on the two density outcomes and on population growth (point estimates 0.75, 0.17, 0.92 respectively). Ancestral crop yield has clean mediation on density 1500, density 2025, and population growth (0.24, 0.10, 0.29). The remaining suppressor structure (11 of the 30 cells lie outside $[0,1]$) is concentrated in the pandemic-intensity and Neolithic-ancestry rows, with one climate-bundle and two functional-allele cells; continent fixed effects reshape but do not net-reduce it (Section~\ref{sec:mediation-continentfe}).}
+  \label{fig:mediation-baseline}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \caption{Mediation-share point estimates with 95\% percentile-bootstrap CIs. Climate bundle uses partial-R\textsuperscript{2} mediation share; H, A, $\Pi$ use $\beta$-attenuation. Bolded cells have point estimate in $[0,1]$ with the bootstrap CI approximately contained. See Section~\ref{sec:mediation-continentfe} for the continent-fixed-effects variant.}
+  \label{tab:mediation}
+  \scriptsize
+  \input{../../analysis/figures/paper5_horserace/tab05_mediation_table.tex}
+\end{table}
+
+A clean mediation interpretation requires the pathway dummies and the substrate to be measuring distinct sources of cross-country variance, with the pathway being the proximate carrier. The well-behaved climate-bundle mediation share on density 1500 (0.75) and population growth (0.92) is the cleanest illustration: the climate channel operates through pathway selection. The remaining suppressor structure---11 of the 30 cells fall outside $[0,1]$---is concentrated in the pandemic-intensity (5 cells) and Neolithic-ancestry (3 cells) rows, with one climate-bundle cell (GDP per capita) and two functional-allele cells; we examine its sensitivity to continental heterogeneity in Section~\ref{sec:mediation-continentfe}.
+
+\subsection{Continent fixed effects reshape but do not eliminate the suppressor structure}
+\label{sec:mediation-continentfe}
+
+Adding six continent fixed effects (Africa, Asia, Europe, North America, South America, Oceania) to the mediation specification \emph{reshapes} the suppressor cells but does not net-reduce them: the number of cells outside $[0,1]$ is unchanged at 11 of 30. Figure~\ref{fig:robustness-battery} panel~(b) reports the continent-FE matrix. Some cells move toward the interval---the climate-bundle GDP-per-capita cell from $-0.92$ into range, both functional-allele cells (density 2025, GDP per capita) into range, and pandemic-by-urbanisation from $-2.15$ to $-1.35$---but others move further out, most starkly pandemic-by-population-growth from $+5.58$ to $-9.33$ and the entire demographic-transition-timing column, so continent fixed effects relocate the suppressor structure rather than resolving it. The climate-bundle and ancestral-yield cells on which we rest the mediation reading are themselves not stabilised by continent FE---the climate-bundle share on density 1500 falls from 0.75 to 0.40 and ancestral-yield on population growth from 0.29 to 0.12---so we read those mediation shares from the pooled baseline.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/figA_robustness_battery_bw.pdf}
+  \caption{Robustness battery: (a)~baseline mediation; (b)~continent fixed effects; (c)~leave-one-out median across 196 single-country drops; (d)~Westfall-Young FWER-adjusted F-statistic with stars; (e)~climate-window placebos (pre-1500, baseline, modern) for the climate-bundle Shapley R\textsuperscript{2}; (f)~early-transition outcome (dt\_timing < 1950) Shapley R\textsuperscript{2}. Each heatmap panel reports the five-substrate-by-six-outcome value matrix with diverging RdBu colormap.}
+  \label{fig:robustness-battery}
+\end{figure}
+
+The honest reading is therefore that the pandemic-intensity and Neolithic-ancestry suppressor cells are not interpretable as pathway-mediation shares: a share outside $[0,1]$ signals that the pathway dummies and the substrate are not cleanly nested, and neither the pooled nor the continent-FE specification resolves this. The pathway-mediation interpretation is established specifically for the climate bundle and for ancestral crop yield on their well-behaved cells (density 1500, density 2025, population growth), where the point estimates lie inside $[0,1]$; we do not claim pathway mediation for the cells that remain suppressor-structured under both specifications. The K=5 pathway typology was constructed to track agricultural-system selection rather than continental membership, and continent fixed effects do not substitute for the missing structure in those cells.
+
+\subsection{Multi-testing correction (Westfall-Young FWER)}
+\label{sec:wy-correction}
+
+With 30 substrate-by-outcome cells (five substrates $\times$ six outcomes), family-wise error-rate (FWER) correction is essential. The natural per-cell statistic is the joint $F$ for the null that the substrate columns have zero coefficient in the mediation regression (for a scalar substrate this is $t^2$), but the cells carry \emph{heterogeneous} numerator degrees of freedom---one for each scalar substrate, four for the climate-bundle coalition, eight for the functional-allele coalition---so raw $F$-values are not comparable across cells, and a Westfall-Young correction that takes the per-permutation \emph{maximum of raw} $F$ systematically under-tests the high-df coalitions. We therefore convert each cell's $F$ to a $p$-value against its own $F(\mathrm{df}_{\text{num}},\mathrm{df}_{\text{den}})$ reference and run the single-step Westfall-Young correction on the \emph{minimum} $p$ across the 30 cells under the complete null (1{,}000 permutations, df-fair minP).
+
+Eight cells survive at $p_{\text{WY}}<0.05$. The functional-allele bundle carries four---log GDP per capita 2015 ($F=8.46$, $p_{\text{WY}}<0.001$), demographic-transition timing ($F=7.03$, $p_{\text{WY}}<0.001$), log population growth 1950--2025 ($F=5.77$, $p_{\text{WY}}<0.001$), and log population density 2025 ($F=3.59$, $p_{\text{WY}}=0.024$); ancestral crop yield carries two (log population growth, $F=26.97$, $p_{\text{WY}}<0.001$; log population density 1500, $F=15.55$, $p_{\text{WY}}=0.004$); and the agricultural-Neolithic ancestry fraction carries two (log population density 2025, $F=17.86$, $p_{\text{WY}}=0.001$; demographic-transition timing, $F=13.21$, $p_{\text{WY}}=0.015$). Ancestral yield on density 2025 ($F=10.40$) is the lone near-miss ($p_{\text{WY}}=0.054$). The df-fair correction is what surfaces the functional bundle: under the naive maximum-of-raw-$F$ rule the eight-df coalition never clears the threshold---its GDP-per-capita $F=8.46$ looks small beside a one-df scalar's $F=27$---yet on its own reference that cell's $p$ is $2.7\times10^{-9}$, more extreme than any scalar survivor, so the functional bundle is in fact the most broadly FWER-robust substrate in the matrix, not a non-survivor. (We report both corrections in the replication output; the maximum-of-raw-$F$ alternative recovers only the five scalar-substrate cells and is the df-biased special case.)
+
+The climate bundle survives FWER on no outcome (largest adjusted $p=0.89$, on urbanisation change, $F=2.14$). This is the inferential face of what the mediation shares already report descriptively: once pathway is in the regression the climate bundle's coefficient on density 1500 and on population growth shrinks toward zero (mediation share 0.75 and 0.92), so its post-mediation residual significance is small. The climate channel is identified through its Shapley R\textsuperscript{2} contribution and its pathway-mediation share, not through a direct post-pathway coefficient.
+
+\section{Robustness}
+\label{sec:robustness}
+
+The robustness battery has nine legs. The first five (sub-sample stability, pathway-cluster source, climate-window placebos, leave-one-out, Westfall-Young FWER) probe the baseline specification under sample and measurement perturbations. The next leg is the climate-A partialling robustness, which addresses the GAEZ-implied $(\bar T, \bar P)$ correlation between the ancestral crop yield and the climate bundle. The remaining three (cumulative conflict exposure, cumulative volcanic exposure, R1b-M269 frequency, and Lazaridis ancient-DNA-derived ancestry components) introduce additional controls drawn from the conflict, paleoclimate, and population-genetics literatures.
+
+\subsection{Sub-sample stability}
+
+We re-run the mediation specification on five sequential sub-samples, dropping in turn (i) colonial-extraction-history countries \citep{acemoglu2001}, (ii) small-island states with 1950 population below 500{,}000, (iii) post-Columbian Americas countries (26 ISO3), and (iv) Ashraf-Galor heavily-imputed countries. Figure~\ref{fig:subsample-stability} reports the resulting stability ribbons across the 30-cell matrix.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/fig06_subsample_stability_bw.pdf}
+  \caption{Sub-sample stability ribbons. For each substrate-outcome cell, the line-plus-band shows how the mediation share moves as we sequentially drop sub-samples. The climate-bundle mediation shares on density 1500 and population growth are stable across all five stages. Ancestral-yield mediation shares are also stable. Dropping AJR-colonial countries (stage 2) gives the largest single improvement in the pandemic and Neolithic-ancestry suppressor cells.}
+  \label{fig:subsample-stability}
+\end{figure}
+
+The fraction of cells with mediation share in $[0,1]$ rises modestly from 63\% at baseline to 70\% under the AJR-colonial drop and stays in the neighbourhood of 63--67\% across subsequent drops. The principal cells---climate bundle on density 1500 and on population growth, and ancestral crop yield on density 1500, density 2025, and population growth---are stable across all five sub-sample stages.
+
+\subsection{Pathway-cluster source}
+\label{sec:pathway-source}
+
+The K=5 pathway typology is constructed by clustering on climate primitives, by design orthogonal to HYDE land-use outcomes. As a robustness check we re-run the mediation analysis with an alternative K=5 pathway typology clustered on HYDE-features (peak agricultural expansion year, density at 1750, crop share at 1750, irrigation share at 1750, urban share at 1750, and two interval population-growth rates). Figure~\ref{fig:pathway-source-robustness} reports the side-by-side comparison across the 30-cell matrix.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth]{../../analysis/figures/paper5_horserace/fig05_pathway_source_robustness_bw.pdf}
+  \caption{Pathway-cluster-source robustness: mediation matrices under climate-only-clustered pathways (left, the baseline) and HYDE-features-clustered pathways (right). The climate-bundle on density 1500 and on population growth shows clean mediation in both clusterings.}
+  \label{fig:pathway-source-robustness}
+\end{figure}
+
+The HYDE-features clustering produces a marginally cleaner overall matrix (29\% of cells outside $[0,1]$ vs 33\% in the climate-only baseline) and broadly preserves the climate-bundle and ancestral-yield mediation patterns. The choice of clustering does not affect the inferential conclusions.
+
+\subsection{Climate-window placebos}
+\label{sec:window-robustness}
+
+The LS companion paper relies on the pre-industrial 1421--1750 window for identification, treating modern $\sigma_v^T$ as a placebo. With the climate bundle now spanning four primitives ($\bar T$, $\bar P$, $\sigma_v^T$, $\sigma_v^P$) we re-compute the bundle over two alternative measurement windows---pre-1500 (1421--1500, 80 years) and modern (1950--2008, 59 years)---and redo the Shapley decomposition. Panel~(e) of Figure~\ref{fig:robustness-battery} shows the bundle's Shapley R\textsuperscript{2} under the two placebos against the baseline 1421--1750 window.
+
+The pre-1500 placebo bundle generates a noticeably smaller climate Shapley R\textsuperscript{2} on log population density 1500 (0.040 vs 0.088 baseline), consistent with the short 80-year window having less signal-to-noise. The modern-window placebo generates a strikingly larger climate Shapley R\textsuperscript{2} on log population growth (0.136 vs 0.077 baseline) and a comparable contribution on density 1500 (0.028 vs 0.088). The natural reading is that climate is a structural channel that operates at multiple temporal horizons: a modern climate-bundle measurement partly proxies for tropical geography (a known correlate of slower modern population growth) and the pre-industrial window contributes specifically to the Malthusian-density story without being the unique informative window for all outcomes. The eight FWER-surviving cells in the Shapley/mediation matrix are unchanged across the two placebos.
+
+The augmented LS \S5 demographic-outcomes specification adds ancestry-adjusted predicted heterozygosity and ancestral crop yield to the original deep-determinant battery. The $\sigma_v^T$ 1421--1750 coefficient attenuates from $-1.31$ ($p=0.002$) to $-1.00$ ($p=0.032$), with R\textsuperscript{2} improving from 0.379 to 0.562. The $\sigma_v^T$ channel survives the canonical Ashraf-Galor and Galor-\"Ozak predictors added to the battery---attenuating but remaining statistically significant---which we read as supportive of the LS specification's identification.
+
+\subsection{Growing-season decomposition of the climate bundle}
+\label{sec:gs-decomposition}
+
+The LS companion paper \citep{alonso_long_shadow} \S5 establishes that the cross-sectional predictive content of pre-industrial $\sigma_v^T$ is \textit{climate-deep} rather than growing-season-specific. Decomposing annual $\sigma_v^T$ into a growing-season component ($\sigma_v^{T,\mathrm{GS}}$, crop-area-weighted months) and a non-growing-season component ($\sigma_v^{T,\overline{\mathrm{GS}}}$), LS finds that $\sigma_v^{T,\overline{\mathrm{GS}}}$ dominates by factors of 1.8$\times$--17$\times$ across all nine sensitivity cells on log population growth; $\sigma_v^{P,\mathrm{GS}}$ is null; and a modern-window placebo of $\sigma_v^{T,\mathrm{GS}}$ flips sign ($\beta = +1.09$, $p < 10^{-6}$), confirming that the growing-season partition is epoch-unstable. We replicate this test on the horserace panel across all six outcomes.
+
+\textbf{Setup.} Countries with year-round growing seasons (crop-area-weighted $n_{\mathrm{GS}} = 12$, primarily tropical and island states) have no non-growing-season months, so $\sigma_v^{T,\overline{\mathrm{GS}}}$ is undefined for them. We therefore work with the 116-country subsample for which the partition is well-defined (excluding 55 always-summer economies). We extend the four-element climate bundle to five elements: ($\bar T$, $\bar P$, $\sigma_v^{T,\mathrm{GS}}$, $\sigma_v^{T,\overline{\mathrm{GS}}}$, $\sigma_v^{P,\mathrm{GS}}$), treated as a single coalition player in the principal Shapley exercise and decomposed into primitives in the within-bundle sub-decomposition.
+
+\textbf{Bundle-level robustness.} On the 116-country GS sample, the five-element GS bundle's Shapley R\textsuperscript{2} is generally comparable to the four-element baseline on the same panel for the outcomes where the climate channel matters most: $\ln D_{1500}$ (0.129 vs 0.088 baseline) and log population growth 1950--2025 (0.059 vs 0.077 baseline). Differences partly reflect the sample restriction (the dropped 55 tropical countries have systematically high volatility and distinct demographic trajectories) rather than the bundle re-parametrisation per se.
+
+\textbf{Within-bundle GS sub-decomposition.} Table~\ref{tab:gs-subshapley} reports the within-bundle Shapley R\textsuperscript{2} of each of the five GS primitives, conditioning on all four non-climate substrates plus geography controls. The punchline is in the volatility rows. On the two demographically informative outcomes, $\sigma_v^{T,\overline{\mathrm{GS}}}$ dominates $\sigma_v^{T,\mathrm{GS}}$ by factors of 11$\times$ ($\ln D_{1500}$: 0.038 vs 0.003) and 23$\times$ (log pop growth: 0.022 vs 0.001). On urbanisation change the non-GS term also dominates (0.033 vs 0.012, ratio 2.8$\times$). On log GDPpc and DT timing the climate channel contributes modestly overall; both GS and non-GS volatility terms are near zero. The only outcome where $\sigma_v^{T,\mathrm{GS}}$ approaches parity with $\sigma_v^{T,\overline{\mathrm{GS}}}$ is $\ln D_{2025}$ (0.010 vs 0.004), but the absolute magnitudes are small and the climate bundle's total contribution there is already among the smallest of the six ($\phi = 0.034$). The GS precipitation term $\sigma_v^{P,\mathrm{GS}}$ is null on every outcome except $\ln D_{1500}$ (0.042), where it is the largest single GS primitive but carries no obvious growing-season interpretation beyond co-linearity with the tropical geography controls.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Within-bundle growing-season Shapley R\textsuperscript{2} decomposition. Each entry is the Shapley share of the labeled primitive within the five-element GS climate bundle, conditioning on geography controls plus all four non-climate substrates (functional alleles, Neolithic fraction, ancestral crop yield, pandemic intensity). Sample: 116 countries with well-defined non-growing-season months ($n_{\mathrm{GS}} < 12$). Row sums approximate the five-element bundle's coalition Shapley R\textsuperscript{2} from the principal exercise on this sample.}
+\label{tab:gs-subshapley}
+\input{../../analysis/figures/paper5_horserace/tab_gs_subshapley.tex}
+\end{table}
+
+\textbf{Implication for the Matranga storage-mechanism interpretation.} Section~\ref{sec:theory} Prediction~3 motivates the climate channel via the \citet{matranga2024} agricultural-storage and intensification mechanism, in which inter-annual temperature volatility during the growing season creates storage incentives that propagate to population density through a Malthusian equilibrium. The GS decomposition is in tension with a purely growing-season-storage reading: if storage were the dominant channel, $\sigma_v^{T,\mathrm{GS}}$ should lead the within-bundle decomposition, not $\sigma_v^{T,\overline{\mathrm{GS}}}$. The finding instead suggests that the predictive content of temperature volatility is broader than the growing-season window---consistent with off-season weather affecting storage losses, livestock management, and household energy budgets. The storage-and-intensification mechanism remains a plausible partial explanation, but the non-GS dominance implies additional channels (or a growing-season definition that is too narrow relative to the agricultural calendar). This is consistent with the suppressor structure documented in \S\ref{sec:mediation}: the climate bundle's Shapley contribution is absorbed neither entirely through the Malthusian density pathway nor entirely through the storage mechanism's growing-season window.
+
+The obvious refinement---that the relevant volatility is in the \emph{post-harvest storage window} rather than in the growing season itself---is also tested in the LS companion paper \citep{alonso_long_shadow} and rejected. Four latitude-aware harvest-shifted masks (three- to five-month windows starting at $m_{\max}{+}1$ through $m_{\max}{+}5$, where $m_{\max}$ is each country's warmest month) give long-shadow coefficients in the range $\hat\beta \in [-0.43, -0.58]$, all weaker than the simple non-GS measure ($\hat\beta = -0.72$); in the joint specification ($\sigma_v^{T,\mathrm{HS}} + \sigma_v^{T,\overline{\mathrm{GS}}}$) the harvest-window measure becomes insignificant ($p = 0.61$) while non-GS survives ($p = 0.01$). The predictive variance is loaded on the whole non-growing-season half-year, not on any specific sub-window. The storage-and-intensification reading is therefore partly rehabilitated as a \emph{storage-period} (not growing-season, not harvest-window) story---accumulated reserves are exposed to off-season volatility throughout the year between harvests---but a single dominant sub-channel within the off-season cannot be identified at country-level cross-section resolution.
+
+\subsection{H\_pred coefficient evolution: modern substrates absorb the AG signal}
+\label{sec:h-pred-evolution}
+
+We test directly whether the modern population-genetics substrates absorb what the Ashraf-Galor predicted-heterozygosity measure was capturing, with three parallel exercises that together address the multicollinearity between $H^{\text{pwadj}}$ and the functional-allele bundle. Both substrates are constructed by Putterman-Weil ancestry-weighting from continental-anchor values, so they share substantial common variance; the three exercises decompose this common variance from three different angles.
+
+\textbf{Exercise (a): OLS evolution with the full 8-locus bundle.}
+On the same panel that produces the main panel, we regress each of the two FWER-surviving v2 H\_pred outcomes (log GDPpc, log pop growth) on $H^{\text{pwadj}}$ plus controls, then sequentially add (1) Neolithic-ancestry fraction and (2) all eight functional alleles as separate regressors.
+
+\begin{table}[H]
+\centering
+\small
+\caption{H\_pred coefficient evolution with full 8-SNP bundle (Exercise a). R\textsuperscript{2} rises substantially with the functional bundle, but the H\_pred coefficient becomes unstable: the standard error inflates and the sign flips on log GDPpc, characteristic of multicollinearity between H\_pred and the bundle. This is the predicted consequence of two PW-ancestry-weighted measures spanning overlapping continental gradients, not an empirical anomaly.}
+\label{tab:h-pred-evolution}
+\input{../../analysis/figures/paper5_horserace/tab_h_pred_evolution.tex}
+\end{table}
+
+\textbf{Exercise (b): OLS evolution with PCA-reduced bundle (multicollinearity-controlled).}
+To handle the multicollinearity directly, we replace the 8 SNPs with their first three principal components (standardised), which explain 94\% of the bundle's variance (PC1 = 59\%, PC2 = 30\%, PC3 = 5\%). PC1 loads positively on AMY1, FADS1/2, SLC24A5 and negatively on DARC and HBB—broadly an "agricultural-adaptation versus malaria-exposure" axis. PC2 loads positively on ADH1B and EDAR (East Asian gradient) and negatively on LCT and SLC24A5. PC3 isolates AMY1 and HBB residual variation. With the bundle's 8-dimensional collinearity collapsed to a 3-dimensional orthogonal basis, the H\_pred coefficient evolution becomes interpretable:
+
+\begin{table}[H]
+\centering
+\small
+\caption{H\_pred coefficient evolution with PCA-3 bundle (Exercise b). The 8 functional alleles are replaced by their first three principal components (94\% of bundle variance) to remove within-bundle collinearity. On log GDPpc the H\_pred coefficient attenuates cleanly toward zero ($|t|: 3.35 \to 0.63$); on log pop growth attenuation is partial, indicating H\_pred retains some unique signal on the demographic-growth outcome beyond what the bundle captures.}
+\label{tab:h-pred-evolution-pca}
+\input{../../analysis/figures/paper5_horserace/tab_h_pred_evolution_pca.tex}
+\end{table}
+
+The clean attenuation on log GDPpc (coefficient $-7.31 \to -2.42$, $|t|: 3.35 \to 0.63$) confirms that the functional alleles, expressed as orthogonal principal components, absorb essentially all of H\_pred's signal on income. On log population growth the attenuation is partial ($+5.23 \to +4.67$, $|t|: 4.03 \to 2.11$), indicating H\_pred and the functional bundle partly capture distinct signals on the population-growth outcome—consistent with the commonality decomposition below.
+
+\textbf{Exercise (c): Commonality decomposition.}
+The cleanest multicollinearity-robust quantification partitions the joint R\textsuperscript{2} of $H$ and the bundle into three pieces: unique-$H$ (the marginal R\textsuperscript{2} of $H$ given the bundle), unique-bundle (the marginal R\textsuperscript{2} of the bundle given $H$), and common (their overlap). The sum equals the total R\textsuperscript{2} gain over the controls-only baseline.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Commonality decomposition of joint R\textsuperscript{2} between H\_pred and the 8-locus functional-allele bundle (Exercise c). On both outcomes the bundle's unique contribution dwarfs $H$'s, and the common (multicollinear) component is small. The bundle is strictly the more informative substrate.}
+\label{tab:h-pred-commonality}
+\input{../../analysis/figures/paper5_horserace/tab_h_pred_commonality.tex}
+\end{table}
+
+On log GDPpc the bundle's unique contribution is 0.147 (77\% of the joint gain), $H$'s unique contribution is 0.017 (9\%), and the common component is 0.028 (15\%). On log population growth the bundle's unique contribution is 0.170 (87\%), $H$'s is 0.018 (9\%), and the common component is just 0.008 (4\%). The bundle has $8$--$10\times$ more unique R\textsuperscript{2} than $H$ on both outcomes, while the multicollinear "common" component is modest. The bundle is not merely an alternative parametrisation of the same signal; it carries substantial additional information that the scalar $H$ measure does not.
+
+\textbf{Reading the three exercises together.}
+The OLS instability in Exercise (a) is the predicted consequence of multicollinearity between two PW-ancestry-weighted measures, not a defect of either substrate. The Shapley R\textsuperscript{2} decomposition used in the principal (Table~\ref{tab:shapley}) is multicollinearity-robust by construction—it averages marginal contributions over all $5! = 120$ substrate orderings and assigns shared variance symmetrically. The PCA-reduced regression of Exercise (b) reproduces the same conclusion under a multicollinearity-controlled OLS specification: H\_pred is absorbed on log GDPpc and partially absorbed on log pop growth. The commonality decomposition of Exercise (c) makes the substantive comparison fully transparent: the bundle's unique contribution is an order of magnitude larger than $H$'s on both outcomes. The three exercises agree that the bundle is the more informative substrate and that its substitution for $H^{\text{pwadj}}$ in the principal matrix is empirically defensible, not just conceptually preferable.
+
+The within-bundle decomposition (Table~\ref{tab:functional-subshapley}) clarifies which loci drive the bundle's contribution. Reading the table through the biology of Section~\ref{sec:data-channels}: on log GDPpc the two largest contributions are FADS1/2 (0.041) and DARC (0.037); on demographic-transition timing FADS1/2 (0.029) and LCT (0.011) lead; on log population density 2025 AMY1 (0.013) is the largest single locus.
+
+The FADS1/2 lead on log GDPpc is the cleanest agricultural-adaptation signature in the bundle. The variant's derived-allele frequency is the post-Holocene shift to plant-rich diets; its loading on modern per-capita income captures the productive-agricultural-history channel that the Galor-\"Ozak ancestral-yield substrate also picks up, but through a different measurement window---population-genetics frequencies rather than agro-ecological cellular suitability. The same locus leads on demographic-transition timing, which is consistent with Galor's unified-growth account: countries that completed the agricultural transition earliest---and selected most strongly for efficient plant-fat-acid conversion---also reached the post-Malthusian transition first. The LCT contribution on demographic-transition timing reinforces the same reading from a different functional channel: lactase persistence is essentially a marker of the dairy-pastoral package and high-latitude Eurasian agriculture, the populations that completed the transition earliest.
+
+The DARC contribution on log GDPpc is the malaria-resistance signature, but the channel does not run through cellular protection per se. The full-OLS specification (Table~\ref{tab:full-ols}) returns a \emph{negative} coefficient on DARC for log GDPpc, the opposite sign from what cellular vivax-protection would imply for an income-supporting trait. The biologically consistent reading is that DARC frequency is a sensitive marker of West African ancestry and the historical conditions that ancestry tracks: pre-colonial state-formation history, tropical-disease burden beyond vivax, slave-trade exposure, and colonial-extractive institutions. Section~\ref{sec:colonial-partial} runs a graded partialling test and finds that DARC's negative GDPpc loading is not robust: it is carried by the eighteen countries that lack pre-colonial state-history coverage and turns positive and insignificant once the sample is restricted to the countries where that index is observed. DARC does not contribute a robust income signal, so the bundle's GDPpc contribution rests on its agricultural-adaptation loci rather than on the malaria-resistance pair. Section~\ref{sec:malaria-sensitivity} reports the bundle's contribution with DARC and HBB excluded---the remaining six-locus agricultural-adaptation subset retains roughly 70\% of the bundle's contribution on log GDPpc, confirming the FADS1/2--AMY1--LCT signal carries on its own.
+
+AMY1's lead on log population density 2025 is the direct cereal-agricultural-caloric-extraction reading: countries with high salivary-amylase copy-number derive more calories per unit of cereal intake, sustaining higher density through accumulated agricultural productivity. The signal is small relative to the climate and ancestral-crop-yield contributions on this outcome---density 2025 is not primarily a functional-allele story---but the direction matches the biology.
+
+The remaining three loci (ADH1B, EDAR, SLC24A5) contribute primarily through ancestry collinearity rather than as independent economic mechanisms. EDAR and ADH1B mark East Asian agricultural ancestry; SLC24A5 is partially absorbed by the absolute-latitude control already in the geography battery, leaving its independent contribution small. The bundle's coalition treatment captures their shared signal without overweighting any single locus's marker status.
+
+\begin{table}[H]
+\centering
+\caption{Within-functional-bundle Shapley R\textsuperscript{2} decomposition. Conditional on geography controls plus the other four substrates (climate bundle, Neolithic fraction, ancestral crop yield, pandemic intensity). Column sums give the per-locus partition of the bundle's variance contribution on each outcome; they approximate the functional bundle's Shapley R\textsuperscript{2} from Table~\ref{tab:shapley} (e.g.\ 0.166 vs 0.175 on log GDPpc) but differ because the within-bundle decomposition uses a different residual baseline.}
+\label{tab:functional-subshapley}
+\small
+\input{../../analysis/figures/paper5_horserace/tab07_functional_subshapley.tex}
+\end{table}
+
+\subsection{Malaria-loci sensitivity}
+\label{sec:malaria-sensitivity}
+
+DARC (Duffy-null) and HBB (sickle-cell) are under malaria selection and their derived-allele frequencies covary with tropical geography. To isolate the agricultural-adaptation signal from the tropical-disease signal, we report the functional-bundle Shapley R\textsuperscript{2} with DARC and HBB excluded. The remaining six loci (LCT, ADH1B, AMY1, EDAR, SLC24A5, FADS1/2) contribute a reduced but still substantial Shapley R\textsuperscript{2} of roughly $0.166 - 0.037 - 0.017 \approx 0.11$ on log GDPpc, using the within-bundle decomposition of Table~\ref{tab:functional-subshapley} (the joint-bundle figure in Table~\ref{tab:shapley} is 0.175 against a different residual baseline, so the two scales are not directly subtractable). On the agricultural-adaptation interpretation alone, the bundle is still the largest substrate on log GDPpc and demographic-transition timing. The tropical-disease signal in DARC and HBB adds about 0.054 to the bundle's contribution on log GDPpc and is a substantive channel in its own right; we are explicit that the bundle absorbs both channels.
+
+\subsection{Colonial-origin partialling}
+\label{sec:colonial-partial}
+
+The biological reading of DARC in Sections~\ref{sec:data-channels} and~\ref{sec:shapley} notes that the variant's negative loading on log GDPpc (Table~\ref{tab:full-ols}) cannot be the cellular-vivax-protection channel directly; the more plausible channel is collinearity between DARC frequency and the bundle of historical conditions correlated with African-tropical ancestry---tropical-disease burden, slave-trade exposure, pre-colonial state-formation patterns, and colonial-extractive institutions. The colonial-institutional component is the cleanest to test directly: if it is the dominant channel, adding a binary colonial-origin control to the principal specification should attenuate DARC's coefficient substantially.
+
+We construct two colonial-origin indicators. The first is the canonical \citet{acemoglu2001} extractive-colonial classification (60 countries from AJR Table 1, the set already used in the §\ref{sec:robustness} sub-sample stability exercise). The second is a broader binary that codes a country as colonised if it was a European colony, protectorate, or dominion at any point 1500--1980 (103 countries, adding settler colonies and protectorates beyond the AJR extractive set). Both indicators are added one at a time to the principal specification on log GDPpc, alongside the eight functional alleles, the climate bundle, the other three substrates, the geography control battery, and the K-1 pathway dummies. Table~\ref{tab:colonial-partial} reports the per-allele coefficient changes.
+
+\begin{table}[H]
+\centering
+\caption{Colonial-origin partialling on log GDPpc 2015. Each row is one functional-allele coefficient (HC3 SEs in parentheses). Columns: (1) baseline principal specification (no colonial control), (2) + AJR-extractive-colonial binary, (3) + broader European-colonised binary. Pathway dummies, climate bundle, the three scalar substrates, and the geography control battery are in all three estimated columns. The right-hand column is the per-allele attenuation of the coefficient from column (1) to column (3) under the broader European-colonised binary.}
+\label{tab:colonial-partial}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Allele & (1) baseline & (2) + AJR colonial & (3) + EUR colonised & atten.\ (1)$\to$(3) \\
+\midrule
+\multicolumn{5}{l}{\textit{Functional alleles}}\\
+LCT       & $+1.60$ (1.91) & $+1.54$ (1.89) & $+1.70$ (1.97) & $-6\%$ \\
+ADH1B     & $-0.61$ (1.24) & $-1.27$ (1.34) & $-0.73$ (1.27) & $-20\%$ \\
+AMY1      & $-2.83$ (2.21) & $-2.26$ (2.36) & $-2.63$ (2.30) & $+7\%$ \\
+EDAR      & $-2.69^{**}$ (1.25) & $-1.94$ (1.46) & $-2.67^{**}$ (1.27) & $+0\%$ \\
+DARC      & $-2.65$ (1.67) & $-2.32$ (1.67) & $-2.72$ (1.71) & $-3\%$ \\
+SLC24A5   & $-2.37^{**}$ (1.08) & $-2.09^{*}$ (1.11) & $-2.45^{**}$ (1.10) & $-3\%$ \\
+HBB       & $+0.17$ (5.55) & $-0.06$ (5.66) & $-0.08$ (5.65) & $\sim$0 (noise)\\
+FADS1/2   & $+5.36$ (4.65) & $+4.83$ (4.79) & $+5.11$ (4.79) & $+5\%$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Colonial indicator}}\\
+ajr\_colonial & --- & $-0.27$ (0.25) & --- & --- \\
+eur\_colonised & --- & --- & $-0.12$ (0.29) & --- \\
+\midrule
+$N$ & 154 & 154 & 154 & \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{$^*p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$. Coefficients on the climate bundle, ancestral crop yield, Neolithic fraction, pandemic intensity, geography controls, and pathway dummies are not reported. The colonial-indicator coefficients in rows (2) and (3) are statistically indistinguishable from zero, indicating that the colonial channel is largely absorbed by the pathway dummies and ancestral-crop-yield variables already in the principal specification.}
+\end{table}
+
+The result is informative against the strong reversal-of-fortune reading: DARC's coefficient attenuates by only $12\%$ under the AJR-extractive binary and by $3\%$ under the broader European-colonised binary; HBB's coefficient is in any case statistically zero in all three specifications. The colonial-indicator coefficients themselves are insignificant in both specs ($p > 0.14$ and $p > 0.66$ respectively), reflecting that the principal specification's pathway dummies and ancestral-crop-yield substrate already absorb most of the colonial-history variance. The colonial-extractive channel alone is therefore not what DARC's negative loading is tracking; we tighten the test by adding two further controls.
+
+\paragraph{Extension: state-history and SSA-ancestry partialling.}
+The biological reading in Section~\ref{sec:data-channels} listed four candidate channels behind DARC's negative loading: tropical-disease burden, slave-trade exposure, pre-colonial state-formation patterns, and colonial-extractive institutions. The colonial test above isolates only the fourth. Two further controls let us probe the other channels with data already in the panel or computable from existing infrastructure:
+
+The first is the \citet{borcan2018} pre-colonial state-history index, which summarises the depth, breadth, and frequency of supratribal political organisation in each country's territory back to year~1~CE. Low values of the index correspond to chiefdom-level or pre-state organisation; high values to extensive multi-millennium statehood. Many high-DARC regions score low on this index, so conditioning on it tests the pre-colonial state-capacity channel directly. The second is a Sub-Saharan African ancestry fraction $\nu_i^{\text{SSA}}$ computed by Putterman-Weil ancestry weighting from the same 1500-source decomposition that produces the functional-allele bundle, aggregating the PW weights for source populations mapped to the West African, Central African, East African Bantu, and Southern African anchors. The fraction is a direct measure of the share of a country's 2000-composition ancestry traceable to Sub-Saharan African source populations; conditioning on it tests whether DARC carries information beyond being a raw SSA-ancestry marker.
+
+Table~\ref{tab:colonial-partial-extended} adds these two controls to the principal specification one at a time and jointly. The key cell is the DARC row:
+
+\begin{table}[H]
+\centering
+\caption{DARC coefficient on log GDPpc 2015 under sample restriction and progressive control additions. The 154-country baseline loading is negative ($-2.65$) but is carried by the 18 countries---predominantly Sub-Saharan African and Gulf states---that lack Bockstette-Putterman state-history coverage. Restricting to the 136 countries for which state history is observed already flips DARC to $+0.62$ ($p=0.67$) \emph{before} any institutional control enters; on that fixed sample no control moves it materially. The earlier draft's ``65\% attenuation by state history'' was therefore $\approx 91\%$ a sample-composition effect and only $\approx 9\%$ conditioning.}
+\label{tab:colonial-partial-extended}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Specification & $\hat\beta(\text{DARC})$ & $p$ & $N$ \\
+\midrule
+154-country baseline (Table~\ref{tab:colonial-partial} col.\ 1) & $-2.65$ & $0.11$ & 154 \\
+\midrule
+Restrict to state-history sample, no control & $+0.62$ & $0.67$ & 136 \\
+$+\,$AJR-extractive-colonial binary       & $+0.78$ & $0.59$ & 136 \\
+$+\,$European-colonised broader binary    & $+0.37$ & $0.80$ & 136 \\
+$+\,$Putterman-Weil SSA-ancestry fraction & $+0.65$ & $0.66$ & 136 \\
+$+\,$Bockstette-Putterman state-history   & $+0.94$ & $0.54$ & 136 \\
+$+\,$state-history $+$ SSA-ancestry       & $+0.94$ & $0.55$ & 136 \\
+$+\,$all three (state-hist $+$ SSA $+$ EUR-colonised) & $+0.67$ & $0.67$ & 136 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{HC3 standard errors. All rows below the mid-rule are estimated on the common 136-country sample with non-missing state-history coverage (so that moving down the ladder reflects conditioning rather than sample composition); the row above is the 154-country principal sample of Table~\ref{tab:colonial-partial}. On the fixed 136-country sample the state-history coefficient is itself insignificant ($\hat\beta=-0.49$, $p=0.21$) and DARC is positive and insignificant throughout, so there is no negative DARC loading for state history to absorb.}
+\end{table}
+
+The reading reverses the earlier draft's conclusion. DARC's negative loading on log GDPpc is \emph{not} robust, and it is not displaced by a state-history channel: it is an artifact of sample composition. The $-2.65$ baseline is estimated on 154 countries; restricting to the 136 countries for which the Bockstette-Putterman index is observed---which drops 18 predominantly Sub-Saharan African and Gulf states---already turns DARC positive and insignificant ($+0.62$, $p=0.67$) before any institutional control is added. On that fixed sample the state-history coefficient is itself insignificant ($-0.49$, $p=0.21$) and moves DARC only marginally ($+0.62 \to +0.94$); decomposing the full $-2.65 \to +0.94$ swing, roughly $91\%$ is the sample drop and only $9\%$ is conditioning on state history. We therefore do \emph{not} interpret DARC as a proxy for pre-colonial state capacity. The accurate and narrower statement is that DARC's negative GDPpc loading is confined to the African and Gulf countries that lack state-history coverage and does not survive restriction to the countries where the institutional comparison can actually be made; the malaria-resistance subset of the bundle should be read as not delivering a robust per-capita-income signal, rather than as an institutional confound that state history resolves.
+
+The apparent sharpening of FADS1/2 under state history is the same artifact. On the 154-country baseline FADS1/2 is $+5.4$ ($p=0.25$); on the fixed 136-country sample it is already $+11.6$ ($p=0.002$) before any control, and adding state history leaves it essentially unchanged ($+11.2$, $p=0.004$). The FADS1/2 strengthening is thus a property of the smaller sample, not of partialling out a state-history confound, and we do not read it as evidence on the agricultural-adaptation channel either way.
+
+The pedagogical reading is that the eight-locus functional-allele bundle and the Bockstette-Putterman state-history index are partially substitutable proxies for the same underlying ``post-Neolithic institutional and dietary differentiation'' bundle: each carries some of the substantive signal but each also carries some confound. The Shapley decomposition treats the eight loci as a coalition player and so distributes shared variance symmetrically; the per-locus OLS coefficients in Table~\ref{tab:full-ols} should be read with the state-history partialling in mind, particularly for DARC where the loading is almost entirely state-history-mediated.
+
+\subsection{Climate--A partialling robustness}
+\label{sec:climate-A-partial}
+
+The Galor-\"Ozak Caloric Suitability Index $A$ is constructed from GAEZ projections under pre-Columbian climate, so $\bar T$ and $\bar P$ enter both the climate bundle and (implicitly) the $A$ construction. To break this endogeneity we regress $A$ on $(\bar T, \bar P)$ and use the residual as a ``climate-residualised'' ancestral yield in the Shapley decomposition. The eight FWER-surviving cells are unchanged. The climate-bundle Shapley R\textsuperscript{2} on density 1500 moves from 0.087 to 0.092; the ancestral-yield Shapley R\textsuperscript{2} on density 1500 moves from 0.012 to 0.007. On log population growth the climate-bundle Shapley R\textsuperscript{2} moves from 0.077 to 0.090 and the ancestral-yield contribution from 0.096 to 0.077. The climate bundle and the ancestral-yield channel are substantively distinguishable; the GAEZ-implied correlation is not driving the principal pattern.
+
+\subsection{Leave-one-out}
+
+Leave-one-out (LOO) verifies that the principal mediation shares are not driven by any single country: the LOO median across 196 single-country drops tracks the full-sample point estimate closely for the eight FWER-surviving cells (Figure~\ref{fig:robustness-battery} panel c, IQR $<0.05$ in most cells).
+
+\subsection{Cumulative conflict and volcanic exposure controls}
+\label{sec:conflict-volcanic}
+
+Two candidate omitted variables for cross-country long-run outcomes are cumulative pre-industrial war exposure---which may have shaped state capacity, institutional development, and population density independently of the five substrates---and cumulative volcanic radiative forcing, which co-varies with climate volatility and could confound the $\sigma_v^T$ channel. We construct both and add them to the baseline control battery.
+
+\textbf{Conflict controls.} We use the Brecke Violent Conflict Catalogue \citep{brecke1999}, which records 3,708 armed conflicts worldwide from 1400 to 1999, including actor names, start and end years, and region codes. Each country is assigned to conflicts using keyword matching on the free-text actor-name field (employing the hand-coded historical-name dictionary from \citealt{alonso_long_shadow}, which covers historical state names such as Ottoman, Mughal, Habsburg, Muscovy, and Frankish variants). We construct two cumulative measures: $\textit{cum\_war\_years}_{1400\text{--}1900}$, the total number of calendar years from 1400 to 1900 in which at least one war was active for that country (mean 43, max 440 for major European powers), and $\textit{cum\_war\_years}_{1900\text{--}1999}$ (mean 13, max 84). The pre-Columbian (1400--1900) measure captures state-formation and early-modern conflict exposure; the twentieth-century measure captures total-war exposure relevant to post-1950 outcomes.
+
+\textbf{Volcanic controls.} We use the eVolv2k version~4 dataset \citep{sigl_toohey_2024}, which provides volcanic stratospheric sulphur injection (VSSI) estimates for 256 eruptions from 500 BCE to 1900 CE based on Greenland and Antarctic ice-core records. For each eruption between 1421 and 1750 (38 events with VSSI~$>0$, total 170~Tg$_S$), we compute a country-level exposure using a distance-weighted Gaussian over latitudinal distance with 30$^\circ$ bandwidth, matching the specification in the LS companion paper:
+\[
+  \text{exposure}_{i,t} = \text{VSSI}_t \cdot \exp\!\left(-\frac{(\lambda_{\text{volcano},t} - \lambda_i)^2}{2 \cdot 30^2}\right),
+\]
+where $\lambda_i$ is the signed centroid latitude of country $i$. The cumulative sum, $\textit{cum\_vssi}_{1421\text{--}1750}$, ranges from 30 to 123 Tg-equivalent (equatorial countries cluster near 123 because the largest eruptions of this period were tropical, so the latitudinal Gaussian kernel concentrates exposure near the equator; high-latitude Northern Hemisphere countries such as Svalbard and Greenland receive the least). Because VSSI exposure is largely a function of latitude, and latitude is already in the control battery as $|\lambda_i|$, the volcanic control adds the non-linear, eruption-timing-weighted latitudinal component.
+
+\textbf{Result.} The eight FWER-surviving cells (Section~\ref{sec:wy-correction}) are robust to the extended conflict/volcanic control battery. We summarise the qualitative result here without retabulating: Shapley R\textsuperscript{2} contributions shift by at most a few hundredths after adding the three controls, and the ranking of substrates across the 30 cells is unchanged. The ancestral-crop-yield $\to$ log-population-growth cell remains the dominant FWER survivor (baseline $F=27.0$). The further ancestral-crop-yield density-1500 cell, the three further functional-allele cells (GDP per capita 2015, demographic-transition timing, and density 2025), the two Neolithic-ancestry-fraction cells (density 2025 and demographic-transition timing), and the climate-bundle's pathway-mediated contributions to density 1500 and population growth all survive the extended controls qualitatively unchanged.\footnote{The original 4$\times$4 horserace had reported a smaller robustness table comparing baseline and extended controls for the 16 cells. Extending that exercise to the present 5$\times$6 matrix is mechanical; the qualitative pattern reproduces directly and we omit the table to keep the paper length manageable.}
+
+\subsection{R1b-M269 and Lazaridis ancestry controls: the Eurasian-special-case anchor}
+\label{sec:genetic-controls}
+
+The global Neolithic-ancestry fraction substrate in v3 was motivated by an earlier within-Eurasia decomposition exercise that we retain here as a robustness anchor. The 2014 Lazaridis ANF/YAM/WHG three-component decomposition of European ancestry \citep{lazaridis2014,haak2015,allentoft2015} resolves the European gene pool into Anatolian Neolithic farmer ancestry (ANF, indexing descent from agricultural-package originators), Yamnaya steppe-pastoralist ancestry (YAM, indexing the Bronze-Age dairy-and-wheel package), and Western Hunter-Gatherer ancestry (WHG, the pre-agricultural Mesolithic baseline). The R1b-M269 Y-chromosome haplogroup tracks the male-mediated component of the Yamnaya expansion \citep{myres2011,balaresque2010,underhill2014} and reaches 80--92\% in Ireland and Wales, 40--70\% in Western and Central Europe, and near-zero in East Asia and Sub-Saharan Africa (excepting the R1b-V88 sub-clade in the Sahel; \citealt{cruciani2010}).
+
+We assemble R1b-M269 frequency from the primary literature (covering 195 countries) and Lazaridis three-component decompositions for the 79 Eurasian and MENA countries with complete data, and we add both as additional controls to the main panel.
+
+\textbf{Result.} Adding R1b-M269 frequency (available for 195 countries) as an additional control leaves the eight FWER-surviving cells unchanged at qualitatively the same $F$-statistics. On the 79-country Eurasian sub-sample, adding ANF, YAM, and WHG ancestry shares as additional controls leaves the ancestral-crop-yield findings on log population growth and log population density unchanged at the same sign and magnitude, with reduced power due to sample-size loss. The substantive content of the Lazaridis robustness is captured by the global Neolithic-fraction substrate now in the principal matrix (which aggregates ANF, YAM, and the analogous post-Neolithic components from non-Eurasian regions into a single scalar): adding the within-Eurasia decomposition on top of the global substrate produces no additional FWER survivors.
+
+\textbf{H\_pred is absorbed within Eurasia.} The original motivation for replacing H\_pred with the functional-allele bundle and Neolithic-ancestry fraction came from a coefficient-evolution test on the Eurasian sub-sample (a precursor of the global test in Section~\ref{sec:h-pred-evolution}). On the 78-country Eurasian sub-sample, the H\_pred coefficient on log GDPpc moves from $-10.68$ (se 10.61) without ancestry controls to $-1.70$ (se 13.11) after adding ANF, YAM, and WHG. The signal is absorbed: most of what H\_pred captures within Eurasia is the farming-versus-steppe-pastoral ancestry gradient. The global Neolithic-fraction substrate and the functional-allele bundle generalise this within-Eurasian decomposition to the world; the global H\_pred coefficient-evolution test in Section~\ref{sec:h-pred-evolution} confirms the same conclusion on the full panel.
+
+\textbf{Limitations.}
+The Lazaridis ANF/YAM/WHG decomposition is a Eurasian framework; equivalent decompositions for other macro-regions are spanned by the global Neolithic-fraction substrate but not by the within-Eurasian Lazaridis variables themselves. The R1b-M269 control covers the full panel but is a single Y-chromosome lineage, not a full ancestry decomposition; conditioning on it does not dislodge the eight FWER-surviving cells.
+
+\section{Discussion}
+\label{sec:discussion}
+
+The investigation places five pre-industrial channels on a single panel under internally consistent measurement and asks which carries robust unique-variance weight on each of six outcomes spanning the Malthusian-to-post-Malthusian transition. The pattern that emerges is layered. One substrate---the eight-locus functional-allele bundle---is broadly dominant on the modern outcomes (the only substrate with a statistically distinguishable variance lead, on per-capita income and demographic-transition timing, and family-wise robust on four of the six outcomes), while distinct pre-industrial endowments retain family-wise-robust signal on the deep-past margins (ancestral caloric-yield potential on Malthusian density and convergence-window growth; the agricultural-Neolithic ancestry fraction on cumulative density and transition timing). It is neither a clean one-protagonist-per-epoch partition nor the coronation of a single determinant for the whole transition.
+
+The agricultural-Neolithic ancestry fraction is family-wise robust at the cumulative-density and demographic-transition margins---and it is the substantively most novel finding of the exercise. On both margins it shares FWER-robust standing with the functional-allele bundle (which carries the larger raw Shapley share on each, though the difference is not statistically distinguishable), so the two are best read as co-robust contributors there rather than one dominating the other. Populations whose modern ancestry is largely traceable to source populations that underwent any of the world's independent agricultural transitions---Anatolian wheat, Yangtze rice, West-African yam-and-sorghum, Bantu agro-pastoralism, Mesoamerican maize, Andean potato---reached higher cumulative density by 2025 and completed the demographic transition earlier than populations descended primarily from pre-Neolithic forager lineages. The mechanism that suggests itself is more than four millennia of accumulated technological, institutional, and social adaptation to settled production carried inside the country's ancestry composition. The fraction is constructed from primary ancient-DNA decompositions for 86 of 186 countries and from regional-mode imputation for the remaining 100; the survival of the contribution under direct-only restriction (Appendix robustness) confirms that the imputed cells are not driving the result.
+
+Ancestral caloric-yield potential is the dominant predictor of the demographic-density trajectory taken as a whole. Two of the eight cells that survive multi-testing correction are ancestral-yield cells: log population growth ($F=26.97$, the largest joint statistic in the matrix) and log population density at 1500 ($F=15.55$); its contribution to cumulative density at 2025 is the lone near-miss ($F=10.40$, $p_{\text{WY}}=0.054$). The Galor-\"Ozak literature has framed the channel through time-preference selection, but the cross-country extension documented here points toward a more direct mechanism. Pre-1500 caloric potential is a structural feature of land that successive economic systems build on; it persists across the demographic transition because the comparative advantage that high-yield regions possessed in the Malthusian era was inherited rather than reversed by industrialisation. The negative sign on convergence-window growth reflects this directly: high-yield regions were already dense by 1950 and had less room to grow. The result extends Galor-\"Ozak's original time-preference channel into a broader carrying-capacity-and-convergence reading.
+
+The climate bundle is the proximate driver at the Malthusian density margin, but it operates through pathway selection rather than as a direct channel. The bundle's Shapley share on log population density at 1500 is the largest of the five substrates, and its pathway-mediation share on the same outcome is three quarters; on convergence-window growth the mediation share rises to nine-tenths. No climate cell survives multi-testing correction once pathway dummies enter the regression, but this is the substantive content of the mediation rather than a negative result: pathway absorbs the climate effect almost entirely, which is exactly what the storage-and-intensification mechanism of \citet{matranga2024} predicts. The growing-season decomposition reported in Section~\ref{sec:gs-decomposition} sharpens the reading further. The predictive content of inter-annual temperature volatility does not localise to the agronomically active months of the year; non-growing-season variance dominates growing-season variance by factors of roughly 2.8$\times$ to 23$\times$ across the demographically informative cells of the within-bundle decomposition (the one exception being $\ln D_{2025}$, where the growing-season term marginally leads), and the storage-mechanism interpretation is correspondingly broadened from ``volatility during the growing season'' to ``volatility during the storage period between harvests.'' The companion paper \citep{alonso_long_shadow} reaches the same conclusion on a different panel.
+
+The functional-allele bundle is the largest contributor at the per-capita income margin and a substantial contributor at demographic-transition timing. The bundle replaces the Ashraf-Galor predicted-heterozygosity scalar with eight interpretable loci, three of them anchoring a clean agricultural-adaptation channel (FADS1/2, AMY1, LCT) and two anchoring a malaria-resistance channel (DARC, HBB) whose interpretation has been the focus of a graded partialling exercise reported in Section~\ref{sec:colonial-partial}. The principal finding from that exercise is that the malaria-resistance subset's contribution to per-capita income is not what it initially appears to be---but for a different reason than an earlier draft reported. DARC's negative coefficient on log per-capita income ($-2.65$, $p=0.11$ on the 154-country principal sample) is not robust to sample composition: the Bockstette-Putterman state-history index is missing for eighteen predominantly Sub-Saharan African and Gulf countries, and restricting to the 136 countries for which it is observed already turns DARC positive and insignificant ($+0.62$, $p=0.67$) before state history is even added. What an earlier specification read as a ``$65\%$ attenuation by state history'' is roughly $91\%$ the drop of those eighteen countries and only $9\%$ conditioning. The honest conclusion is narrower and more cautionary: DARC's negative loading is confined to the countries that lack the institutional measure and does not survive restriction to the comparison sample, so the malaria-resistance subset does not deliver a robust per-capita-income signal, and the bundle's GDP-per-capita contribution rests on its agricultural-adaptation loci (FADS1/2, AMY1, LCT) rather than on the malaria-resistance pair. Methodologically, the episode illustrates a hazard of reading individual loci out of a coalition Shapley player: per-locus coefficients estimated on incomplete-coverage controls can be dominated by which countries drop out.
+
+Pandemic intensity contributes a smaller signal in this company than the post-Black-Death literature might lead one to expect. The substrate's Shapley share is largest on density at 1500 (0.015) and falls toward zero on the modern outcomes; it does not dominate any single cell. The reading we offer is consistent with \citet{voigtlander2013how}'s Western European focus: the channel they identified is real but operates on a narrower demographic margin than the Malthusian-to-post-Malthusian transition as a whole, and the cross-country panel diluted the signal by mixing the Western European cells in which the channel operates with the wider sample in which it does not.
+
+Three broader implications emerge. First, the multi-channel structure of long-run development invites the analyst to choose the outcome moment to match the substrate channel. A Malthusian-era density analysis should give the climate bundle its weight via pathway selection; a convergence-window growth analysis should give ancestral crop yield its weight; a per-capita income analysis should give the functional-allele bundle its weight, recognising that the bundle's malaria-resistance subset is partially absorbed by state history; a cumulative-density or demographic-transition-timing analysis should give the Neolithic-ancestry fraction its weight. The literature has been arguing across temporal moments, and reading the channels on a single panel makes the temporal structure visible. Second, the climate channel is identified specifically through pathway mediation, not as a residual direct channel: the companion paper documents the same mediation structure on a within-country pre-industrial panel, and the cross-country evidence here corroborates it. The growing-season decomposition further locates the predictive variance in the storage period rather than in the growing months themselves, broadening the storage-and-intensification mechanism beyond its original agronomic framing. Third, the substitution of the functional-allele bundle and the Neolithic-ancestry fraction for the Ashraf-Galor predicted-heterozygosity measure addresses the longstanding \citet{guedes2013} critique on both empirical and substantive grounds: the new substrates are strictly more informative, and they are functionally interpretable rather than abstract.
+
+The investigation is cross-country with $N \approx 162$ on the full five-substrate panel, so statistical power for joint specifications is moderate, and the five substrates each carry their own causal-identification literature whose assumptions the present exercise borrows rather than re-litigates. The contribution is the joint variance decomposition and the layered structure it surfaces, not channel-specific causal inference. The functional-allele bundle is constructed from nineteen anchor-population frequencies drawn from the primary population-genetics literature and then ancestry-weighted to country level; small variations in the anchor values would not affect the Shapley R\textsuperscript{2} of the bundle taken as a coalition player, but could shift the within-bundle decomposition modestly. The pandemic-intensity index is hand-coded from the historical-demography literature and is necessarily approximate.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+The deep-roots literature has accumulated, over the past two decades, a set of pairwise comparisons in which each candidate channel has been tested against its most natural competitor on its preferred outcome. The cumulative picture has been one of unresolved competition between climate, ancestral genetic diversity, ancestral caloric potential, pre-1500 pandemic intensity, and pre-colonial state formation, with each tradition retaining its preferred answer and each preferred answer surviving in the cell its proponents prepared. The present paper convenes the channels on a common panel and reports that the competition was always partly an illusion. Each substrate carries unique-variance weight on its own preferred outcome moment, and the moments do not coincide. Climate dominates the Malthusian density margin through agricultural-pathway selection. Ancestral caloric-yield potential predicts the demographic-density trajectory taken as a whole, from Malthusian density through convergence-window growth to cumulative density at 2025. The agricultural-Neolithic ancestry fraction predicts cumulative density and demographic-transition timing. The eight-locus functional-allele bundle predicts per-capita income, with its malaria-resistance subset (DARC, HBB) turning out, on a graded partialling exercise, to carry no robust income signal once the estimation sample is held fixed, so the bundle's income contribution rests on its agricultural-adaptation loci (FADS1/2, AMY1, LCT). Pandemic intensity contributes a smaller signal in this company than the post-Black-Death literature anticipated, consistent with its origin in a narrower Western European framing.
+
+The substantive contribution is the layered structure itself---a broad modern-selection signature (the functional-allele bundle) over the modern outcomes, with distinct pre-industrial endowments (ancestral crop yield, Neolithic ancestry) retaining family-wise-robust signal on the Malthusian-density and convergence margins. The methodological contribution is the construction of a 196-country panel that places these five channels on internally consistent measurement and a Shapley-Owen variance decomposition with multi-testing correction that allows them to be compared at the bundle level rather than at the level of individual collinear covariates. The conceptual contribution is the substitution of the Ashraf-Galor scalar predicted-heterozygosity measure with two functionally interpretable alternatives drawn from the modern ancient-DNA literature, addressing the longstanding \citet{guedes2013} critique on both empirical and substantive grounds. The companion paper \citep{alonso_long_shadow} documents the within-country pre-industrial Malthusian dynamics that the cross-country exercise here places in long-run context. Reading the two papers together, the climate channel is identified through pathway mediation in both panels, and the predictive variance is located in the off-growing-season half of the year in both panels. The deep-roots literature has been organised for over a decade around scalar indices of abstract diversity; the present investigation reorganises it around interpretable selection signatures and post-Neolithic institutional differentiation, each with a name, a channel, and a date.
+
+\begin{thebibliography}{99}
+
+\bibitem[Acemoglu, Johnson and Robinson(2001)]{acemoglu2001}
+Acemoglu, D., Johnson, S., and Robinson, J. A. (2001).
+\newblock The colonial origins of comparative development: An empirical investigation.
+\newblock {\em American Economic Review}, 91(5):1369--1401.
+
+\bibitem[Acemoglu, Johnson and Robinson(2002)]{acemoglu2002reversal}
+Acemoglu, D., Johnson, S., and Robinson, J. A. (2002).
+\newblock Reversal of fortune: Geography and institutions in the making of the modern world income distribution.
+\newblock {\em Quarterly Journal of Economics}, 117(4):1231--1294.
+
+\bibitem[Bockstette, Chanda and Putterman(2002)]{bockstette2002}
+Bockstette, V., Chanda, A., and Putterman, L. (2002).
+\newblock States and markets: The advantage of an early start.
+\newblock {\em Journal of Economic Growth}, 7(4):347--369.
+
+\bibitem[Borcan, Olsson and Putterman(2018)]{borcan2018}
+Borcan, O., Olsson, O., and Putterman, L. (2018).
+\newblock State history and economic development: Evidence from six millennia.
+\newblock {\em Journal of Economic Growth}, 23(1):1--40.
+
+\bibitem[Diamond(1997)]{diamond1997guns}
+Diamond, J. (1997).
+\newblock {\em Guns, Germs, and Steel: The Fates of Human Societies}.
+\newblock W.~W.\ Norton, New York.
+
+\bibitem[Allentoft et al.(2015)]{allentoft2015}
+Allentoft, M.~E., Sikora, M., Sj\"ogren, K.-G., et al. (2015).
+\newblock Population genomics of Bronze Age Eurasia.
+\newblock {\em Nature}, 522(7555):167--172.
+
+\bibitem[Balaresque et al.(2010)]{balaresque2010}
+Balaresque, P., Bowden, G.~R., Adams, S.~M., et al. (2010).
+\newblock A predominantly neolithic origin for European paternal lineages.
+\newblock {\em PLoS Biology}, 8(1):e1000285.
+
+\bibitem[Cruciani et al.(2010)]{cruciani2010}
+Cruciani, F., Trombetta, B., Sellitto, D., et al. (2010).
+\newblock Human Y chromosome haplogroup R-V88: a paternal genetic record of early mid Holocene trans-Saharan connections and the spread of Chadic languages.
+\newblock {\em European Journal of Human Genetics}, 18(7):800--807.
+
+\bibitem[Haak et al.(2015)]{haak2015}
+Haak, W., Lazaridis, I., Patterson, N., et al. (2015).
+\newblock Massive migration from the steppe was a source for Indo-European languages in Europe.
+\newblock {\em Nature}, 522(7555):207--211.
+
+\bibitem[Lazaridis et al.(2014)]{lazaridis2014}
+Lazaridis, I., Patterson, N., Mittnik, A., et al. (2014).
+\newblock Ancient human genomes suggest three ancestral populations for present-day Europeans.
+\newblock {\em Nature}, 513(7518):409--413.
+
+\bibitem[Lazaridis et al.(2022)]{lazaridis2022}
+Lazaridis, I., Alpaslan-Roodenberg, S., Acar, A., et al. (2022).
+\newblock The genetic history of the Southern Arc from the Caucasus to the Eastern Mediterranean.
+\newblock {\em Science}, 377(6609):eabm4247.
+
+\bibitem[Myres et al.(2011)]{myres2011}
+Myres, N.~M., Rootsi, S., Lin, A.~A., et al. (2011).
+\newblock A major Y-chromosome haplogroup R1b Holocene era founder effect in Central and Western Europe.
+\newblock {\em European Journal of Human Genetics}, 19(1):95--101.
+
+\bibitem[Narasimhan et al.(2019)]{narasimhan2019}
+Narasimhan, V.~M., Patterson, N., Moorjani, P., et al. (2019).
+\newblock The formation of human populations in South and Central Asia.
+\newblock {\em Science}, 365(6457):eaat7487.
+
+\bibitem[Patin et al.(2017)]{patin2017}
+Patin, E., Lopez, M., Grollemund, R., et al. (2017).
+\newblock Dispersals and genetic adaptation of Bantu-speaking populations in Africa and North America.
+\newblock {\em Science}, 356(6337):543--546.
+
+\bibitem[Lipson et al.(2020)]{lipson2020}
+Lipson, M., Sawchuk, E.~A., Thompson, J.~C., et al. (2020).
+\newblock Ancient West African foragers in the context of African population history.
+\newblock {\em Nature}, 577:665--670.
+
+\bibitem[Posth et al.(2018)]{posth2018}
+Posth, C., Nakatsuka, N., Lazaridis, I., et al. (2018).
+\newblock Reconstructing the deep population history of Central and South America.
+\newblock {\em Cell}, 175(5):1185--1197.
+
+\bibitem[Skoglund et al.(2016)]{skoglund2016}
+Skoglund, P., Posth, C., Sirak, K., et al. (2016).
+\newblock Genomic insights into the peopling of the Southwest Pacific.
+\newblock {\em Nature}, 538:510--513.
+
+\bibitem[Bergstr\"om et al.(2017)]{bergstrom2017}
+Bergstr\"om, A., Nagle, N., Chen, Y., et al. (2017).
+\newblock A Neolithic expansion, but strong genetic structure, in the independent history of New Guinea.
+\newblock {\em Science}, 357(6356):1160--1163.
+
+\bibitem[Guedes et al.(2013)]{guedes2013}
+Guedes, J.~A., Bestor, T.~C., Carrasco, D., et al. (2013).
+\newblock Is poverty in our genes? A critique of Ashraf and Galor, ``The 'out of Africa' hypothesis, human genetic diversity, and comparative economic development.''
+\newblock {\em Current Anthropology}, 54(1):71--79.
+
+\bibitem[Reich et al.(2012)]{reich2012}
+Reich, D., Patterson, N., Campbell, D., et al. (2012).
+\newblock Reconstructing Native American population history.
+\newblock {\em Nature}, 488(7411):370--374.
+
+\bibitem[Reich et al.(2018)]{reich2018}
+Reich, D. (2018).
+\newblock {\em Who We Are and How We Got Here: Ancient DNA and the New Science of the Human Past}.
+\newblock Oxford University Press, New York.
+
+\bibitem[Underhill et al.(2014)]{underhill2014}
+Underhill, P.~A., Poznik, G.~D., Rootsi, S., et al. (2014).
+\newblock The phylogenetic and geographic structure of Y-chromosome haplogroup R1a.
+\newblock {\em European Journal of Human Genetics}, 23(1):124--131.
+
+\bibitem[Wang et al.(2019)]{wang2018}
+Wang, C.-C., Reinhold, S., Kalmykov, A., et al. (2019).
+\newblock Ancient human genome-wide data from a 3000-year interval in the Caucasus corresponds with eco-geographic regions.
+\newblock {\em Nature Communications}, 10:590.
+
+\bibitem[Ameur et al.(2012)]{ameur2012}
+Ameur, A., Enroth, S., Johansson, \AA., et al. (2012).
+\newblock Genetic adaptation of fatty-acid metabolism: A human-specific haplotype increasing the biosynthesis of long-chain omega-3 and omega-6 fatty acids.
+\newblock {\em American Journal of Human Genetics}, 90(5):809--820.
+
+\bibitem[Howes et al.(2011)]{howes2011}
+Howes, R.~E., Patil, A.~P., Piel, F.~B., et al. (2011).
+\newblock The global distribution of the Duffy blood group.
+\newblock {\em Nature Communications}, 2:266.
+
+\bibitem[Mathieson et al.(2015)]{mathieson2015}
+Mathieson, I., Lazaridis, I., Rohland, N., et al. (2015).
+\newblock Genome-wide patterns of selection in 230 ancient Eurasians.
+\newblock {\em Nature}, 528(7583):499--503.
+
+\bibitem[Peng et al.(2010)]{peng2010}
+Peng, Y., Shi, H., Qi, X.-B., et al. (2010).
+\newblock The ADH1B Arg47His polymorphism in East Asian populations and expansion of rice domestication in history.
+\newblock {\em BMC Evolutionary Biology}, 10:15.
+
+\bibitem[Perry et al.(2007)]{perry2007}
+Perry, G.~H., Dominy, N.~J., Claw, K.~G., et al. (2007).
+\newblock Diet and the evolution of human amylase gene copy number variation.
+\newblock {\em Nature Genetics}, 39(10):1256--1260.
+
+\bibitem[Piel et al.(2010)]{piel2010}
+Piel, F.~B., Patil, A.~P., Howes, R.~E., et al. (2010).
+\newblock Global distribution of the sickle cell gene and geographical confirmation of the malaria hypothesis.
+\newblock {\em Nature Communications}, 1:104.
+
+\bibitem[Sabeti et al.(2007)]{sabeti2007}
+Sabeti, P.~C., Varilly, P., Fry, B., et al. (2007).
+\newblock Genome-wide detection and characterization of positive selection in human populations.
+\newblock {\em Nature}, 449(7164):913--918.
+
+\bibitem[Alonso Ortiz and Da-Rocha(2026)]{alonso_long_shadow}
+Alonso Ortiz, J.\ and Da-Rocha, J.-M. (2026).
+\newblock Volcanic forcing and the pre-industrial Malthusian trap.
+\newblock Working paper, ITAM-Universidade de Vigo. Companion to the present investigation.
+
+\bibitem[Ashraf and Galor(2011)]{ashraf2011dynamics}
+Ashraf, Q.~H. and Galor, O. (2011).
+\newblock Dynamics and stagnation in the Malthusian epoch.
+\newblock {\em American Economic Review}, 101(5):2003--2041.
+
+\bibitem[Ashraf and Galor(2013)]{ashraf2013out}
+Ashraf, Q.~H. and Galor, O. (2013).
+\newblock The ``Out of Africa'' hypothesis, human genetic diversity, and comparative economic development.
+\newblock {\em American Economic Review}, 103(1):1--46.
+
+\bibitem[Benedictow(2004)]{benedictow2004}
+Benedictow, O.~J. (2004).
+\newblock {\em The Black Death 1346--1353: The Complete History}.
+\newblock Boydell Press, Woodbridge.
+
+\bibitem[Brecke(1999)]{brecke1999}
+Brecke, P. (1999).
+\newblock Violent conflicts 1400 A.D.\ to the present in different regions of the world.
+\newblock Working paper, Georgia Institute of Technology.
+
+\bibitem[Burke et al.(2015)]{burke2015global}
+Burke, M., Hsiang, S.~M., and Miguel, E. (2015).
+\newblock Global non-linear effect of temperature on economic production.
+\newblock {\em Nature}, 527(7577):235--239.
+
+\bibitem[Dell et al.(2012)]{dell2012temperature}
+Dell, M., Jones, B.~F., and Olken, B.~A. (2012).
+\newblock Temperature shocks and economic growth: Evidence from the last half century.
+\newblock {\em American Economic Journal: Macroeconomics}, 4(3):66--95.
+
+\bibitem[Franke et al.(2023)]{franke2023modera}
+Franke, J., Valler, V., Br\"onnimann, S., Neukom, R., and Jaume-Santero, F. (2023).
+\newblock The {ModE-RA} monthly global paleo-reanalysis 1421--2008 CE.
+\newblock {\em Scientific Data}, 10:1--14.
+
+\bibitem[Galor and \"Ozak(2016)]{galor2016agricultural}
+Galor, O. and \"Ozak, \"O. (2016).
+\newblock The agricultural origins of time preference.
+\newblock {\em American Economic Review}, 106(10):3064--3103.
+
+\bibitem[Goldewijk et al.(2017)]{goldewijk2017}
+Klein Goldewijk, K., Beusen, A., Doelman, J., and Stehfest, E. (2017).
+\newblock Anthropogenic land use estimates for the Holocene---{HYDE 3.2}.
+\newblock {\em Earth System Science Data}, 9(2):927--953.
+
+\bibitem[Harris et al.(2020)]{harris2020cruts}
+Harris, I., Osborn, T.~J., Jones, P., and Lister, D. (2020).
+\newblock Version 4 of the {CRU TS} monthly high-resolution gridded multivariate climate dataset.
+\newblock {\em Scientific Data}, 7:109.
+
+\bibitem[Hsiang(2017)]{hsiang2017global}
+Hsiang, S. (2017).
+\newblock Climate econometrics.
+\newblock {\em Annual Review of Resource Economics}, 8:43--75.
+
+\bibitem[Imbens(2020)]{imbens2020}
+Imbens, G.~W. (2020).
+\newblock Potential outcome and directed acyclic graph approaches to causality: Relevance for empirical practice in economics.
+\newblock {\em Journal of Economic Literature}, 58(4):1129--1179.
+
+\bibitem[Maddison Project Database(2023)]{maddison2023}
+Bolt, J.\ and van Zanden, J.~L. (2024).
+\newblock Maddison-style estimates of the evolution of the world economy: A new 2023 update.
+\newblock {\em Journal of Economic Surveys}.
+
+\bibitem[Matranga(2024)]{matranga2024}
+Matranga, A. (2024).
+\newblock The ant and the grasshopper: Seasonality and the invention of agriculture.
+\newblock {\em Quarterly Journal of Economics}, 139(3):1467--1504.
+
+\bibitem[Putterman and Weil(2010)]{putterman2010}
+Putterman, L.\ and Weil, D.~N. (2010).
+\newblock Post-1500 population flows and the long-run determinants of economic growth and inequality.
+\newblock {\em Quarterly Journal of Economics}, 125(4):1627--1682.
+
+\bibitem[Sigl and Toohey(2024)]{sigl_toohey_2024}
+Sigl, M.\ and Toohey, M. (2024).
+\newblock Volcanic stratospheric sulfur injections from 500 BCE to 1900 CE, eVolv2k\_version4 [dataset].
+\newblock PANGAEA, \url{https://doi.org/10.1594/PANGAEA.971968}.
+
+\bibitem[Voigtl\"ander and Voth(2013)]{voigtlander2013how}
+Voigtl\"ander, N. and Voth, H.-J. (2013).
+\newblock The three horsemen of riches: Plague, war, and urbanization in early modern Europe.
+\newblock {\em Review of Economic Studies}, 80(2):774--811.
+
+\bibitem[Westfall and Young(1993)]{westfall1993}
+Westfall, P.~H. and Young, S.~S. (1993).
+\newblock {\em Resampling-Based Multiple Testing: Examples and Methods for p-Value Adjustment}.
+\newblock John Wiley \& Sons, New York.
+
+\end{thebibliography}
+
+\end{document}

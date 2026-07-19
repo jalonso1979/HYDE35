@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "description": "Block-bootstrap (cluster by country) 95% CIs for h=15 fertility FEVD shares by Hansen wage regime. Unit of resampling = country. Core system: ['spei_growing', 'log_real_wage', 'log_cdr', 'log_cbr']. Hansen threshold: 9.97. n_boot=500, seed=0.",
+    "variables": [
+      "spei_growing",
+      "log_real_wage",
+      "log_cdr",
+      "log_cbr"
+    ],
+    "shock_labels": [
+      "weather",
+      "wages",
+      "mortality",
+      "own"
+    ],
+    "horizons": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "h_target": 15,
+    "p_lags": 2,
+    "hansen_threshold": 9.97,
+    "n_boot": 500,
+    "seed": 0
+  },
+  "malthusian": {
+    "n_obs": 1073,
+    "n_countries": 12,
+    "n_boot": 500,
+    "n_failed": 0,
+    "n_succeeded": 500,
+    "weather": {
+      "point": 0.0377,
+      "ci_lo": 0.01119,
+      "ci_med": 0.05168,
+      "ci_hi": 0.16957
+    },
+    "wages": {
+      "point": 0.03751,
+      "ci_lo": 0.01369,
+      "ci_med": 0.03848,
+      "ci_hi": 0.11028
+    },
+    "mortality": {
+      "point": 0.18081,
+      "ci_lo": 0.11736,
+      "ci_med": 0.1871,
+      "ci_hi": 0.35462
+    },
+    "own": {
+      "point": 0.74397,
+      "ci_lo": 0.51743,
+      "ci_med": 0.70483,
+      "ci_hi": 0.79617
+    }
+  },
+  "modern": {
+    "n_obs": 367,
+    "n_countries": 12,
+    "n_boot": 500,
+    "n_failed": 0,
+    "n_succeeded": 500,
+    "weather": {
+      "point": 0.06831,
+      "ci_lo": 0.02411,
+      "ci_med": 0.08791,
+      "ci_hi": 0.23137
+    },
+    "wages": {
+      "point": 0.0192,
+      "ci_lo": 0.01005,
+      "ci_med": 0.03522,
+      "ci_hi": 0.10754
+    },
+    "mortality": {
+      "point": 0.01626,
+      "ci_lo": 0.00658,
+      "ci_med": 0.03256,
+      "ci_hi": 0.10081
+    },
+    "own": {
+      "point": 0.89623,
+      "ci_lo": 0.68385,
+      "ci_med": 0.83265,
+      "ci_hi": 0.91192
+    }
+  }
+}

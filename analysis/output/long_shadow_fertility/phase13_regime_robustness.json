@@ -1,0 +1,353 @@
+{
+  "meta": {
+    "hansen_threshold": 9.97,
+    "horizons": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "p_lags": 2,
+    "core_variables": [
+      "spei_growing",
+      "log_real_wage",
+      "log_cdr",
+      "log_cbr"
+    ],
+    "headline_order": [
+      "spei_growing",
+      "log_real_wage",
+      "log_cdr",
+      "log_cbr"
+    ],
+    "n_complete_case": 1440,
+    "n_countries": 12,
+    "headline_mort_share_h15": {
+      "malthusian": 0.18081430524608455,
+      "modern": 0.016255371730945913
+    },
+    "shock_units_note": "fit_system_lp_fevd builds unit-variance orthogonalized shocks u = eps @ inv(P)'; therefore irf[(log_cbr, log_cdr)] is the response of log_cbr to a ONE-S.D. orthogonalized mortality shock, and the h=0 own IRF of log_cdr equals P[mort,mort]."
+  },
+  "A_irf_and_shock_variance": {
+    "description": "Structural IRF of log_cbr to a one-s.d. orthogonalized log_cdr (mortality) shock, plus the size of that mortality shock per regime. Headline ordering [SPEI, Wage, Mortality, Fertility].",
+    "variables": [
+      "spei_growing",
+      "log_real_wage",
+      "log_cdr",
+      "log_cbr"
+    ],
+    "horizons": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "malthusian": {
+      "n": 1073,
+      "irf_logcbr_to_mort_shock": [
+        -0.012889825467689735,
+        -0.020947545364015104,
+        -0.007777458000321283,
+        -0.004614809019593311,
+        0.00020076421070175246,
+        0.006766806738933416,
+        0.013578020183027475,
+        0.01728624224635706,
+        0.0168180009541643,
+        0.01747253842336928,
+        0.018461220663625037,
+        0.01890788912066907,
+        0.01978251232144952,
+        0.018358789978511293,
+        0.01737248699804959,
+        0.01632033547906532
+      ],
+      "irf_logcbr_to_mort_shock_se": [
+        0.009393284071372427,
+        0.011306531566189071,
+        0.010912705767600716,
+        0.01070387457599539,
+        0.01144562711932374,
+        0.010429452010841906,
+        0.009610389879347042,
+        0.00945382786200595,
+        0.009152253367863935,
+        0.009432157597375704,
+        0.009091373088450753,
+        0.00902142649760811,
+        0.009064950198908116,
+        0.008983575222107036,
+        0.008926671300070384,
+        0.009210262169562552
+      ],
+      "irf_peak_abs": 0.020947545364015104,
+      "irf_cumulative_sq": 0.0037987486677108573,
+      "mort_shock_sd_orth_logcdr": 0.07643594106228738,
+      "mort_shock_var_orth_logcdr": 0.00584245308607747,
+      "mort_resid_var_reduced_form": 0.006065949515237606,
+      "mort_resid_sd_reduced_form": 0.07788420581374382
+    },
+    "modern": {
+      "n": 367,
+      "irf_logcbr_to_mort_shock": [
+        0.0001269455501145271,
+        0.0034398833730885747,
+        0.0033582505450490555,
+        0.0024583407960061055,
+        0.0013903268987673868,
+        0.003486932262857134,
+        0.0033947622963524395,
+        0.004417612157996397,
+        0.000931927145216512,
+        0.0031318030364487215,
+        0.0016728764310919458,
+        9.266325998655948e-05,
+        9.617303175276551e-05,
+        0.0003666901716402582,
+        -0.001501079343465803,
+        -1.3331381097220624e-05
+      ],
+      "irf_logcbr_to_mort_shock_se": [
+        0.004483473738845855,
+        0.004410632784512978,
+        0.003836769316584968,
+        0.003462015672257061,
+        0.0027410528618536556,
+        0.002881032779863534,
+        0.0031914792818520184,
+        0.003414440720823592,
+        0.0036906437796158193,
+        0.003981465257380842,
+        0.003408806319248579,
+        0.0033171387293191306,
+        0.003960002118458941,
+        0.0045614107247781335,
+        0.0034189929436267545,
+        0.004317120944095918
+      ],
+      "irf_peak_abs": 0.004417612157996397,
+      "irf_cumulative_sq": 9.018252105584995e-05,
+      "mort_shock_sd_orth_logcdr": 0.020419391346521903,
+      "mort_shock_var_orth_logcdr": 0.00041695154296241357,
+      "mort_resid_var_reduced_form": 0.00043081171628613584,
+      "mort_resid_sd_reduced_form": 0.02075600434298798
+    },
+    "interpretation": {
+      "modern_over_malthusian_shock_sd_ratio": 0.26714384702717553,
+      "modern_over_malthusian_shock_var_ratio": 0.07136583500447895,
+      "modern_over_malthusian_peak_response_ratio": 0.21088925128121333,
+      "modern_shock_is_much_smaller": true,
+      "per_shock_response_also_weakens": true,
+      "verdict": "Both mechanisms operate. The modern orthogonalized mortality shock is much smaller (SD ratio 0.27, variance ratio 0.07), so the FEVD-share collapse is PARTLY mechanical. But the per-shock fertility response ALSO collapses (peak |IRF| ratio 0.21), so the modern fertility-mortality transmission elasticity is genuinely weaker too \u2014 the collapse is not purely a shock-size artifact."
+    }
+  },
+  "B_ordering_swaps": {
+    "description": "Mortality (log_cdr) share of log_cbr FE variance at h=15 under alternative Cholesky orderings, by regime. Collapse 'survives' if Malthusian share > Modern share under the alternative ordering.",
+    "headline_order": [
+      "spei_growing",
+      "log_real_wage",
+      "log_cdr",
+      "log_cbr"
+    ],
+    "orderings": {
+      "headline": {
+        "order": [
+          "spei_growing",
+          "log_real_wage",
+          "log_cdr",
+          "log_cbr"
+        ],
+        "mort_share_h15_malthusian": 0.18081430524608455,
+        "mort_share_h15_modern": 0.016255371730945913,
+        "delta_modern_minus_malthusian": -0.16455893351513864,
+        "collapse_survives": true
+      },
+      "fert_before_mort": {
+        "order": [
+          "spei_growing",
+          "log_real_wage",
+          "log_cbr",
+          "log_cdr"
+        ],
+        "mort_share_h15_malthusian": 0.21749672229053083,
+        "mort_share_h15_modern": 0.015368916647343009,
+        "delta_modern_minus_malthusian": -0.20212780564318783,
+        "collapse_survives": true
+      },
+      "mort_before_wage": {
+        "order": [
+          "spei_growing",
+          "log_cdr",
+          "log_real_wage",
+          "log_cbr"
+        ],
+        "mort_share_h15_malthusian": 0.19449564946571343,
+        "mort_share_h15_modern": 0.020020871543707918,
+        "delta_modern_minus_malthusian": -0.17447477792200553,
+        "collapse_survives": true
+      }
+    },
+    "verdict": "Collapse survives under all three orderings"
+  },
+  "C_leave_one_country_out": {
+    "description": "Drop each country once; recompute h=15 mortality FEVD share per regime. Headline ordering. Range = across the 12 single drops.",
+    "countries": [
+      "BEL",
+      "CHE",
+      "DNK",
+      "ESP",
+      "FIN",
+      "FRA",
+      "GBR",
+      "ISL",
+      "ITA",
+      "NLD",
+      "NOR",
+      "SWE"
+    ],
+    "headline_malthusian_share": 0.18081430524608455,
+    "headline_modern_share": 0.016255371730945913,
+    "drops": {
+      "BEL": {
+        "n_remaining": 1277,
+        "n_dropped": 163,
+        "mort_share_h15_malthusian": 0.1782529919962192,
+        "mort_share_h15_modern": 0.01730977301155268,
+        "collapse_survives": true
+      },
+      "CHE": {
+        "n_remaining": 1345,
+        "n_dropped": 95,
+        "mort_share_h15_malthusian": 0.18500716762756533,
+        "mort_share_h15_modern": 0.034626735666635815,
+        "collapse_survives": true
+      },
+      "DNK": {
+        "n_remaining": 1345,
+        "n_dropped": 95,
+        "mort_share_h15_malthusian": 0.18444215224630972,
+        "mort_share_h15_modern": 0.025325548196340086,
+        "collapse_survives": true
+      },
+      "ESP": {
+        "n_remaining": 1345,
+        "n_dropped": 95,
+        "mort_share_h15_malthusian": 0.16584361184775762,
+        "mort_share_h15_modern": 0.01625611516160895,
+        "collapse_survives": true
+      },
+      "FIN": {
+        "n_remaining": 1345,
+        "n_dropped": 95,
+        "mort_share_h15_malthusian": 0.1670657289708034,
+        "mort_share_h15_modern": 0.007831739757814404,
+        "collapse_survives": true
+      },
+      "FRA": {
+        "n_remaining": 1253,
+        "n_dropped": 187,
+        "mort_share_h15_malthusian": 0.22335530620529495,
+        "mort_share_h15_modern": 0.014647697232088234,
+        "collapse_survives": true
+      },
+      "GBR": {
+        "n_remaining": 1272,
+        "n_dropped": 168,
+        "mort_share_h15_malthusian": 0.23166213584660592,
+        "mort_share_h15_modern": 0.027273448190114846,
+        "collapse_survives": true
+      },
+      "ISL": {
+        "n_remaining": 1381,
+        "n_dropped": 59,
+        "mort_share_h15_malthusian": 0.18191640479997945,
+        "mort_share_h15_modern": 0.0031074058596021136,
+        "collapse_survives": true
+      },
+      "ITA": {
+        "n_remaining": 1303,
+        "n_dropped": 137,
+        "mort_share_h15_malthusian": 0.14307465371740577,
+        "mort_share_h15_modern": 0.019838484704407234,
+        "collapse_survives": true
+      },
+      "NLD": {
+        "n_remaining": 1284,
+        "n_dropped": 156,
+        "mort_share_h15_malthusian": 0.18577695125099955,
+        "mort_share_h15_modern": 0.02599802627034205,
+        "collapse_survives": true
+      },
+      "NOR": {
+        "n_remaining": 1345,
+        "n_dropped": 95,
+        "mort_share_h15_malthusian": 0.18213376985016258,
+        "mort_share_h15_modern": 0.013744822796543486,
+        "collapse_survives": true
+      },
+      "SWE": {
+        "n_remaining": 1345,
+        "n_dropped": 95,
+        "mort_share_h15_malthusian": 0.18069386555055258,
+        "mort_share_h15_modern": 0.024260472644798452,
+        "collapse_survives": true
+      }
+    },
+    "malthusian_share_range": {
+      "min": 0.14307465371740577,
+      "min_iso": "ITA",
+      "max": 0.23166213584660592,
+      "max_iso": "GBR"
+    },
+    "modern_share_range": {
+      "min": 0.0031074058596021136,
+      "min_iso": "ISL",
+      "max": 0.034626735666635815,
+      "max_iso": "CHE"
+    },
+    "collapse_survives_all_drops": true,
+    "gbr_diagnostics": {
+      "in_sample": true,
+      "n_total": 168,
+      "year_min": 1841,
+      "year_max": 2008,
+      "n_pre_1749": 0,
+      "note": "GBR is the longest contributor but its CORE complete-case rows are wage/mortality-bound to 1841-2008 (0 pre-1749 rows). The 'pre-1749 anchor' applies to the raw England series, not the regime-FEVD estimation sample, whose Malthusian floor is ~1820.",
+      "drop_gbr_malthusian_share": 0.23166213584660592,
+      "drop_gbr_modern_share": 0.027273448190114846,
+      "drop_gbr_collapse_survives": true
+    }
+  },
+  "overall_verdict": {
+    "B_collapse_survives_all_orderings": true,
+    "C_collapse_survives_all_drops": true,
+    "A_response_also_weakens": true,
+    "A_shock_also_smaller": true,
+    "headline_robust": true,
+    "summary": "The directional mortality-share collapse (Malthusian high -> Modern low) is ROBUST to both Cholesky-ordering swaps and to dropping any single country. Referee 2g caveat: the collapse is partly mechanical (modern orthogonalized mortality shocks are ~3-4x smaller in s.d.) BUT the per-shock fertility response also weakens, so the modern fertility-mortality transmission is genuinely attenuated, not only shock-starved."
+  }
+}

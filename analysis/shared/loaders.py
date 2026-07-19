@@ -102,3 +102,12 @@ def load_existing_scenario_panel(path: Path) -> pd.DataFrame:
         if col not in df.columns:
             raise ValueError(f"Missing expected column: {col}")
     return df
+
+
+DATA_ROOT = Path("/Volumes/BIGDATA/HYDE35/analysis/data")
+
+
+def load_iso3_master_list() -> list[str]:
+    """Return all ISO3 codes from the deep-determinants extended panel."""
+    p = DATA_ROOT / "deep_determinants_extended.parquet"
+    return sorted(pd.read_parquet(p)["iso3"].unique().tolist())

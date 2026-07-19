@@ -1,8 +1,8 @@
-"""Build a comprehensive HYDE+ERA5 merged panel for all countries, 1950-1967.
+"""Build a comprehensive HYDE+ERA5 merged panel for all countries, 1950-2025.
 
 Steps:
 1. Read ISO country grid and area grid (reference grids).
-2. Load 6 HYDE NetCDF variables for time slices 1950-1967 only.
+2. Load 6 HYDE NetCDF variables for time slices 1950-2025.
 3. Aggregate each variable to country × year level using the ISO grid.
 4. Assign every country to the closest ERA5 region via its grid centroid.
 5. Merge with ERA5 climate data and compute derived variables.
@@ -27,9 +27,9 @@ ISO_MAP_CSV = ROOT / "hyde35_country_iso_mapping.csv"
 ERA5_PANEL = ROOT / "analysis" / "data" / "era5_full_panel.parquet"
 OUT_PATH = ROOT / "analysis" / "data" / "hyde_era5_full_panel.parquet"
 
-YEARS = list(range(1950, 1968))          # 18 years matching ERA5
-# NetCDF time slices 52–69 correspond to 1950–1967 (confirmed by inspection)
-TIME_SLICE = slice(52, 70)
+YEARS = list(range(1950, 2026))          # full ERA5 span (archive complete)
+# NetCDF time slices 52–127 correspond to 1950–2025 (confirmed by inspection)
+TIME_SLICE = slice(52, 128)
 
 # Variables and their native units  → output column names
 NC_VARIABLES = {
@@ -46,7 +46,7 @@ from analysis.shared.loaders import read_esri_ascii_grid, align_grid
 
 
 def read_nc_sliced(nc_path: Path) -> xr.DataArray:
-    """Open a NetCDF file and return only the 1950-1967 time slices."""
+    """Open a NetCDF file and return only the 1950-2025 time slices."""
     ds = xr.open_dataset(nc_path, engine="netcdf4")
     var_name = list(ds.data_vars)[0]
     da = ds[var_name].isel(time=TIME_SLICE)
@@ -278,7 +278,7 @@ print(f"  Rows with temperature data: {merged['temperature_c'].notna().sum()}")
 
 # ── Step 9: climate anomalies and volatility ──────────────────────────────────
 print("Computing climate anomalies …")
-# Compute anomalies relative to the 1950-1967 mean for each ERA5 region
+# Compute anomalies relative to the full-panel (1950-2025) mean per ERA5 region
 clim_means = era5_clean.groupby("era5_region")[["temperature_c", "precipitation_mm"]].mean()
 clim_stds  = era5_clean.groupby("era5_region")[["temperature_c", "precipitation_mm"]].std()
 

@@ -1,0 +1,66 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{xcolor}
+\definecolor{softblack}{HTML}{1A1A1A}
+\definecolor{mutedgray}{HTML}{555555}
+\AtBeginDocument{\color{softblack}}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+\noindent\textbf{Cover letter --- \emph{Review of Economic Studies}}\\[0.4em]
+\textcolor{mutedgray}{\rule{0.22\linewidth}{0.4pt}}
+
+\bigskip
+\noindent Editor\\
+\textit{Review of Economic Studies}
+
+\bigskip
+
+\noindent Dear Editor,
+
+\bigskip
+
+\noindent We are pleased to submit ``Volcanic Forcing and the Pre-Industrial Malthusian Trap: Pathway-Heterogeneous Demographic Response and the Long Shadow of Seasonality'' for consideration at the \emph{Review of Economic Studies}.
+
+The paper assembles a new monthly paleo-economic panel covering 196 countries and 3{,}187 sub-national units back to 1421~CE---combining the ModE-RA paleo-reanalysis, HYDE 3.5 land-use reconstruction, eVolv2k volcanic sulfur record, Brecke conflict catalogue, and Allen-Nuffield wage archive---and uses volcanic eruptions as an exogenous source of climate forcing to identify the pathway-heterogeneous Malthusian response of pre-industrial economies. The paper makes three substantive contributions and one methodological one.
+
+\emph{First}, a three-equation joint panel VAR on the 1500--1900 sample identifies a sharply pathway-heterogeneous demographic margin. Crop-dominant late and pastoral/mixed late countries lose population at $-9.7$ and $-5.5\!\cdot\!10^{-5}$ per Tg of stratospheric sulfur injection respectively, both Bonferroni-significant across twelve pathway-by-equation tests, both robust to re-clustering the pathway typology on climate primitives orthogonal to HYDE outcomes, and both surviving a Webb wild-cluster bootstrap. An annual European mortality-and-fertility panel 1751--1900 attributes the demographic response to the \emph{positive} check on infant and child mortality (the historically documented summer-mortality pattern), with the channel collapsing to zero by 1950--2022 as sanitation develops. The Allen real-wage panel returns the canonical Malthusian price-on-population coefficient at city resolution, the welfare-side echo of the demographic finding.
+
+\emph{Second}, pre-industrial inter-annual climate volatility 1421--1750 is the single strongest cross-country predictor of modern population growth at $R^2 = 0.45$, surviving both an extended deep-determinants battery and a latitude control, and failing a placebo when computed over the modern 1950--2008 reanalysis window. Seasonality, properly measured, casts a long shadow on the modern demographic trajectory that is not contained in modern climate or geographic deep determinants.
+
+\emph{Third}, we test for a Boserupian intensification channel on cropland and report an honest two-axis null on HYDE: the cropland-share specification is artifactually positive (driven by colonial-transition denominator instability in 24 small-island countries; the coefficient vanishes on the substantively-named 21-country Mediterranean / Eurasian-steppe / SE-Asia core), and the cropland-area specification is fully mediated by the demographic margin because HYDE's reconstruction takes population as an input. Cross-validating against the independent KK10 reconstruction (Kaplan et al., 2011)---methodologically population-independent---surfaces a small but statistically robust positive signal that survives the demographic-margin control: $+1.07\!\cdot\!10^{-5}$ per Tg on the 21-country core ($p=0.005$), $+4.3\!\cdot\!10^{-5}$ on the high-density intensive pathway ($p=0.047$). The Boserupian channel exists, but at a magnitude two orders below what the HYDE artefact had originally suggested, and only identifiable on a population-independent reconstruction.
+
+The methodological contribution is the documentation of HYDE's two-axis identification problem. HYDE-based volcanic-forcing regressions appear elsewhere in the climate-economics literature without these diagnostics; our share-decomposition exercise and the HYDE-vs-KK10 cross-validation surface a measurement issue that is structurally important for the field. Combined with the demographic-margin headline (which does \emph{not} suffer from this problem) and the long-shadow result, the paper is in a defensible position for both substantive and methodological referee evaluation.
+
+We see the paper as a contribution to three lines of work the \emph{Review of Economic Studies} has shaped: the macroeconomic consequences of climate and climate-volatility shocks; the structural transition from stagnation to growth, including the long shadow of pre-industrial endowments on modern outcomes; and the data-infrastructure foundations of pre-industrial comparative economics. We argue the within-country sub-national identification and the cross-reconstruction validation strategy together demonstrate the level of econometric and measurement rigor a top-5 referee round requires.
+
+The paper is solely-authored work by two researchers at the Centro de Investigaci\'on Econ\'omica, ITAM, and Universidade de Vigo / RGEA. We declare no conflicts of interest. The manuscript has not been previously published and is not under consideration elsewhere. A replication package with the ModE-RA aggregation code, the KK10 country aggregation script, the country and sub-national parquet panels, and all analysis scripts will be deposited on OSF upon acceptance.
+
+\bigskip
+
+\noindent Sincerely,\\[0.4em]
+Jorge Alonso Ortiz \\
+\small\textcolor{mutedgray}{Centro de Investigaci\'on Econ\'omica, ITAM\quad\textbar\quad jorge.alonso@itam.mx}
+
+\bigskip
+
+\noindent Jos\'e-Mar\'ia Da-Rocha \\
+\small\textcolor{mutedgray}{Universidade de Vigo \& RGEA, Spain\quad\textbar\quad darocha@uvigo.es}
+
+\bigskip
+
+\textcolor{mutedgray}{\rule{0.22\linewidth}{0.4pt}}\\[0.2em]
+{\footnotesize\textcolor{mutedgray}{Suggested referees (independent of the authors):}\\
+T.\ B.\ Andersen (Copenhagen, climate-growth);
+A.\ Matranga (NES, seasonality-agriculture);
+Q.\ Ashraf (Williams, long-run development);
+M.\ Burke (Stanford, climate-economy);
+J.\ O.\ Kaplan (HKUST, KK10 land-use reconstruction).}
+
+\end{document}

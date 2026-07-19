@@ -1,0 +1,39 @@
+MIT License (code and documentation)
+
+Copyright (c) 2026 Jorge Alonso Ortiz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+═══════════════════════════════════════════════════════════════════════════
+Generated data (analysis/data/*.parquet and analysis/figures/**) are
+released under a Creative Commons Attribution 4.0 International (CC-BY-4.0)
+license. If you re-use these derivatives, please cite:
+
+  Alonso Ortiz, J. (2026). "The Long Shadow of Seasonality: Climate
+  Endowments, Agricultural Pathways, and Escape from the Malthusian Trap."
+  Replication package, version 1.0. https://osf.io/XXXX
+
+═══════════════════════════════════════════════════════════════════════════
+Raw upstream data are governed by their own licenses:
+
+  HYDE 3.5      CC-BY-4.0  (Klein Goldewijk et al., 2017)
+  ModE-RA       CC-BY-4.0  (Franke et al., 2023)
+  ERA5          Copernicus license (Hersbach et al., 2020)
+  CRU TS 4.09   CRU custom academic-use license (Harris et al., 2020)
+  PAGES 2k      CC-BY-4.0  (PAGES 2k Consortium, 2019)

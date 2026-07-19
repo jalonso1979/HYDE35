@@ -1,0 +1,51 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{xcolor}
+\definecolor{softblack}{HTML}{1A1A1A}
+\definecolor{mutedgray}{HTML}{555555}
+\AtBeginDocument{\color{softblack}}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+\noindent\textbf{Cover letter --- \emph{Journal of Economic Growth}}\\[0.4em]
+\textcolor{mutedgray}{\rule{0.22\linewidth}{0.4pt}}
+
+\bigskip
+\noindent Editor\\
+\textit{Journal of Economic Growth}
+
+\bigskip
+
+\noindent Dear Editor,
+
+\bigskip
+
+\noindent I am pleased to submit ``The Long Shadow of Seasonality: Climate Endowments, Agricultural Pathways, and Escape from the Malthusian Trap'' for consideration at the \emph{Journal of Economic Growth}.
+
+The paper sits squarely in the journal's flagship topic. Building on \citet{matranga2024}, who shows that intra-annual climate variability drove the Neolithic transition, and on the unified-growth framework of \citet{galor2011unified}, I ask whether the climate endowment that shaped where humans first farmed also shaped where they first escaped the Malthusian trap. The empirical strategy connects pre-industrial agricultural pathway selection (Stage~1) to the strength of the Malthusian feedback and the response to climate shocks (Stage~2), and tests both stages on a new country-level and sub-national monthly climate panel that reaches back to 1421~CE.
+
+The principal contributions are empirical. \emph{First}, I construct what I believe is the first country-level and sub-national monthly climate panel reaching back to 1421~CE, by area-weighting the ModE-RA paleo-reanalysis onto HYDE 3.5 sub-units and calibrating against ERA5 over the 1950--2008 overlap. The country-monthly correlation against country-level ERA5 is $0.977$ in median and the year-to-year anomaly correlation is $0.832$ over the full 59-year overlap, sharp enough for the analyses I run. \emph{Second}, I exploit HYDE's sub-national grid (3{,}187 sub-units across 196 countries) for within-country identification of the storage-demand $\to$ agricultural-system channel. With country fixed effects absorbing all country-level institutional confounders, an extra climatically productive month per year is associated with 6.7~pp higher crop share at 1750 and 0.66 log-units higher population density---an effect 3.5$\times$ the between-country one. \emph{Third}, on a 1421--1950 within-country Malthusian regression with real annual climate forcing, I recover a within-paper signature of the demographic transition (density coefficient progressively weakening, statistically zero by 1900--1950) and an underappreciated finding: the sign on inter-annual temperature volatility flips between 1750--1900 ($+0.0045$, helpful or noisy) and 1900--1950 ($-0.0125$, $p < 10^{-4}$, strongly harmful), consistent with monoculture replacing mixed pre-industrial systems and exposing modern agriculture to volatility risk.
+
+I see the paper as a contribution to three lines of work this journal has shaped: the long-run consequences of climate endowments \citep{andersen2017climate, olsson2005}, the structural transition from stagnation to growth \citep{galor2002natural, voigtlander2013how}, and the data infrastructure for pre-industrial comparative economics \citep{ashraf2011dynamics}. The within-country identification opens a route for the field to move past cross-country growth regressions where it is feasible to do so.
+
+I declare no conflicts of interest. The manuscript has not been previously published and is not under consideration elsewhere. A replication package with the ModE-RA aggregation code, the country and sub-national parquets, and all analysis scripts will be deposited on OSF upon acceptance.
+
+\bigskip
+
+\noindent Sincerely,\\[0.4em]
+Jorge Alonso Ortiz\\[0.2em]
+\small\textcolor{mutedgray}{[Affiliation]\quad\textbar\quad jorge.alonso@icloud.com}
+
+\bigskip
+
+\textcolor{mutedgray}{\rule{0.22\linewidth}{0.4pt}}\\[0.2em]
+{\footnotesize\textcolor{mutedgray}{Suggested referees (independent of the author):}
+T.B. Andersen (Copenhagen, climate-growth); A. Matranga (NES, seasonality-agriculture); Q. Ashraf (Williams, long-run development); A. Vollrath (Toulouse, paleo-economic history); A. de Pleijt (Wageningen, Dutch agricultural history).}
+
+\end{document}

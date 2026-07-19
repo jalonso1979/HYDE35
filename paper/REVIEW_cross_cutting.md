@@ -1,0 +1,35 @@
+# Cross-Cutting Editorial Note: Two Papers, Shared Infrastructure
+
+Both manuscripts (Alonso Ortiz & Da-Rocha) draw on the same 196-country HYDE 3.5 / ModE-RA panel and the same family of methods (Shapley/coalition decompositions, bootstrap inference, pathway typologies). The two referee reports, read together, expose defects that are not independent.
+
+## 1. Issues recurring in BOTH papers (fix once, propagate)
+
+- **Prose describes a superseded analysis ("stale snapshot" bug).** In *long_shadow*, the text/tables quote a 7-control joint-VAR spec while the headline figure and structural calibration use an 8-control spec (−9.7/−5.5 vs −9.96/−5.8). In *horserace*, §4.4 reports FWER survivors and an F-statistic substrate ("predicted heterozygosity," F=11.33/10.82) that no longer exist in the v3 code; the real survivors differ and no income cell survives. **Same failure mode**: the LaTeX was frozen against an earlier code version. The authors need a one-time discipline — regenerate every load-bearing number directly from the committed parquet and add a numbers-match test — applied to both papers, not patched cell-by-cell.
+
+- **No working reproduction path to the headline.** *long_shadow*'s `make all`/`make robustness` aborts from a clean tree (nothing builds `joint_landuse_var_panel.parquet`; `run_all.py` orchestrates a different paper). *horserace* has no entry point at all (no Makefile/`run_all`/`reproduce_*.sh`), and its DAG must be reverse-engineered. The shared fix is one repo-wide reproduction harness (the long_shadow project already ships a `reproduce_long_shadow.sh` per the git log — extend that pattern to both and wire in the actual lead modules).
+
+- **Bootstrap/inference reproducibility is fragile.** *horserace* uses unsalted `hash()` seeds, so every published CI and cell-bolding decision is non-deterministic run-to-run. *long_shadow*'s bootstrap is correctly implemented but its clustering has two real bugs (row-index instead of country; wrong df in two-way clustering). Both papers lean on bootstrap/cluster-robust inference as the credibility backbone, so a shared "inference hygiene" pass — fixed/stable seeds, `PYTHONHASHSEED` exported, cluster variable always `iso3`, correct few-cluster df — should be run across the shared `*.py` utilities once.
+
+- **Metric/criterion switching dressed up as a unified result.** *horserace*'s "temporal partition" silently switches between Shapley-R² dominance and WY-survival cell-by-cell (no single criterion yields the four-pillar story). *long_shadow* makes a parallel move: it asserts "robust across every stress test" for two coefficients when only one survives post-1700, and frames a pathway-FE R²=0.45 as the variable's "univariate" predictive content. In both papers the headline narrative is assembled by quietly picking the most favorable statistic per cell. Fix: state the criterion explicitly for each headline claim.
+
+- **Same-object circularity in the "pathway" / mediation typology.** Both papers cluster climate primitives into "pathways" and then use that clustering as a regressor or mediator. *horserace*: the mediator is a k-means cluster of the very climate primitives that form the climate-bundle substrate (mechanical self-decomposition). *long_shadow*: the re-clustering basis (`t_volatility`) is constructively identical to the headline regressor σ_v^T. The shared pathway/typology machinery needs one honest footnote about what is and isn't orthogonal — applied consistently.
+
+## 2. Tension/contradiction BETWEEN the two papers
+
+- **The deep-roots channel one paper builds on, the other undercuts.** *long_shadow* leans on an "institutional channel" / institutional-persistence gloss (:381) to interpret its cross-country gradient. *horserace*, on the same 196-country panel, reports that the state-history (institutional-capacity) reinterpretation of DARC is a sample-composition artifact — DARC is already positive/insignificant on the fixed 136-country sample before state history enters. If institutional persistence cannot carry the deep-roots result in *horserace*, *long_shadow* should not casually invoke "the institutional channel" as a mechanism. Reconcile the two papers' stance on institutions/state capacity.
+
+- **Volatility's explanatory weight is described inconsistently across the two papers.** In *long_shadow*, inter-annual climate volatility (σ_v) is the marquee long-shadow predictor (framed as "the single strongest cross-country predictor," R² overstated as 0.45). In *horserace*, the climate bundle — which includes the same volatility primitives (σ_v^T, σ_v^P) — wins **zero** WY survivors (max F=2.14) and is explicitly demoted as not FWER-defensible. The same authors' two papers thus give opposite verdicts on whether climate volatility is a robust cross-country predictor of modern outcomes. At minimum the papers must cite each other and explain why volatility is decisive in one framing and non-survivor in the other (different outcomes/samples is a plausible answer, but it must be stated, not left as a silent contradiction a referee will find).
+
+- **"Ancestral crop yield wins" reverses between paper and internal note.** *horserace* now reports ancestral yield winning zero Shapley cells (it survives only on WY), directly contradicting the authors' own prior internal finding that "ancestral crop yield wins 3 of 4 outcomes." Since both papers share the yield/GAEZ infrastructure, settle which decomposition is canonical before either paper's yield claims go out.
+
+## 3. Highest-leverage fixes across both papers
+
+1. **One reproduction harness + a "paper numbers match parquet" test, for both repos.** This single discipline would have caught long_shadow's 7-vs-8-control mismatch and horserace's entire stale §4.4 simultaneously. Highest leverage because it prevents recurrence, not just the current instances.
+
+2. **Regenerate both inferential sections from the shipped code** (long_shadow's joint-VAR numbers/figJ/Table; horserace's §4.4 WY survivors), and restrict every "robust across all tests" / "dominates" claim to what the current parquet actually shows.
+
+3. **Shared inference-hygiene pass on the common Python utilities:** stable seeds + `PYTHONHASHSEED` (horserace), cluster on `iso3` and correct few-cluster df (long_shadow), HC3 consistency in WY (horserace). These touch the shared bootstrap/clustering code once.
+
+4. **State the dominance/robustness criterion explicitly per headline claim in both papers** (Shapley-R² vs FWER-survival in horserace; full-panel-significance vs post-1700-survival vs magnitude in long_shadow), ending the metric-switching that both share.
+
+5. **Reconcile the institutions and climate-volatility stories across the two papers** (add mutual citations): do not let long_shadow invoke an "institutional channel" that horserace shows is a sample artifact, and explain why volatility is the headline predictor in one paper and a non-FWER-survivor in the other.

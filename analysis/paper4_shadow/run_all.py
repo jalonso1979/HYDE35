@@ -613,6 +613,24 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    # Build GS climate panels (country + sub-national) before regressions.
+    # These feed long_shadow_gs (§5 climate-deep decomposition) and the
+    # appendix tables; existing annual-climate regressions are unaffected.
+    if not args.figures_only:
+        _banner("Build GS climate panels")
+        import subprocess
+        subprocess.run(["python", "-m", "analysis.paper4_shadow.build_gs_climate"],
+                       check=True)
+        subprocess.run(["python",
+                        "/Volumes/BIGDATA/HYDE35/analysis/paper4_shadow/test_gs_climate_smoke.py"],
+                       check=True)
+        subprocess.run(["python", "-m", "analysis.paper4_shadow.long_shadow_gs"],
+                       check=True)
+        subprocess.run(["python", "-m", "analysis.paper4_shadow.long_shadow_gs_sensitivity"],
+                       check=True)
+        subprocess.run(["python", "-m", "analysis.paper4_shadow.long_shadow_gs_appendix_tables"],
+                       check=True)
+
     data = load_data()
     endowments = None
 

@@ -1,445 +1,1231 @@
-\documentclass[12pt,letterpaper]{article}
+\documentclass[11pt,letterpaper]{article}
 
-% ── Packages ──────────────────────────────────────────────────────────────────
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\usepackage{natbib}
+\usepackage[T1]{fontenc}
+\usepackage[round,authoryear]{natbib}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{float}
 \usepackage{hyperref}
-\usepackage{setspace}
-\usepackage[labelfont=bf]{caption}
+\usepackage{caption}
 \usepackage{subcaption}
 \usepackage{enumitem}
 \usepackage{rotating}
 
-\doublespacing
-\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\title{Volcanic Forcing and the Pre-Industrial Malthusian Trap\\
+{\large Pathway-Heterogeneous Demographic Response and the Long Shadow of Seasonality}}
 
-% ── Title ─────────────────────────────────────────────────────────────────────
-\title{%
-  The Long Shadow of Seasonality:\\
-  Climate Endowments, Agricultural Pathways,\\
-  and Escape from the Malthusian Trap%
-}
-\author{
-  [Author Name]\\
-  \textit{[Affiliation]}\\
-  \texttt{[email]}
-}
-\date{Draft: April 2026}
+\author{Jorge Alonso Ortiz\thanks{Centro de Investigación Económica, ITAM. Email: \texttt{jorge.alonso@itam.mx}.}
+  \and Jos\'e-Mar\'ia Da-Rocha\thanks{Universidade de Vigo, RGEA, Spain.}}
+\date{Draft: May 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
 \noindent
-Why did some societies escape the Malthusian trap centuries before others? We propose that the answer traces back to climate endowments operating through two distinct channels. Building on \citet{matranga2024}, who shows that intra-annual seasonality drove the adoption of agriculture, we develop a two-stage framework in which (Stage~1) seasonality determines \textit{which} agricultural system is selected---intensive crop-based versus extensive pastoral---and (Stage~2) the selected system determines the strength of the Malthusian feedback and the conditions for escape. Using HYDE~3.5 data (10,000~BCE--2025~CE) for 197 countries merged with a 2,000-year calibrated climate panel (PAGES~2k, Berkeley Earth, CRU~TS, ERA5), we document three findings. First, historical intra-annual seasonality predicts the formation of five distinct agricultural pathways. Second, pathway selection determines Malthusian intensity: the Malthusian coefficient varies from anti-Malthusian ($\hat{\beta} = +0.0007$) in intensive pathways to strongly Malthusian ($\hat{\beta} = -0.0002$) in pastoral systems. Third, climate sensitivity declines to zero after the Green Revolution, and we test whether intensification or urbanization mediates this decoupling, letting the data adjudicate between mechanisms. Historical seasonality casts a ``long shadow'': pre-industrial (0--1850~CE) seasonality predicts modern crop share changes ($\beta = -0.43$, $p < 0.001$) and population growth ($\beta = -3.17$, $p < 0.001$), even controlling for pathway fixed effects. The paper bridges two literatures---the origins of agriculture and unified growth theory---by showing that a single climate endowment shapes the full arc from agricultural adoption through Malthusian dynamics to modern escape.
+Using a new monthly paleo-economic panel of 196 countries and 3{,}187 sub-national units from 1421~CE, we identify the pre-industrial Malthusian demographic response to volcanic forcing and place it alongside two further findings. Crop-dominant late and pastoral/mixed late countries lose population at $-9.6\!\cdot\!10^{-5}$ and $-5.5\!\cdot\!10^{-5}$ per Tg of stratospheric sulfur injection respectively, both Bonferroni-significant on the full panel; the crop-dominant-late response is robust across every stress test we run, while the pastoral/mixed-late response is identified off the pre-1700 century-resolution cells and does not survive restriction to the post-1700 decadal portion of HYDE; mortality data 1751--1900 trace the channel to the positive check on infant and child mortality, with the response collapsing by an order of magnitude by 1950 as sanitation develops. Pre-industrial inter-annual climate volatility 1421--1750 is the single strongest predictor of modern population growth in this paper's deep-determinant battery (univariate $R^2=0.18$, rising to $0.45$ with agricultural-pathway fixed effects); a growing-season decomposition of the channel shows the predictive content is concentrated in non-growing-season variance ($|\hat\beta_{\overline{\mathrm{GS}}}|$ exceeds $|\hat\beta_{\mathrm{GS}}|$ by 2$\times$ to 17$\times$ across nine specification cells), so the long shadow is climate-deep rather than agronomically specific. On HYDE the Boserupian cropland-margin test fails on two distinct measurement axes; on the population-independent KK10 reconstruction \citep{kaplan2011} a small positive Boserupian signal emerges that survives the demographic-margin control, two orders below what the HYDE specification had implied.
 
-\vspace{0.5em}
-\noindent\textbf{JEL Codes:} N50, O13, O44, Q54, J11\\
-\textbf{Keywords:} Malthusian trap, unified growth theory, agricultural transition, seasonality, climate endowments, HYDE~3.5
+\medskip
+\noindent\textbf{JEL Codes:} N50, O13, O44, Q54, J11.\\
+\textbf{Keywords:} Malthusian trap, unified growth theory, climate endowments, paleoclimate, HYDE 3.5, ModE-RA, eVolv2k.
 \end{abstract}
 
-\newpage
-\tableofcontents
-\newpage
-
-% ══════════════════════════════════════════════════════════════════════════════
 \section{Introduction}
-% ══════════════════════════════════════════════════════════════════════════════
 
-The Malthusian model---in which population growth absorbs productivity gains, preventing sustained increases in living standards---remains the dominant framework for understanding pre-industrial economic dynamics \citep{galor2011unified, ashraf2011dynamics}. Yet two fundamental questions remain open. First, why did agricultural systems differ so dramatically across societies, with some developing intensive cereal agriculture while others remained pastoral? Second, how did the choice of agricultural system determine the timing and speed of escape from the Malthusian trap?
+In April 1815, Mount Tambora ejected roughly 30 teragrams of sulfur into the stratosphere (about 60~Tg of SO$_2$)---the largest historically documented eruption---and triggered the ``year without a summer'' of 1816 across the Northern Hemisphere. Crops failed across continental Europe and New England; wheat prices in Paris rose nearly threefold; what contemporaries called ``famine fever'' (typhus and typhoid) killed an estimated 200{,}000 people across Ireland, Switzerland, and Italy alone \citep{wood2014year}. Tambora is not an outlier in the deeper historical record. Samalas 1257 (eVolv2k VSSI $\approx 59$~Tg) preceded the Great Famine of 1315--1317; the 1452--1453 Kuwae eruption coincided with sustained European grain-price elevation; the 540~CE LALIA doublet sits at the onset of the late-antique European population contraction \citep{buntgen2016cooling}. Volcanic eruptions are the cleanest exogenous climate shock the historical record contains: tectonic forcing that injects stratospheric sulfate, cools the surface for one to three years, and reduces agricultural yields in a way that is uncorrelated with prior economic conditions. The question this paper asks is how pre-industrial economies absorbed such shocks, and which economies absorbed them how.
 
-\citet{matranga2024} provides a compelling answer to the first question: intra-annual climate seasonality drove the adoption of agriculture by creating demand for food storage, which in turn required sedentism. In highly seasonal environments, hunter-gatherers settled down, stored surplus, and eventually domesticated storable crops. The Neolithic Revolution was not a single event but a climate-driven response that occurred independently in at least seven populations.
+The theoretical answers are two centuries old and pull in opposite directions. \citet{malthus1798} described a demographic adjustment: when climate stress reduces food production per capita, population contracts through the positive check (mortality) and, more slowly, through the preventive check (fertility postponement). \citet{boserup1965}, by contrast, argued that the demographic adjustment was at best a partial response. Faced with land-pressure shocks, cultivators expanded the cultivated area, shortened fallow rotations, and adopted more labour-intensive techniques: an agricultural-margin adjustment that absorbed the shock without contracting population. The two responses are not mutually exclusive in principle---an economy can lose people and intensify cultivation simultaneously---but they make different predictions about which margin a country relies on, and Boserup explicitly objected to the Malthusian framing's silence on the agricultural-margin alternative.
 
-\citet{galor2011unified} provides the canonical framework for the second question: unified growth theory (UGT) describes how economies transition from Malthusian stagnation to sustained growth through the accumulation of human capital. In the Malthusian regime, productivity gains are absorbed by population growth; escape occurs when human capital accumulation outpaces population expansion.
+Empirically, the field has had to choose its battles carefully because the data on pre-industrial climate, population, and land use have not aligned cleanly. The macroeconomics-of-climate literature \citep{dell2012temperature, burke2015global, hsiang2017global} has identified large first-order temperature effects on output and population on the modern instrumental record (1950--), but the modern record cannot speak to the pre-industrial Malthusian regime that ended decades earlier and that Galor's unified growth theory \citep{galor2011unified, galor2000population} has placed at the centre of long-run growth. The pre-industrial Malthusian econometrics tradition \citep{ashraf2011dynamics, voigtlander2013how, clark2007farewell} has estimated the strength of the Malthusian feedback from historical population panels, but has had to treat climate forcing as a residual inside country fixed effects because annual country-level climate has not been measured before the 20th century. The climate-historical literature \citep{buntgen2016cooling, weiss2008climate, pages2k2019} has identified famine events around large eruptions but has not been able to support large-$N$ panel inference. The Neolithic-foundations literature \citep{matranga2024, olsson2005, diamond1997guns} has established that pre-industrial climate endowments shaped which agricultural systems societies adopted, but has stopped short of asking whether the same endowments shape climate-shock responses. The Boserupian intensification claim, perhaps the most consequential alternative to the Malthusian baseline, has remained largely untested at the cross-country pre-industrial scale because no panel has resolved cropland-and-population-and-climate jointly at the resolution the test requires.
 
-What is missing from both literatures is the \textit{link between them}---the mechanism through which the climate endowment that determined agricultural adoption also determined the dynamics within the Malthusian regime and the conditions for escape. This paper fills that gap.
+This paper assembles such a panel and runs the test. We aggregate the ModE-RA paleo-reanalysis \citep{franke2023modera}---a monthly global assimilation of documentary records, tree rings, ice cores, and historical instruments---onto HYDE 3.5 land-use cells \citep{goldewijk2017}, anchor absolute monthly levels to the CRU 1901--1950 instrumental climatology \citep{harris2020cruts}, and link the result to the Sigl-Toohey eVolv2k ice-core record of stratospheric sulfur injection \citep{sigl2024evolv2k, toohey2017}, the Brecke conflict catalogue \citep{brecke1999}, the Allen-Nuffield wage-and-price archive \citep{allen2001divergence, malanima2002}, and the Human Mortality / Human Fertility Databases. The resulting panel covers 196 countries and 3{,}187 sub-national units back to 1421~CE at country-monthly resolution---a measurement unit that, to our knowledge, has not previously been available for econometric inference. Volcanic eruptions provide the identifying variation: the panel window 1421--1900 contains roughly sixty distinct eruption years with stratospheric sulfur injection above the noise floor of the eVolv2k record, and the decadal HYDE temporal grid is fine enough to resolve their demographic and land-use consequences.
 
-We develop a two-stage framework:
-\begin{enumerate}[label=(\roman*)]
-  \item \textbf{Stage 1 (Selection):} Intra-annual seasonality determines which agricultural system a society adopts---intensive crop-based (high storage demand, high labor) versus extensive pastoral (low storage, low labor). This extends \citeauthor{matranga2024}'s binary forage-vs-farm choice to a multi-equilibrium setting.
-  \item \textbf{Stage 2 (Dynamics):} The selected agricultural system determines the strength of the Malthusian feedback and vulnerability to inter-annual climate shocks. Intensive systems, with their higher fixed capital and storage infrastructure, are more climate-resilient but face different escape dynamics than pastoral systems.
-\end{enumerate}
+The empirical work yields three findings.
 
-The key insight is that a \textit{single} climate endowment---seasonality---shapes the full arc from agricultural adoption through Malthusian dynamics to modern escape. The same high seasonality that pushed societies toward intensive agriculture (Stage~1) also gave them lower climate vulnerability and faster human capital accumulation (Stage~2), enabling earlier escape from the trap.
+\emph{First, the Malthusian demographic margin is sharply pathway-heterogeneous and identifiable.} Estimating a joint three-equation reduced-form within-country panel system (a set of contemporaneously-identified FE-OLS equations rather than a structural VAR; see Section~\ref{sec:joint-var}), with the identifying VSSI entering contemporaneously of population, cropland-share, and urban-share growth on lagged levels, contemporaneous interval climate, and decade-summed VSSI exposure, crop-dominant late and pastoral/mixed late countries show population-growth coefficients of $-9.6$ and $-5.5\!\cdot\!10^{-5}$ per Tg respectively, both Bonferroni-significant across twelve pathway-by-equation tests, both robust to a Webb wild-cluster bootstrap, and both robust to re-clustering pathways on climate primitives orthogonal to HYDE outcomes; the crop-dominant-late coefficient additionally survives restriction to the post-1700 decadal portion of HYDE, whereas the pastoral/mixed-late coefficient is identified largely off the pre-1700 century-resolution cells and does not survive that restriction. A 30-Tg Tambora-class decade translates to roughly $3\%$ cumulative population loss in crop-dominant late countries; a 10-Tg ``ordinary'' eruption decade implies $\sim 1\%$. The annual European Human Mortality / Human Fertility Database panel covering ten countries 1751--1900 traces the channel to the positive check on infant and child mortality, with the response collapsing to statistical insignificance by 1950--2008 as sanitation develops---the sanitation-mediated reversal that the historical demography literature \citep{wrigley1981} predicts but that has not previously been quantified with paleo-reanalysis climate forcing. The Allen real-wage panel for six European countries 1421--1850 returns the canonical Malthusian real-wage-on-population coefficient at city resolution---the welfare-side echo of the same channel, with the implied real-wage rise after a Tambora-class population contraction $\sim +0.95\%$ for the survivors.
 
-We test this framework using three innovations. First, we construct a \textit{2,000-year calibrated climate panel} by merging four data sources: PAGES~2k temperature reconstructions (0--1849~CE), Berkeley Earth gridded data (1850--1900), CRU~TS~4.09 (1901--1949), and ERA5 reanalysis (1950--2025). This allows us to measure \textit{actual historical} climate variability rather than relying on modern proxies for ancient conditions. Second, we exploit the unprecedented resolution of HYDE~3.5 \citep{goldewijk2017}, which provides population and land-use data for 197 countries from 10,000~BCE to 2025~CE across three uncertainty scenarios. Third, we distinguish two dimensions of climate variation---intra-annual seasonality ($\sigma_s$, the Matranga channel) and inter-annual volatility ($\sigma_v$, risk exposure)---and show they operate through separate causal channels.
+\emph{Second, the pre-industrial climate regime that selected agricultural pathways leaves a long shadow on modern demographic outcomes.} Pre-industrial inter-annual climate volatility 1421--1750 is the single strongest predictor of modern population growth in this paper's deep-determinant battery (univariate $R^2 = 0.18$ on the 196-country sample, rising to $0.45$ once agricultural-pathway fixed effects are added), surviving both latitude and an extended deep-determinant battery (Neolithic distance, migratory distance from Addis Ababa, ruggedness, log land area, mean pre-industrial temperature) and failing a placebo when $\sigma_v^T$ is computed over the modern 1950--2008 reanalysis window ($p = 0.16$). The result is specific to demographic outcomes---modern $\Delta$ urban share and modern log GDP per capita are absorbed by latitude---and is consistent with (though does not identify) the institutional-development literature \citep{ashraf2013out, putterman2008, andersen2017climate}: the climate dimension that selected which adjustment margin a society relied on before 1750 leaves traces in modern demographic trajectories that are not contained in either modern climate or geographic deep determinants.
 
-Our findings are as follows. We identify five distinct agricultural pathways using unsupervised clustering on HYDE trajectory features: high-density intensive (16 countries), early extensifiers (29), crop-dominant late developers (46), pastoral/mixed late developers (65), and irrigation pioneers (1). Historical seasonality predicts pathway assignment. The Malthusian coefficient varies dramatically across pathways, from anti-Malthusian ($\hat{\beta} = +0.0007$, $p < 10^{-46}$) in the crop-dominant pathway to negative in pastoral systems. Climate sensitivity declines toward zero after the Green Revolution, with both urbanization and intensification contributing as mediators. Most strikingly, pre-industrial seasonality (0--1850~CE) predicts modern (2015--2025) structural outcomes even after controlling for pathway fixed effects, suggesting that climate endowments have persistent effects beyond their role in pathway selection.
+\emph{Third, the Boserupian intensification hypothesis identifies only on a population-independent land-use reconstruction.} The natural HYDE test---cropland share as the outcome---returns a nominally positive coefficient ($+7.8\!\cdot\!10^{-4}$ per Tg, $p=0.003$ in the 1800--1900 sub-sample) but fails on two distinct measurement axes. The cropland-share specification is artefactually positive: the coefficient is driven by HYDE colonial-transition encoding in 24 small-island and tropical-Africa countries; it vanishes when we restrict to the substantively-named 21-country Mediterranean / Eurasian-steppe / SE-Asia core, attenuates tenfold under population weighting, and decomposes into a cropland-area contraction (the opposite sign of intensification) plus a faster grazing-area contraction. The fallback cropland-area specification is statistically robust on the substantive sample but is fully mediated by the demographic margin, because HYDE's pre-1850 reconstruction takes country-level population as an input \citep{goldewijk2017, koch2019}: adding $\Delta_{\text{ann}} \ln P$ as a control collapses the area coefficient to zero in every specification we run. Cross-validating against the independent KK10 reconstruction of \citet{kaplan2011}---methodologically population-independent---surfaces a small positive Boserupian signal that does survive the demographic-margin control: $+1.07\!\cdot\!10^{-5}$ per Tg on the 21-country core ($p=0.005$), $+4.3\!\cdot\!10^{-5}$ on the high-density intensive pathway ($p=0.047$). The Boserupian channel exists at pre-industrial cross-country scale, but at a magnitude two orders below what the HYDE specification had originally implied---accounting for at most $\sim 1.3\%$ cumulative anthropogenic-land expansion over a Tambora-class decade.
 
+\emph{Contributions.} Two methodological contributions accompany the substantive findings: the monthly country-resolution paleo-economic panel itself (a measurement unit not previously available to econometric inference on the pre-industrial period), and the documentation of HYDE's two-axis identification problem along with the KK10 cross-reconstruction strategy as the resolution. The paper proceeds as follows: Section~\ref{sec:data} introduces the panel and the agricultural-pathway typology; Section~\ref{sec:identification} works out the within-country identification strategy and the Malthusian baseline; Section~\ref{sec:headline} delivers the three main empirical exercises; Section~\ref{sec:shadow} runs the long-shadow regression; Section~\ref{sec:robustness} consolidates robustness; Section~\ref{sec:conclusion} concludes.
 
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Theoretical Framework}
-\label{sec:theory}
-% ══════════════════════════════════════════════════════════════════════════════
-
-We develop a two-stage model that connects the climate-driven selection of agricultural systems \citep{matranga2024} with the population dynamics that follow \citep{galor2011unified}. The model is semi-formal: we derive testable predictions without requiring full general-equilibrium proofs, following the approach of \citet{ashraf2011dynamics}.
-
-\subsection{Stage 1: Climate and Agricultural System Selection}
-
-\citet{matranga2024} models a binary choice between foraging and farming. We extend this to a three-way choice among agricultural technologies indexed by their storage intensity and labor requirements:
-\begin{itemize}[nosep]
-  \item \textbf{Intensive crop} ($\tau = I$): cereals, rice, irrigated agriculture. High storage capacity, high labor requirements. Selected when intra-annual seasonality is high.
-  \item \textbf{Extensive pastoral} ($\tau = P$): grazing, rangeland. Low storage, low labor. Selected when seasonality is low or aridity precludes cropping.
-  \item \textbf{Mixed/transitional} ($\tau = M$): intermediate systems combining elements of both.
-\end{itemize}
-
-A society chooses technology $\tau \in \{I, P, M\}$ to maximize expected utility:
-\begin{equation}
-  V(\tau) = \bar{Y}(\tau, \bar{c}) - \lambda(\tau) \cdot \sigma_s - \kappa(\tau)
-  \label{eq:selection}
-\end{equation}
-where $\bar{Y}(\tau, \bar{c})$ is mean agricultural output given mean climate $\bar{c}$, $\lambda(\tau)$ is vulnerability to intra-annual seasonality $\sigma_s$, and $\kappa(\tau)$ is the fixed cost of adopting technology $\tau$ (including settlement, irrigation infrastructure, and storage facilities).
-
-Intensive systems have high $\kappa$ but low $\lambda$ (storage smooths seasonal variation); pastoral systems have low $\kappa$ but high $\lambda$ (mobile herding is disrupted by seasonal extremes). The selection condition for intensive agriculture is:
-\begin{equation}
-  \tau^* = I \iff \sigma_s > \bar{\sigma}_s(\bar{c})
-  \label{eq:threshold}
-\end{equation}
-where $\bar{\sigma}_s(\bar{c})$ is a threshold seasonality that depends on mean climate conditions. Above this threshold, the storage benefit of intensive agriculture exceeds its fixed costs.
-
-\textbf{Prediction 1:} Higher intra-annual seasonality predicts adoption of intensive agricultural systems.
-
-\subsection{Stage 2: Agricultural System, Malthusian Dynamics, and Escape}
-
-Given the selected agricultural system $\tau^*$, population dynamics follow:
-\begin{equation}
-  \Delta \ln P_{it} = \alpha_i + \beta(\tau^*) \cdot d_{i,t-1} + \gamma(\tau^*) \cdot \sigma_v(c_t) + \delta(\tau^*) \cdot h_{it} + \varepsilon_{it}
-  \label{eq:malthusian}
-\end{equation}
-where $d_{i,t-1}$ is lagged population density (the Malthusian pressure term), $\sigma_v(c_t)$ is inter-annual climate volatility (risk exposure), $h_{it}$ is a technology/human capital proxy, and $\alpha_i$ are country fixed effects.
-
-The Malthusian coefficient $\beta(\tau^*)$ captures how strongly population growth responds to density pressure. The technology parameter $\delta(\tau^*)$ captures the escape mechanism: as $h$ increases, the Malthusian constraint weakens.
-
-Note the distinction between the two climate dimensions: \textit{intra-annual seasonality} ($\sigma_s$) operates in Stage~1 by determining which system is adopted, while \textit{inter-annual volatility} ($\sigma_v$) operates in Stage~2 by modulating the vulnerability of the chosen system to year-to-year shocks. This dual-channel structure is a key contribution.
-
-\textbf{Prediction 2:} $|\beta(P)| > |\beta(I)|$---the Malthusian feedback is stronger in pastoral than in intensive systems.
-
-\textbf{Prediction 3:} $|\gamma(P)| > |\gamma(I)|$---pastoral systems are more exposed to inter-annual climate shocks.
-
-\textbf{Prediction 4:} $\partial \beta / \partial h < 0$---as technology or urbanization increases, the Malthusian constraint weakens (escape). Escape occurs earlier in the intensive pathway because the initial technology choice enables faster accumulation of $h$.
-
-The conceptual structure is summarized in Figure~\ref{fig:dag}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{../analysis/figures/paper4/fig4_dual_channel_dag.png}
-  \caption{Two-channel causal framework. Intra-annual seasonality (red, Stage~1) determines agricultural system selection; inter-annual volatility (blue, Stage~2) determines Malthusian feedback strength. Both channels converge on the speed of escape from the trap.}
-  \label{fig:dag}
-\end{figure}
-
-
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Data}
+\section{A new monthly paleo-economic panel}
 \label{sec:data}
-% ══════════════════════════════════════════════════════════════════════════════
 
-\subsection{HYDE 3.5}
+The paper rests on a paleo-economic dataset assembled for the first time. We describe its construction, validate its alignment with the modern instrumental record where they overlap, and use it to characterise the climate-pathway typology that organises the rest of the paper.
 
-The History Database of the Global Environment (HYDE~3.5) provides gridded estimates of population and land use at 5-arcminute resolution from 10,000~BCE to 2025~CE \citep{goldewijk2017}. We use 16 variables encompassing population (total, urban, rural, density), cropland (rice, non-rice, irrigated, rainfed), grazing land, and urban area. We aggregate to 197 countries using ISO codes from the HYDE reference grid.
+\subsection{Construction}
 
-HYDE~3.5 provides three scenarios---baseline, lower bound, and upper bound---reflecting uncertainty in historical reconstructions. We report Manski bounds across all scenarios in the appendix.
+The dataset has three substantive layers and three event layers merged onto a common country-year (or city-year, or sub-unit-year) grid. HYDE~3.5 \citep{goldewijk2017} provides gridded population, cropland, grazing, irrigated, rice, and urban-population estimates at 5-arcminute resolution; we aggregate to 196 country totals and 3{,}187 sub-national units. The HYDE temporal grid is irregular (100-year intervals before 1700, decadal 1700--1950, annual thereafter); the decadal sample powers most regressions. ModE-RA \citep{franke2023modera} is a monthly global paleo-reanalysis covering 1421--2008~CE that assimilates documentary records, tree rings, ice cores, corals, and historical instruments into a coupled numerical-model background; we aggregate it onto HYDE country and sub-national units via cosine-latitude-weighted area sums and add back the CRU~TS~4.09 \citep{harris2020cruts} 1901--1950 country-month climatology to obtain absolute temperatures and precipitation throughout 1421--2008.
 
-\subsection{Climate Panel: Four Sources, 2,000 Years}
+Three derived climate measures play headline roles: intra-annual temperature range $\sigma_s^T(i,t) = \max_m T_{i,t,m} - \min_m T_{i,t,m}$; the productive-months index $\mathrm{Prod}_{i,t}$ counting calendar months simultaneously $5^\circ\mathrm{C} \le T \le 30^\circ\mathrm{C}$ and $P \ge 30~\mathrm{mm}$ (warm and wet enough for rain-fed cropping), whose complement captures storage demand; and inter-annual temperature volatility $\sigma_v^T(i,t)$ as the country-specific standard deviation of annual mean temperature in a 30-year centred window. The productive-month criterion also defines a fixed \emph{growing-season mask} $\mathrm{GS}_i \equiv \{m : 5{\le} \bar T^{\mathrm{clim}}_{i,m} {\le} 30 \text{ and } \bar P^{\mathrm{clim}}_{i,m} {\ge} 30~\mathrm{mm}\}$, with monthly climatology computed once over the 1421--1750 cropland-weighted ModE-RA panel. The mask supports the GS-vs-non-GS decomposition of the long-shadow channel in Section~\ref{sec:shadow}, where we test whether the predictive power of $\sigma_v^T$ is agronomically specific to the growing season.
 
-We construct a continuous climate panel for 25 macro-regions spanning 0--2025~CE by calibrating and merging four data sources:
+Three event layers attach to specific (country, year) or (city, year) cells. The Sigl-Toohey eVolv2k v4 ice-core record \citep{sigl2024evolv2k, toohey2017} provides annual stratospheric sulfur injection from 500~BCE to 1900~CE with eruption latitudes. The Brecke Conflict Catalogue \citep{brecke1999} adds 3{,}708 violent conflicts 1400--1999 plus 1{,}147 European conflicts 900--1402; we string-match actor descriptions to medieval regions and hand-code 30 sieges and 49 plague episodes. The Allen-Nuffield archive \citep{allen2001divergence} contributes silver-content-normalised wheat prices for 17 European cities 1259--1914 and real wages for 8 cities 1264--1850, augmented with Tuscan prices from \citet{malanima2002} and the Roman-Egypt wheat-price series of \citet{harper2016people}.
 
-\begin{table}[H]
-\centering
-\caption{Climate Data Sources}
-\label{tab:data}
-\small
-\begin{tabular}{lllll}
-\toprule
-Source & Coverage & Resolution & Variables & Role \\
-\midrule
-PAGES 2k & 0--1849 CE & 7 continents & Temperature & Historical seasonality \\
-Berkeley Earth & 1850--1900 & 1$^\circ$ grid & Temperature & Calibration bridge \\
-CRU TS 4.09 & 1901--1949 & 0.5$^\circ$ grid & Temp + precip & Pre-ERA5 \\
-ERA5 & 1950--2025 & 25 regions & Temp + precip & Modern analysis \\
-\bottomrule
-\end{tabular}
-\end{table}
+\subsection{Validation}
 
-Continental reconstructions from PAGES~2k are mapped to the 25 ERA5 regions via geographic correspondence. Gridded sources (Berkeley Earth, CRU~TS) are aggregated using cosine-latitude area weighting. Cross-source calibration at overlap periods ensures continuity. The resulting panel contains 34,337 region-year observations.
+The country-level monthly climate panel is anchored to the CRU~TS~4.09 \citep{harris2020cruts} 1901--1950 instrumental climatology, which supplies the absolute temperature and precipitation levels added back to ModE-RA's anomalies. ModE-RA's ensemble $1\sigma$ uncertainty in country-month temperature falls from $0.9^\circ$C in 1421--1500 to $0.37^\circ$C by 1850--1949; precipitation uncertainty falls from $31.6$ to $15.4$~mm/month. Figure~\ref{fig:ensemble} (Appendix~\ref{app:ensemble-uncertainty}) reports the panel uncertainty across the full 1421--2008 ModE-RA horizon.
 
-\subsection{Climate Measures}
+The panel also captures documented climate-driven famines: negative temperature anomalies during the Great Frost of 1709 and the Tambora year-without-a-summer 1816, the cold-and-wet anomaly during the Irish potato famine 1845--49, and the precipitation deficits during the North China famine 1876--79 and the Bengal famine 1943 all show up in the panel at the relevant country and decade.
 
-We construct two climate measures from this panel:
+\subsection{Five agricultural pathways}
+\label{sec:pathways}
 
-\textbf{Intra-annual seasonality ($\sigma_s$):} For the ERA5 period (1950--2025), we compute the annual range of monthly temperature (max~$-$~min). For historical periods, we proxy seasonality with the rolling standard deviation of decadal temperature reconstructions (50-year window). Higher $\sigma_s$ indicates stronger within-year variation, creating demand for storage---the Matranga channel.
-
-\textbf{Inter-annual volatility ($\sigma_v$):} Rolling standard deviation of annual temperature (30-year window). This captures year-to-year unpredictability that determines vulnerability to climate shocks---the risk exposure channel.
-
-\subsection{Derived Variables}
-
-From HYDE~3.5, we construct agricultural output proxies (cropland + 0.5 $\times$ grazing), land--labor ratios, intensification indices (irrigation share $\times$ crop share), crop share, urban share, and annualized population growth rates. Countries are assigned to ERA5 climate regions using area-weighted centroids.
-
-\subsection{Sample}
-
-The historical analysis (0--1750~CE) uses 159 countries with maximum population density exceeding 1~person/km$^2$. The modern analysis (1950--2025) uses 203 countries with ERA5 climate data, of which 73 countries in ERA5 regions~1--8 have full 1950--2025 coverage for the extended climate panel.
-
-
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Stage 1: Climate and Agricultural System Selection}
-\label{sec:stage1}
-% ══════════════════════════════════════════════════════════════════════════════
-
-\subsection{Five Agricultural Pathways}
-
-Following the methodology described in a companion paper, we apply $K$-means clustering to standardized trajectory features extracted from the HYDE~3.5 time series: peak extensification year, maximum population density, crop share, irrigation share, and timing of peak agricultural expansion. We select $K = 5$ based on silhouette scores (optimal = 0.429).
+The new panel discriminates a typology of agricultural development that the existing literature has discussed informally but not measured systematically. Applying $K$-means clustering to standardised HYDE trajectory features---peak agricultural expansion year, density at 1750, 1000~CE, and 0~CE, crop share at 1750, rice share at 1750, irrigation share at 1750, urban share at 1750, two interval population-growth rates, and an agricultural-intensity change index---returns a five-cluster partition. The choice of $K=5$ is the silhouette local maximum on this feature set (0.40 at $K=5$, with a sharp drop to 0.23 at $K=6$); bootstrap stability of the partition is 0.84 in median country-pair co-clustering probability across 200 resamples. The five pathways are high-density intensive (Japan, India, France, Germany, Netherlands, 16 countries), early extensifiers (Britain, Switzerland, Austria, Denmark, Israel, 29 countries), crop-dominant late (Spain, Poland, Portugal, Thailand, 46 countries), pastoral/mixed late (China, Nigeria, Brazil, Iran, Mexico, 65 countries), and the irrigation pioneer Egypt as a singleton (Table~\ref{tab:pathways}). The pathways differ along all five clustering dimensions---peak agricultural expansion year, density at 1750, crop share, irrigation share, and rate of demographic expansion---in ways that match the historical literature's informal taxonomy.\footnote{One robustness concern bears explicit disclosure. HYDE~3.5's pre-industrial Americas cropland and population fields are partially mechanical back-projections from the \citet{koch2019} colonial-era population estimates; independent reconstructions such as KK10 \citep{kaplan2011} differ from HYDE on the magnitude of post-1492 Americas land-use change. The Americas countries in our panel (Brazil, Mexico, and other members of the pastoral/mixed late cluster) inherit any HYDE-mechanical-encoding bias in their clustering-feature values. We address the concern through the climate-only re-clustering exercise of Appendix~\ref{app:joint-var-climate-clusters}, which assigns countries to clusters using exclusively pre-industrial climate primitives (productive months, intra-annual $T$ and $P$ range, mean climate, inter-annual $T$ volatility) that are orthogonal to HYDE outcomes; the demographic-margin VSSI coefficient survives the re-clustering, the off-margin coefficients do not. Section~\ref{sec:robustness} reads the implications, and Section~\ref{sec:boserup} reports a fifth, non-nested Boserup sub-sample that drops crop-dominant late countries with significant exposure to the post-1492 Americas back-projection.}
 
 \begin{table}[H]
 \centering
-\caption{Five Agricultural Transition Pathways}
+\caption{Five agricultural transition pathways (HYDE 3.5 clustering)}
 \label{tab:pathways}
 \small
 \begin{tabular}{lrrrrl}
 \toprule
-Pathway & $N$ & Density$_{1750}$ & Crop share & Peak exp. & Representative countries \\
+Pathway & $N$ & Density$_{1750}$ & Crop share$_{1750}$ & Peak ag.\ expansion & Representative \\
 \midrule
-Crop-dominant late & 46 & 11.8 & 80.6\% & $\sim$1713 & ESP, POL, PRT, VNM, THA \\
-Pastoral/mixed late & 65 & 6.6 & 22.0\% & $\sim$1694 & CHN, NGA, BRA, IRN, MEX \\
-Irrigation pioneer & 1 & 4.4 & 100\% & $\sim$1600 & EGY \\
-High-density intensive & 16 & 62.8 & 58.8\% & $\sim$1567 & JPN, IND, FRA, DEU, NLD \\
-Early extensifiers & 29 & 14.1 & 48.9\% & $\sim$783 & GBR, CHE, AUT, DNK, ISR \\
+Crop-dominant late      & 46 & 11.8 & 80.6\% & $\sim$1713 & ESP, POL, PRT, THA \\
+Pastoral/mixed late     & 65 &  6.6 & 22.0\% & $\sim$1694 & CHN, NGA, BRA, IRN \\
+High-density intensive  & 16 & 62.8 & 58.8\% & $\sim$1567 & JPN, IND, FRA, DEU \\
+Early extensifiers      & 29 & 14.1 & 48.9\% & $\sim$\phantom{1}783 & GBR, CHE, AUT, DNK \\
+Irrigation pioneer      &  1 &  4.4 & 100\%  & $\sim$1600 & EGY \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The pathways exhibit fundamental differences in agricultural structure. The crop-dominant pathway achieves the highest crop share (80.6\%) but moderate density. The high-density intensive pathway achieves the highest density (62.8 persons/km$^2$ by 1750) with intermediate crop share, reflecting mixed intensive agriculture. The pastoral pathway has the lowest crop share (22.0\%) and lowest density.
+\subsection{Climate signatures of the pathways}
+\label{sec:stage1}
 
-\subsection{Does Seasonality Predict Pathway Assignment?}
-
-To test Prediction~1, we estimate a multinomial logit model:
-\begin{equation}
-  \Pr(\text{pathway}_i = k) = \frac{\exp(X_i' \beta_k)}{\sum_{j} \exp(X_i' \beta_j)}
-\end{equation}
-where $X_i$ includes historical seasonality ($\sigma_s$, pre-industrial mean from the PAGES~2k proxy), mean temperature, and geographic controls.
-
-Figure~\ref{fig:seasonality} shows the distribution of historical seasonality across pathways. The relationship is consistent with the theoretical prediction, though identification is limited by the regional granularity of historical climate reconstructions (25 ERA5 regions for 157 countries, yielding limited cross-sectional variation).
+The natural Matranga measure---raw intra-annual temperature range $\sigma_s^T$ averaged over 1421--1750---does not significantly distinguish pathways at the country level (ANOVA $F=0.50$, $p=0.68$). What does distinguish pathways is the joint structure of temperature and precipitation that determines storage demand. The productive-months index differs sharply across pathways (Figure~\ref{fig:storage}): crop-dominant late and high-density intensive have 9.5 and 9.1 productive months on average; pastoral/mixed late has 7.0; early extensifiers 7.7; the singleton irrigation pioneer (Egypt) has zero rain-fed productive months. A one-way ANOVA on productive months returns $F=6.30$, $p<0.001$, and a multinomial logit with the productive-months index and the storage index $(12-\mathrm{Prod})\cdot \sigma_s^T/12$ attains pseudo-$R^2=0.065$ and LLR $p=0.0003$. The Matranga storage-demand story survives, but it operates through the joint structure of temperature and precipitation rather than through temperature variability alone.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{../analysis/figures/paper4/fig3_seasonality_pathway.png}
-  \caption{Historical climate seasonality (temperature SD, 0--1850~CE) by agricultural pathway. Box plots show the distribution of pre-industrial seasonality for countries in each pathway cluster.}
-  \label{fig:seasonality}
+  \includegraphics[width=0.75\textwidth]{../analysis/figures/paper4_v2/fig03_storage_pathway.pdf}
+  \caption{Number of climatically productive months per year (1421--1750) by pathway. The pastoral pathway concentrates in regions with few productive months; intensive crop systems in regions with many; Egypt, the lone irrigation pioneer, has none under rain-fed criteria. ANOVA $F=6.30$, $p<0.001$.}
+  \label{fig:storage}
 \end{figure}
 
-\subsection{Dual-Channel Separation}
+\section{From storage demand to the Malthusian regression}
+\label{sec:identification}
 
-We test whether intra-annual seasonality and inter-annual volatility operate through separate channels by regressing pathway assignment on both measures jointly. At the regional level ($N = 22$ regions with sufficient data), we find that seasonality predicts pathway assignment ($\hat{\beta}_{\sigma_s} = -2.16$, $p = 0.16$) while volatility predicts Malthusian intensity within pathway. Though the limited sample size at regional level constrains statistical power, the sign patterns are consistent with the dual-channel hypothesis: seasonality matters for \textit{which} system is selected, while volatility matters for \textit{how vulnerable} that system is.
+The empirical work that follows is organised around the within-country identification strategy that the appendix model motivates. Appendix~\ref{app:theory} sketches a two-stage model in the spirit of \citet{ashraf2011dynamics} that delivers two empirical predictions. First, in a society's far past, the share of climatically productive months $\Pi$ jointly with inter-annual climate volatility $\sigma_v$ selects which agricultural system $\tau \in \{$intensive crop, extensive pastoral, irrigation-based$\}$ the society adopts; the model produces a productive-months threshold $\Pi^*(\sigma_v)$ above which intensive crop dominates pastoral (Appendix~\ref{app:theory}). Second, given the selected pathway, the demographic dynamics follow a Malthusian regression with pathway-specific coefficients on lagged density, level temperature, and inter-annual temperature volatility:
+\begin{equation}
+  \Delta \ln P_{it} \;=\; \alpha_i \;+\; \beta(\tau^\ast)\, d_{i,t-1} \;+\; \gamma(\tau^\ast)\, T_{it} \;+\; \delta(\tau^\ast)\, \sigma_v^T(T_{it}) \;+\; \eta(\tau^\ast)\, h_{it} \;+\; \varepsilon_{it}.
+  \label{eq:malthus-main}
+\end{equation}
+This is the regression we run. The Malthusian density coefficient $\beta(\tau^\ast)$ is predicted stronger in pastoral than in intensive systems---pastoral systems sit closer to a tight ceiling because they cannot store, intensive systems carry capital that smooths the feedback---and the volatility coefficient $\delta(\tau^\ast)$ is predicted to be larger in magnitude for pastoral systems, whose thinner safety nets do not buffer year-to-year shocks. The level-temperature coefficient $\gamma(\tau^\ast)$ admits both signs depending on whether the baseline climate is at the warm or cool end of the productive range; we treat its empirical sign as informative, not predicted. The human-capital coefficient $\eta(\tau^\ast)$ is the rate at which the Malthusian feedback weakens with secular accumulation of literacy, urbanisation, and capital, and is the channel through which the demographic transition appears in our sub-period regressions.
 
+We take the appendix model as motivational, not literal. The full calibrated quantitative exercise (Appendix~\ref{app:calibrated-model}) takes the model's pathway-specific parameters from the reduced-form coefficients estimated here and uses the calibrated system for counterfactual simulations rather than for inference. Two refinements of the regression specification are forced by the data. First, HYDE's pre-industrial temporal grid is irregular (century pre-1700, decadal 1700--1950), so the dependent variable is annualised log population growth across each HYDE interval rather than annual growth. Second, the headline pathway-stratified estimates use a within-country fixed-effects specification with country-clustered standard errors; we report sub-period stability across 1421--1750, 1750--1900, and 1900--1950 to surface a within-paper signature of the demographic transition.
 
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Stage 2: Malthusian Dynamics by Pathway}
+\subsection{Sub-national identification of the storage-demand channel}
+\label{sec:subnational}
+
+Before turning to the Malthusian regression directly, we use the new sub-national panel to identify the first of the model's two channels---climate's selection of agricultural pathway---off purely within-country variation. The country-level Stage 1 regressions in Section~\ref{sec:pathways} cannot rule out unobserved country-level confounders (legal institutions, historical conquest, distance to coast) that could drive both pathway and climate measures spuriously. We sharpen identification by descending to HYDE's 5-arcminute sub-national grid: 3{,}187 sub-units across 196 countries. We aggregate ModE-RA monthly fields onto each sub-unit by the same area-weighting procedure used for countries, compute the pre-industrial productive-months index per sub-unit, and run within-country regressions of HYDE agricultural outcomes on the productive-months index with country fixed effects.
+
+The country fixed effect absorbs every country-level confounder. The remaining variation is purely intra-national. To the extent that the storage-demand mechanism operates through climate \emph{within} a country, this specification identifies it cleanly. Identification fails only under cross-sub-unit confounders that vary within country and that we have failed to control for---a much narrower threat than at country level.
+
+Table~\ref{tab:subnational} reports the within-country regressions of crop share and log population density on productive months at three HYDE timesteps. At 1750, sub-units with one more productive month per year are 6.7~pp higher in crop share ($p=0.019$) and 0.66 log-units higher in log population density ($p<10^{-3}$). The within-country point estimates are 3.5--6 times the between-country estimates, consistent with the between estimates being attenuated by country-level mean reversion. The within pattern is stable through 1850 and 1950.
+
+\begin{table}[H]
+\centering
+\caption{Sub-national Stage~1: HYDE agricultural outcomes on productive months}
+\label{tab:subnational}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Outcome & HYDE year & $N$ sub-units & $\hat\beta$ (no FE) & $\hat\beta$ (country FE) & $p$ (FE) \\
+\midrule
+Crop share        & 1750 & 1{,}795 & $+0.019^{***}$ & $+0.067^{**}$ & 0.019 \\
+                  & 1850 & 1{,}808 & $+0.018^{***}$ & $+0.076^{**}$ & 0.004 \\
+                  & 1950 & 1{,}820 & $+0.015^{***}$ & $+0.075^{**}$ & 0.014 \\
+$\ln$ density     & 1750 & 1{,}795 & $+0.130^{***}$ & $+0.658^{***}$ & $<10^{-3}$ \\
+                  & 1850 & 1{,}808 & $+0.139^{***}$ & $+0.636^{**}$  & 0.002 \\
+                  & 1950 & 1{,}820 & $+0.142^{***}$ & $+0.834^{***}$ & $<10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{Standard errors clustered by country in FE specifications. Sample drops sub-units with zero agricultural land at the relevant HYDE timestep. Stars: $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\end{table}
+
+Figure~\ref{fig:subnational} shows the result visually: the within-country slope of $+0.067$ on the residuals (panel b) is $3.5\times$ the between-country slope $+0.019$ on the means (panel a). This is the paper's cleanest causal evidence for the storage-demand $\to$ agricultural-system channel: every country-level institutional confound is differenced out. Clustering by 10$^\circ$ latitude band---a coarser, spatially-aware grouping---leaves the within-country slope significant ($p=0.002$). Because each country falls in a single latitude band, country is nested within band, so the two-way country-and-band estimator reduces to band-level clustering on only eleven bands; we read the resulting $p=0.002$ as a conservative few-cluster robustness figure rather than as a tightening of inference.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{../analysis/figures/paper4_v2/fig04_subnational.pdf}
+  \caption{Sub-national identification. (a)~Country means: productive months versus crop share at 1750, slope $+0.019$. (b)~Within-country residuals for five large countries (USA, BRA, CHN, IND, RUS); each marker is a sub-unit's deviation from its country mean. The pooled within-country slope is $+0.067$, 3.5$\times$ the between-country estimate.}
+  \label{fig:subnational}
+\end{figure}
+
+\subsection{Malthusian dynamics with real annual climate, 1421--1950}
 \label{sec:stage2}
-% ══════════════════════════════════════════════════════════════════════════════
 
-\subsection{Pathway-Specific Malthusian Coefficients}
+Pre-industrial Malthusian regressions in the existing literature \citep{ashraf2011dynamics} have been run without explicit climate controls because suitable climate forcing has not been available at country-year resolution back to the pre-industrial period. The ModE-RA panel makes that possible. For each (country $i$, HYDE interval $[t, t+1)$) in the 1421--1950 sample, we compute the interval-mean temperature anomaly $\bar T_{i,[t,t+1)}$ and precipitation anomaly $\bar P_{i,[t,t+1)}$ relative to the country mean, the within-interval $T$ standard deviation $\sigma^T_{i,[t,t+1)}$ as a measure of inter-annual volatility, and the analogous precipitation volatility. The estimating equation, the empirical analogue of (\ref{eq:malthus-main}), is
+\begin{equation}
+  \Delta_{\text{ann}} \ln P_{i,[t,t+1)} \;=\; \alpha_i \;+\; \beta\, \ln d_{it} \;+\; \gamma_T \bar T \;+\; \gamma_P \bar P \;+\; \delta_T \sigma^T \;+\; \delta_P \sigma^P \;+\; \varepsilon_{it},
+  \label{eq:malthus2}
+\end{equation}
+estimated by within-country fixed effects with country-clustered standard errors.
 
-We estimate Equation~\ref{eq:malthusian} separately for each pathway using fixed-effects panel regressions on the 0--1750~CE sample, testing Prediction~2.
+\subsubsection{Pathway-stratified estimates, 1421--1750}
+
+Table~\ref{tab:malthus} reports pathway-stratified estimates on the 1421--1750 sub-sample. The Malthusian density coefficient varies across pathways. Crop-dominant systems show a positive density point estimate ($+0.0039$) in the anti-Malthusian direction, though it is not statistically significant under country clustering ($p=0.21$); pastoral systems show the standard, significant Malthusian sign ($-0.0059$, $p=0.010$). High-density intensive and early extensifier systems lie between these extremes. Climate enters most sharply through the crop-based pathways: crop-dominant growth falls significantly with mean temperature ($\hat\gamma_T=-0.0021$, $p=0.019$), and inter-annual $T$ volatility depresses growth in the early extensifier ($p=0.012$) and---more marginally---the high-density intensive ($p=0.062$) and crop-dominant ($p=0.096$) pathways, while remaining insignificant in the pastoral pathway, consistent with the pastoral system's traditional hedge of mobility and herd diversification.
 
 \begin{table}[H]
 \centering
-\caption{Malthusian Coefficient by Agricultural Pathway (0--1750~CE)}
-\label{tab:malthusian}
+\caption{Pathway-stratified Malthusian regressions with annual climate, 1421--1750}
+\label{tab:malthus}
 \small
-\begin{tabular}{lrrrl}
+\begin{tabular}{lrrrrrr}
 \toprule
-Pathway & $\hat{\beta}$ (density) & $p$-value & $N$ & Interpretation \\
+Pathway & $N$ & $\hat{\beta}_{\ln d}$ & $\hat{\gamma}_T$ & $\hat{\gamma}_P$ & $\hat{\delta}_T$ & $R^2$ \\
 \midrule
-Crop-dominant late & $+0.000692$ & $< 10^{-46}$ & 1,319 & Anti-Malthusian \\
-Early extensifiers & $+0.000735$ & $< 10^{-38}$ & 2,008 & Anti-Malthusian \\
-High-density intensive & $+0.000421$ & $< 10^{-17}$ & 509 & Weakly anti-Malthusian \\
-Irrigation pioneers & $+0.000201$ & $< 10^{-8}$ & 864 & Weak \\
-Pastoral/mixed late & $-0.000221$ & $0.171$ & 32 & Malthusian (insig.) \\
+Crop-dominant late      & 313 & $+0.0039$      & $-0.0021^{**}$  & $+1.4{\cdot}10^{-5**}$ & $-0.0060^{*}$   & 0.06 \\
+Pastoral/mixed late     & 454 & $-0.0059^{**}$  & $+0.0039$      & $-4.0{\cdot}10^{-6}$   & $+0.0035$       & 0.12 \\
+High-density intensive  & 112 & $-0.0024$      & $-0.0007$      & $-3.0{\cdot}10^{-6}$   & $-0.0045^{*}$   & 0.12 \\
+Early extensifiers      & 189 & $-0.0007$      & $+0.0003$      & $-1.0{\cdot}10^{-5**}$ & $-0.0031^{**}$  & 0.05 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Within-country FE; standard errors clustered by country. Stars: $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\end{table}
+
+Three robustness exercises confirm and extend the pathway-stratified result (Appendix~\ref{app:identification-extensions}). Extending the sample to 1950 and splitting into 1421--1750, 1750--1900, and 1900--1950 sub-periods recovers a within-paper signature of the demographic transition. The Malthusian density coefficient is small pre-1750 ($-0.0013$), most negative in 1750--1900 (the classic Malthusian period, $-0.0016$, though not individually significant under country clustering, $p=0.25$), and indistinguishable from zero in 1900--1950 ($-0.0004$). The clearer transition signal is in climate sensitivity: the inter-annual volatility coefficient flips sign significantly, from $+0.0045$ ($p=0.004$) in 1750--1900 to $-0.0125$ ($p<10^{-3}$) in 1900--1950, coincident with the spread of monoculture and capital-intensive agriculture. A sub-national replication on 84{,}907 cells across 3{,}146 sub-units reproduces the country-level pattern. Augmenting the right-hand side with country-decade war and pandemic indicators (Brecke catalogue plus broad-region plague reconstructions) leaves the headline temperature and volatility coefficients essentially unchanged: the pooled $\hat\gamma_T$ moves from $+0.0055$ to $+0.0051$ and $\hat\delta_T$ from $+0.0038$ to $+0.0034$.\footnote{The Roman-period component of the plague-recurrence catalogue is corroborated by the independently-compiled Coin Hoards of the Roman Empire (CHRE) panel of 18{,}310 dated hoards across 12 provincial regions, in which the Antonine onset (year-bin 175 CE) and the Cyprian crisis (year-bin 250 CE) appear as empire-wide hoarding spikes of z-score $+0.77$ and $+1.25$ respectively. CHRE entries lie outside long\_shadow's 1421+ regression window but support the construction of the hand-coded Roman recurrences used here.}
+
+\section{Volcanic forcing and the Malthusian channel}
+\label{sec:headline}
+
+Volcanic eruptions provide climate forcing that is exogenous to economic activity by construction: tectonic forcing injects stratospheric sulfate, the sulfate cools the surface in spatially heterogeneous patterns over the subsequent one-to-three years, and the cooling reduces agricultural yields in a way that is uncorrelated with prior economic conditions. The Sigl-Toohey eVolv2k v4 ice-core record \citep{sigl2024evolv2k, toohey2017} catalogues every major eruption from 500~BCE to 1900~CE with its stratospheric sulfur injection (VSSI, in Tg); summed at the decadal interval of the HYDE panel, $V_{it}$ delivers the exogenous identifying variation we need.
+
+This section identifies the pathway-heterogeneous demographic response to volcanic forcing as the lead empirical result (\S\ref{sec:joint-var}), reproduces it on single-equation pathway-stratified regressions and extends the price-side margin to the 1257 Samalas eruption (\S\ref{sec:volcanic}), corroborates the demographic side with welfare-margin evidence from the Allen real-wage archive (\S\ref{sec:allen}) and a positive-vs-preventive mechanism decomposition from European vital statistics (\S\ref{sec:prevpos}), and reports an honest null on the cropland-side Boserupian intensification margin (\S\ref{sec:boserup}). The headline finding is a Bonferroni-significant, multiply-robust, pathway-heterogeneous demographic response; the supporting evidence is the welfare and mortality decomposition; the cropland exercise reports a measurement-driven artifact that does not survive the substantive country-sample restriction.
+
+\subsection{Pathway-heterogeneous demographic margin: a joint three-equation reduced-form panel system}
+\label{sec:joint-var}
+
+We estimate a joint three-equation reduced-form panel system---a reduced-form panel VAR---for population, cropland-share, and urban-share growth on lagged levels, contemporaneous interval-mean climate, within-interval temperature volatility, and decade-summed Sigl-Toohey volcanic stratospheric sulfur injection (VSSI) exposure $V_{it}$. Each equation is estimated separately by within-country OLS with country-clustered standard errors. Because the identifying VSSI regressor enters \emph{contemporaneously} (same decade as the growth interval), the demographic effect is identified off the contemporaneous eruption--growth relationship; we do not orthogonalise the system, select a lag order, or compute a companion-form impulse response or variance decomposition, so the ``VAR'' label should be read as the reduced form rather than as a structural dynamic system. The cropland-share and urban-share equations are placed alongside the demographic equation primarily as identification companions---to surface the simultaneity between the demographic margin and the other margins of pre-industrial adjustment---rather than as substantive co-equal channels. For each country $i$ and HYDE decadal interval $t$ in 1500--1900:
+\begin{align}
+  \Delta_{\text{ann}} \ln P_{i,t}      &= \alpha^P_i + \phi^P_p \ln P_{i,t-1} + \phi^P_c \ln s_{i,t-1} + \phi^P_u \ln u_{i,t-1}
+                                          + \gamma^P_T \bar T_{it} + \gamma^P_P \bar P_{it} + \delta^P_T \sigma^T_{it} + \beta^P V_{it} + \varepsilon^P_{it}, \label{eq:joint-pop}\\
+  \Delta_{\text{ann}} \ln s_{i,t}      &= \alpha^C_i + \phi^C_p \ln P_{i,t-1} + \phi^C_c \ln s_{i,t-1} + \phi^C_u \ln u_{i,t-1}
+                                          + \gamma^C_T \bar T_{it} + \gamma^C_P \bar P_{it} + \delta^C_T \sigma^T_{it} + \beta^C V_{it} + \varepsilon^C_{it}, \label{eq:joint-crop}\\
+  \Delta_{\text{ann}} \ln u_{i,t}      &= \alpha^U_i + \phi^U_p \ln P_{i,t-1} + \phi^U_c \ln s_{i,t-1} + \phi^U_u \ln u_{i,t-1}
+                                          + \gamma^U_T \bar T_{it} + \gamma^U_P \bar P_{it} + \delta^U_T \sigma^T_{it} + \beta^U V_{it} + \varepsilon^U_{it}, \label{eq:joint-urb}
+\end{align}
+where $s_{i,t}$ is the cropland share of agricultural land (cropland / (cropland + grazing)) and $u_{i,t}$ is the urban share of total population. Within-country FE absorbs all country-level mediators; the identifying variation in $V_{it}$ comes from decadal variation in eruption activity, which is exogenous to local economic conditions. SEs are clustered by country.
+
+\begin{table}[H]
+\centering
+\caption{Three-equation joint reduced-form panel system for population, cropland-share, and urban-share growth, 1500--1900. Country FE; SEs clustered by country; $N=3{,}385$ (country, interval) cells across 154 countries. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:joint-var}
+\small
+\begin{tabular}{lrrr}
+\toprule
+ & (1) $\Delta_{\text{ann}} \ln P$ & (2) $\Delta_{\text{ann}} \ln s$ & (3) $\Delta_{\text{ann}} \ln u$ \\
+\midrule
+$\ln P_{t-1}$                          & $-0.00275^{***}$ & $-0.00146$        & $+0.00740^{*}$    \\
+\quad (SE)                              & (0.00069)        & (0.00133)         & (0.00412)          \\
+$\ln s_{t-1}$                          & $-0.00021$       & $-0.00572^{***}$  & $+0.00016$         \\
+\quad (SE)                              & (0.00077)        & (0.00061)         & (0.00096)          \\
+$\ln u_{t-1}$                          & $+0.00095^{***}$ & $-0.00048^{*}$    & $-0.00916^{*}$     \\
+\quad (SE)                              & (0.00031)        & (0.00026)         & (0.00538)          \\
+$\bar T_{it}$ (anomaly)                & $-0.00007$       & $+0.00081$        & $-0.00197$         \\
+\quad (SE)                              & (0.00066)        & (0.00156)         & (0.00180)          \\
+$\bar P_{it}$ (anomaly)                & $-0.000004$      & $-0.000008$       & $-0.000030$        \\
+\quad (SE)                              & (0.000002)       & (0.000006)        & (0.000020)         \\
+$\sigma^T_{it}$ (within-interval)      & $+0.00589^{***}$ & $+0.00418^{*}$    & $+0.01969^{**}$    \\
+\quad (SE)                              & (0.00131)        & (0.00237)         & (0.00927)          \\
+$V_{it}$ (decade-summed VSSI)          & $-0.000062^{***}$& $-0.000006$       & $-0.000225$        \\
+\quad (SE)                              & (0.000009)       & (0.000007)        & (0.000147)         \\
+\midrule
+$R^2$                                  & 0.105             & 0.010              & 0.107               \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The results provide support for Prediction~2. The crop-based pathways exhibit \textit{positive} density coefficients, meaning that higher density is associated with \textit{faster} population growth---an anti-Malthusian dynamic consistent with agglomeration effects and technology diffusion in dense agricultural societies. The pastoral pathway shows a negative coefficient, consistent with the Malthusian prediction that density constrains growth, though the small sample (32 observations) limits statistical significance.
+The aggregate three-equation results (Table~\ref{tab:joint-var}) show a sharply negative demographic coefficient on Equation~\eqref{eq:joint-pop} of $-6.2\!\cdot\!10^{-5}$ per Tg of VSSI ($p<10^{-12}$); the cropland-share coefficient on Equation~\eqref{eq:joint-crop} is a precisely-estimated zero ($p = 0.40$); the urban-share coefficient on Equation~\eqref{eq:joint-urb} is directionally negative ($-2.3\!\cdot\!10^{-4}$, $p=0.13$) but not significant in the aggregate. The within-country variation in the panel identifies a clean demographic margin and an inconclusive aggregate land-use response.
 
-\subsection{Time-Varying Malthusian Dynamics}
-
-We estimate rolling 400-year windows (100-year steps) separately by pathway to track how the Malthusian constraint evolves over time.
+The pathway-stratified version (Figure~\ref{fig:joint-var}) shows the demographic margin operating differentially across pathways. Crop-dominant late and pastoral/mixed late pathways show large negative demographic coefficients ($-9.6\!\cdot\!10^{-5}$, $p<10^{-6}$ and $-5.5\!\cdot\!10^{-5}$, $p<10^{-5}$ respectively on $\Delta \log P$), both Bonferroni-significant across the twelve pathway-by-equation tests and both robust to re-clustering on climate primitives orthogonal to HYDE; the crop-dominant late coefficient additionally survives restriction to the post-1700 decadal portion of HYDE ($p \le 0.018$ in every post-1700 window), where the demographic back-projection is less dependent on land-use imputation, whereas the pastoral/mixed late coefficient is identified off the pre-1700 century cells and its significance does not survive that restriction ($p = 0.95$ post-1700; Appendix~\ref{app:joint-var-robustness}). The off-margin coefficients in the joint VAR---a nominally significant cropland response in high-density intensive systems and a nominally significant urban response in early extensifiers---do not survive these stress tests. We accordingly read the joint specification as identifying a clean pathway-heterogeneous demographic response, not as a multi-margin decomposition.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\textwidth]{../analysis/figures/paper4/fig5_rolling_malthus_pathway.png}
-  \caption{Time-varying Malthusian coefficient by agricultural pathway, estimated in rolling 400-year windows. The divergence between pathways is visible from early in the Common Era, with crop-based pathways consistently showing weaker Malthusian constraints.}
-  \label{fig:rolling}
+  \includegraphics[width=0.99\textwidth]{../analysis/figures/paper4_v2/figJ_joint_landuse.pdf}
+  \caption{Joint three-equation reduced-form panel system: per-pathway response to volcanic forcing, 1500--1900. (a)~Demographic equation~\eqref{eq:joint-pop}; (b)~cropland-share equation~\eqref{eq:joint-crop}; (c)~urban-share equation~\eqref{eq:joint-urb}. Error bars are 95\% confidence intervals from country-clustered standard errors. The demographic-margin coefficients in panel (a) survive Bonferroni correction and the robustness exercises of Appendix~\ref{app:joint-var-robustness}; the off-margin coefficients in panels (b) and (c) do not.}
+  \label{fig:joint-var}
 \end{figure}
 
-Figure~\ref{fig:rolling} reveals that the pathway-specific Malthusian dynamics are not static but evolve over time. The crop-dominant and early extensifier pathways show consistently positive or near-zero coefficients throughout the 0--1750~CE period, while the pastoral pathway fluctuates more widely. The divergence between pathways supports the theoretical prediction that the initial agricultural system choice has persistent consequences for population dynamics.
+A 10~Tg decadal VSSI exposure translates to roughly $1\%$ cumulative population loss over the decade in crop-dominant late countries (about $0.1\%$ per year); a 30~Tg Tambora-class decade implies $\sim 3\%$. The high-density intensive pathway shows an essentially zero demographic response ($p=0.21$)---weakly identified but consistent with the cross-pathway heterogeneity we return to in §\ref{sec:boserup}, where intensive crop systems instead absorb climate shocks on the agricultural margin.
 
+\subsection{Single-equation cross-checks and pre-XV-century extension}
+\label{sec:volcanic}
 
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Climate Shocks in the Modern Period}
-\label{sec:modern}
-% ══════════════════════════════════════════════════════════════════════════════
+The single-equation pathway-stratified version of the joint specification---$\Delta_{\text{ann}} \ln P$ on country FE and VSSI alone---closely reproduces the demographic-margin coefficients of Section~\ref{sec:joint-var}: crop-dominant systems $-9.7\!\cdot\!10^{-5}$ per Tg ($p<10^{-9}$), pastoral $-7.2\!\cdot\!10^{-5}$ ($p<10^{-11}$), early extensifiers $-4.3\!\cdot\!10^{-5}$ ($p<10^{-6}$), high-density intensive a near-zero $-1.2\!\cdot\!10^{-5}$ ($p=0.55$). A dynamic decade lead/lag specification, however, does not provide clean dynamic corroboration: correctly oriented (so that horizon $h$ regresses growth on VSSI $h$ decades earlier), the significant negative pooled coefficient appears at a two-decade \emph{lead} ($h=-2$, $\hat\beta=-3.6\!\cdot\!10^{-5}$, $p<10^{-4}$) rather than at a post-eruption lag, the post-event horizons are near zero, and a parallel-trends test on the two leads is rejected ($F=9.0$, $p<10^{-3}$). We read this as a limitation of the decadal resolution---with decade-summed exposure and serially clustered eruption decades, a two-decade lead cannot be cleanly separated from the contemporaneous response---and accordingly rest the demographic identification on the contemporaneous joint specification of Section~\ref{sec:joint-var} rather than on the dynamic IRF. A pre-XV-century extension via the Allen-Studer European wheat-price panel (1259--1500, nine cities) and the Harper (2016) Roman-Egypt wheat-price series (45--650~CE) recovers a supply-side spike peaking two years post-eruption ($+0.0089$ per Tg, $p=0.10$); applied to the 59~Tg Samalas eruption of 1257, this implies a $\approx 52\%$ price spike by 1259, in the right neighbourhood of the Great Famine of 1315--1317. Twenty-five-year-bin event studies around Samalas and around the 540~CE LALIA doublet recover the canonical post-famine demand-side aftermath; the pathway-heterogeneous demographic test does not survive translation to century-binned HYDE intervals pre-1500. Details in Appendix~\ref{app:volcanic-pre1500}.
 
-\subsection{Pathway-Stratified Impulse Response Functions}
+\subsection{Welfare evidence: real wages and the city-buffer climate}
+\label{sec:allen}
 
-We use Jord\`a (2005) local projections to estimate how temperature and precipitation shocks propagate through agricultural and demographic outcomes, testing Prediction~3 by stratifying by pathway.
-
-For each pathway, we estimate:
-\begin{equation}
-  y_{i,t+h} - y_{i,t-1} = \alpha_i^h + \beta^h \cdot \text{shock}_{it} + \sum_{l=1}^{2} \gamma_l^h y_{i,t-l} + \varepsilon_{it}^h
-\end{equation}
-for horizons $h = 0, 1, \ldots, 10$, where $y$ is the outcome variable and the shock is the temperature anomaly.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\textwidth]{../analysis/figures/paper4/fig6_irf_by_pathway_temp.png}
-  \caption{Local projection impulse response functions: temperature shock $\to$ population growth, estimated separately by agricultural pathway. 95\% confidence intervals shown.}
-  \label{fig:irfs}
-\end{figure}
-
-At horizon $h = 5$, the IRF coefficients are:
+Population is a smoothed proxy for welfare. We re-run the Malthusian regression on the canonical Allen real-wage archive (approximately 2{,}900 city-year observations across eight cities---London, Antwerp, Strasbourg, Paris, Amsterdam, Florence, Naples, and Valencia, in six countries, 1421--1850, drawn from a larger 7{,}398-row source archive; Leiden and Tuscany contribute no usable wage rows after the merge), with city-buffer ModE-RA climate (1.5$^\circ$ box around each city centroid) and city fixed effects. The lagged-population coefficient is $-0.325$ ($p=0.058$), in line with the Malthusian prediction; warmer years raise real wages ($\hat\gamma_T = +0.025$, $p<10^{-3}$), the welfare-side echo of the demographic response in the headline regression (Table~\ref{tab:allen}, Spec~4). Replacing the country-mean climate aggregate with the city-buffer specification tightens both coefficients: country-means smear Brittany, Strasbourg, Paris, and Provence into a single annual number that adds classical measurement error to a regressor that should be matched to the city whose wage it is supposed to explain.
 
 \begin{table}[H]
 \centering
-\caption{Temperature Shock $\to$ Population Growth: IRF at $h = 5$ by Pathway}
-\label{tab:irfs}
+\caption{European real-wage Malthus, 1421--1850. Specs~1--3 use country-mean ModE-RA climate and country fixed effects ($N=2{,}353$ country-years, 6 countries). Spec~4 replaces the country-mean climate with city-buffer climate (1.5$^\circ$ box around each Allen city centroid) and uses city fixed effects, raising the effective number of cross-sectional units from 6 to 8.}
+\label{tab:allen}
 \small
 \begin{tabular}{lrrrr}
 \toprule
-Pathway & $\hat{\beta}^5$ & SE & $p$-value & 95\% CI \\
+                                     & Spec~1 & Spec~2 & Spec~3 & Spec~4 \\
+                                     & country FE & country FE & country FE & city FE, city-buffer \\
 \midrule
-Crop-dominant & $+0.000020$ & 0.000101 & 0.842 & $[-0.000178, +0.000218]$ \\
-Early extensifiers & $-0.000121$ & 0.000114 & 0.287 & $[-0.000344, +0.000102]$ \\
-High-density intensive & $+0.000116$ & 0.000073 & 0.111 & $[-0.000027, +0.000259]$ \\
-Irrigation pioneers & $-0.000014$ & 0.000068 & 0.836 & $[-0.000148, +0.000119]$ \\
+Lagged $\ln$ pop ($t-5$)             & $-0.294^{*}$  & ---            & $-0.285^{*}$    & $-0.325^{*}$    \\
+                                     & $(0.172)$     &                & $(0.164)$       & $(0.171)$       \\
+$T$ anomaly                          & ---           & $+0.046^{***}$ & $+0.032^{***}$  & $+0.025^{***}$  \\
+                                     &               & $(0.012)$      & $(0.010)$       & $(0.007)$       \\
+$P$ anomaly                          & ---           & $+0.0006$      & $+0.0001$       & $+0.0017$       \\
+                                     &               & $(0.0004)$     & $(0.0002)$      & $(0.0021)$      \\
+$R^2$                                & $0.165$       & ---            & $0.169$         & $0.170$         \\
+$N$                                  & $2{,}353$     & $2{,}383$      & $2{,}353$       & $2{,}863$       \\
 \bottomrule
 \end{tabular}
+\par\smallskip\footnotesize{Outcome: log real wage. All regressors demeaned within fixed-effect group. Standard errors clustered by group. ModE-RA city-buffer climate for Spec~4 averages all native grid cells (1.875$^\circ$ resolution) inside a 1.5$^\circ$ half-side box around each city. Stars: $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \end{table}
 
-While no individual pathway achieves statistical significance at $h = 5$ due to within-pathway sample sizes, the sign patterns are informative: the high-density intensive pathway shows a positive response (warming increases population growth), while early extensifiers show a negative response. The pastoral pathway could not be estimated separately due to insufficient modern climate coverage.
+The Allen Malthus coefficient $\hat\beta_{\ln P} = -0.325$ translates the demographic-margin volcanic response into a per-capita welfare statement. A 30~Tg Tambora-class decade implies a $\sim 3\%$ cumulative population decline in crop-dominant late countries, which through the Allen lagged-population coefficient maps to a $\sim +0.95\%$ real-wage rise for the survivors---the canonical Malthusian welfare paradox at a magnitude small relative to the documented post-Black-Death real-wage rise of $+28$ to $+44\%$ \citep{wrigley1981, clark2007farewell} but structurally identical: an exogenous mortality shock thins the population, the land-to-labour ratio rises, and per-capita output rises with it. The welfare cost of pre-industrial volcanic forcing is not the dead but the unborn: the dead leave wages higher for the survivors; volcanic eruptions cost cumulative welfare-per-capita through the missing population that would have been born in the eruption's absence. Appendix~\ref{app:calibrated-model}'s no-volcanism counterfactual quantifies this at $-0.37$ log-units of cumulative per-capita welfare loss for the median crop-dominant late country 1500--1890.
 
+\subsection{Preventive and positive Malthusian checks}
+\label{sec:prevpos}
 
-% ══════════════════════════════════════════════════════════════════════════════
-\section{The Great Escape}
-\label{sec:escape}
-% ══════════════════════════════════════════════════════════════════════════════
+The decadal HYDE panel cannot decompose the climate-Malthus response into the preventive check (fertility postponement) and the positive check (mortality), because the difference between births and deaths is not observed at country-decade resolution. We answer the decomposition on a 547-observation Human Mortality / Human Fertility Database annual panel covering ten European countries 1751--1900, with country FE, a common linear time trend, and country-clustered SEs. Annual warm-year shocks operate primarily through the positive check: $+1\,^\circ$C raises $\log m_0$ by $+2.35\%$ ($p=0.009$), $\log m_5$ by $+2.58\%$ ($p=0.003$), and $\log m_{10}$ by $+2.56\%$ ($p=0.002$), while the preventive check on log fertility is small and insignificant ($+0.75\%$, $p=0.14$). Precipitation is the mirror image: drier years carry higher mortality. This is the historically well-documented ``summer mortality'' pattern of pre-modern Europe \citep{wrigley1981}: in the absence of refrigeration and sanitation, warm summers triggered dysentery and gastroenteritis outbreaks that disproportionately killed infants. The channel is concentrated in the high-density intensive pathway ($+5.3\%$ per $^\circ$C on $\log m_0$, $p<10^{-6}$) and weakens monotonically through extensifiers and pastoral systems, scaling with population density as the infectious-disease mechanism predicts. The $m_0$ coefficient falls from $+0.0235$ per $^\circ$C in 1751--1900 to a statistically insignificant $+0.0057$ in 1950--2008 ($p=0.32$, $N=1{,}364$, ModE-RA climate)---the sanitation-mediated reversal the historical literature documents. Pathway-stratified, modern-era, and English-parish-aggregate extensions are reported in Appendix~\ref{app:prevpos-extensions}.
 
-\subsection{Declining Climate Sensitivity}
+\subsection{Cropland response to volcanic forcing: an honest null}
+\label{sec:boserup}
 
-We test Prediction~4 by examining whether climate sensitivity has declined over time. Using rolling 20-year windows of fixed-effects regressions, we estimate the temperature anomaly coefficient on population growth across the 1950--2025 period.
-
-The rolling coefficient shows a clear pattern: positive in the 1950s--1960s (warming increases population growth), shifting negative in the 1970s--1980s (warming reduces growth), then fading toward zero from the 1990s onward. The inflection coincides with the Green Revolution, consistent with the UGT prediction that technological change weakens the climate--population link.
-
-\subsection{What Mediates the Escape?}
-
-We test whether intensification or urbanization explains the declining climate sensitivity using interaction regressions:
+\citet{boserup1965} hypothesised that pre-industrial populations facing climate-induced yield shocks would respond on the agricultural extensive margin (more land under cultivation, less fallow rotation) rather than only contracting demographically. The hypothesis is the structural opposite of the Malthusian one on the cropland axis. We test it with the cropland-share specification
 \begin{equation}
-  \text{growth}_{it} = \alpha_i + \beta_1 \cdot \text{shock}_t + \beta_2 \cdot \text{shock}_t \times h_{it} + \beta_3 \cdot h_{it} + \varepsilon_{it}
+  \Delta_{\text{ann}} \ln s_{i,t} = \alpha_i + \phi^s_{\tau(i)}\, V_{it} + \mathbf{x}_{it}' \boldsymbol{\theta} + \varepsilon_{it},
+  \label{eq:boserup}
 \end{equation}
-where $h_{it}$ is tested as (a) urban share, (b) intensification index (irrigation share $\times$ crop share), and (c) both jointly.
+where $s_{i,t}$ is the cropland share of agricultural land (cropland / (cropland + grazing)) and the joint-VAR control vector $\mathbf{x}_{it}$ is the same as in Equation~\eqref{eq:joint-crop}. The headline finding is a measurement-driven artifact, and we report it as such here---the disclosure is itself useful, since HYDE-based cropland-share regressions appear elsewhere in the literature without this diagnostic.
+
+The 45-country crop-dominant late panel returns a nominally positive coefficient that strengthens monotonically as the sample contracts toward the modern instrumental era. In the full 1500--1900 panel the coefficient is small and insignificant ($+3.0\!\cdot\!10^{-5}$ per Tg, $p=0.258$); restricting to year~$\ge 1700$ it jumps to $+3.6\!\cdot\!10^{-4}$ ($p=0.031$); 1750--1900 strengthens to $+3.9\!\cdot\!10^{-4}$ ($p=0.034$); 1800--1900 tightens to $+7.8\!\cdot\!10^{-4}$ ($p=0.003$) on 45 countries and 450 country-decades (Table~\ref{tab:boserup-subsamples}). The other three pathways show no comparable positive response in any post-1700 window. A Cochran $Q$ test on a non-overlapping split (1700--1750, 1750--1800, 1800--1900) rejects coefficient homogeneity across the three windows ($Q=10.83$ on 2 d.f., $p=0.004$; $I^2 = 82\%$): the apparent monotonic tightening is not a stable post-1700 phenomenon but is concentrated entirely in 1800--1900 (the two earlier non-overlapping windows return $+3.3\!\cdot\!10^{-5}$ at $p=0.15$ and a precisely-estimated zero respectively).
 
 \begin{table}[H]
 \centering
-\caption{Escape Mechanism: Interaction Regressions}
-\label{tab:escape}
+\caption{Cropland-share response to VSSI, crop-dominant late pathway. Country FE, country-clustered SEs, joint-VAR controls. Other pathways shown for comparison.}
+\label{tab:boserup-subsamples}
 \small
-\begin{tabular}{lrrrr}
+\begin{tabular}{lcccc}
 \toprule
-Mediator ($h$) & $\hat{\beta}_1$ (shock) & $\hat{\beta}_2$ (interaction) & $p_{\beta_2}$ & $N$ \\
+Sub-sample & $N$ & $\hat\phi^s$ per Tg & SE & $p$ \\
 \midrule
-Urban share & $+0.000142$ & $-0.002142$ & 0.378 & 11,491 \\
-Intensification index & $+0.000214$ & $-0.004924$ & 0.449 & 10,992 \\
-Joint model & $+0.000236$ & -- & -- & 10,992 \\
-\quad Urban $\times$ shock & -- & $-0.002121$ & 0.275 & -- \\
-\quad Intensification $\times$ shock & -- & $-0.003512$ & 0.558 & -- \\
+\multicolumn{5}{l}{\textit{Crop-dominant late (45 countries):}} \\
+1500--1900 (full panel)              & $988$ & $+3.0\!\cdot\!10^{-5}$ & $(2.6\!\cdot\!10^{-5})$ & $0.258$ \\
+1700--1900 (post-century cells)      & $900$ & $+3.6\!\cdot\!10^{-4}$ & $(1.7\!\cdot\!10^{-4})$ & $0.031$ \\
+1750--1900 (post-HMD-era start)      & $675$ & $+3.9\!\cdot\!10^{-4}$ & $(1.9\!\cdot\!10^{-4})$ & $0.034$ \\
+1800--1900 (modern instrumental)     & $450$ & $+7.8\!\cdot\!10^{-4}$ & $(2.6\!\cdot\!10^{-4})$ & $0.003$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Other pathways, 1700--1900 sub-sample (comparison):}} \\
+Pastoral/mixed late                  & $1{,}300$ & $-4.8\!\cdot\!10^{-5}$ & $(3.7\!\cdot\!10^{-5})$ & $0.200$ \\
+High-density intensive               & $320$ & $-4.2\!\cdot\!10^{-5}$ & $(2.3\!\cdot\!10^{-5})$ & $0.076$ \\
+Early extensifiers                   & $540$ & $+1.1\!\cdot\!10^{-4}$ & $(7.0\!\cdot\!10^{-5})$ & $0.122$ \\
 \bottomrule
 \end{tabular}
+\par\smallskip\footnotesize{Cropland share $s = $ cropland $/ ($cropland $+$ grazing$)$. The crop-dominant late 1800--1900 estimate sits at $+7.8\!\cdot\!10^{-4}$ per Tg with $p=0.003$ on the 45-country panel; Appendix~\ref{app:cropland-diagnostics} shows that this estimate does not survive the substantive country-sample restriction.}
 \end{table}
 
-Both interaction coefficients are \textit{negative}, consistent with the prediction that higher urbanization and intensification reduce climate sensitivity. The magnitudes suggest intensification has a larger moderating effect ($\hat{\beta}_2 = -0.0049$) than urbanization ($\hat{\beta}_2 = -0.0021$), though neither achieves conventional significance levels in the current sample. As ERA5 coverage expands beyond the 12 of 25 regions currently available, statistical power will increase substantially.
+The cropland-share estimate fails three measurement diagnostics, reported in detail in Appendix~\ref{app:cropland-diagnostics}. First, decomposing the cropland share into its numerator and denominator surfaces an inversion: in the 1800--1900 sample log cropland \emph{area} contracts at $-9.6\!\cdot\!10^{-5}$ per Tg ($p=0.08$) and log grazing area contracts $70\times$ faster ($-7.0\!\cdot\!10^{-3}$ per Tg, $p=0.002$); cropland share rises only because the denominator falls faster than the numerator. Second, restricting the sample to the substantively-named 21-country Mediterranean / Eurasian-steppe / SE-Asia core---and dropping 24 small-island and tropical-Africa countries whose HYDE cropland fields are partly mechanical back-projections from colonial-era population estimates---collapses every cropland-margin coefficient to zero. Third, population-weighted estimation shrinks the headline 1800--1900 coefficient tenfold ($+7.8\!\cdot\!10^{-4}\to+6.1\!\cdot\!10^{-5}$, $p=0.10$).
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.6\textwidth]{../analysis/figures/paper4/fig8_escape_mechanism.png}
-  \caption{Escape mechanism: interaction coefficients (shock $\times$ mediator) with 95\% confidence intervals. Negative values indicate that the mediator reduces climate sensitivity.}
-  \label{fig:escape}
-\end{figure}
+A natural fallback specification on the absolute cropland-area outcome ($\Delta_{\text{ann}} \ln(\text{cropland km}^2)$) is statistically robust on the substantive sample but is fully mediated by the demographic margin: adding $\Delta_{\text{ann}} \ln P_{i,t}$ as a control collapses the area coefficient to a near-zero, statistically insignificant value across every pathway and window. In the 21-country crop-dominant late core post-1700 the baseline $-6.1\!\cdot\!10^{-5}$ ($p=0.001$) becomes $+8\!\cdot\!10^{-7}$ ($p=0.96$). The mechanical explanation is that HYDE's pre-1850 reconstruction uses country-level population as an input variable \citep{goldewijk2017}, so the area outcome is mechanically a function of the population covariate.
+
+\medskip\noindent\textbf{KK10 cross-validation surfaces a small Boserupian signal.} We cross-validate against the independent KK10 reconstruction of \citet{kaplan2011}, whose anthropogenic-fraction series is methodologically population-independent: KK10 assigns land use as a function of climate-suitable agricultural area and density-varying per-capita scaling rather than as a function of national-level population. On the 21-country crop-dominant late core post-1700, the KK10 anthropogenic-area response to VSSI is $+1.07\!\cdot\!10^{-5}$ per Tg ($p=0.005$) and survives the $\Delta_{\text{ann}} \ln P$ control essentially unchanged ($+1.08\!\cdot\!10^{-5}$, $p=0.005$)---identifying the agricultural extensive margin in the sense the Boserupian hypothesis specifies. The HYDE-vs-KK10 disagreement on sign and orthogonality is itself diagnostic: HYDE algorithmically draws land and population together; KK10 does not. The Boserupian channel is real but small. A 30~Tg Tambora-class decade implies $\sim 0.32\%$ cumulative anthropogenic-land expansion in crop-dominant late countries---roughly two orders of magnitude smaller than the HYDE cropland-share specification artefactually suggested.
+
+\begin{table}[H]
+\centering
+\caption{KK10 anthropogenic-area response to volcanic forcing, post-1700, pathway-stratified. The two pathways that produce a statistically robust positive coefficient surviving the demographic-margin control are the 21-country crop-dominant late core and the high-density intensive pathway; the latter delivers the largest Boserupian magnitude (4$\times$ the crop-dominant late point estimate). Country FE, country-clustered SEs, joint-VAR controls.}
+\label{tab:kk10-pathways}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Pathway / sample & $N$ & Baseline $\hat\phi$ ($p$) & + $\Delta \log P$ control ($p$) & Survives \\
+\midrule
+Crop-dominant late, full 45-c               & 675 & $+3.2\!\cdot\!10^{-5}$ ($0.20$)              & $+3.2\!\cdot\!10^{-5}$ ($0.21$) & ---  \\
+\textbf{Crop-dominant late, 21-c core}      & 315 & $\mathbf{+1.07\!\cdot\!10^{-5}}$ ($0.005$, ***) & $\mathbf{+1.08\!\cdot\!10^{-5}}$ ($0.005$, ***) & \textbf{yes} \\
+Pastoral/mixed late, full 65-c              & 975 & $+1.6\!\cdot\!10^{-5}$ ($0.14$)              & $+1.7\!\cdot\!10^{-5}$ ($0.13$) & ---  \\
+\textbf{High-density intensive, full 16-c}  & 240 & $\mathbf{+4.3\!\cdot\!10^{-5}}$ ($0.047$, **) & $\mathbf{+4.4\!\cdot\!10^{-5}}$ ($0.048$, **) & \textbf{yes} \\
+Early extensifiers, full 27-c               & 405 & $-2.5\!\cdot\!10^{-6}$ ($0.065$, *)          & $-2.3\!\cdot\!10^{-6}$ ($0.11$) & ---  \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Outcome: $\Delta_{\text{ann}} \ln (\text{KK10 anthropogenic area})$ in km$^2$. $N$ counts KK10 country-decade cells, which run four decades short of the corresponding HYDE panel because the KK10 reconstruction ends in 1850. ``Survives'' = baseline coefficient is significant at $p < 0.05$ \emph{and} retains the same sign and significance with $\Delta_{\text{ann}} \ln P$ added to the right-hand side.}
+\end{table}
+
+The pathway pattern is theoretically interesting. The high-density intensive pathway has the weakest demographic response to volcanic forcing (\S\ref{sec:joint-var}: $\hat\phi^P=-2.0\!\cdot\!10^{-5}$, $p=0.21$); KK10 now shows that intensive crop systems instead absorb shocks through anthropogenic-land expansion at $\hat\phi^L=+4.3\!\cdot\!10^{-5}$, $4\times$ larger than the crop-dominant late core. Crop-dominant late and pastoral/mixed late, where the demographic margin is strongest, show small or absent Boserupian responses; early extensifiers, which had already reached their agricultural frontier in the deep past, show neither channel. The pattern is qualitatively consistent with channel substitution---pathways trade off between margins---but a country-level errors-in-variables regression of the per-country Boserupian coefficient on the per-country demographic coefficient does not identify a substitution slope (Appendix~\ref{app:cropland-diagnostics}). We accordingly report the pattern as descriptive of the pathway-level magnitude ranking rather than as identification of a structural substitution elasticity.
+
+The headline demographic finding does not depend on which land-use reconstruction we use for the lagged covariate. Swapping HYDE's log-cropland-share for KK10's log-anthropogenic-share in the demographic regression \eqref{eq:joint-pop} moves the crop-dominant late 21-c core coefficient from $-5.34\!\cdot\!10^{-5}$ ($p<10^{-3}$ with HYDE control) to $-4.90\!\cdot\!10^{-5}$ ($p=0.001$ with KK10 control)---essentially unchanged. The climate-forcing variation that identifies the demographic margin is distinct from the variation HYDE and KK10 disagree about.
 
 
-% ══════════════════════════════════════════════════════════════════════════════
-\section{The Long Shadow}
+\section{The long shadow on modern outcomes}
 \label{sec:shadow}
-% ══════════════════════════════════════════════════════════════════════════════
-
-Does the climate endowment that shaped agricultural systems two millennia ago still matter for modern economic outcomes? We test this by regressing modern (2015--2025 versus 1950--1960) structural changes on pre-industrial (0--1850~CE) seasonality, both with and without pathway fixed effects.
-
-\begin{table}[H]
-\centering
-\caption{The Long Shadow: Historical Seasonality $\to$ Modern Outcomes}
-\label{tab:shadow}
-\small
-\begin{tabular}{lrrrrr}
-\toprule
-Outcome & Pathway FE & $\hat{\beta}_{\sigma_s}$ & $p$-value & $R^2$ & $N$ \\
-\midrule
-$\Delta$ Crop share & No & $-0.425$ & $< 0.001$ & 0.150 & 141 \\
-$\Delta$ Crop share & Yes & $-0.466$ & $< 0.001$ & 0.211 & 105 \\
-Pop growth (log) & No & $-3.166$ & $< 0.001$ & 0.165 & 141 \\
-Pop growth (log) & Yes & $-2.907$ & $< 0.001$ & 0.394 & 105 \\
-$\Delta$ Urban share & No & $+0.020$ & $0.084$ & 0.005 & 141 \\
-$\Delta$ Irrigation & No & $+0.115$ & $0.079$ & 0.007 & 134 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The results are striking. Historical seasonality is a highly significant predictor of modern crop share changes ($\beta = -0.43$, $p < 0.001$) and population growth ($\beta = -3.17$, $p < 0.001$). Higher pre-industrial seasonality is associated with \textit{less} cropland expansion and \textit{lower} population growth in the modern period. This is consistent with the interpretation that high-seasonality regions adopted intensive agriculture early, reached higher density ceilings earlier, and have already undergone the structural transformation toward non-agricultural economies.
-
-Crucially, these effects \textit{survive} the inclusion of pathway fixed effects ($\beta = -0.47$ for crop share, $\beta = -2.91$ for population growth, both $p < 0.001$). This suggests that historical seasonality has persistent effects \textit{beyond} its role in pathway selection---it shapes modern outcomes through channels not fully captured by the pathway typology.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\textwidth]{../analysis/figures/paper4/fig9_long_shadow.png}
-  \caption{The long shadow: pre-industrial seasonality (0--1850~CE) versus modern structural outcomes (1950s $\to$ 2015--2025). Each point is a country. OLS regression lines with $\beta$ and $p$-values shown.}
-  \label{fig:shadow}
+  \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/figXY_long_shadow_choropleth.pdf}
+  \caption{The long shadow of seasonality. (a)~Pre-industrial inter-annual temperature volatility $\sigma_v^T$ (country-mean std of annual mean $T$, 1421--1750). (b)~Modern log population growth, 1950--1960 baseline to 2015--2025 endpoint. Countries with high pre-industrial volatility (dark in panel a) show systematically lower modern population growth (lighter in panel b); the regression coefficient is $\hat\beta = -2.48$ ($p < 10^{-15}$, $R^2 = 0.45$).}
+  \label{fig:long-shadow-map}
 \end{figure}
 
+The pre-industrial climate-pathway dimension that organised the absorption of volcanic shocks leaves measurable traces in modern demographic trajectories. Figure~\ref{fig:long-shadow-map} delivers the bottom-line answer: countries that faced more volatile pre-industrial climates 1421--1750 have systematically lower modern population growth ($\hat\beta = -2.48$, $p < 10^{-15}$, $R^2 = 0.45$, $N=154$ countries with pathway fixed effects).\footnote{Sample sizes vary across the long-shadow specifications through listwise deletion on each specification's outcome and controls; every table reports its own $N$.} The result decomposes into two parts. On the 3{,}187-sub-unit panel with country fixed effects, the within-country slope is $-0.31$ ($p = 0.043$, $N=3{,}124$ sub-units)---the purely geographic channel, the part of the long shadow that runs through climate's direct effect on regional carrying capacity independent of country-level institutions. The much larger cross-country slope ($-2.48$, an order of magnitude larger) is consistent with an institutional channel---climate-determined paths of agricultural and political development that by 1900 look like country-level mediators (legal systems, kinship systems, fiscal capacity, education) and that within-country variation cannot reach. The cross-section cannot identify this mechanism: the companion horserace \citep{alonso_horserace_v3} finds that a state-history reinterpretation of a deep-roots locus there was a sample-composition artifact, so we read the cross-country slope as consistent with, not as evidence for, institutional persistence. Full tables for both specifications appear in Appendix~\ref{app:longshadow-extensions} (Tables~\ref{tab:shadow-within} and~\ref{tab:shadow}).
 
-% ══════════════════════════════════════════════════════════════════════════════
+Two robustness exercises anchor the cross-country result. Adding absolute latitude as a control (Table~\ref{tab:lat-robust}) shrinks the volatility coefficient from $-2.44$ to $-1.76$ but it remains highly significant ($p = 0.002$ with pathway fixed effects); the intra-annual-range channel $\sigma_s^T \to \Delta$ crop share is by contrast completely absorbed by latitude, so we rest argumentative weight on the volatility channel rather than on $\sigma_s^T$. A placebo computing $\sigma_v^T$ over modern reanalysis windows attenuates the coefficient progressively, vanishing entirely when $\sigma_v^T$ is measured over 1950--2008 ($-0.93$, $p=0.16$).
+
+\begin{table}[H]
+\centering
+\caption{Latitude robustness of the cross-country long shadow ($N=197$ countries)}
+\label{tab:lat-robust}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+& Baseline & $+\,|lat|$ & $+\,|lat|+\bar T$ & $+\,|lat|+$ pathway FE \\
+\midrule
+\multicolumn{5}{l}{\textit{$\sigma_v^T \to \log$ pop growth}}\\
+$\hat\beta$              & $-2.44^{***}$ & $-1.75^{**}$ & $-1.66^{**}$ & $-1.76^{**}$ \\
+$p$                      & $<10^{-22}$   & $0.003$      & $0.006$      & $0.002$       \\
+$R^2$                    & $0.18$        & $0.20$       & $0.21$       & $0.22$        \\
+\midrule
+\multicolumn{5}{l}{\textit{$\sigma_s^T \to \Delta$ crop share}}\\
+$\hat\beta$              & $-0.0030^{***}$ & $+0.0002$   & $+0.0001$   & $+0.0000$ \\
+$p$                      & $<10^{-4}$      & $0.75$      & $0.93$      & $0.99$    \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Stars: $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\end{table}
+
+The effect is specific to the demographic outcome: modern $\Delta$ urban share is unrelated to pre-industrial $\sigma_v^T$ at any specification ($p>0.30$), and modern log GDP per capita is positively predicted in the simple specification but entirely absorbed by absolute latitude ($p = 0.43$). Pre-industrial climate volatility predicts the modern demographic trajectory specifically, not the modern level or growth of income or urbanisation---consistent with (though not identifying) an institutional-persistence interpretation. Full placebo-window and outcome-specificity diagnostics are in Appendix~\ref{app:longshadow-extensions} (Table~\ref{tab:placebo-window}).
+
+\paragraph{Growing-season decomposition: the channel is climate-deep, not agronomically specific.}
+A natural mechanism story behind the long shadow runs through pre-industrial agricultural-system selection: societies in volatile-climate regions selected agricultural pathways with weaker safety nets, and those pathway differences left modern demographic traces. If the channel really runs through agriculture, the predictive content of $\sigma_v^T$ should concentrate in the months during which farming actually happened. We test this directly by decomposing $\sigma_v^T$ along the growing-season mask $\mathrm{GS}_i$ of Section~\ref{sec:data}: $\sigma_v^{T,\mathrm{GS}}$ is the std of GS-mean $T$ over 1421--1750; $\sigma_v^{T,\overline{\mathrm{GS}}}$ is the analogous std restricted to non-GS months. We run each as a single regressor on the headline sample (empty-GS countries dropped, $N=103$ with full covariates, $+|lat|$ + pathway FE, HC1). The contrast is unambiguous and runs against the agronomic-specificity hypothesis: $\sigma_v^{T,\mathrm{GS}}$ is insignificant ($\hat\beta = +0.03$, $p=0.94$, $R^2=0.65$); $\sigma_v^{T,\overline{\mathrm{GS}}}$ is large, negative, and highly significant ($\hat\beta = -0.72$, $p < 10^{-4}$, $R^2=0.69$); the annual $\sigma_v^T$ on the same sample sits between them ($\hat\beta = -0.94$, $p=0.006$, $R^2=0.67$). Growing-season precipitation volatility $\sigma_v^{P,\mathrm{GS}}$ is null throughout ($p > 0.5$). The decomposition is stable across cropland-, area-, and pop-weighted aggregations and across three sample variants ($n^{\mathrm{GS}}{>}0$, full sample, $n^{\mathrm{GS}}{>}3$): the non-GS placebo dominates the GS measure in nine of nine cells with magnitude ratios from 1.8:1 to 17:1 (Appendix Table~\ref{tab:gs-decomp}). The corresponding modern-window placebo ($\sigma_v^{T,\mathrm{GS}}$ recomputed on 1950--2008 climatology) does not attenuate but instead flips sign ($\hat\beta = +1.09$, $p < 10^{-3}$; Appendix Table~\ref{tab:gs-modern-placebo}), confirming that the GS partition is epoch-unstable and carries no genuine long-shadow content. The long-shadow channel is climate-deep, not GS-specific---an institutional-persistence reading of the kind this section's main paragraph gestured at is among the structurally consistent explanations. The mechanism cannot be reduced to growing-season-mediated agricultural-system selection alone; some combination of cold-month mortality histories, institutional persistence of cold-tolerant societies, or migration sorting on climate harshness---all loaded on annual rather than GS-restricted variance---fits the decomposition better.
+
+A natural refinement of the storage-mechanism interpretation is that the relevant volatility is not during the growing season itself but during the \emph{post-harvest storage window}---the months immediately following peak warmth, when stored grain is most exposed to spoilage and livestock most exposed to autumn weather variability. We test this directly. Decomposing $\sigma_v^T$ by calendar month on the headline sample, the coefficient pattern peaks in NH September--December (with November $\hat\beta=-0.50$, $p=0.015$ and December $\hat\beta=-0.32$, $p=0.012$), is essentially null in NH May--August (the active growing season), and is modestly negative in NH January--February (deep winter); the SH pattern reverses sign on $N=27$ countries, a too-small subsample to interpret independently. We construct four latitude-aware harvest-shifted masks $\mathrm{HS}_i \in \{[m_{\max}{+}1,{+}3],\, [m_{\max}{+}2,{+}4],\, [m_{\max}{+}1,{+}5],\, [m_{\max}{+}3,{+}5]\}$ where $m_{\max}$ is the country's warmest month, and run $\sigma_v^{T,\mathrm{HS}}$ as a single regressor on the headline sample. None of the four harvest-window masks dominates $\sigma_v^{T,\overline{\mathrm{GS}}}$: the best harvest-window specification (the broader Aug--Dec window) gives $\hat\beta = -0.58$ ($p = 0.06$, $R^2 = 0.55$) while $\sigma_v^{T,\overline{\mathrm{GS}}}$ gives $\hat\beta = -0.72$ ($p < 10^{-4}$, $R^2 = 0.70$). In the joint spec ($\sigma_v^{T,\mathrm{HS}}$ + $\sigma_v^{T,\overline{\mathrm{GS}}}$ together), the harvest-window measure becomes insignificant ($p = 0.61$) while non-GS survives ($p = 0.01$). The harvest-window refinement is therefore rejected as the specific channel: the predictive variance is loaded on the \emph{whole} non-growing-season half-year (harvest through deep winter through pre-planting), not on the harvest-storage window in particular. This is consistent with the storage-period interpretation in a broader sense---accumulated reserves are exposed to off-season volatility from harvest through next planting, and a year of adverse off-season conditions degrades them throughout---but rules out a single sub-mechanism. The Matranga storage-and-intensification reading is partly rehabilitated as a storage-period (not growing-season) story; identification of a single dominant sub-channel within the off-season window remains an open question that the country-resolution cross-section cannot answer.
+
+\paragraph{Cross-country corroboration with deep-determinants competitors.}
+A companion paper \citep{alonso_horserace_v3} places the climate channel on a five-substrate cross-country horserace against the canonical deep-determinants substrates (ancestral crop yield, an eight-locus functional-allele bundle, a Neolithic-ancestry fraction, and pre-1500 pandemic intensity), with six outcomes spanning the Malthusian-to-post-Malthusian transition. Two findings from that exercise directly corroborate the long-shadow mechanism. First, the climate bundle (mean $T$, mean $P$, $\sigma_v^T$, $\sigma_v^P$ over 1421--1750, treated as a Shapley coalition player) is the single largest substrate contributor to log population density at 1500 (Shapley R\textsuperscript{2} 0.088, largest of the five substrates), with $\sigma_v^T$ specifically the dominant primitive within the bundle. Second, the bundle's pathway-mediation share on log population density 1500 is 0.75 and on modern log population growth is 0.92---the cleanest illustration in the matrix that the climate channel operates specifically through pathway selection rather than as a direct channel. This is the cross-country counterpart of the within-country pathway-mediated demographic response that Section~\ref{sec:joint-var} establishes on the 1500--1900 panel. The $\sigma_v^T \to$ log pop growth $R^2 = 0.45$ reported above (climate \emph{plus} agricultural-pathway fixed effects; the univariate climate $R^2$ is 0.18 on the full 196-country sample) incorporates both the climate channel's own variance and its overlap with other deep-determinant substrates; once those are partialled out in the horserace, climate retains a Shapley contribution of 0.077 on log population growth---substantial in absolute terms (the geography baseline R\textsuperscript{2} is itself around 0.2 on this outcome), the third-largest on this outcome after the functional-allele bundle and ancestral crop yield (which tie for the lead). This 0.077 is a variance-share statement, however: in the horserace's family-wise multiple-testing correction no climate cell survives on any outcome, because the climate bundle's effect is largely absorbed by the pathway dummies it operates through. The long-shadow superlative above is a within-battery, pre-multiplicity claim about $\sigma_v^T$ on the single outcome of modern population growth, and is not in tension with the horserace's family-wise verdict on the broader multi-substrate climate bundle.
+
+\section{Robustness and limitations}
+\label{sec:robustness}
+
+The headline findings on the demographic margin survive a standard battery. The ModE-RA climate panel is anchored to the CRU 1901--1950 instrumental climatology for absolute levels; effect sizes for every headline finding exceed the local $1\sigma$ ModE-RA ensemble noise floor by factors of two to four (Appendix~\ref{app:ensemble-uncertainty}). Five well-documented historical climate-driven famines (the Great Frost of 1709, the Year Without Summer 1816, the Irish Potato, North China, and Bengal famines) recover correctly in ModE-RA. The pathway typology has silhouette peak at $K=5$ with bootstrap median co-cluster probability $0.84$, and the long-shadow slope on $\sigma_v^T$ ranges between $-1.88$ and $-2.48$ across an extended deep-determinants battery, always at $p<10^{-3}$ (Appendix~\ref{app:deep-determinants}). Re-aggregating climate under population and cropland-and-half-grazing weights moves the headline coefficients by less than 8\% and never flips signs.
+
+Three further exercises (Appendix~\ref{app:joint-var-robustness}) target the cross-pathway asymmetry of Section~\ref{sec:joint-var}: re-clustering pathways on climate primitives orthogonal to HYDE outcomes, a Webb wild-cluster bootstrap under Bonferroni correction for the twelve simultaneous pathway-by-equation tests, and restriction to the post-1700 decadal portion of HYDE. What is statistically defensible across all three exercises is the demographic-margin response itself: volcanic cooling reduces population growth, the effect is concentrated in dense-agricultural and pastoral systems, and the magnitude survives every robustness slice---including a check on HYDE's between-benchmark population interpolation. Roughly 38\% of the crop-dominant-late panel's decade-growth observations are geometric-interpolation artifacts (about half the decades of the median crop-dominant country); dropping them moves the headline slope only from $-9.65$ to $-9.12\!\cdot\!10^{-5}$ per Tg ($p=8\!\cdot\!10^{-8}$, $N=531$), so the demographic effect is not an artifact of HYDE's inter-benchmark interpolation. The further claim that intensive and early-extensifier pathways adjust along non-demographic margins is suggestive but does not survive multiple-testing or sample-cut stress tests. We interpret the joint VAR as identifying a clean demographic effect within an empirically natural multi-margin framework that future work with finer temporal demographic data can sharpen, not as a complete decomposition of pre-industrial structural response.
+
+A final scope note on external validity. The global demographic identification (Section~\ref{sec:joint-var}) spans 154 countries and all five pathways, but the two mechanism channels that interpret it---the welfare-side real-wage response and the mortality-side positive check---are estimated on European data only (six countries in the Allen wage panel, ten in the Human Mortality / Human Fertility panel). The mechanism evidence should therefore be read as establishing the channel where the historical micro-data exist, not as demonstrating it for the pastoral and tropical pathways that the global system includes but the European panels do not observe.
+
 \section{Conclusion}
 \label{sec:conclusion}
-% ══════════════════════════════════════════════════════════════════════════════
 
-This paper bridges two central literatures in economic growth---the origins of agriculture \citep{matranga2024} and unified growth theory \citep{galor2011unified}---by showing that a single climate endowment shapes the full arc from agricultural adoption through Malthusian dynamics to modern escape.
+Pre-industrial economies absorbed volcanic-cooling shocks through a pathway-heterogeneous Malthusian channel. Crop-dominant late and pastoral/mixed late countries lost population at $-9.6$ and $-5.5\!\cdot\!10^{-5}$ per Tg of stratospheric sulfur injection respectively, both Bonferroni-significant across twelve pathway-by-equation tests of a three-equation joint reduced-form panel system, both robust to re-clustering the pathway typology on climate primitives orthogonal to HYDE outcomes, and both surviving a Webb wild-cluster bootstrap; the crop-dominant late coefficient additionally survives restriction to the post-1700 portion of the panel, whereas the pastoral/mixed late coefficient does not (its significance comes from the pre-1700 century-resolution cells). A 30~Tg Tambora-class decade without intervening recovery translates to $\sim 3\%$ cumulative population loss in crop-dominant late countries. The Allen real-wage panel returns the canonical Malthusian real-wage-on-population coefficient at city resolution; an annual European mortality--fertility panel 1751--1900 attributes the response to the positive check on infant and child mortality (the historically documented summer-mortality pattern of pre-modern Europe), with the coefficient collapsing to statistical insignificance by 1950--2008 as sanitation develops.
 
-We make three contributions. First, we develop a two-stage framework in which intra-annual seasonality determines agricultural system selection (Stage~1) and the selected system determines Malthusian dynamics and escape conditions (Stage~2). Second, we construct a 2,000-year calibrated climate panel that enables direct measurement of historical climate variability, improving on the common assumption that modern seasonality approximates ancient conditions. Third, we show that intra-annual seasonality and inter-annual volatility operate through separate causal channels---seasonality drives system selection, volatility drives climate sensitivity---providing a richer account of how climate shapes long-run development.
+Pre-industrial inter-annual climate volatility 1421--1750 is the single strongest predictor of modern population growth in this paper's deep-determinant battery (univariate $R^2 = 0.18$, rising to $0.45$ with agricultural-pathway fixed effects), surviving latitude and an extended deep-determinant battery and failing a placebo when $\sigma_v^T$ is computed over the modern reanalysis period. The climate-pathway dimension that selected which agricultural system a society adopted in the deep past leaves traces in modern demographic trajectories that are not contained in either modern climate or geographic deep determinants.
 
-Our findings have implications for understanding persistent inequality. The ``long shadow'' of seasonality---the finding that pre-industrial climate endowments predict modern structural outcomes even after controlling for agricultural pathway---suggests that climate-determined institutions and technologies have effects that compound over centuries. Societies that adopted intensive agriculture in response to high seasonality not only escaped the Malthusian trap earlier but continue to exhibit different structural dynamics in the modern period.
+The Boserupian counterpart hypothesis---that the same volcanic forcing should have triggered cropland intensification---fails on HYDE for two measurement reasons: the cropland-share specification is denominator-unstable in 24 small-island and tropical-Africa countries, and the cropland-area specification is fully mediated by the demographic margin because HYDE's reconstruction uses population as an input. Cross-validating against the population-independent KK10 reconstruction \citep{kaplan2011} surfaces a small positive signal that survives the $\Delta_{\text{ann}} \ln P$ control: $+1.07\!\cdot\!10^{-5}$ per Tg on the 21-country crop-dominant late core ($p=0.005$), $+4.3\!\cdot\!10^{-5}$ on the high-density intensive pathway ($p=0.047$). The Boserupian channel exists at pre-industrial cross-country scale, but at a magnitude two orders below what the HYDE artefact had originally implied.
 
-Several limitations warrant discussion. The PAGES~2k reconstructions provide only decadal/centennial averages, limiting our ability to measure true intra-annual seasonality for historical periods. Our climate panel has 25 regional units for 197 countries, constraining cross-sectional variation in the multinomial logit exercise. The ERA5 coverage is expanding (currently 12 of 25 regions complete) and will substantially improve the precision of modern-period estimates.
+The paleo-economic dataset that enables these exercises is, we believe, the more durable contribution. Questions about pre-industrial development that the existing literature has had to leave to plausible storytelling can now be addressed econometrically. The honest documentation of HYDE's two-axis identification problem on the cropland margin is itself a contribution to the empirical climate-economics literature, which had not previously surfaced the sensitivity of HYDE-based cropland regressions to small-country denominator instability or the population-as-input back-projection mechanism we identify here.
 
-These limitations notwithstanding, the central finding is robust: the same climate endowment that determined \textit{which} agricultural system a society adopted also determined \textit{how quickly} that society could escape the Malthusian trap. Seasonality casts a long shadow.
+\appendix
+
+\section{A two-stage framework}
+\label{app:theory}
+
+A semi-formal two-stage model in the spirit of \citet{ashraf2011dynamics} motivates the empirical specification of Section~\ref{sec:identification}. \emph{Stage 1 (pathway selection)}: a representative household with mean-variance utility chooses agricultural technology $\tau \in \{I, P, X\}$ (intensive crop, pastoral, irrigation) given climate endowment $(\Pi, \sigma_v)$, where $\Pi \in [0, 12]$ is the share of productive months and $\sigma_v$ is inter-annual volatility. Period consumption is $c_I = A_I \Pi - \kappa_I + \lambda_I \sigma_v \epsilon_t$, $c_P = A_P m + \lambda_P \sigma_v \epsilon_t$, $c_X = A_X - \kappa_X + \lambda_X \sigma_v \epsilon_t$ where $A_\tau$ is technology productivity, $\kappa_\tau$ the fixed adoption cost (granaries, irrigation works), $m$ pastoral mobility, and $\lambda_\tau$ climate-volatility exposure. With $V(\tau) = E[c_\tau] - \tfrac{\rho}{2}\lambda_\tau^2 \sigma_v^2$, intensive crop dominates pastoral when $\Pi > \Pi^*(\sigma_v) \equiv [A_P m + \kappa_I + \tfrac{\rho}{2}(\lambda_I^2 - \lambda_P^2)\sigma_v^2]/A_I$. With $\lambda_P^2 > \lambda_I^2$ (intensive storage hedges volatility better than pastoral mobility), $\Pi^*$ is decreasing in $\sigma_v$: more-volatile climates push intensive crop to dominate at lower productive-month counts because the storage hedge is more valuable.
+
+\emph{Stage 2 (Malthusian feedback under the selected pathway)}: given $\tau^\ast$, population dynamics follow $\Delta \ln P_{it} = \alpha_i + \beta(\tau^\ast) d_{i,t-1} + \gamma(\tau^\ast) T_{it} + \delta(\tau^\ast) \sigma_v^T(T_{it}) + \eta(\tau^\ast) h_{it} + \varepsilon_{it}$, where $d$ is log density, $h_{it}$ a human-capital proxy. Pathway-specific Malthusian density coefficient $\beta(\tau^\ast)$ is predicted stronger in pastoral than intensive ($|\beta(P)| > |\beta(I)|$): pastoral systems sit closer to a tight ceiling because they cannot store. The volatility coefficient $\delta(\tau^\ast)$ is larger in magnitude for pastoral systems whose thinner safety net amplifies volatility shocks. Equation~\ref{eq:malthus-main} in the main text is the empirical analogue.
+
+\section{Pre-XV-century volcanic extension: data, designs, and full results}
+\label{app:volcanic-pre1500}
+
+\paragraph{Data.} Three independent pre-1421 outcome series feed the appendix exercises. The Allen-Studer European wheat-price panel is built from 17 city xls files in \citet{allen2001divergence}'s Nuffield archive augmented with Tuscany prices from \citet{malanima2002}, yielding 4{,}739 city-year observations across these 17 cities (568 of them pre-1500), and is augmented with a further 560 Tuscan observations from \citet{malanima2002}, for 18 cities in all. The Harper (2016) Roman Egypt panel \citep{harper2016people} is a 68-observation annual series 45--650~CE. Volcanic forcing is the eVolv2k v4 record \citep{sigl2024evolv2k}, summed annually.
+
+\paragraph{Designs.} Three complementary specifications: a century-rate population regression on the HYDE century-resolution intervals 100--1500~CE with country fixed effects and pathway interactions; event studies with 25-year horizon bins around Samalas 1257, Kuwae 1453, LALIA 540, and Cyprian 249 (reference $h=-25$); and a continuous-VSSI distributed-lag regression on the Allen+Malanima panel 1259--1500 with city and decade fixed effects, city-clustered SEs. The pre-1500 population regression at century resolution returns small per-pathway slopes: HYDE century-resolution pop data smear within-century variation, and century-summed VSSI is essentially time-invariant across countries within each century. The annual-resolution price exercises recover the underlying mechanism through a different measurement window.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.96\textwidth]{../analysis/figures/paper4_v2/figA2_volcanic_price_event.pdf}
+  \caption{Event-study coefficients in 25-year horizon bins around four pre-1500 eruptions. Top row: 1257 Samalas (eVolv2k VSSI~$=59$~Tg), Allen wheat prices left and real wages right. Bottom row: 1453 Kuwae wheat prices and 540 LALIA doublet on Harper Egyptian prices. The Samalas European price coefficient at $h=+0$ is $-0.40$ ($p<0.01$, $N=168$ across 3 cities), in the right neighbourhood of the documented Great Famine 1315--1317; LALIA Egypt at $h=+25$ is $-0.94$ ($p<0.01$, $N=18$), coinciding with the Plague of Justinian.}
+  \label{fig:volcanic-price-event}
+\end{figure}
+
+The continuous-VSSI distributed-lag regression $\log p_{c,t} = \alpha_c + \delta_d + \sum_{L=0}^{5} \beta_L V_{t-L} + \varepsilon$ on the Allen+Malanima European panel ($N=768$ city-years, 9 cities) shows the per-lag coefficients peak at $L=2$ years ($\hat\beta_2 = +0.0089$ per Tg, $p=0.10$), the standard agricultural transmission lag, with cumulative response $\sum_{l=0}^{5} \beta_l = +0.019$ per Tg. For the 59~Tg Samalas eruption, the lag-2 coefficient implies a $\approx 52\%$ wheat-price spike at 1259 and the cumulative reaches $\approx 113\%$ over five years---in the right neighbourhood of the Great Famine 1315--1317 elevation.
+
+\begin{table}[H]
+\centering
+\caption{Pre-1500 volcanic event-study coefficients in 25-year horizon bins (reference $h=-25$). Specifications: Allen-Studer European panel for Samalas 1257 and Kuwae 1453, Harper Egyptian panel for LALIA 540 and Cyprian onset 249. Standard errors clustered by city where $K>1$; HC1 robust otherwise. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:volcanic-pre1500}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Spec.\ (eruption -- outcome) & $h=0$ & $h=+25$ & $N$ & $K$ \\
+\midrule
+Samalas 1257 -- log wheat price (silver g/hl) & $-0.40^{***}$ & $-0.28^{**}$ & 168 & 3 \\
+\hspace{1em} (SE) & (0.12) & (0.12) & & \\
+Samalas 1257 -- log real wage & $+0.07^{***}$ & $-0.02^{*}$ & 126 & 2 \\
+\hspace{1em} (SE) & (0.01) & (0.01) & & \\
+Kuwae 1453 -- log wheat price & $-0.26^{*}$ & $-0.23$ & 810 & 14 \\
+\hspace{1em} (SE) & (0.14) & (0.16) & & \\
+LALIA 540 -- log Egyptian wheat price & $-0.38$ & $-0.94^{***}$ & 18 & 1 \\
+\hspace{1em} (SE) & (0.26) & (0.31) & & \\
+Cyprian 249 -- log Egyptian wheat price & $+0.15$ & $+0.04$ & 34 & 1 \\
+\hspace{1em} (SE) & (0.13) & (0.23) & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Interpretation.} The pre-1500 record carries a clean \emph{annual} supply-side signal of volcanic cooling on grain prices at the canonical lag-2 transmission, and a \emph{decadal} demand-side signal (Figure~\ref{fig:volcanic-price-event}, Table~\ref{tab:volcanic-pre1500}) of the Black-Death-bonus form. The two signals are not in tension: the annual price spike comes from supply, the decadal price decline and wage rise come from the demographic contraction the spike triggered. Both are Malthusian.
+
+\subsection*{C.1 Conflict and pandemic robustness}
+\label{app:conflict-robust}
+
+Volcanic eruptions sit inside dense histories of war, siege, and plague: Samalas~1257 alongside the Mongol invasions; Kuwae~1458 alongside the fall of Constantinople (1453); LALIA~540 alongside the Plague of Justinian; Cyprian~249 inside the Crisis of the Third Century. We address the confound by adding a city-year conflict-and-pandemic regressor layer (\texttt{war\_active}, \texttt{n\_active\_wars}, \texttt{plague\_active}, \texttt{siege\_active}) built from \citet{brecke1999} plus 30 hand-coded sieges and standard plague-recurrence catalogues. The regressors retain 81--98\% of total variance under city + decade FE, so the two-way design has plenty of identifying variation.
+
+\begin{table}[H]
+\centering
+\caption{Continuous-VSSI distributed-lag regression on log European wheat prices 1259--1500, with vs.\ without conflict and pandemic controls. City and decade fixed effects throughout, SEs clustered by city, $N=768$. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:volcanic-robust}
+\small
+\begin{tabular}{lcc}
+\toprule
+ & (1) Baseline & (2) With conflict + pandemic \\
+\midrule
+VSSI lag $L=2$ & $+0.0089$ & $+0.0102^{*}$ \\
+\quad (SE) & (0.0055) & (0.0058) \\
+\midrule
+Cumulative response $\sum_{L=0}^{5} \beta_L$ & $+0.0192$ & $+0.0211$ \\
+\quad (SE) & (0.0139) & (0.0166) \\
+\midrule
+\texttt{n\_active\_wars} & --- & $+0.0463^{***}$ \\
+\quad (SE) &  & (0.0131) \\
+\texttt{plague\_active}  & --- & $+0.0684^{**}$ \\
+\quad (SE) &  & (0.0340) \\
+\texttt{siege\_active}   & --- & $-0.2319^{***}$ \\
+\quad (SE) &  & (0.0696) \\
+\texttt{war\_active}     & --- & $-0.0453$ \\
+\quad (SE) &  & (0.0469) \\
+\midrule
+$R^2$ & 0.965 & 0.966 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The lag-2 VSSI coefficient is essentially unchanged ($+0.0089 \to +0.0102$, with the controlled version marginally significant), and the 5-year cumulative response is slightly \emph{larger} with controls than without. The Samalas event-study point estimate at $h=+0$ moves from $-0.262$ to $-0.261$. Volcanic forcing is not a war-or-plague confound. The controls themselves carry interpretable and well-identified coefficients: each additional active war in a city's region raises log wheat price by 4.6\% ($p < 10^{-3}$); plague years are associated with 6.8\% higher contemporaneous prices ($p = 0.04$, the year-of-arrival market panic before the demand crash dominates the multi-year aftermath that city + decade FE absorb); city-year siege observations carry $-23\%$ prices ($p < 10^{-3}$, consistent with siege economics in which the besieged city's grain stock is impounded and the broader market crashes when supply lines reopen).
+
+\paragraph{Limitations.} The Egyptian single-city panel of 68 annual observations cannot support the corresponding robustness check (after decade FE the conflict indicators have almost no residual variation); we treat the Egyptian results as suggestive and rest the appendix's identification weight on the multi-city European panel.
+
+\subsection*{C.2 Region-aware VSSI exposure}
+\label{app:regional-vssi}
+
+The continuous-VSSI design in Appendix~\ref{app:volcanic-pre1500} pools all eVolv2k eruptions regardless of latitude into a single annual forcing series, while the actual climate response is hemispherically asymmetric: tropical eruptions cool both hemispheres, NH extra-tropical eruptions cool the NH almost exclusively, and SH extra-tropical eruptions cool the SH \citep{toohey2017}. All Allen panel cities sit between 32$^\circ$N and 58$^\circ$N, so they should respond to tropical and NH-extra-tropical forcing and barely to SH-only events. Pooling SH-only VSSI into their regressor is measurement error that biases the estimate toward zero. We address this with two refinements: a latitude-band specification that drops SH-only contribution from each NH city's exposure (a 20\% leakage factor is allowed), and a distance-weighted specification that further attenuates each eruption's contribution to each city by a Gaussian in latitudinal distance with a 30$^\circ$ bandwidth.
+
+\begin{table}[H]
+\centering
+\caption{Latitude-classified eVolv2k eruption inventory 1249--1499 (the regression window).}
+\label{tab:lat-inventory}
+\small
+\begin{tabular}{lcc}
+\toprule
+Class & N eruptions & Total VSSI (Tg) \\
+\midrule
+Tropical ($|\phi|<25^\circ$)              & 8  & 141.7 \\
+NH extra-tropical ($\phi>25^\circ$)        & 9  & 25.5 \\
+SH extra-tropical ($\phi<-25^\circ$)       & 6  & 7.4 \\
+\midrule
+Total                                       & 23 & 174.6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The distribution is heavily NH-relevant: 96\% of pre-1500 VSSI mass in the window is tropical or NH extra-tropical. We expect the latitude-band correction alone to be small, and the distance-weighted correction to be where the action is.
+
+\begin{table}[H]
+\centering
+\caption{Continuous-VSSI distributed-lag regression on log European wheat prices 1259--1500 under four regional-exposure specifications. City + decade fixed effects, SEs clustered by city, $N=768$, 9 cities. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:volcanic-regional}
+\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+ & (1) Global & (2) NH-relevant & (3) Dist-weighted & (4) NH-rel + conflict \\
+\midrule
+$\beta_{L=2}$           & $+0.0091$ & $+0.0090$ & $+0.0294^{**}$ & $+0.0103^{*}$ \\
+\quad (SE)              & (0.0057)      & (0.0057)      & (0.0120)        & (0.0060)      \\
+$\beta_{L=3}$           & $+0.0052$     & $+0.0046$     & $+0.0247^{**}$  & $+0.0052$     \\
+\quad (SE)              & (0.0044)      & (0.0043)      & (0.0112)        & (0.0047)      \\
+$\beta_{L=4}$           & $+0.0044$     & $+0.0038$     & $+0.0296^{***}$ & $+0.0048$     \\
+\quad (SE)              & (0.0037)      & (0.0038)      & (0.0095)        & (0.0043)      \\
+\midrule
+$\sum_{L=0}^{2} \beta_L$  & $+0.0128^{*}$ & $+0.0124$    & $+0.0348$       & $+0.0140$    \\
+\quad (SE)              & (0.0078)      & (0.0078)      & (0.0215)        & (0.0087)      \\
+$\sum_{L=0}^{5} \beta_L$  & $+0.0213$     & $+0.0194$    & $+0.1024^{***}$ & $+0.0218$    \\
+\quad (SE)              & (0.0158)      & (0.0159)      & (0.0364)        & (0.0186)      \\
+\midrule
+Conflict + pandemic ctrls. & no         & no            & no               & yes           \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Reading the table.} Three results. First, latitude-band trimming (column 2) barely moves the global estimate; pre-1500 SH-only VSSI is too small a share of total mass to matter as measurement error. Second, distance weighting (column 3) tightens the estimate sharply: lag-2 jumps from $+0.0091$ ($p=0.10$) to $+0.0294$ ($p=0.014$), lags 3 and 4 reach $p<0.05$ and $p<0.01$, and the cumulative 5-year response is $+0.1024$ ($p=0.005$). Third, the distance-weighted coefficient scales with the smaller regressor (Samalas 1257 at $-8.4^{\circ}$ enters London at $51.5^{\circ}$ with effective weight $\approx 0.14$, so the effective Samalas exposure for London is $\approx 8.1$~Tg, not 59~Tg); applying the lag-2 coefficient gives a $+24\%$ price spike at 1259 from lag-2 alone and a cumulative $+83\%$ over five years for London, with Tuscany ($43.8^{\circ}$N) experiencing a larger response by virtue of its smaller latitudinal distance to the Samalas vent. Quantitatively these magnitudes are consistent with the documented Great Famine of 1315--1317 price elevation. Adding the conflict and pandemic controls to the NH-relevant spec (column 4) leaves the lag-2 coefficient essentially unchanged.
+
+The distance-weighted specification captures cross-city variation in the volcanic-cooling channel that the global pool averages out: cities at lower latitudes feel tropical eruptions more, cities closer to NH vents feel those more. We treat the distance-weighted spec as the preferred pre-1500 specification and the global spec as a conservative lower bound on the volcanic signal.
+
+\section{Long-shadow extensions: within/cross-country tables, placebo windows, and other outcomes}
+\label{app:longshadow-extensions}
+
+This appendix carries the supporting tables for the long-shadow regression of Section~\ref{sec:shadow}: the within-country sub-national specification (Table~\ref{tab:shadow-within}), the cross-country specification with pathway fixed effects (Table~\ref{tab:shadow}), the placebo-window diagnostic (Table~\ref{tab:placebo-window}), and the modern-outcome specificity check.
+
+\begin{table}[H]
+\centering
+\caption{Within-country long shadow: pre-industrial sub-national climate $\to$ modern sub-national outcomes, country fixed effects. Standard errors clustered by country.}
+\label{tab:shadow-within}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Predictor & Outcome & $\hat\beta$ (no FE) & $\hat\beta$ (country FE) & $p$ (FE) & $N$ \\
+\midrule
+$\sigma_v^T$ (volatility)  & Log pop growth & $-2.627^{***}$ & $-0.307^{**}$ & $0.043$ & 3{,}124 \\
+$\sigma_s^T$ (range)       & Log pop growth & $-0.030^{***}$ & $+0.018$      & $0.68$  & 3{,}124 \\
+Productive months          & Log pop growth & $-0.027^{***}$ & $-0.002$      & $0.95$  & 3{,}124 \\
+$\sigma_v^T$ (volatility)  & $\Delta$ crop share & $-0.096^{***}$ & $-0.018$  & $0.57$  & 1{,}828 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Stars: $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Cross-country long shadow: pre-industrial climate (1421--1750) $\to$ modern outcomes (1955 $\to$ 2020), country-level OLS, robust standard errors.}
+\label{tab:shadow}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Predictor & Outcome & Pathway FE & $\hat\beta$ & $p$-value & $N$ \\
+\midrule
+$\sigma_s^T$ (intra-annual range)      & $\Delta$ crop share        & No  & $-0.0030$ & $<10^{-4}$ & 196 \\
+                                       &                            & Yes & $-0.0040$ & $<10^{-4}$ & 154 \\
+                                       & Log pop growth             & No  & $-0.0168$ & $0.004$    & 196 \\
+                                       &                            & Yes & $-0.0283$ & $<10^{-7}$ & 154 \\
+$\sigma_v^T$ (inter-annual volatility) & $\Delta$ crop share        & No  & $-0.210$  & $<10^{-4}$ & 196 \\
+                                       &                            & Yes & $-0.240$  & $<10^{-4}$ & 154 \\
+                                       & Log pop growth             & No  & $-2.416$  & $<10^{-9}$ & 196 \\
+                                       &                            & Yes & $-2.484$  & $<10^{-15},\, R^2{=}0.45$ & 154 \\
+Productive months                      & $\Delta$ irrigation        & Yes & $-0.0122$ & $0.009$    & 154 \\
+                                       & $\Delta$ urban share       & Yes & $+0.0021$ & $0.085$    & 154 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{$\Delta$ crop share is the cross-country change in HYDE crop share from 1955 to 2020; log pop growth is the corresponding change in log population. The headline finding is the inter-annual-volatility row: pre-industrial $\sigma_v^T$ explains 45\% of cross-country variation in modern log pop growth with pathway fixed effects.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Placebo windows for $\sigma_v^T$ in the long-shadow regression. Outcome: log pop growth 1955$\to$2020. $N = 196$ countries. Robust standard errors.}
+\label{tab:placebo-window}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Window over which $\sigma_v^T$ is computed & $\hat\beta$ & SE & $p$ & $R^2$ \\
+\midrule
+1421--1500                                  & $-2.35$ & $0.69$ & $<10^{-3}$  & 0.06 \\
+1500--1600                                  & $-2.45$ & $0.25$ & $<10^{-21}$ & 0.18 \\
+1600--1700                                  & $-2.08$ & $0.20$ & $<10^{-23}$ & 0.18 \\
+1700--1750                                  & $-1.99$ & $0.17$ & $<10^{-30}$ & 0.21 \\
+\textbf{1421--1750 (headline)}              & $\mathbf{-2.42}$ & $\mathbf{0.25}$ & $\mathbf{<10^{-21}}$ & 0.18 \\
+1750--1850                                  & $-1.58$ & $0.27$ & $<10^{-8}$  & 0.13 \\
+1850--1900                                  & $-1.48$ & $0.35$ & $<10^{-4}$  & 0.12 \\
+1900--1950                                  & $-1.43$ & $0.42$ & $<10^{-3}$  & 0.11 \\
+\textit{1950--2008 (placebo)}               & \textit{$-0.93$} & \textit{$0.66$} & \textit{$0.16$} & 0.05 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Other modern outcomes.} The long-shadow result is specific to modern \emph{population} outcomes. The full-control specification on log pop growth survives ($\hat\beta = -2.48$, $p < 10^{-5}$, $R^2 = 0.37$), as does the simple specification on Maddison log GDP per capita ($+3.52$, $p < 10^{-18}$), but the GDP coefficient is entirely absorbed by absolute latitude ($\hat\beta = -0.48$, $p = 0.43$ with $|lat|$). Modern $\Delta$ urban share shows no significant relationship with pre-industrial $\sigma_v^T$ at any specification (the largest $|\hat\beta|$ carries $p=0.30$; the other two have $p>0.69$). Pre-industrial climate volatility predicts the modern demographic trajectory specifically, not the level or growth of income or urbanisation, consistent with the institutional-persistence interpretation discussed (but not identified) in the main text.
+
+\paragraph{Growing-season decomposition.}
+Tables~\ref{tab:gs-decomp} and~\ref{tab:gs-modern-placebo} support the climate-deep finding documented in the §\ref{sec:shadow} growing-season decomposition paragraph. Table~\ref{tab:gs-decomp} reports single-regressor specifications for annual $\sigma_v^T$, growing-season-restricted $\sigma_v^{T,\mathrm{GS}}$, non-growing-season $\sigma_v^{T,\overline{\mathrm{GS}}}$ (placebo), and growing-season precipitation $\sigma_v^{P,\mathrm{GS}}$ across three weighting schemes (area, pop, cropland) and three sample variants (headline drop empty-GS, include empty-GS via no filter, drop short-GS $\le 3$ months). The pattern is stable in all nine cells: $\sigma_v^{T,\overline{\mathrm{GS}}}$ dominates $\sigma_v^{T,\mathrm{GS}}$ in $|\hat\beta|$ by ratios from 1.8:1 to 17:1; $\sigma_v^{T,\mathrm{GS}}$ is insignificant at conventional thresholds throughout (largest $p=0.94$); $\sigma_v^{T,\overline{\mathrm{GS}}}$ is significant at $p<0.013$ in all nine; $\sigma_v^{P,\mathrm{GS}}$ is noise everywhere. The $N$ for the non-GS placebo is systematically lower because the 44 countries with 12-month GS have no non-GS months to compute the placebo over; the comparison is apples-to-apples within countries that have both seasons. Table~\ref{tab:gs-modern-placebo} reports the modern-window analogue: when the GS mask is recomputed on the 1950--2008 climatology rather than 1421--1750, the $\sigma_v^{T,\mathrm{GS}}$ coefficient does not attenuate but flips sign and becomes highly significant. The GS partition is thus epoch-unstable; the long-shadow channel cannot be reduced to growing-season-mediated agricultural selection.
+
+\begin{table}[H]
+\centering
+\caption{Cross-country long-shadow GS decomposition. Single-regressor OLS of modern log pop growth (1950--1960 $\to$ 2015--2025) on each pre-industrial measure separately, with $|lat|$ + pathway FE, HC1 SEs. Three weighting schemes (area, pop, cropw) $\times$ three sample variants ($n^{\mathrm{GS}}{>}0$ headline; full sample; $n^{\mathrm{GS}}{>}3$ short-GS dropped). Each cell reports $\hat\beta$ with $N$ in parentheses. The non-GS placebo dominates the GS measure across all nine cells.}
+\label{tab:gs-decomp}
+\footnotesize
+\begin{tabular}{llrrrr}
+\toprule
+Weighting & Sample variant & $\sigma_v^T$ annual & $\sigma_v^{T,\mathrm{GS}}$ & $\sigma_v^{T,\overline{\mathrm{GS}}}$ & $\sigma_v^{P,\mathrm{GS}}$ \\
+\midrule
+area  & $n^{\mathrm{GS}}{>}0$ (headline)     & $-0.596^{*}$  ($147$) & $+0.385$  ($147$) & $-0.696^{***}$ ($103$) & $+0.003$  ($147$) \\
+area  & full sample                          & $-0.720^{**}$ ($154$) & $+0.385$  ($147$) & $-0.794^{***}$ ($110$) & $+0.003$  ($147$) \\
+area  & $n^{\mathrm{GS}}{>}3$ (short dropped)& $-0.280$      ($134$) & $-0.027$  ($134$) & $-0.452^{***}$ ($\phantom{0}90$) & $-0.001$  ($134$) \\
+\midrule
+pop   & $n^{\mathrm{GS}}{>}0$ (headline)     & $-0.616^{*}$  ($147$) & $+0.262$  ($147$) & $-0.714^{***}$ ($103$) & $+0.010$  ($147$) \\
+pop   & full sample                          & $-0.720^{**}$ ($154$) & $+0.262$  ($147$) & $-0.811^{***}$ ($110$) & $+0.010$  ($147$) \\
+pop   & $n^{\mathrm{GS}}{>}3$ (short dropped)& $-0.280$      ($134$) & $-0.070$  ($134$) & $-0.445^{**}$ ($\phantom{0}90$) & $+0.005$  ($134$) \\
+\midrule
+cropw & $n^{\mathrm{GS}}{>}0$ (headline)     & $-0.616^{*}$  ($147$) & $+0.289$  ($147$) & $-0.722^{***}$ ($103$) & $+0.006$  ($147$) \\
+cropw & full sample                          & $-0.720^{**}$ ($154$) & $+0.289$  ($147$) & $-0.813^{***}$ ($110$) & $+0.006$  ($147$) \\
+cropw & $n^{\mathrm{GS}}{>}3$ (short dropped)& $-0.280$      ($134$) & $-0.030$  ($134$) & $-0.457^{***}$ ($\phantom{0}90$) & $+0.002$  ($134$) \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Stars: $^{*}p{<}0.10$, $^{**}p{<}0.05$, $^{***}p{<}0.01$. $N$ in parentheses. Each row reports a separate sample (defined by the weighting-specific $n^{\mathrm{GS}}_i$ filter). The non-GS $N$ is systematically lower because countries with $n^{\mathrm{GS}}{=}12$ contribute no non-GS observations.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Modern-window GS placebo: $\sigma_v^{T,\mathrm{GS}}$ and $\sigma_v^{P,\mathrm{GS}}$ recomputed on the 1950--2008 climatology (mask redefined from modern data). Single-regressor OLS with $|lat|$ + pathway FE, HC1 SEs.}
+\label{tab:gs-modern-placebo}
+\small
+\begin{tabular}{llrrrrr}
+\toprule
+Mask window & Regressor & $\hat\beta$ & SE & $p$ & $R^2$ & $N$ \\
+\midrule
+1421--1750 (headline)       & $\sigma_v^{T,\mathrm{GS}}$ & $+0.29$  & $0.35$ & $0.41$       & $0.54$ & $147$ \\
+1421--1750 (headline)       & $\sigma_v^{P,\mathrm{GS}}$ & $+0.006$ & $0.009$ & $0.50$      & $0.54$ & $147$ \\
+\textit{1950--2008 (placebo)} & \textit{$\sigma_v^{T,\mathrm{GS}}$} & \textit{$+1.09$}  & \textit{$0.22$} & \textit{$<10^{-6}$} & \textit{$0.61$} & \textit{$145$} \\
+\textit{1950--2008 (placebo)} & \textit{$\sigma_v^{P,\mathrm{GS}}$} & \textit{$-0.012$} & \textit{$0.005$} & \textit{$0.022$} & \textit{$0.57$} & \textit{$145$} \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{The placebo $\sigma_v^{T,\mathrm{GS}}$ does not attenuate but reverses sign and becomes highly significant when the GS mask is computed from modern climatology. Combined with the pre-industrial null, this confirms the GS partition is epoch-unstable; the long-shadow channel does not isolate to the growing season.}
+\end{table}
+
+\section{Identification extensions: subperiod, sub-national, war/pandemic}
+\label{app:identification-extensions}
+
+This appendix carries the three robustness exercises summarised in Section~\ref{sec:stage2}: subperiod stability of the climate Malthus coefficients across 1421--1750, 1750--1900, and 1900--1950; a sub-national replication on 84{,}907 (sub-unit, interval) cells; and a war-and-pandemic-controlled specification.
+
+\textbf{Subperiod stability.} Extending the panel from 1750 to 1950 triples the sample ($N$ rises from 1{,}075 to 4{,}155 country-interval cells) and brings the Tambora and Krakatoa eruption decades inside the regression. Pooled estimates on the full 1421--1950 sample strengthen the mean-temperature response sharply: $\hat\gamma_T=+0.0055$ ($p<10^{-9}$), with the inter-annual volatility coefficient positive but more modestly significant under country clustering ($\hat\delta_T=+0.0038$, $p=0.035$). The density coefficient drops toward zero ($+0.0002$, $p=0.82$) because the extended sample now spans the early demographic transition.
+
+\begin{table}[H]
+\centering
+\caption{Subperiod stability of the climate Malthus regression}
+\label{tab:malthus-subperiod}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Subperiod & $N$ & $\hat{\beta}_{\ln d}$ ($p$) & $\hat{\gamma}_T$ ($p$) & $\hat{\delta}_T$ ($p$) \\
+\midrule
+1421--1750 & 1{,}229 & $-0.0013$ ($0.49$)  & $+0.0012$ ($0.42$)        & $-0.0024$ ($0.18$) \\
+1750--1900 & 2{,}310 & $-0.0016$ ($0.25$)  & $+0.0015$ ($0.027$)       & $+0.0045$ ($0.004$) \\
+1900--1950 &   770   & $-0.0004$ ($0.89$)  & $+0.0081$ ($<10^{-3}$)    & $-0.0125$ ($<10^{-3}$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Malthusian density coefficient progressively weakens over the centuries: small and insignificant in 1421--1750, most negative in 1750--1900 (the classic Malthusian period, though not individually significant under country clustering, $p=0.25$), and indistinguishable from zero in 1900--1950. The sign on inter-annual temperature volatility flips between 1750--1900 and 1900--1950, coincident with the spread of monoculture and capital-intensive agriculture: the modern agricultural system was \emph{more} sensitive to climate volatility than the diversified pre-industrial systems it replaced. A continuous rolling-window estimator shows early extensifiers transitioning first ($\hat\beta_{\ln d}$ turns sharply positive at window centre 1800, $\hat\beta = +0.0102$, $p<10^{-4}$), pastoral/mixed-late following about a century later, and high-density intensive declining from strongly Malthusian toward zero by 1775.
+
+\textbf{Sub-national replication.} The country-level panel still pools heterogeneous sub-regions. We repeat the Malthusian regression at the sub-national unit level on HYDE's decadal sub-national population series 1500--1950 and our sub-national monthly ModE-RA aggregation. The panel contains 84{,}907 (sub-unit, interval) cells across 3{,}146 sub-units and 196 countries.
+
+\begin{table}[H]
+\centering
+\caption{Sub-national Malthusian regression with annual climate, 1500--1950.}
+\label{tab:subnat-malthus}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+                                 & 1500--1750     & 1750--1900    & 1900--1950      & Pooled \\
+$N$                              & 22{,}003       & 47{,}175      & 15{,}729        & 84{,}907 \\
+\midrule
+$\hat\beta_{\ln \text{pop}}$     & $-0.00045^*$   & $+0.0001$     & $-0.00071^{**}$ & $+0.00034^{**}$ \\
+$\hat\gamma_T$                   & $-0.00098$     & $+0.00136^*$  & $+0.00615^{***}$& $+0.00417^{***}$ \\
+$\hat\delta_T$                   & $-0.00130^{**}$& $+0.00666^{***}$ & $-0.01158^{***}$& $+0.00478^{**}$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{Sub-unit fixed effects; country-clustered standard errors. Two-way clustering by country and 10$^\circ$ latitude band raises $p$ on the pooled $\hat\gamma_T$ to $0.020$ from $<10^{-7}$ but does not change signs or substantive significance.}
+\end{table}
+
+The sub-national panel reproduces and sharpens the country-level findings. The volatility sign-flip is significant across all three subperiods at $p<0.05$: $-0.0013$ in 1500--1750, $+0.0067$ in 1750--1900, $-0.0116$ in 1900--1950.
+
+\textbf{War and pandemic controls.} Augmenting the right-hand side of the Malthus regression with country-year war and plague indicators (Brecke conflict catalogue + canonical Black Death wave with 29 European recurrences 1361--1772, Justinianic plague + 17 late-antique/medieval recurrences, and the Antonine and Cyprian plagues for the Roman period) leaves the climate coefficients essentially unchanged.
+
+\begin{table}[H]
+\centering
+\caption{Climate-Malthus regression with war and pandemic controls, pooled 1421--1950. Country FE; country-clustered SEs; $N=4{,}155$ cells across 154 countries.}
+\label{tab:malthus-conflict}
+\small
+\begin{tabular}{lrr}
+\toprule
+ & (1) Baseline & (2) With war + plague controls \\
+\midrule
+$\ln d_{it}$                          & $+0.00020$       & $+0.00013$       \\
+\quad (SE)                              & (0.00088)        & (0.00088)        \\
+$\bar T_{it}$ (anomaly)                & $+0.00547^{***}$ & $+0.00511^{***}$ \\
+\quad (SE)                              & (0.00088)        & (0.00080)        \\
+$\sigma^T_{it}$                        & $+0.00383^{**}$  & $+0.00342^{*}$   \\
+\quad (SE)                              & (0.00182)        & (0.00176)        \\
+\texttt{war\_frac}                     & ---              & $-0.00027$        \\
+\quad (SE)                              &                  & (0.00086)         \\
+\texttt{plague\_frac}                  & ---              & $-0.00555^{**}$   \\
+\quad (SE)                              &                  & (0.00239)         \\
+\midrule
+$R^2$                                  & 0.044             & 0.048              \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The pooled temperature-anomaly coefficient moves from $+0.0055$ ($p<10^{-9}$) to $+0.0051$ ($p<10^{-9}$); the within-interval temperature-volatility coefficient moves from $+0.0038$ ($p=0.035$) to $+0.0034$ ($p=0.052$). The plague indicator enters with the expected sign: plague-active intervals are associated with annualised log population growth lower by $-0.0056$ ($p=0.020$). The country-decade war indicator is small and insignificant ($-0.0003$, $p=0.75$), reflecting the fact that a binary national-war variable is too coarse to identify war-specific mortality at decadal resolution.
+
+\section{Preventive vs.\ positive checks: pathway and modern-era extensions}
+\label{app:prevpos-extensions}
+
+This appendix reports the full pathway-stratified and modern-era estimates underlying the summary in Section~\ref{sec:prevpos}. The baseline regressions in that section deliver the full prevpos table; the table below adds the pathway-stratified $\Delta \log m_0$ coefficient (Table~\ref{tab:prevpos-pathway}) and the modern-era collapse (Table~\ref{tab:prevpos-modern}), and the figures plot the same pair.
+
+\begin{table}[H]
+\centering
+\caption{Pathway-stratified summer-mortality coefficient on $\Delta \log m_0$, 1751--1900 European panel. Country FE, country-linear trend, SEs clustered by country.}
+\label{tab:prevpos-pathway}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Pathway & $\hat\beta_T$ & SE & $p$ & $N$ \\
+\midrule
+Pastoral/mixed late      & $+0.0129$ & $(0.0022)$ & $<10^{-8}$ & $203$ \\
+Early extensifiers       & $+0.0340$ & $(0.0053)$ & $<10^{-9}$ & $134$ \\
+High-density intensive   & $+0.0530$ & $(0.0104)$ & $<10^{-6}$ & $158$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{High-density intensive: France, Italy, and the Netherlands. Early extensifiers: Britain, Switzerland, and Denmark. Pastoral/mixed late: Norway and Sweden.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Modern-era prevpos: $T$-anomaly coefficient on $\Delta \log m_0$ by sub-period. The sub-period channel attenuates as sanitation, refrigeration, and antibiotics develop, though the pooled full-period coefficient stays positive and marginally significant.}
+\label{tab:prevpos-modern}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Sub-period & $\hat\beta_T$ & SE & $p$ & $N$ \\
+\midrule
+Baseline 1751--1900 (reference) & $+0.0235$ & $(0.0091)$ & $0.009$ & $547$ \\
+1900--1950 & $+0.0079$ & $(0.0058)$ & $0.169$ & $659$ \\
+1950--2022 & $+0.0057$ & $(0.0057)$ & $0.32$ & $1{,}364$ \\
+1900--2022 full & $+0.0074$ & $(0.0038)$ & $0.049$ & $2{,}023$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{CamPop England 1541--1850: parish-aggregate extension}
+\label{app:campop}
+
+The European HMD/HFD panel starts at 1751 because Sweden's continuous national vital statistics begin there. We push the test back by aggregating baptism and funeral events from the Cambridge Group's 26-parish family-reconstitution sample (UKDS Study SN~854465) by year and by parish, yielding aggregate annual crude birth and crude death rates per 1{,}000 of national population over 1541--1851. The 26 parishes cover roughly 3--5\% of England, so the level of the rates is depressed relative to national totals by a factor of $\sim 25$, but the year-to-year variation that the prevpos regression identifies is preserved.
+
+We run the same specification as in Section~\ref{sec:prevpos}: $\Delta \log y_t$ on contemporaneous $T$ and $P$ anomalies and 5-year $T$ volatility, with a country-linear trend and HC1 standard errors (single country, so country FE is degenerate). Three sub-period windows trade reach for precision. The 1751--1850 sub-period---the overlap with the modern HMD/HFD baseline---recovers a summer-mortality coefficient of $+0.040$ per $^\circ$C on $\Delta \log$ CDR ($p=0.046$), within the confidence interval of the HMD/HFD baseline's $+0.0235$ ($p=0.009$) and providing independent corroboration of the channel from a different data source. The deep pre-industrial 1541--1750 sub-period (210 years, $N=209$) returns $+0.022$ per $^\circ$C ($p=0.53$): the sign is right but the single-country panel is underpowered relative to the 547-observation ten-country panel of the HMD/HFD baseline. The pooled 1541--1850 sample gives $+0.028$ per $^\circ$C ($p=0.18$). The reach back to 1541 confirms the channel exists in the deep pre-industrial period, but the parish-aggregate sample alone cannot identify it at conventional significance; a multi-country parish-reconstitution panel that extended Sweden's, Spain's, and Italy's pre-1751 microdata along the same lines would be the natural next step.
+
+\section{Climate-panel ensemble uncertainty}
+\label{app:ensemble-uncertainty}
+
+Absolute levels in the country-month climate panel are anchored to the CRU~TS~4.09 1901--1950 instrumental climatology. We aggregate ModE-RA's published ensemble $1\sigma$ fields to country-month resolution by the same area-weighting procedure used for the levels. Temperature uncertainty falls monotonically from $0.90^\circ$C in 1421--1500 (sparse proxy assimilation) to $0.79^\circ$C in 1500--1700, $0.64^\circ$C in 1700--1850, and $0.37^\circ$C in 1850--1949; precipitation uncertainty traces the same secular decline from $31.5$ to $15.4$~mm/month. This ModE-RA ensemble standard deviation is the working uncertainty propagated into the regressions.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{../analysis/figures/paper4_v2/fig09_ensemble_uncertainty.pdf}
+  \caption{The ModE-RA climate panel, 1421--2008: \emph{levels} (top row) and \emph{uncertainty} (bottom row). (a)~Temperature anomaly versus the 1901--1950 reference; (b)~precipitation anomaly. (c--d)~Country-month $1\sigma$ uncertainty by decade: the grey band is ModE-RA's published ensemble standard deviation, the working uncertainty propagated into the regressions. Absolute levels are anchored to the CRU 1901--1950 climatology.}
+  \label{fig:ensemble}
+\end{figure}
+
+\section{Deep-determinants robustness}
+\label{app:deep-determinants}
+
+A standard objection to cross-country long-run regressions is that the predictor proxies for a deep determinant of development---distance from a Neolithic origin centre, ancestry-adjusted genetic diversity, state antiquity, landlocked-ness, or terrain ruggedness---rather than the channel the paper claims. We add the standard battery: haversine distance to the nearest of seven Neolithic origin centres, migratory distance from Addis Ababa, a landlocked dummy, log land area, a centroid-based ruggedness proxy, mean pre-industrial temperature, and absolute latitude. Added sequentially, they leave the $\sigma_v^T \to \log$ pop growth coefficient remarkably stable.
+
+\begin{table}[H]
+\centering
+\caption{Long-shadow with deep-determinants battery: $\sigma_v^T \to \log$ pop growth, $N=199$ countries.}
+\label{tab:deep}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Specification & $\hat\beta_{\sigma_v^T}$ & SE & $p$ & $R^2$ \\
+\midrule
+Baseline                                          & $-2.48$ & $0.24$ & $<10^{-24}$ & 0.19 \\
+$+$ $|\text{lat}|$                                & $-1.88$ & $0.56$ & $<10^{-3}$  & 0.20 \\
+$+$ $|\text{lat}|$ $+$ log area $+$ landlocked    & $-2.08$ & $0.55$ & $<10^{-3}$  & 0.25 \\
+$+$ $|\text{lat}|$ $+$ Neolithic dist $+$ Addis dist & $-2.35$ & $0.59$ & $<10^{-4}$  & 0.34 \\
+$+$ all extended deep determinants                & $-2.09$ & $0.53$ & $<10^{-4}$  & 0.38 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Robust standard errors. Extended battery: latitude, log area, landlocked, log distance to nearest Neolithic centre, log migratory distance from Addis Ababa, ruggedness proxy, and mean pre-industrial temperature.}
+\end{table}
+
+Distance to Neolithic centres does itself distinguish pathways in a one-way ANOVA ($F=4.96$, $p=0.003$), but productive-months is the stronger Stage~1 predictor ($F=6.30$, $p<10^{-3}$); in a joint multinomial logit, productive-months retains independent significance ($p=0.001$ in the crop-dominant equation) after controlling for Neolithic distance. Interacting Sigl-Toohey VSSI with standardised log distance to Neolithic centres in the volcanic regression returns an interaction coefficient of $-3.6 \cdot 10^{-6}$ with $p=0.57$: the pathway-heterogeneous volcanic response is not driven by countries' deep-historical exposure to agriculture.
+
+\section{A calibrated three-equation quantitative model}
+\label{app:calibrated-model}
+
+We calibrate a three-equation pathway-specific dynamic model that takes the joint-VAR coefficients of Section~\ref{sec:joint-var} as structural inputs and forward-simulates the demographic, cropland-share, and urban-share trajectories under three counterfactuals. The model is parsimonious by design: we keep only the pathway-specific drift and the volcanic-forcing coefficient in each equation, calibrating the drift to match each pathway's pre-industrial mean growth rate after subtracting the mean-volcanic contribution. The exercise is calibration, not deep structural estimation.
+
+For country $i$ in pathway $\tau$ and HYDE interval $[t, t+1)$,
+\begin{align}
+\Delta_{\text{ann}} \ln N_{it} &= \alpha^P_\tau + \phi^P_\tau\, V_{it} + \varepsilon^P_{it},\label{eq:struct-pop}\\
+\Delta_{\text{ann}} \ln s_{it} &= \alpha^s_\tau + \phi^s_\tau\, V_{it} + \varepsilon^s_{it},\label{eq:struct-crop}\\
+\Delta_{\text{ann}} \ln u_{it} &= \alpha^u_\tau + \phi^u_\tau\, V_{it} + \varepsilon^u_{it},\label{eq:struct-urb}
+\end{align}
+where $V_{it}$ is the decade-summed Sigl-Toohey VSSI exposure. The coefficients $\phi^*_\tau$ come directly from the joint-VAR pathway-stratified slopes (Table~\ref{tab:joint-var-climate} and Section~\ref{sec:joint-var}); the drifts $\alpha^*_\tau$ are calibrated as $\alpha^*_\tau = \overline{g^*_{\tau,\text{pre1750}}} - \phi^*_\tau \overline{V_{\text{pre1750}}}$ so the simulation reproduces each pathway's observed pre-industrial mean growth rate when $V_{it}$ is at its pre-industrial mean.
+
+\begin{table}[H]
+\centering
+\caption{Calibrated parameters for the three-equation model, per pathway. $\alpha^*$ in annualised log-units; $\phi^*$ in annualised log-units per Tg of VSSI.}
+\label{tab:struct-params}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Pathway & $\alpha^P$ & $\phi^P$ & $\alpha^s$ & $\phi^s$ & $\alpha^u$ & $\phi^u$ \\
+\midrule
+Crop-dominant late      & $+8.5\!\cdot\!10^{-3}$ & $-9.6\!\cdot\!10^{-5}$ & $-3.0\!\cdot\!10^{-4}$ & $+3.0\!\cdot\!10^{-5}$ & $+2.2\!\cdot\!10^{-2}$ & $-5.2\!\cdot\!10^{-4}$ \\
+Pastoral/mixed late     & $+5.5\!\cdot\!10^{-3}$ & $-5.5\!\cdot\!10^{-5}$ & $-5.7\!\cdot\!10^{-4}$ & $+1.3\!\cdot\!10^{-6}$ & $+1.1\!\cdot\!10^{-2}$ & $-6.0\!\cdot\!10^{-5}$ \\
+High-density intensive  & $+4.2\!\cdot\!10^{-3}$ & $-2.0\!\cdot\!10^{-5}$ & $+2.0\!\cdot\!10^{-3}$ & $-3.7\!\cdot\!10^{-5}$ & $+8.7\!\cdot\!10^{-3}$ & $+1.8\!\cdot\!10^{-5}$ \\
+Early extensifiers      & $+1.7\!\cdot\!10^{-3}$ & $-1.4\!\cdot\!10^{-5}$ & $+1.3\!\cdot\!10^{-3}$ & $-1.7\!\cdot\!10^{-5}$ & $+1.2\!\cdot\!10^{-2}$ & $-7.8\!\cdot\!10^{-5}$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{The cropland-share coefficient $\phi^s$ is reproduced from the joint VAR; Section~\ref{sec:boserup} documents that this coefficient is measurement-driven, so the cropland-share column of the counterfactual below is partial-equilibrium arithmetic of a HYDE-fitted coefficient, not a structural identification.}
+\end{table}
+
+\textbf{Two counterfactuals on the three-equation model.} CF1 reassigns pastoral/mixed-late countries to the high-density-intensive coefficient vector and re-simulates. CF2 sets $V_{it} = 0$ in every cell.
+
+\begin{table}[H]
+\centering
+\caption{Counterfactual cumulative log-changes 1500--1890, median country per pathway. ``$\Delta$ vs baseline'' rows report the counterfactual minus the baseline log-change.}
+\label{tab:struct-cf}
+\small
+\begin{tabular}{llrrr}
+\toprule
+Pathway & Specification & $\Delta \ln P$ & $\Delta \ln s$ & $\Delta \ln u$ \\
+\midrule
+Crop-dominant late     & Baseline                              & $+2.26$ & $+0.23$ (\!+26\%) & $+2.79$ \\
+                        & CF2 no volcanism                     & $+3.40$ & $-0.12$ (\!$-$11\%) & $+8.88$ \\
+\midrule
+Pastoral/mixed late    & Baseline                              & $+1.54$ & $-0.21$ ($-$19\%) & $+3.69$ \\
+                        & CF1 \!$\rightarrow$ intensive params & $+1.96$ & $-0.67$ ($-$49\%) & $+3.69$ \\
+                        & CF2 no volcanism                     & $+2.20$ & $-0.23$ ($-$21\%) & $+4.40$ \\
+\midrule
+High-density intensive & Baseline                              & $+1.46$ & $+0.36$ ($+$44\%) & $+3.69$ \\
+                        & CF2 no volcanism                     & $+1.70$ & $+0.80$ ($+$123\%) & $+3.48$ \\
+\midrule
+Early extensifiers     & Baseline                              & $+0.50$ & $+0.33$ ($+$39\%) & $+3.82$ \\
+                        & CF2 no volcanism                     & $+0.67$ & $+0.53$ ($+$70\%) & $+4.75$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Cumulative log-changes from forward-simulating Equations~\eqref{eq:struct-pop}--\eqref{eq:struct-urb} over each cell in the 1500--1890 panel; medians taken across countries within pathway. Percent labels next to $\Delta \ln s$ values convert log-units to level-change percentages, $\exp(\Delta)-1$ (cropland share at 1890 relative to 1500). Population columns omit percent labels because cumulative log-units over four centuries produce uninformative level-change percentages.}
+\end{table}
+
+CF2 is the substantive demographic counterfactual: crop-dominant late countries gain $+1.14$ log-units of cumulative population growth in the no-volcanism world (a $+212\%$, factor-of-$\sim$3 level increase), pastoral/mixed late countries gain a smaller $+0.66$ log-units ($+93\%$), with intensive and extensifier pathways smaller still ($+0.24$ and $+0.17$ log-units). Using the Allen Malthus regression of \S\ref{sec:allen} ($\hat\beta_{\ln \text{pop}} = -0.325$, the city-resolution Spec~4 reported there), the per-capita welfare gain for crop-dominant late under CF2 is $-0.37$ log-units---the Malthusian welfare paradox: removing the volcanic check produces more people each substantially poorer.
+
+The model is calibration, not deep structural estimation: lagged levels are treated as exogenous shifters and cross-equation feedback is set to zero (those coefficients are small in the joint VAR). The model does not reproduce the cross-country long-shadow regression ($\hat\beta^{\text{sim}}=+0.18$, $p=0.56$): the cross-country long shadow operates through institutional and technological mediators that within-country dynamics do not capture. The cropland-share column should be read as partial-equilibrium arithmetic of a HYDE-fitted coefficient (Section~\ref{sec:boserup}), not as a structural identification.
+
+\section{HYDE cropland measurement diagnostics and KK10 cross-validation details}
+\label{app:cropland-diagnostics}
+
+This appendix collects the supporting tables and figures for the cropland-margin honest null of Section~\ref{sec:boserup}: the measurement-robustness diagnostics on the HYDE cropland-share specification (Table~\ref{tab:boserup-robust}), the orthogonality test on the cropland-area outcome (Table~\ref{tab:area-orthogonality}), the full HYDE-vs-KK10 cross-validation table across windows (Table~\ref{tab:kk10-orthogonality}), and the country-level test of the substitution pattern between demographic and Boserupian margins (Figure~\ref{fig:channel-substitution}).
+
+\begin{table}[H]
+\centering
+\caption{Cropland-margin response to VSSI: measurement-robustness diagnostics. The headline $+7.8\!\cdot\!10^{-4}$ cropland-share coefficient at 1800--1900 does not survive (i) substitution of the cropland-share outcome by its absolute area numerator and denominator; (ii) restriction to the substantively-named 21-country core; (iii) population weighting. Country FE, country-clustered SEs, joint-VAR controls throughout.}
+\label{tab:boserup-robust}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Specification & $N$ & $\hat\phi$ per Tg & SE & $p$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A. Alternative cropland outcomes, 45 countries, 1800--1900:}} \\
+$\Delta \ln s$ (cropland share, headline)             & $450$ & $+7.8\!\cdot\!10^{-4}$ & $(2.6\!\cdot\!10^{-4})$ & $0.003$ \\
+$\Delta \ln$~cropland area (km$^2$)                   & $405$ & $-9.6\!\cdot\!10^{-5}$ & $(5.4\!\cdot\!10^{-5})$ & $0.077$ \\
+$\Delta \ln$~grazing area (km$^2$)                    & $405$ & $-7.0\!\cdot\!10^{-3}$ & $(2.3\!\cdot\!10^{-3})$ & $0.002$ \\
+$\Delta \ln$~cropland per capita                      & $405$ & $+9.0\!\cdot\!10^{-6}$ & $(1.8\!\cdot\!10^{-5})$ & $0.613$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel B. 21-country Mediterranean / Eurasian-steppe / SE-Asia core, 1800--1900:}} \\
+$\Delta \ln s$ (cropland share)                       & $210$ & $+1.1\!\cdot\!10^{-5}$ & $(9.6\!\cdot\!10^{-6})$ & $0.242$ \\
+$\Delta \ln$~cropland area (km$^2$)                   & $189$ & $+2.0\!\cdot\!10^{-6}$ & $(5.5\!\cdot\!10^{-5})$ & $0.971$ \\
+$\Delta \ln$~grazing area (km$^2$)                    & $189$ & $-6.2\!\cdot\!10^{-5}$ & $(7.0\!\cdot\!10^{-5})$ & $0.376$ \\
+$\Delta \ln$~cropland per capita                      & $189$ & $+4.8\!\cdot\!10^{-5}$ & $(3.6\!\cdot\!10^{-5})$ & $0.183$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel C. Pop-weighted estimation, 45 countries, $\Delta \ln s$:}} \\
+1700--1900 (post-century cells)                      & $900$ & $+3.3\!\cdot\!10^{-5}$ & $(1.9\!\cdot\!10^{-5})$ & $0.082$ \\
+1800--1900 (modern instrumental)                     & $450$ & $+6.1\!\cdot\!10^{-5}$ & $(3.8\!\cdot\!10^{-5})$ & $0.103$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel D. Non-overlapping windows, 45 countries, $\Delta \ln s$:}} \\
+1700--1750                                            & $225$ & $+3.3\!\cdot\!10^{-5}$ & $(2.3\!\cdot\!10^{-5})$ & $0.153$ \\
+1750--1800                                            & $225$ & $\phantom{+}0$ (precisely) & $(1.5\!\cdot\!10^{-7})$ & $0.296$ \\
+1800--1900                                            & $450$ & $+7.8\!\cdot\!10^{-4}$ & $(2.6\!\cdot\!10^{-4})$ & $0.003$ \\
+\hspace{1em}Cochran $Q$ heterogeneity test           &       & $Q = 10.83$ on $2$ d.f. & $I^2 = 82\%$ & $p = 0.004$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Panel A decomposes the cropland-share outcome of \eqref{eq:boserup} into its numerator (log cropland area in km$^2$) and denominator components, plus the per-capita measure. Panel B drops 24 small-island and tropical-Africa countries (Brunei, C\^ote d'Ivoire, Cameroon, Dominica, Equatorial Guinea, Fiji, Guadeloupe, Guinea-Bissau, Haiti, Jamaica, Lesotho, Lucia, Mauritius, Martinique, New Caledonia, R\'eunion, Saint-Kitts, Sierra Leone, Singapore, El Salvador, Tonga, Vanuatu, Vincent, Samoa) whose HYDE cropland and grazing trajectories include large 1840, 1850, and 1890 colonial-transition discontinuities. Panel C reports population-weighted least squares. Panel D splits the post-1700 panel into three disjoint blocks; the $1750$--$1800$ cluster-robust SE is mechanically tight on a precisely-zero coefficient.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Cropland-area response to volcanic forcing, with and without $\Delta_{\text{ann}} \ln P$ as control. The area response is statistically robust in baseline specifications but collapses to zero once the demographic margin is partialled out.}
+\label{tab:area-orthogonality}
+\small
+\begin{tabular}{llcc}
+\toprule
+Sample & Window & Baseline $\hat\phi^{\text{area}}$ ($p$) & $+\Delta \log P$ control ($p$) \\
+\midrule
+Crop-dominant late, full 45-country     & 1500--1900 & $-1.0\!\cdot\!10^{-4}$ \quad ($<10^{-6}$, ***) & $-7.8\!\cdot\!10^{-6}$ ($0.24$) \\
+                                         & Post-1700  & $-2.6\!\cdot\!10^{-5}$ ($0.14$)              & $+6.5\!\cdot\!10^{-6}$ ($0.46$) \\
+                                         & 1800-1900  & $-9.6\!\cdot\!10^{-5}$ ($0.08$, *)           & $+4\!\cdot\!10^{-7}$ ($0.99$) \\
+\midrule
+Crop-dominant late, 21-country core      & 1500--1900 & $-3.5\!\cdot\!10^{-5}$ ($0.005$, ***)        & $+7\!\cdot\!10^{-7}$ ($0.91$) \\
+                                         & Post-1700  & $-6.1\!\cdot\!10^{-5}$ ($0.001$, ***)        & $+8\!\cdot\!10^{-7}$ ($0.96$) \\
+                                         & 1800-1900  & $+2\!\cdot\!10^{-6}$ ($0.97$)                & $+4.9\!\cdot\!10^{-5}$ ($0.18$) \\
+\midrule
+Pastoral/mixed late, full 65-country     & 1500--1900 & $-8.5\!\cdot\!10^{-5}$ ($<10^{-3}$, ***)     & $-5.2\!\cdot\!10^{-5}$ ($0.18$) \\
+High-density intensive, full 16-country  & 1500--1900 & $-3.0\!\cdot\!10^{-5}$ ($0.05$, *)           & $-1.0\!\cdot\!10^{-5}$ ($0.12$) \\
+Early extensifiers, full 27-country      & Post-1700  & $-4.3\!\cdot\!10^{-5}$ ($0.027$, **)         & $-9\!\cdot\!10^{-7}$ ($0.92$) \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Outcome: $\Delta_{\text{ann}} \ln (\text{cropland km}^2)$. Country FE, country-clustered SEs, joint-VAR controls. The ``$+\Delta \log P$ control'' column adds the annualised log population growth to the right-hand side. Stars: $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{HYDE vs.\ KK10 cross-validation of the area-orthogonality finding, 21-country crop-dominant-late core. The HYDE area response is negative and collapses under $\Delta_{\text{ann}} \ln P$ control. The KK10 area response is positive and survives the same control, identifying a small but statistically robust Boserupian extensive-margin response on the population-independent reconstruction.}
+\label{tab:kk10-orthogonality}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Sample / window & Reconstruction & Baseline $\hat\phi$ ($p$) & + $\Delta \log P$ control ($p$) & Survives \\
+\midrule
+Post-1700 21-c core & HYDE crop+past area & $-5.96\!\cdot\!10^{-5}$ ($0.0008$, ***) & $+2.4\!\cdot\!10^{-6}$ ($0.85$) & no \\
+Post-1700 21-c core & KK10 anthro area    & $+1.07\!\cdot\!10^{-5}$ ($0.005$, ***)  & $+1.08\!\cdot\!10^{-5}$ ($0.005$, ***) & yes \\
+\midrule
+Post-1750 21-c core & HYDE crop+past area & $-1.49\!\cdot\!10^{-5}$ ($0.42$)        & $+3.4\!\cdot\!10^{-6}$ ($0.82$) & --- \\
+Post-1750 21-c core & KK10 anthro area    & $+1.52\!\cdot\!10^{-5}$ ($0.011$, **)   & $+1.53\!\cdot\!10^{-5}$ ($0.007$, ***) & yes \\
+\midrule
+Full 1500-1850 21-c core & HYDE crop+past area & $-3.02\!\cdot\!10^{-5}$ ($0.011$, **) & $+5.5\!\cdot\!10^{-6}$ ($0.42$) & no \\
+Full 1500-1850 21-c core & KK10 anthro area    & $+1.1\!\cdot\!10^{-6}$ ($0.80$)       & $+2.8\!\cdot\!10^{-6}$ ($0.55$) & --- \\
+\midrule
+1800-1850 21-c core & HYDE crop+past area & $-1.26\!\cdot\!10^{-5}$ ($0.81$)        & $+3.3\!\cdot\!10^{-5}$ ($0.25$) & --- \\
+1800-1850 21-c core & KK10 anthro area    & $-1.11\!\cdot\!10^{-5}$ ($0.40$)        & $-1.06\!\cdot\!10^{-5}$ ($0.40$) & --- \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Outcomes are annualised log-change of combined anthropogenic land (cropland~+~grazing) in km$^2$. KK10 ends at 1850, so the comparison windows are truncated by 4 decades relative to the HYDE post-1700 panel. ``Survives'' = baseline coefficient is significant at $p < 0.05$ and remains so after adding $\Delta_{\text{ann}} \ln P$ as a control.}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../analysis/figures/paper4_v2/figK_channel_substitution.pdf}
+    \caption{Pathway-level scatter ($N=4$). WLS slope $-0.15$ ($p=0.80$): the qualitative substitution pattern is visible, but the slope is not statistically distinguishable from zero with four points.}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../analysis/figures/paper4_v2/figK_country_substitution.pdf}
+    \caption{Country-level scatter ($N=116$) and Deming-regression bootstrap. Deming slope $+0.007$ ($p=0.06$), bootstrap 95\% CI $[-0.003, +0.19]$, 91\% positive. The country-level test does not identify a substitution slope.}
+  \end{subfigure}
+  \caption{Channel substitution across pathways (panel a) and across countries (panel b). The pathway-level scatter is illustrative; the country-level test does not confirm a substitution slope.}
+  \label{fig:channel-substitution}
+\end{figure}
+
+For each of 116 countries with both coefficients estimable on a post-1700 reduced-form regression (lagged log population, interval-mean temperature, within-interval temperature volatility, VSSI, with country intercept), we extract $(\hat\phi^P_i, \hat\phi^L_i)$ and run an errors-in-variables (Deming) regression across countries, weighted by $1/\text{SE}^2$ on both axes. The Deming slope is $+0.007$ ($\text{SE} = 0.004$, $p=0.06$); a 500-replication country-resampling bootstrap returns a 95\% confidence interval $[-0.003, +0.19]$ with 91\% of bootstrap slopes positive. The country-level test does not identify a negative substitution slope; if anything, the country-level relationship is weakly positive (countries with stronger demographic contractions also show slightly more land-use contraction)---consistent with joint climate vulnerability rather than channel substitution. At country level, the noise of decadal panel time series at 15--18 observations per country dominates whatever cross-country variation in margin choice exists.
+
+\section{Robustness of the cross-pathway asymmetry}
+\label{app:joint-var-robustness}
+
+This appendix documents the three robustness exercises that the main-text Section~\ref{sec:robustness} summarises. They target the joint-VAR cross-pathway asymmetry of Section~\ref{sec:joint-var} specifically, which depends on a pathway typology estimated from HYDE-trajectory outcomes (peak agricultural expansion year, 1750-era density, 1750-era crop share, urbanisation timing).
+
+\subsection*{L.1 Climate-only pathway clustering}
+\label{app:joint-var-climate-clusters}
+
+The headline pathway typology of Section~\ref{sec:pathways} is built on HYDE-trajectory features that are downstream outcomes of the same processes the joint VAR is trying to explain. We re-cluster the 196 countries using exclusively pre-industrial climate primitives---productive months, intra-annual $T$ and $P$ range, mean $T$, mean $P$, and inter-annual $T$ volatility, all computed over 1421--1750 from the ModE-RA + CRU panel and orthogonal to every HYDE outcome---and re-estimate the joint VAR on the new cluster labels.
+
+K=5 KMeans on the standardised climate-primitive features achieves a silhouette of $0.340$ and produces five clusters ordered by mean productive months: \emph{Low-storage (driest)} (mean prod.\ months 2.5, $\sigma_s = 15.4^\circ$C, $N=32$), \emph{Moderate-storage low} ($4.1$, $28.1^\circ$C, $N=22$), \emph{Mid-storage} ($7.1$, $20.7^\circ$C, $N=33$), \emph{Moderate-storage high} ($9.1$, $7.0^\circ$C, $N=49$), and \emph{High-storage (wettest)} ($11.1$, $3.9^\circ$C, $N=60$). The cross-tab against the HYDE-derived clusters is essentially block-diagonal-free: HYDE-cluster ``pastoral/mixed late'' (the largest, $N=65$) spreads across all five climate clusters, and similarly for HYDE-cluster ``crop-dominant late''. The two typologies measure different things.
+
+\begin{table}[H]
+\centering
+\caption{Joint VAR pathway-stratified VSSI slopes under climate-only clustering, 1500--1900. Country FE, country-clustered SEs. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:joint-var-climate}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Climate cluster (storage demand) & $N$ & countries & $\hat\beta^{\text{Pop}}$ ($p$) & $\hat\beta^{\text{Crop}}$ ($p$) & $\hat\beta^{\text{Urb}}$ ($p$) \\
+\midrule
+Low-storage (driest)    & $483$  & $22$ & $-2.6\!\cdot\!10^{-5}$ ($0.048$)$^{**}$  & $-2.9\!\cdot\!10^{-5}$ ($0.330$)         & $-5.1\!\cdot\!10^{-5}$ ($0.005$)$^{***}$ \\
+Moderate-storage low    & $308$  & $14$ & $-3.2\!\cdot\!10^{-5}$ ($0.045$)$^{**}$  & $+6.9\!\cdot\!10^{-6}$ ($0.250$)         & $+5.6\!\cdot\!10^{-5}$ ($0.263$)         \\
+Mid-storage             & $704$  & $32$ & $-3.0\!\cdot\!10^{-5}$ ($0.007$)$^{***}$ & $-3.9\!\cdot\!10^{-5}$ ($<10^{-5}$)$^{***}$ & $-4.7\!\cdot\!10^{-5}$ ($0.356$)      \\
+Moderate-storage high   & $814$  & $37$ & $-7.4\!\cdot\!10^{-5}$ ($<10^{-3}$)$^{***}$ & $-2.9\!\cdot\!10^{-5}$ ($0.008$)$^{***}$ & $-4.8\!\cdot\!10^{-5}$ ($0.005$)$^{***}$ \\
+High-storage (wettest)  & $1{,}076$ & $49$ & $-8.1\!\cdot\!10^{-5}$ ($<10^{-6}$)$^{***}$ & $+5.4\!\cdot\!10^{-5}$ ($0.091$)$^{*}$  & $-5.2\!\cdot\!10^{-4}$ ($0.132$)         \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{Pathways labeled by mean pre-industrial productive months and intra-annual temperature range. The neat one-pathway-per-margin pattern of the HYDE-clustered specification (Section~\ref{sec:joint-var}) does not survive: all five climate-only clusters show statistically significant negative VSSI coefficients on $\Delta \log P$, and the cropland and urban responses are not concentrated in single climate-defined clusters.}
+\end{table}
 
 
-% ══════════════════════════════════════════════════════════════════════════════
+\subsection*{L.2 Wild-cluster bootstrap and label permutation}
+\label{app:joint-var-bootstrap}
+
+With twelve pathway-by-equation slopes in the headline joint VAR (four informative pathways times three equations), the asymptotic single-coefficient significance tests are vulnerable to multiple-testing inflation. We re-test the twelve slopes two ways.
+
+First, a Webb (2014) six-point wild-cluster bootstrap (1{,}999 replications, restricted residuals re-signed at the country level) gives bootstrap p-values that track the cluster-robust asymptotic p-values closely for the demographic and cropland margins (Table~\ref{tab:joint-var-bootstrap}); the two urban-equation off-margin slopes move more---the pastoral/mixed late urban slope from $p_{\text{asymp}}=0.086$ to $p_{\text{boot}}=0.280$ and the crop-dominant late urban slope from $0.126$ to $0.045$---but neither comes anywhere near Bonferroni significance under either method. The cluster SEs are not catastrophically off; the asymptotic inference is well-calibrated. Under Bonferroni correction at the 5\% level ($0.05 / 12 = 0.0042$), however, only two of the twelve slopes survive: the crop-dominant late and pastoral/mixed late demographic-margin coefficients (Table~\ref{tab:joint-var-bootstrap}). The high-density intensive cropland coefficient ($p_{\text{boot}} = 0.017$) and the early-extensifier urban coefficient ($p_{\text{boot}} = 0.035$) fall short of Bonferroni significance, as do all remaining off-margin coefficients. A Benjamini-Hochberg FDR procedure at the 5\% level returns the same two demographic-margin coefficients.
+
+\begin{table}[H]
+\centering
+\caption{Wild-cluster bootstrap p-values for the joint VAR pathway slopes, 1{,}999 Webb six-point replications. Bonferroni threshold: $p<0.0042$. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:joint-var-bootstrap}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Pathway & Equation & $\hat\beta$ & $p_{\text{asymp}}$ & $p_{\text{boot}}$ & Bonferroni \\
+\midrule
+Crop-dominant late    & $\Delta \log P$ & $-9.65\!\cdot\!10^{-5}$ & $<10^{-6}$ \quad *** & $0.000$ \quad *** & $\checkmark$ \\
+Crop-dominant late    & $\Delta \log s$ & $+2.96\!\cdot\!10^{-5}$ & $0.258$               & $0.301$           &  \\
+Crop-dominant late    & $\Delta \log u$ & $-5.16\!\cdot\!10^{-4}$ & $0.126$               & $0.045$ \quad **  &  \\
+Pastoral/mixed late   & $\Delta \log P$ & $-5.55\!\cdot\!10^{-5}$ & $<10^{-5}$ \quad *** & $0.000$ \quad *** & $\checkmark$ \\
+Pastoral/mixed late   & $\Delta \log s$ & $+0.13\!\cdot\!10^{-5}$ & $0.913$               & $0.931$           &  \\
+Pastoral/mixed late   & $\Delta \log u$ & $-6.02\!\cdot\!10^{-5}$ & $0.086$ \quad *      & $0.280$           &  \\
+High-density intensive & $\Delta \log P$ & $-2.02\!\cdot\!10^{-5}$ & $0.215$              & $0.233$           &  \\
+High-density intensive & $\Delta \log s$ & $-3.73\!\cdot\!10^{-5}$ & $0.021$ \quad **    & $0.017$ \quad **  &  \\
+High-density intensive & $\Delta \log u$ & $+1.84\!\cdot\!10^{-5}$ & $0.751$              & $0.823$           &  \\
+Early extensifiers    & $\Delta \log P$ & $-1.43\!\cdot\!10^{-5}$ & $0.121$               & $0.146$           &  \\
+Early extensifiers    & $\Delta \log s$ & $-1.71\!\cdot\!10^{-5}$ & $0.186$               & $0.210$           &  \\
+Early extensifiers    & $\Delta \log u$ & $-7.82\!\cdot\!10^{-5}$ & $0.040$ \quad **    & $0.035$ \quad **  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Second, a permutation test that re-shuffles the pathway labels across countries 300 times---preserving panel structure and within-country dynamics but breaking the link between cluster identity and country---asks how often a random labeling produces at least the observed number of significant coefficients per equation. For the demographic equation the answer is essentially always (median 4 significant slopes under permutation vs. 2 observed); the labeling actually reduces the count of significant demographic slopes relative to random. For the cropland equation, 48\% of permutations produce at least one significant cropland slope. For the urban equation, 73\% of permutations produce at least one significant urban slope. The observed cross-pathway pattern of one significant cropland and one significant urban response across four pathways is not distinguishable from what random labels produce.
+
+\subsection*{L.3 Post-1700 sub-sample}
+\label{app:joint-var-post1700}
+
+HYDE 3.5 uses 100-year intervals before 1700 and decadal intervals afterwards; the 1500 and 1600 cells in the joint VAR panel are century-aggregated back-projections from a sparser historical source base than the post-1700 decadal cells. HYDE's pre-1850 demographic back-projection also uses cropland and pasture extent as input variables, so the joint cropland-and-population dynamics in the pre-1700 portion of the panel are partly mechanical. We restrict to year $\ge 1700$ (drops 305 century cells, $\sim 9\%$ of the panel) and re-run.
+
+The post-1700 restriction differentially weakens the pathway coefficients. Table~\ref{tab:joint-var-post1700} reports the slopes across four sub-samples: full 1500--1900, post-1700, post-1750, and post-1800. The crop-dominant late demographic margin survives every cut ($p \le 0.018$). The pastoral/mixed demographic margin collapses to $p = 0.95$ post-1700: that significance came entirely from the century-resolution cells. The high-density intensive cropland margin weakens to $p = 0.076$ post-1700 and to $p = 0.26$ post-1750. The early-extensifier urban margin weakens to $p = 0.28$ post-1700.
+
+\begin{table}[H]
+\centering
+\caption{Joint VAR pathway slopes across temporal sub-samples. Coefficients in units of $10^{-5}$ per Tg VSSI. Stars: $* p<0.10$, $** p<0.05$, $*** p<0.01$.}
+\label{tab:joint-var-post1700}
+\small
+\begin{tabular}{llrrr}
+\toprule
+Pathway & Sub-sample & $\hat\beta^{\text{Pop}}$ ($p$) & $\hat\beta^{\text{Crop}}$ ($p$) & $\hat\beta^{\text{Urb}}$ ($p$) \\
+\midrule
+Crop-dominant late    & 1500--1900 (full)       & $-9.65$ \quad ***  & $+2.96$           & $-51.6$        \\
+                       & 1700--1900               & $-4.10$ \quad **   & $+36.3$ \quad **  & $+9.95$         \\
+                       & 1750--1900               & $-5.66$ \quad ***  & $+39.1$ \quad **  & $+0.19$         \\
+                       & 1800--1900               & $-11.9$ \quad **   & $+78.4$ \quad *** & $-0.13$         \\
+\midrule
+Pastoral/mixed late   & 1500--1900 (full)       & $-5.55$ \quad ***  & $+0.13$           & $-6.02$ \quad * \\
+                       & 1700--1900               & $-0.11$           & $-4.79$           & $-0.61$         \\
+                       & 1750--1900               & $-0.48$           & $-5.99$           & $+0.79$         \\
+                       & 1800--1900               & $-2.22$           & $-10.0$           & $-2.45$         \\
+\midrule
+High-density intensive & 1500--1900 (full)       & $-2.02$           & $-3.73$ \quad **  & $+1.84$         \\
+                       & 1700--1900               & $-0.43$           & $-4.16$ \quad *   & $-8.44$         \\
+                       & 1750--1900               & $-0.23$           & $-3.32$           & $-9.18$         \\
+                       & 1800--1900               & $-5.94$ \quad *   & $-2.26$           & $-4.81$         \\
+\midrule
+Early extensifiers    & 1500--1900 (full)       & $-1.43$           & $-1.71$           & $-7.82$ \quad ** \\
+                       & 1700--1900               & $-3.69$ \quad *   & $+10.7$           & $-3.13$         \\
+                       & 1750--1900               & $-2.93$           & $+15.7$ \quad *   & $-2.82$ \quad * \\
+                       & 1800--1900               & $-6.11$           & $+20.7$           & $-3.38$         \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize{The crop-dominant late demographic margin is the only coefficient that retains significance across all four sub-samples. The other three margins of the original three-margin asymmetry either weaken substantially (high-density intensive cropland, early extensifier urban) or vanish (pastoral/mixed demographic) when the century-resolution HYDE cells are dropped.}
+\end{table}
+
+\subsection*{L.4 Reading the robustness exercises}
+\label{app:joint-var-reading}
+
+The three exercises target related but distinct issues with the joint-VAR cross-pathway asymmetry: pathway endogeneity (L.1), multiple-testing inflation (L.2), and HYDE temporal-imputation artifacts (L.3). Each exercise weakens a different component of the original headline. Taking the three together, what is statistically defensible is a clean demographic-margin response to volcanic forcing that is concentrated in crop-dominant late countries and is robust across pathway typology, multiple-testing correction, and HYDE sub-sample. What is not statistically defensible at conventional levels is the further claim that intensive and early-extensifier pathways adjust on non-demographic margins: those slopes are individually nominally significant in the full HYDE-clustered specification but do not survive any one of the three robustness exercises.
+
+A noteworthy and previously unreported result emerges from the post-1700 restriction: the crop-dominant late pathway shows a sharply \emph{positive} cropland-share response to volcanic forcing once the century-resolution cells are dropped ($\hat\beta = +3.6\!\cdot\!10^{-4}$ per Tg post-1700, $p = 0.031$; $+7.8\!\cdot\!10^{-4}$, $p = 0.003$ in 1800--1900). After volcanic cooling, crop-dominant late economies expanded their cropland share---a Boserupian intensification response in the decade following a cold shock. This finding is robust to the temporal sub-sample but is masked in the full 1500--1900 panel by the offsetting pre-1700 century cells. We note it here as a candidate result for follow-up work.
+
+The honest reading of the joint VAR is therefore: it identifies a clean demographic effect within a multi-margin framework, surfaces an unexpected Boserupian cropland response in the modern-era crop-dominant subsample, and motivates future work with finer temporal demographic resolution that can resolve the within-decade dynamics of the cropland and urban margins.
+
 % References
-% ══════════════════════════════════════════════════════════════════════════════
-
 \bibliographystyle{apalike}
-
 \begin{thebibliography}{99}
+
+\bibitem[Andersen et al.(2017)]{andersen2017climate}
+Andersen, T.~B., Dalgaard, C.-J., and Selaya, P. (2017).
+\newblock Climate and the emergence of global income differences.
+\newblock {\em Review of Economic Studies}, 83(4):1334--1363.
+
+\bibitem[Allen(2001)]{allen2001divergence}
+Allen, R.~C. (2001).
+\newblock The great divergence in European wages and prices from the {Middle Ages} to the {First World War}.
+\newblock {\em Explorations in Economic History}, 38(4):411--447.
+\newblock Data from the Nuffield College Robert Allen archive,
+  \texttt{nuffield.ox.ac.uk/people/sites/allen-research-pages/}.
 
 \bibitem[Ashraf and Galor(2011)]{ashraf2011dynamics}
 Ashraf, Q.~H. and Galor, O. (2011).
-\newblock Dynamics of inequality: The role of opportunity and demographics.
-\newblock {\em The Quarterly Journal of Economics}, 126(4):2003--2048.
+\newblock Dynamics and stagnation in the Malthusian epoch.
+\newblock {\em American Economic Review}, 101(5):2003--2041.
 
-\bibitem[Dell et~al.(2012)]{dell2012temperature}
+\bibitem[Ashraf and Galor(2013)]{ashraf2013out}
+Ashraf, Q.~H. and Galor, O. (2013).
+\newblock The ``Out of Africa'' hypothesis, human genetic diversity, and comparative economic development.
+\newblock {\em American Economic Review}, 103(1):1--46.
+
+\bibitem[Auffhammer et al.(2013)]{auffhammer2011weather}
+Auffhammer, M., Hsiang, S.~M., Schlenker, W., and Sobel, A. (2013).
+\newblock Using weather data and climate model output in economic analyses of climate change.
+\newblock {\em Review of Environmental Economics and Policy}, 7(2):181--198.
+
+\bibitem[Bar-Yosef(2011)]{bar2011neolithic}
+Bar-Yosef, O. (2011).
+\newblock Climatic fluctuations and early farming in West and East Asia.
+\newblock {\em Current Anthropology}, 52(S4):S175--S193.
+
+\bibitem[Benedictow(2004)]{benedictow2004}
+Benedictow, O.~J. (2004).
+\newblock {\em The Black Death 1346--1353: The Complete History}.
+\newblock Boydell Press, Woodbridge.
+
+\bibitem[Boserup(1965)]{boserup1965}
+Boserup, E. (1965).
+\newblock {\em The Conditions of Agricultural Growth: The Economics of Agrarian Change under Population Pressure}.
+\newblock Aldine, Chicago.
+
+\bibitem[B\"untgen et al.(2016)]{buntgen2016cooling}
+B\"untgen, U., Myglan, V.~S., Ljungqvist, F.~C., McCormick, M., Di~Cosmo, N., Sigl, M., Jungclaus, J., Wagner, S., Krusic, P.~J., Esper, J., Kaplan, J.~O., de~Vaan, M.~A.~C., Luterbacher, J., Wacker, L., Tegel, W., and Kirdyanov, A.~V. (2016).
+\newblock Cooling and societal change during the {Late Antique Little Ice Age} from 536 to around 660 {AD}.
+\newblock {\em Nature Geoscience}, 9(3):231--236.
+
+\bibitem[Brecke(1999)]{brecke1999}
+Brecke, P. (1999).
+\newblock Violent conflicts 1400 A.D.\ to the present in different regions of the world.
+\newblock 1999 Meeting of the Peace Science Society.
+\newblock Conflict Catalog v18 (3{,}708 conflicts 1400--1999) and Pre-1400 European Conflicts extension (1{,}147 conflicts 900--1402),
+  \texttt{brecke.inta.gatech.edu/research/conflict/}.
+
+\bibitem[Burke et al.(2015)]{burke2015global}
+Burke, M., Hsiang, S.~M., and Miguel, E. (2015).
+\newblock Global non-linear effect of temperature on economic production.
+\newblock {\em Nature}, 527(7577):235--239.
+
+\bibitem[Clark(2007)]{clark2007farewell}
+Clark, G. (2007).
+\newblock {\em A Farewell to Alms: A Brief Economic History of the World}.
+\newblock Princeton University Press.
+
+\bibitem[Deschênes and Greenstone(2007)]{deschenes2007economic}
+Deschênes, O. and Greenstone, M. (2007).
+\newblock The economic impacts of climate change: Evidence from agricultural output and random fluctuations in weather.
+\newblock {\em American Economic Review}, 97(1):354--385.
+
+\bibitem[Dell et al.(2012)]{dell2012temperature}
 Dell, M., Jones, B.~F., and Olken, B.~A. (2012).
 \newblock Temperature shocks and economic growth: Evidence from the last half century.
 \newblock {\em American Economic Journal: Macroeconomics}, 4(3):66--95.
+
+\bibitem[Diamond(1997)]{diamond1997guns}
+Diamond, J. (1997).
+\newblock {\em Guns, Germs, and Steel: The Fates of Human Societies}.
+\newblock Norton.
+
+\bibitem[Durlauf et al.(2005)]{durlauf2005}
+Durlauf, S.~N., Johnson, P.~A., and Temple, J.~R.~W. (2005).
+\newblock Growth econometrics.
+\newblock In \emph{Handbook of Economic Growth}, volume 1, pages 555--677. Elsevier.
+
+\bibitem[Franke et al.(2023)]{franke2023modera}
+Franke, J., Valler, V., Brönnimann, S., et~al. (2023).
+\newblock {ModE-RA}: a global monthly paleo-reanalysis of the modern era 1421 to 2008.
+\newblock {\em Scientific Data}, 10:680.
 
 \bibitem[Galor(2011)]{galor2011unified}
 Galor, O. (2011).
@@ -451,25 +1237,79 @@ Galor, O. and Weil, D.~N. (2000).
 \newblock Population, technology, and growth: From Malthusian stagnation to the demographic transition and beyond.
 \newblock {\em American Economic Review}, 90(4):806--828.
 
-\bibitem[Goldewijk et~al.(2017)]{goldewijk2017}
+\bibitem[Galor and Moav(2002)]{galor2002natural}
+Galor, O. and Moav, O. (2002).
+\newblock Natural selection and the origin of economic growth.
+\newblock {\em Quarterly Journal of Economics}, 117(4):1133--1191.
+
+\bibitem[Galor and Mountford(2008)]{galor2002geography}
+Galor, O. and Mountford, A. (2008).
+\newblock Trading population for productivity: Theory and evidence.
+\newblock {\em Review of Economic Studies}, 75(4):1143--1179.
+
+\bibitem[Kaplan et al.(2011)]{kaplan2011}
+Kaplan, J.~O., Krumhardt, K.~M., Ellis, E.~C., Ruddiman, W.~F., Lemmen, C., and Klein~Goldewijk, K. (2011).
+\newblock Holocene carbon emissions as a result of anthropogenic land cover change.
+\newblock {\em The Holocene}, 21(5):775--791.
+
+\bibitem[Klein Goldewijk et al.(2017)]{goldewijk2017}
 Klein~Goldewijk, K., Beusen, A., Doelman, J., and Stehfest, E. (2017).
 \newblock Anthropogenic land use estimates for the {H}olocene -- {HYDE} 3.2.
 \newblock {\em Earth System Science Data}, 9(2):927--953.
 
-\bibitem[Hersbach et~al.(2020)]{hersbach2020era5}
-Hersbach, H., Bell, B., Berrisford, P., et~al. (2020).
-\newblock The {ERA5} global reanalysis.
-\newblock {\em Quarterly Journal of the Royal Meteorological Society}, 146(730):1999--2049.
+\bibitem[Koch et al.(2019)]{koch2019}
+Koch, A., Brierley, C., Maslin, M., and Lewis, S. (2019).
+\newblock Earth system impacts of the European arrival and Great Dying in the {Americas} after 1492.
+\newblock {\em Quaternary Science Reviews}, 207:13--36.
 
-\bibitem[Jord\`a(2005)]{jorda2005estimation}
+\bibitem[Harper(2016)]{harper2016people}
+Harper, K. (2016).
+\newblock People, plagues, and prices in the {Roman} world: The evidence from {Egypt}.
+\newblock {\em Journal of Economic History}, 76(3):803--839.
+\newblock Data via DARMC Scholarly Data Series 2016-5.
+
+\bibitem[Harris et al.(2020)]{harris2020cruts}
+Harris, I., Osborn, T.~J., Jones, P., and Lister, D. (2020).
+\newblock Version 4 of the {CRU TS} monthly high-resolution gridded multivariate climate dataset.
+\newblock {\em Scientific Data}, 7:109.
+
+\bibitem[Hatcher(1977)]{hatcher1977}
+Hatcher, J. (1977).
+\newblock {\em Plague, Population and the English Economy, 1348--1530}.
+\newblock Macmillan, London.
+
+\bibitem[Hatcher(1986)]{hatcher1986}
+Hatcher, J. (1986).
+\newblock Mortality in the fifteenth century: some new evidence.
+\newblock {\em Economic History Review}, 39(1):19--38.
+
+\bibitem[Hatcher and Bailey(2001)]{hatcherbailey2001}
+Hatcher, J. and Bailey, M. (2001).
+\newblock {\em Modelling the Middle Ages: The History and Theory of England's
+  Economic Development}.
+\newblock Oxford University Press.
+
+
+\bibitem[Hsiang(2017)]{hsiang2017global}
+Hsiang, S. (2017).
+\newblock Climate econometrics.
+\newblock {\em Annual Review of Resource Economics}, 8:43--75.
+
+\bibitem[Jordà(2005)]{jorda2005estimation}
 Jord\`a, \`O. (2005).
 \newblock Estimation and inference of impulse responses by local projections.
 \newblock {\em American Economic Review}, 95(1):161--182.
 
-\bibitem[Manski(2003)]{manski2003partial}
-Manski, C.~F. (2003).
-\newblock {\em Partial Identification of Probability Distributions}.
-\newblock Springer.
+\bibitem[Malthus(1798)]{malthus1798}
+Malthus, T.R. (1798).
+\newblock {\em An Essay on the Principle of Population}.
+\newblock J. Johnson, London.
+
+\bibitem[Malanima(2002)]{malanima2002}
+Malanima, P. (2002).
+\newblock {\em L'economia italiana: dalla crescita medievale alla crescita contemporanea}.
+\newblock il Mulino, Bologna.
+\newblock Tuscan wheat-price series 1264--1859 distributed via the Global Price and Income History Group (UC Davis).
 
 \bibitem[Matranga(2024)]{matranga2024}
 Matranga, A. (2024).
@@ -480,6 +1320,61 @@ Matranga, A. (2024).
 Nunn, N. and Qian, N. (2011).
 \newblock The potato's contribution to population and urbanization: Evidence from a historical experiment.
 \newblock {\em The Quarterly Journal of Economics}, 126(2):593--650.
+
+\bibitem[Olsson and Hibbs(2005)]{olsson2005}
+Olsson, O. and Hibbs, D.~A. (2005).
+\newblock Biogeography and long-run economic development.
+\newblock {\em European Economic Review}, 49(4):909--938.
+
+\bibitem[Olsson(2002)]{olsson2002biogeography}
+Olsson, O. (2002).
+\newblock The rise of Neolithic agriculture.
+\newblock Working paper, Göteborg University.
+
+\bibitem[Putterman and Weil(2010)]{putterman2008}
+Putterman, L.\ and Weil, D.~N.\ (2010).
+\newblock Post-1500 population flows and the long-run determinants of economic growth and inequality.
+\newblock {\em Quarterly Journal of Economics}, 125(4):1627--1682.
+
+\bibitem[Toohey and Sigl(2017)]{toohey2017}
+Toohey, M.\ and Sigl, M.\ (2017).
+\newblock Volcanic stratospheric sulfur injections and aerosol optical depth from 500 {BCE} to 1900 {CE}.
+\newblock {\em Earth System Science Data}, 9(2):809--831.
+
+\bibitem[Sigl and Toohey(2024)]{sigl2024evolv2k}
+Sigl, M.\ and Toohey, M.\ (2024).
+\newblock Volcanic stratospheric sulfur injections from 500 BCE to 1900 CE, eVolv2k version 4.
+\newblock {\em PANGAEA Dataset}, \texttt{doi:10.1594/PANGAEA.971968}.
+
+\bibitem[PAGES 2k Consortium(2019)]{pages2k2019}
+PAGES 2k Consortium (2019).
+\newblock Consistent multidecadal variability in global temperature reconstructions and simulations over the {Common Era}.
+\newblock {\em Nature Geoscience}, 12(8):643--649.
+
+\bibitem[Voigtländer and Voth(2013)]{voigtlander2013how}
+Voigtländer, N. and Voth, H.-J. (2013).
+\newblock How the West ``invented'' fertility restriction.
+\newblock {\em American Economic Review}, 103(6):2227--2264.
+
+\bibitem[Weiss and Bradley(2001)]{weiss2008climate}
+Weiss, H. and Bradley, R.~S. (2001).
+\newblock What drives societal collapse?
+\newblock {\em Science}, 291(5504):609--610.
+
+\bibitem[Wood(2014)]{wood2014year}
+Wood, G.~D. (2014).
+\newblock {\em Tambora: The Eruption That Changed the World}.
+\newblock Princeton University Press.
+
+\bibitem[Wrigley and Schofield(1981)]{wrigley1981}
+Wrigley, E.~A. and Schofield, R.~S. (1981).
+\newblock {\em The Population History of England, 1541--1871}.
+\newblock Harvard University Press.
+
+\bibitem[Alonso Ortiz and Da-Rocha(2026)]{alonso_horserace_v3}
+Alonso Ortiz, J.\ and Da-Rocha, J.-M. (2026).
+\newblock Climate, Modern Population-Genetics Substrates, and Long-Run Demographic Outcomes: A Five-Substrate Cross-Country Horserace.
+\newblock Working paper, ITAM-Universidade de Vigo. Companion to the present paper.
 
 \end{thebibliography}
 

@@ -1,0 +1,178 @@
+{
+  "description": "Phase 11 robustness: precipitation DL sample-collapse diagnosis. 3 control specs \u00d7 2 shocks (p_growing, t_growing). Key finding: disaster controls (disaster_count, log_disaster_deaths) cover only 11.6% of panel (1900-2022), while war/pandemic controls cover 57.2% (1421-2022). Full control spec collapses to N~436, 4 countries (1900-2008); no-disaster spec expands to N~990, 4 countries (1541-2008); minimal spec uses N~1419, 7 countries (1541-2008).",
+  "control_coverage": {
+    "war_active": {
+      "n_nonnull": 2403,
+      "total": 7209,
+      "pct_nonnull": 33.3,
+      "year_min": 1421,
+      "year_max": 2022
+    },
+    "log_war_fatalities": {
+      "n_nonnull": 2403,
+      "total": 7209,
+      "pct_nonnull": 33.3,
+      "year_min": 1421,
+      "year_max": 2022
+    },
+    "pandemic_active": {
+      "n_nonnull": 2403,
+      "total": 7209,
+      "pct_nonnull": 33.3,
+      "year_min": 1421,
+      "year_max": 2022
+    },
+    "disaster_count": {
+      "n_nonnull": 487,
+      "total": 7209,
+      "pct_nonnull": 6.8,
+      "year_min": 1900,
+      "year_max": 2022
+    },
+    "log_disaster_deaths": {
+      "n_nonnull": 487,
+      "total": 7209,
+      "pct_nonnull": 6.8,
+      "year_min": 1900,
+      "year_max": 2022
+    },
+    "heat_extreme": {
+      "n_nonnull": 7056,
+      "total": 7209,
+      "pct_nonnull": 97.9,
+      "year_min": 1421,
+      "year_max": 2008
+    },
+    "drought": {
+      "n_nonnull": 7056,
+      "total": 7209,
+      "pct_nonnull": 97.9,
+      "year_min": 1421,
+      "year_max": 2008
+    },
+    "vol_t_10y": {
+      "n_nonnull": 7008,
+      "total": 7209,
+      "pct_nonnull": 97.2,
+      "year_min": 1425,
+      "year_max": 2008
+    },
+    "vol_p_10y": {
+      "n_nonnull": 7008,
+      "total": 7209,
+      "pct_nonnull": 97.2,
+      "year_min": 1425,
+      "year_max": 2008
+    }
+  },
+  "grid": [
+    {
+      "spec": "a_full_controls",
+      "shock": "p_growing",
+      "controls": [
+        "war_active",
+        "log_war_fatalities",
+        "pandemic_active",
+        "disaster_count",
+        "log_disaster_deaths",
+        "heat_extreme",
+        "drought",
+        "vol_t_10y",
+        "vol_p_10y"
+      ],
+      "N": 424,
+      "N_countries": 4,
+      "year_min": 1903,
+      "year_max": 2008,
+      "cum_beta": -0.00881,
+      "se": 0.002,
+      "t": -4.412
+    },
+    {
+      "spec": "a_full_controls",
+      "shock": "t_growing",
+      "controls": [
+        "war_active",
+        "log_war_fatalities",
+        "pandemic_active",
+        "disaster_count",
+        "log_disaster_deaths",
+        "heat_extreme",
+        "drought",
+        "vol_t_10y",
+        "vol_p_10y"
+      ],
+      "N": 424,
+      "N_countries": 4,
+      "year_min": 1903,
+      "year_max": 2008,
+      "cum_beta": 0.00863,
+      "se": 0.05483,
+      "t": 0.157
+    },
+    {
+      "spec": "b_no_disaster",
+      "shock": "p_growing",
+      "controls": [
+        "war_active",
+        "log_war_fatalities",
+        "pandemic_active",
+        "heat_extreme",
+        "drought",
+        "vol_t_10y",
+        "vol_p_10y"
+      ],
+      "N": 978,
+      "N_countries": 4,
+      "year_min": 1544,
+      "year_max": 2008,
+      "cum_beta": -0.00636,
+      "se": 0.00315,
+      "t": -2.017
+    },
+    {
+      "spec": "b_no_disaster",
+      "shock": "t_growing",
+      "controls": [
+        "war_active",
+        "log_war_fatalities",
+        "pandemic_active",
+        "heat_extreme",
+        "drought",
+        "vol_t_10y",
+        "vol_p_10y"
+      ],
+      "N": 978,
+      "N_countries": 4,
+      "year_min": 1544,
+      "year_max": 2008,
+      "cum_beta": 0.03948,
+      "se": 0.07438,
+      "t": 0.531
+    },
+    {
+      "spec": "c_minimal",
+      "shock": "p_growing",
+      "controls": [],
+      "N": 2179,
+      "N_countries": 12,
+      "year_min": 1544,
+      "year_max": 2008,
+      "cum_beta": -0.00259,
+      "se": 0.00156,
+      "t": -1.663
+    },
+    {
+      "spec": "c_minimal",
+      "shock": "t_growing",
+      "controls": [],
+      "N": 2179,
+      "N_countries": 12,
+      "year_min": 1544,
+      "year_max": 2008,
+      "cum_beta": 0.00572,
+      "se": 0.03801,
+      "t": 0.151
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+Wrigley-Schofield England annual demographic series - cascade retrieval log
+============================================================================
+
+Cascade tier A.1 (Crafts-Mills 2020 AEA/openICPSR dataverse) - ATTEMPTED 2026-05-15
+---------------------------------------------------------------------------
+
+OUTCOME: FAILED.  No public Crafts-Mills replication package was located at
+openICPSR / AEA Data and Code Repository or anywhere else.  The cascade must
+proceed to tier A.2 (Clark UC Davis) to obtain CBR and CDR.
+
+Search attempts:
+  - WebSearch: "Crafts Mills From Malthus to Solow 2020 Economic Journal
+    replication openicpsr" -> no replication package.  Note that "From Malthus
+    to Solow" is actually the 2009 Journal of Macroeconomics paper, not a 2020
+    Economic Journal paper.
+  - WebSearch: "Considering the Counterfactual ... replication data openicpsr
+    Wrigley Schofield" -> nothing.
+  - WebSearch: site:openicpsr.org Crafts Mills counterfactual real wages
+    -> nothing.
+  - WebFetch: https://www.openicpsr.org/openicpsr/search/aea/studies?searchTerm=Crafts+Mills
+    -> HTTP 403.
+  - WebFetch: ideas.repec.org bibliographic page for the EJ 2022 article
+    -> no data links.
+  - WebFetch: Oxford Academic EJ article page -> no data availability link.
+  - WebFetch: Warwick WRAP repository pages for the 2009 J Macro and 2017
+    EREH papers -> bibliographic only, no data deposited.
+  - WebFetch: CAGE working paper 502 PDF (which became the EJ 2022 paper):
+    references W-S aggregate data 1541-1871 and Bank of England Thomas-Dimsdale
+    "Millennium of UK Data" as a downstream compilation, but does not link to
+    any replication data deposit.
+
+Closest candidate paper found:
+  Crafts, N. and T.C. Mills (2022).  "Considering the Counterfactual: Real
+  Wages in the First Industrial Revolution."  Economic Journal 132(645):
+  1994-2006.  Working paper version: CAGE WP 502 (August 2020, revised
+  September 2021).  This paper estimates a Lee-Anderson state-space model on
+  the W-S aggregate series 1570-1850 (Figure 2 plots crude birth and death
+  rates), but neither the published version (EJ) nor the working paper
+  (CAGE/Warwick) deposits the underlying time series.  The Economic Journal
+  did not require replication archives during this period for theoretical/
+  applied papers without micro-data, so no openICPSR record exists.
+
+Companion paper:
+  Crafts, N. and T.C. Mills (2009).  "From Malthus to Solow: How Did the
+  Malthusian Economy Really Evolve?"  Journal of Macroeconomics 31(1):
+  68-93.  Predates current AEA replication requirements; no deposit located.
+
+Useful partial artifact retrieved during this attempt:
+---------------------------------------------------------------------------
+  boe_millennium.xlsx (27 MB)
+  Source: Bank of England, "A Millennium of Macroeconomic Data for the UK",
+          v3.1, sheet "A2. Pop of Eng & GB 1086-1870"
+  URL: https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+  Citation: Thomas, R. and N. Dimsdale (cited in Crafts-Mills 2022 fn 14);
+            underlying data: Broadberry, Campbell, Klein, Overton and van
+            Leeuwen, British Economic Growth, 1270-1870, CUP 2015.
+
+  Derived file: ws_england_annual_partial_population_only.csv
+  Coverage: 330 annual observations, 1541-1870.
+  Sanity check values:
+      1541 ->  2.83 M  (matches W-S Table A3.3)
+      1700 ->  5.20 M  (matches W-S Table A3.3)
+      1801 ->  8.66 M  (matches W-S Table A3.3)
+      1851 -> 16.74 M  (matches official census)
+  This series is consistent with the Wrigley-Schofield aggregate population
+  totals (rebased and extended in Broadberry et al. 2015).
+
+  CRITICAL GAP: this file contains POPULATION ONLY.  It does not contain CBR
+  (crude birth rate), CDR (crude death rate), or absolute birth/death counts.
+  Per the task's stop condition, partial coverage does NOT satisfy SUCCESS;
+  the cascade must continue to tier A.2 to obtain the missing rate series.
+
+Status of normalised output file ws_england_annual.csv: NOT YET WRITTEN.
+  Will be written when CBR+CDR+population are all available from one or more
+  cascade tiers.
+
+Next step: dispatch cascade tier A.2 (Clark UC Davis macroeconomic aggregates).
+
+
+=== Cascade tier A.2: Gregory Clark UC Davis (attempted 2026-05-15) ===
+Source URL: https://faculty.econ.ucdavis.edu/faculty/gclark/data.html
+
+Outcome: FAILED.  Clark's UC Davis data page hosts macroeconomic aggregate
+spreadsheets for England 1209-1869, but none of them contain crude birth
+rates (CBR), crude death rates (CDR), or absolute birth/death counts.  The
+page advertises wages, prices, national income, land rents, and aggregate
+population - not vital rates.  No Wrigley-Schofield CBR/CDR file is hosted
+on this page.
+
+Files inspected:
+  - English Data/England NNI - Clark - 2015.xlsx  (annual 1209-1869)
+        Columns: Year, Pop E&W, Pop England, Share Males farm sector,
+        Male Farm/Non-Farm/average Wage, Work Days per Year, Total Wage
+        Income, Land rents, Net House rents, Other Capital Income, All
+        Capital Income, Indirect Taxes, Net National Income, Price Index
+        (DE/GDP/COL), Real NNI (DE), Real NNI/N.
+        Demographic content: Pop England series only.  No CBR/CDR.
+        Population sanity:  1541 ->  2.99 M
+                            1700 ->  5.51 M
+                            1801 ->  8.81 M  (matches BoE Millennium 8.66 M
+                                              and W-S Table A3.3 ~8.7 M)
+                            1851 -> 16.89 M
+                            1869 -> 20.75 M
+        Saved as clark_England_NNI_2015.xlsx (gitignored, ~230 KB).
+        Treated as a corroborating cross-check for the BoE Millennium
+        population series, not as the primary source.
+
+  - English Data/Wages 2014.xlsx
+        Annual nominal/real wages 1200-2013 for farm laborers, coal
+        miners, building laborers, and craftsmen.  No demographic
+        columns.  Deleted after inspection.
+
+  - English Data/farm2002.xls
+        Farm product price indices 1500-1914 (wheat, barley, oats, etc.).
+        No demographic columns.  Deleted after inspection.
+
+Files attempted but unavailable (HTTP 404):
+  - papers/pardata.txt  ("English Parish Data Set - Data")
+  - papers/parcode.pdf  ("English Parish Data Set - Codes")
+  These would have been the only plausible source of parish-level vital
+  events on Clark's page; both return 404 from the UC Davis server.
+
+Other pages checked for additional links:
+  - a_farewell_to_alms.html: no spreadsheet links; only navigation back
+    to data.html.
+
+Notes:
+  - Clark's published demographic work (e.g. Clark & Cummins 2009, 2015,
+    on social mobility from English wills/parish records) is not posted
+    as annual CBR/CDR time series on this page; only econometric outputs
+    and replication packages appear in journal supplements, not on the
+    UC Davis faculty page.
+  - The Clark NNI annual population series is broadly consistent with
+    Bank of England's BoE Millennium series and with the original W-S
+    Table A3.3 totals, so the partial population CSV from tier A.1
+    remains valid.  But the CBR and CDR series are still missing.
+
+Status of normalised output file ws_england_annual.csv: STILL NOT WRITTEN.
+  Cascade must proceed to tier A.3 (Allen Nuffield "Allen-Unger" page) and
+  tier C (OCR of Schofield 2022 / Wrigley-Schofield 1981 Table A3.3 PDF)
+  to obtain CBR and CDR.
+
+Next step: dispatch cascade tier A.3 (Allen Nuffield + Schofield 2022 OCR).
+
+
+=== Cascade tier A.3 (Allen Nuffield xls scan): FAILED (2026-05-15) ===
+---------------------------------------------------------------------
+
+Scanned all 17 already-downloaded Allen Nuffield xls files in
+analysis/data/gpih_raw/ (amsterdam, antwerp, augsburg, gdansk, krakow,
+leipzig, london, lwow, madrid, munich, naples, northern-italy, paris,
+strasbourg, valencia, vienna, warsaw).  None of the 17 files contains any
+sheet/cell matching the demographic terms population, births, deaths, cbr,
+cdr, demographic, vital, baptism, burial, or mortality (case-insensitive,
+top 20 rows of every sheet).
+
+This is consistent with the Allen-Unger Global Price and Income History
+Group archive being price-and-wage focused.  Even the "population" term
+returned no hits in the top-of-sheet headers - the city-population
+conversion tables that Allen used must encode population implicitly rather
+than via a labelled column.
+
+No demographic vital rates recoverable from Allen Nuffield archive.
+
+
+=== Cascade tier C (Schofield 2022 PRA-2 OCR): FAILED (2026-05-15) ===
+---------------------------------------------------------------------
+
+PDF download: SUCCESS.
+  URL: http://www.localpopulationstudies.org.uk/wp-content/uploads/
+       Parish-register-aggregate-analyses-SECOND-EDITION-PUBLISHED.pdf
+  HTTP 200, 1,012,617 bytes, 45 pages, PDF 1.7, downloaded cleanly.
+  Saved as schofield_2022_pra2.pdf.
+
+Content inspection (pdfplumber, all 45 pages):
+  Pages 1-3: front matter, title, copyright.
+  Pages 4-5: contents and list of tables/figures.
+  Pages 6-23: narrative on the database, how it was assembled, what
+              the parish-level files contain (bap_10, bur_10, mar_10,
+              bap_50, bur_50, mar_50, etc.), quality of registration,
+              use cases (seasonality, fluctuations, crisis mortality,
+              long-run trends).
+  Page 24:   Figure 1 - map of the 404 parishes.
+  Pages 25-34: Table 2 - alphabetic list of 404 parishes with their
+              1811 populations.
+  Pages 35-45: Table 3 - same 404 parishes ordered by county.
+
+Critical finding: this PDF is the *introductory guide* to the PRA-2
+parish-level CD-ROM database.  It does NOT contain any national annual
+back-projected CBR, CDR, or population time-series tables, and there is
+no Appendix A3.
+
+Page 18 of the PDF says explicitly: "annual national totals of baptisms,
+burials and marriages estimated from the aggregate of the 404 parishes
+can be found in the population history of england" - i.e. these series
+live in the Wrigley-Schofield 1981 hardcopy book (Appendix A3), not in
+this 2022 guide PDF.
+
+Additional source survey (web searches and webfetches):
+  - https://archive.org/details/populationhistor0000wrig_w4s3
+      The 1981 W-S book on Internet Archive is "access-restricted-item"
+      with "cut text on some pages".  Borrow-only, no direct PDF
+      download, OCR not externally available.
+  - https://www.campop.geog.cam.ac.uk/datasets/
+      Lists only 404pars.csv (parish metadata, not annual vital rates).
+      Annual CBR/CDR series are reachable only via the UK Data Archive
+      (UKDS) doi:10.5255/UKDA-SN-853082, which requires academic
+      registration (cascade tier B - out of scope without credentials).
+  - GitHub gist / public CSV search: no public reproduction of the W-S
+      Appendix A3 annual series found.
+
+OCR was therefore not attempted on the Schofield 2022 PDF, because the
+target tables are not in that PDF.  Running pdfplumber.extract_tables()
+on pages 25-45 would only retrieve the 1811 parish population list
+(Tables 2 and 3), which does not provide annual national CBR/CDR.
+
+
+=== Cascade summary ===
+-----------------------
+
+  Tier A.1 (Crafts-Mills openICPSR):      FAILED (no public deposit)
+  Tier A.2 (Clark UC Davis):              FAILED (no CBR/CDR series)
+  Tier A.3 (Allen Nuffield xls scan):     FAILED (no demographic columns)
+  Tier C   (Schofield 2022 PRA-2 OCR):    FAILED (PDF lacks A3 tables)
+  Tier B   (UKDS doi:10.5255/UKDA-SN-...) NOT ATTEMPTED (requires academic
+                                          registration credentials -
+                                          out of scope per task brief).
+
+Public-domain data we DO have for the W-S exercise:
+  - boe_millennium.xlsx (gitignored, redownloadable)
+  - clark_England_NNI_2015.xlsx (gitignored, redownloadable)
+  - ws_england_annual_partial_population_only.csv (annual population
+    1541-1870, consistent with W-S Appendix A3.3 within rounding;
+    no CBR, no CDR, no birth/death counts).
+
+Status of normalised output file ws_england_annual.csv:
+  NOT WRITTEN.  The cascade did not retrieve CBR and CDR; only
+  population is available, which by the task's stop condition is
+  insufficient.  Phase 2 / Task 6 (W-S extended regression on CBR+CDR)
+  should be downgraded to a "future extension" note in the paper.
+  STATUS_FAILED.txt has been written alongside this provenance log to
+  flag this clearly to downstream tasks.
+

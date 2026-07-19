@@ -1,0 +1,98 @@
+"""Figure 2: world choropleths of the four substrates, 2x2 grid.
+
+Run:
+    python -m analysis.paper5_horserace.fig02_substrate_maps          # colour
+    python -m analysis.paper5_horserace.fig02_substrate_maps --bw     # grayscale B&W
+"""
+import argparse
+from pathlib import Path
+
+import cartopy.crs as ccrs
+import cartopy.io.shapereader as shpreader
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib import cm
+from matplotlib.colors import Normalize
+import matplotlib
+
+# ---------------------------------------------------------------------------
+# B&W toggle — set to True to produce grayscale output
+# ---------------------------------------------------------------------------
+BW = False  # default; overridden by --bw CLI flag
+
+ROOT = Path("/Volumes/BIGDATA/HYDE35")
+PANEL = ROOT / "analysis/data/deep_determinants_horserace.parquet"
+FIG = ROOT / "analysis/figures/paper5_horserace/fig02_substrate_maps.pdf"
+FIG_BW = ROOT / "analysis/figures/paper5_horserace/fig02_substrate_maps_bw.pdf"
+
+SUBSTRATES_COLOR = [
+    ("sigma_v_T_pre1750", r"(a) $\sigma_v^T$ 1421--1750 (K)", "viridis"),
+    ("H_pred_pwadj", r"(b) Predicted Het, PW-adjusted", "plasma"),
+    ("ancestral_yield_log", r"(c) Log ancestral crop yield (kcal/ha)", "YlGn"),
+    ("pandemic_intensity_norm", r"(d) Pre-1500 pandemic intensity (normalized)", "Reds"),
+]
+# B&W uses Greys for all panels; reversed so high values = darker
+SUBSTRATES_BW = [
+    ("sigma_v_T_pre1750", r"(a) $\sigma_v^T$ 1421--1750 (K)", "Greys"),
+    ("H_pred_pwadj", r"(b) Predicted Het, PW-adjusted", "Greys"),
+    ("ancestral_yield_log", r"(c) Log ancestral crop yield (kcal/ha)", "Greys"),
+    ("pandemic_intensity_norm", r"(d) Pre-1500 pandemic intensity (normalized)", "Greys"),
+]
+
+
+def main() -> None:
+    global BW
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bw", action="store_true", help="Produce grayscale B&W version")
+    args = parser.parse_args()
+    BW = args.bw
+    print(f"Mode: {'B&W grayscale' if BW else 'colour'}")
+
+    substrates = SUBSTRATES_BW if BW else SUBSTRATES_COLOR
+    out = FIG_BW if BW else FIG
+
+    df = pd.read_parquet(PANEL).set_index("iso3")
+    fig, axes = plt.subplots(2, 2, figsize=(14, 8),
+                             subplot_kw={"projection": ccrs.Robinson()})
+    shp = shpreader.natural_earth(resolution="110m", category="cultural",
+                                  name="admin_0_countries")
+    reader = shpreader.Reader(shp)
+
+    # Missing-data fill: lightgray in colour; white with hatch in B&W
+    missing_color = "white" if BW else "lightgray"
+
+    for ax, (col, title, cmap) in zip(axes.flat, substrates):
+        vals = df[col].dropna()
+        norm = Normalize(vmin=vals.quantile(0.02), vmax=vals.quantile(0.98))
+        cmap_o = matplotlib.colormaps.get_cmap(cmap)
+        for country in reader.records():
+            iso3 = country.attributes.get("ADM0_A3", "")
+            if iso3 in vals.index:
+                v = vals.loc[iso3]
+                color = cmap_o(norm(v))
+                hatch = None
+            else:
+                color = missing_color
+                hatch = "////" if BW else None
+            patch_kw = dict(
+                facecolor=color, edgecolor="black", linewidth=0.2
+            )
+            if hatch:
+                patch_kw["hatch"] = hatch
+                patch_kw["linewidth"] = 0.1
+            ax.add_geometries([country.geometry], ccrs.PlateCarree(), **patch_kw)
+        ax.set_global()
+        ax.set_title(title, fontsize=11)
+        sm = cm.ScalarMappable(cmap=cmap_o, norm=norm)
+        sm.set_array([])
+        plt.colorbar(sm, ax=ax, orientation="horizontal", pad=0.05, shrink=0.7)
+
+    plt.tight_layout()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(out, bbox_inches="tight", dpi=300)
+    print(f"Wrote {out}")
+
+
+if __name__ == "__main__":
+    main()

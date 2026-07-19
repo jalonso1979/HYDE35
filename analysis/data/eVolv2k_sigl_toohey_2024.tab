@@ -1,0 +1,305 @@
+/* DATA DESCRIPTION:
+Citation:	Sigl, Michael; Toohey, Matthew (2024): Volcanic stratospheric sulfur injections from 500 BCE to 1900 CE, eVolv2k_version4 [dataset]. PANGAEA, https://doi.org/10.1594/PANGAEA.971968
+Abstract:	Based on sulfate records from a suite of ice cores from Greenland and Antarctica, the eVolv2k database includes estimates of the magnitudes and approximate source latitudes of major volcanic stratospheric sulfur injection (VSSI) events from 500 BCE to 1900 CE. We combined three ice-core records from Greenland and 18 from Antarctica, to determine the timing of past eruptions and the cumulative sulfate mass deposition over the polar ice sheets for 256 volcanic eruptions. Version 4 of this database incorporates improvements to the ice-core records based on 1) geochemical characterization of tephra to constrain the source volcano and its latitude (e.g. Ilopango, Okmok, Taupo), 2) sulfur isotope analyses to constrain volcanic plume height, e.g. for Samalas (Indonesia, 1257), Kuwae (Vanuatu, 1458), Tambora (Indonesia, 1815) and the proximity of the source eruptions relative to the ice sheets and 3) tree-ring records (i.e. frost rings, Miyake events) and documentary evidence (volcanic dust veils and dark lunar eclipses) to constrain the timing for specific volcanic eruptions. With several eruptions precisely tied to the exact years (e.g. in 536, 626, 946, 1257, 1477, 1783) we estimate an age uncertainty of less than ±1-2 years over the past 1500 years, and less than ±2-3 years between 500 BCE to 500 CE. We attributed 41 VSSI events to known volcanic eruptions and provided default latitudes of 45°N and 45°S to VSSI events only detected in the ice cores of the respective hemisphere. VSSI events which were detected in the ice sheets of both hemispheres were attributed by default to the tropics (0°). Overall, the 256 volcanic eruptions injected 1220 Tg of sulfur (TgS) into the stratosphere which equates to a long-term mean of 0.5 TgS/yr. 49% of the eruptions occurred in the Northern Hemisphere extra-tropics, 28% in the tropics and 23% in the Southern Hemisphere extra-tropics. The three largest eruptions were Samalas (1257), an unidentified eruption in the tropics in 426 BCE and Okmok II (Alaska in 43 BC). The 13th century (rank 1), the 19th century (rank 2) and the 6th century (rank 3) were the most active periods exceeding the long-term annual mean VSSI from major volcanic eruptions by 80 to 140 %. These periods are linked to overall cold climates promoting glacier expansions in the Northern Hemisphere. Periods of decreased volcanic activity occurred between 950 and 1100 CE (Medieval Quiet Period) and from 40 BCE to 160 CE (Roman Quiet Period). During these time intervals annual mean VSSI was 55 to 70 % less than the long-term mean.
+	The eVolv2k database is the recommended volcanic forcing by the Paleoclimate Model Intercomparison Project (PMIP) for experiments contributing to the sixth phase of the Coupled Model Intercomparison Project (CMIP6) and the fourth phase of the PMIP (PMIP4) such as the past1000 transient simulations (Jungclaus et al., 2017). Version 4 of this database replaces the previous version eVolv2k_v3: an ice-core based volcanic stratospheric sulfur injection dataset version 3, https://www.wdc-climate.de/ui/entry?acronym=eVolv2k_v3.
+Keyword(s):	aerosol optical depth; Antarctica; Atmosphere; climate forcing; Climate modelling; Climate variations; Common Era; Cryptotephra; extreme events; Greenland; Ice core; Last millennium; Little Ice Age; medieval climate anomaly; radiative forcing; Roman Climate Optimum; stratospheric aerosol; sulfate; sulfate aerosol; Sulfur; Tephra; volcanic activity; volcanic eruption; volcanism
+Supplement to:	Hutchinson, W; et al. (submitted): The infamous 1831 CE mystery eruption identified as Zavaritskii caldera, Simushir Island (Kurils).
+Related to:	Abbott, Peter M; McConnell, Joseph R; Chellman, Nathan J; Kipfstuhl, Sepp; Hörhold, Maria; Freitag, Johannes; Cook, Eliza; Hutchison, William; Sigl, Michael (2024): Mid-to Late Holocene East Antarctic ice-core tephrochronology: Implications for reconstructing volcanic eruptions and assessing their climatic impacts over the last 5,500 years. Quaternary Science Reviews, 329, 108544, https://doi.org/10.1016/j.quascirev.2024.108544
+	Abbott, Peter M; Plunkett, Gill; Corona, Christophe; Chellman, Nathan J; McConnell, Joseph R; Pilcher, John R; Stoffel, Markus; Sigl, Michael (2021): Cryptotephra from the Icelandic Veiðivötn 1477 CE eruption in a Greenland ice core: confirming the dating of volcanic events in the 1450s CE and assessing the eruption's climatic impact. Climate of the Past, 17(2), 565-585, https://doi.org/10.5194/cp-17-565-2021
+	Büntgen, Ulf; Eggertsson, Ólafur; Wacker, Lukas; Sigl, Michael; Ljungqvist, Fredrik Charpentier; Di Cosmo, Nicola; Plunkett, Gill; Krusic, Paul J; Newfield, Timothy P; Esper, Jan; Lane, Christine S; Reinig, Frederick; Oppenheimer, Clive (2017): Multi-proxy dating of Iceland's major pre-settlement Katla eruption to 822–823 CE. Geology, 45(9), 783-786, https://doi.org/10.1130/G39269.1
+	Burke, Andrea; Innes, Helen M; Crick, Laura; Anchukaitis, Kevin J; Byrne, Michael P; Hutchison, William; McConnell, Joseph R; Moore, Kathryn A; Rae, James W B; Sigl, Michael; Wilson, Rob (2023): High sensitivity of summer temperatures to stratospheric sulfur loading from volcanoes in the Northern Hemisphere. Proceedings of the National Academy of Sciences of the United States of America, 120(47), e2221810120, https://doi.org/10.1073/pnas.2221810120
+	Gabriel, Imogen; Plunkett, Gill; Abbott, Peter M; Behrens, Melanie; Burke, Andrea; Chellman, Nathan J; Cook, Eliza; Fleitmann, Dominik; Hörhold, Maria; Hutchison, William; McConnell, Joseph R; Óladóttir, Bergrún A; Preiser-Kapeller, Johannes; Sliwinski, Jakub T; Sugden, Patrick; Twarloh, Birthe; Sigl, Michael (2024): Decadal-to-centennial increases of volcanic aerosols from Iceland challenge the concept of a Medieval Quiet Period. Communications Earth & Environment, 5(1), 194, https://doi.org/10.1038/s43247-024-01350-6
+	Guillet, Sébastien; Corona, Christophe; Oppenheimer, Clive; Lavigne, Franck; Khodri, Myriam; Ludlow, F; Sigl, Michael; Toohey, Matthew; Atkins, Paul S; Yang, Z; Muranaka, Tomoko; Horikawa, Nobuko; Stoffel, Markus (2023): Lunar eclipses illuminate timing and climate impact of medieval volcanism. Nature, 616(7955), 90-95, https://doi.org/10.1038/s41586-023-05751-z
+	Hutchison, William; Gabriel, Imogen; Plunkett, Gill; Burke, Andrea; Sugden, Patrick; Innes, Helen M; Davies, Siwan M; Moreland, William M; Krüger, Kirstin; Wilson, Rob; Dahl-Jensen, Dorthe; Vinther, Bo Møllesøe; Freitag, Johannes; Oppenheimer, Clive; Chellman, Nathan J; Sigl, Michael; McConnell, Joseph R (2024): High-Resolution Ice-Core Analyses Identify the Eldgjá Eruption and a Cluster of Icelandic and Trans-Continental Tephras Between 936 and 943 CE. Journal of Geophysical Research: Atmospheres, 129(16), e2023JD040142, https://doi.org/10.1029/2023JD040142
+	Jensen, Britta J L; Pyne-O'Donnell, Sean; Plunkett, Gill; Froese, Duane G; Hughes, Paul D M; Sigl, Michael; McConnell, Joseph R; Amesbury, Matthew J; Blackwell, Paul G; van den Bogaard, Christel; Buck, Caitlin E; Charman, Dan J; Clague, John J; Hall, Valerie A; Koch, J; Mackay, Helen; Mallon, Gunnar; McColl, Lynsey; Pilcher, Jonathan R (2014): Transatlantic distribution of the Alaskan White River Ash. Geology, 42(10), 875-878, https://doi.org/10.1130/G35945.1
+	Jungclaus, Johann H; Bard, Edouard; Baroni, Mélanie; Braconnot, Pascale; Cao, Jian; Chini, Louise P; Egorova, Tania; Evans, Michael Neil; González-Rouco, J Fidel; Goosse, Hugues; Hurtt, George; Joos, Fortunat; Kaplan, Jed O; Khodri, Myriam; Klein Goldewijk, Kees; Krivova, Natalie; LeGrande, Allegra N; Lorenz, Stephan J; Luterbacher, Jürg; Man, Wenmin; Maycock, Amanda C; Meinshausen, Malte; Moberg, Anders; Muscheler, Raimund; Nehrbass-Ahles, Christoph; Otto-Bliesner, Bette L; Phipps, Steven J; Pongratz, Julia; Rozanov, Eugene; Schmidt, Gavin A; Schmidt, Hauke; Schmutz, Werner; Schurer, Andrew; Shapiro, Alexander I; Sigl, Michael; Smerdon, Jason E; Solanki, Sami K; Timmreck, Claudia; Toohey, Matthew; Usoskin, Ilya G; Wagner, Sebastian; Wu, Chi-Ju; Yeo, Kok Leng; Zanchettin, Davide; Zhang, Qiong; Zorita, Eduardo (2017): The PMIP4 contribution to CMIP6 – Part 3: The last millennium, scientific objective, and experimental design for the PMIP4 past1000 simulations. Geoscientific Model Development, 10(11), 4005-4033, https://doi.org/10.5194/gmd-10-4005-2017
+	Mackay, Helen; Plunkett, Gill; Jensen, Britta J L; Aubry, Thomas J; Corona, Christophe; Kim, Woon Mi; Toohey, Matthew; Sigl, Michael; Stoffel, Markus; Anchukaitis, Kevin J; Raible, Christoph C; Bolton, Matthew S M; Manning, Joseph G; Newfield, Timothy P; Di Cosmo, Nicola; Ludlow, F; Kostick, C; Yang, Z; Coyle McClung, Lisa; Amesbury, Matthew J; Monteath, Alistair; Hughes, Paul D M; Langdon, Pete G; Charman, Dan J; Booth, Robert K; Davies, Kimberley L; Blundell, Antony; Swindles, Graeme T (2022): The 852/3 CE Mount Churchill eruption: examining the potential climatic and societal impacts and the timing of the Medieval Climate Anomaly in the North Atlantic region. Climate of the Past, 18(6), 1475-1508, https://doi.org/10.5194/cp-18-1475-2022
+	McConnell, Joseph R; Sigl, Michael; Plunkett, Gill; Burke, Andrea; Kim, Woon Mi; Raible, Christoph C; Wilson, Andrew I; Manning, Joseph G; Ludlow, F; Chellman, Nathan J; Innes, Helen M; Yang, Z; Larsen, Jessica F; Schaefer, Janet R; Kipfstuhl, Sepp; Mojtabavi, Seyedhamidreza; Wilhelms, Frank; Opel, Thomas; Meyer, Hanno; Steffensen, Jørgen Peder (2020): Extreme climate after massive eruption of Alaska's Okmok volcano in 43 BCE and effects on the late Roman Republic and Ptolemaic Kingdom. Proceedings of the National Academy of Sciences of the United States of America, 117(27), 15443-15449, https://doi.org/10.1073/pnas.2002722117
+	Oppenheimer, Clive; Orchard, Andy; Stoffel, Markus; Newfield, Timothy P; Guillet, Sébastien; Corona, Christophe; Sigl, Michael; Di Cosmo, Nicola; Büntgen, Ulf (2018): The Eldgjá eruption: timing, long-range impacts and influence on the Christianisation of Iceland. Climatic Change, 147(3-4), 369-381, https://doi.org/10.1007/s10584-018-2171-9
+	Oppenheimer, Clive; Wacker, Lukas; Xu, J; Galván, Juan Diego; Stoffel, Markus; Guillet, Sébastien; Corona, Christophe; Sigl, Michael; Di Cosmo, Nicola; Hajdas, Irka; Pan, Bo; Breuker, Remco; Schneider, Leah; Esper, Jan; Fei, Jie; Hammond, James O S; Büntgen, Ulf (2017): Multi-proxy dating the 'Millennium Eruption' of Changbaishan to late 946 CE. Quaternary Science Reviews, 158, 164-171, https://doi.org/10.1016/j.quascirev.2016.12.024
+	Pearson, Charlotte; Sigl, Michael; Burke, Andrea; Davies, Siwan M; Kurbatov, Andrei; Severi, Mirko; Cole-Dai, Jihong; Innes, Helen M; Albert, Paul G; Helmick, Meredith (2022): Geochemical ice-core constraints on the timing and climatic impact of Aniakchak II (1628 BCE) and Thera (Minoan) volcanic eruptions. PNAS NEXUS, 1(2), pgac048, https://doi.org/10.1093/pnasnexus/pgac048
+	Piva, Stephen B; Barker, S J; Iverson, Nels A; Winton, V Holly L; Bertler, Nancy A N; Sigl, Michael; Wilson, Colin J N; Dunbar, Nelia W; Kurbatov, Andrei V; Carter, Lionel; Charlier, Bruce L A; Newnham, Rewi M (2023): Volcanic glass from the 1.8 ka Taupō eruption (New Zealand) detected in Antarctic ice at ~ 230 CE. Scientific Reports, 13(1), 16720, https://doi.org/10.1038/s41598-023-42602-3
+	Plunkett, Gill; Sigl, Michael; McConnell, Joseph R; Pilcher, Jonathan R; Chellman, Nathan J (2023): The significance of volcanic ash in Greenland ice cores during the Common Era. Quaternary Science Reviews, 301, 107936, https://doi.org/10.1016/j.quascirev.2022.107936
+	Plunkett, Gill; Sigl, Michael; Pilcher, Jonathan R; McConnell, Joseph R; Chellman, Nathan J; Steffensen, J P; Büntgen, Ulf (2020): Smoking guns and volcanic ash: the importance of sparse tephras in Greenland ice cores. Polar Research, 39(0), https://doi.org/10.33265/polar.v39.3511
+	Plunkett, Gill; Sigl, Michael; Schwaiger, Hans F; Tomlinson, Emma L; Toohey, Matthew; McConnell, Joseph R; Pilcher, Jonathan R; Hasegawa, Takeshi; Siebe, Claus (2022): No evidence for tephra in Greenland from the historic eruption of Vesuvius in 79 CE: implications for geochronology and paleoclimatology. Climate of the Past, 18(1), 45-65, https://doi.org/10.5194/cp-18-45-2022
+	Sigl, Michael; Abbott, Peter M; Ludlow, F; Riede, F; Toohey, Matthew; Vidal, C (2023): Moving forward by looking back: Past and future volcanic impacts on climate and society. Past Global Changes Magazine, 31(2), 125-125, https://doi.org/10.22498/pages.31.2.125
+	Sigl, Michael; McConnell, Joseph R; Toohey, Matthew; Curran, Mark; Das, Sarah B; Edwards, Ross; Isaksson, Elisabeth; Kawamura, Kenji; Kipfstuhl, Sepp; Krüger, Kirstin; Layman, Lawrence; Maselli, Olivia J; Motizuki, Yuko; Motoyama, Hideaki; Pasteris, Daniel R; Severi, Mirko (2014): Insights from Antarctica on volcanic forcing during the Common Era. Nature Climate Change, 4(8), 693-697, https://doi.org/10.1038/nclimate2293
+	Sigl, Michael; Winstrup, Mai; McConnell, Joseph R; Welten, Kees C; Plunkett, Gill; Ludlow, F; Büntgen, Ulf; Caffee, Marc W; Chellman, Nathan J; Dahl-Jensen, Dorthe; Fischer, H; Kipfstuhl, Sepp; Kostick, C; Maselli, Olivia J; Mekhaldi, Florian; Mulvaney, Robert; Muscheler, Raimund; Pasteris, Daniel R; Pilcher, John R; Salzer, Matthew W; Schüpbach, Simon; Steffensen, J P; Vinther, Bo Møllesøe; Woodruff, Thomas E (2015): Timing and climate forcing of volcanic eruptions for the past 2,500 years. Nature, 523(7562), 543-549, https://doi.org/10.1038/nature14565
+	Smith, Victoria C; Costa, Antonio; Aguirre-Díaz, Gerardo; Pedrazzi, Dario; Scifo, Andrea; Plunkett, Gill; Poret, Mattieu; Tournigand, Pierre-Yves; Miles, Dan; Dee, Michael W; McConnell, Joseph R; Sunyé-Puchol, Ivan; Harris, Pablo Dávila; Sigl, Michael; Pilcher, Jonathan R; Chellman, Nathan J; Gutiérrez, Eduardo (2020): The magnitude and impact of the 431 CE Tierra Blanca Joven eruption of Ilopango, El Salvador. Proceedings of the National Academy of Sciences of the United States of America, 117(42), 26061-26068, https://doi.org/10.1073/pnas.2003008117
+	Sun, Chunqing; Plunkett, Gill; Liu, Jiaqi; Zhao, Hongli; Sigl, Michael; McConnell, Joseph R; Pilcher, Jonathan R; Vinther, Bo Møllesøe; Steffensen, J P; Hall, Valerie A (2014): Ash from Changbaishan Millennium eruption recorded in Greenland ice: Implications for determining the eruption's timing and impact. Geophysical Research Letters, 41(2), 694-701, https://doi.org/10.1002/2013GL058642
+	Toohey, Matthew; Sigl, Michael (2017): Volcanic stratospheric sulfur injections and aerosol optical depth from 500 BCE to 1900 CE. Earth System Science Data, 9(2), 809-831, https://doi.org/10.5194/essd-9-809-2017
+	Toohey, Matthew; Sigl, Michael (2019): Reconstructed volcanic stratospheric sulfur injections and aerosol optical depth, 500 BCE to 1900 CE, version 3 [dataset]. World Data Center for Climate (WDCC) at DKRZ, https://doi.org/10.26050/WDCC/EVOLV2K_V3
+Funding:	European Research Council (ERC), grant/award no. 820047: Timing of Holocene volcanic eruptions and their radiative aerosol forcing (THERA) (URI: doi:10.3030/820047)
+Parameter(s):	Year of eruption [a AD] (Eruption) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: defined as the year in which volcanic sulfate deposition in the polar ice cores started to rise; exact year is provided for known eruption dates (e.g. Tambora in 1815); the dating is primarily based on independent annual-layer counted chronologies from both Greenland and Antarctica
+	Year of eruption [a AD] (Eruption) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: ISO (same as before, but using the ISO8601 international standard date (which includes a year 0))
+	Month (Month) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: of eruption (default date of 1 January for unknown eruption dates)
+	Day (Day) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch)
+	LATITUDE (Latitude) * GEOCODE * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: Estimated eruption latitude (default latitudes for unidentified eruptions detected only in Greenland were 45°N, eruptions detected only in Antarctica 45°S, and 0° if they were detected on Greenland and Antarctica)
+	Deposition of sulfate, volcanic, cumulative [kg/m**2] (Volc [SO4]2- depos cum) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: Greenland volcanic sulfate
+	Deposition of sulfate, volcanic, cumulative [kg/m**2] (Volc [SO4]2- depos cum) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: Antarctic volcanic sulfate
+	Volcanic stratospheric sulfur injection [Tg] (VSSI) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: stratospheric sulfur injection
+	Volcanic stratospheric sulfur injection, standard deviation [±] (VSSI std dev) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: 1-sigma uncertainty of stratospheric sulfur injection
+	Asymmetry (Asymmetry) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: ASY=(DG/(DG+DA)), DG= Greenland sulfate deposition, DA = Antarctica sulfate deposition
+	Location (Location) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch)
+	Tephra layer (Tephra lay) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch) * COMMENT: tephra detected in polar ice cores (Y, for positive; N, for no tephra reported)
+	Reference/source (Reference) * PI: Sigl, Michael (https://orcid.org/0000-0002-9028-9703, michael.sigl@unibe.ch)
+License:	Creative Commons Attribution 4.0 International (CC-BY-4.0) (URI: https://creativecommons.org/licenses/by/4.0/)
+Size:	3072 data points
+*/
+Eruption [a AD] (defined as the year in which ...)	Eruption [a AD] (ISO (same as before, but usin...)	Month (of eruption (default date of ...)	Day	Latitude (Estimated eruption latitude (...)	Volc [SO4]2- depos cum [kg/m**2] (Greenland volcanic sulfate)	Volc [SO4]2- depos cum [kg/m**2] (Antarctic volcanic sulfate)	VSSI [Tg] (stratospheric sulfur injection)	VSSI std dev [±] (1-sigma uncertainty of strato...)	Asymmetry (ASY=(DG/(DG+DA)), DG= Greenla...)	Location	Tephra lay (tephra detected in polar ice ...)	Reference
+1890	1890	1	1	-45.0	0.0	2.1	0.40	0.20	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1886	1886	6	10	-38.0	0.0	3.9	0.74	0.35	0.000	Okataina-Tarawera (New Zealand)	N	eVolv2k (Toohey & Sigl 2017)
+1883	1883	8	27	-6.0	17.6	10.4	9.34	1.91	0.629	Krakatao (Indonesia)	N	eVolv2k (Toohey & Sigl 2017)
+1875	1875	4	1	65.0	3.5	0.0	0.67	0.32	1.000	Askja (Iceland)	N	eVolv2k (Toohey & Sigl 2017)
+1873	1873	1	8	64.4	6.2	0.0	1.17	0.43	1.000	Grímsvötn (Iceland)	N	eVolv2k (Toohey & Sigl 2017)
+1861	1861	12	1	0.3	9.6	4.0	4.53	1.25	0.706	Makian (Philippines)	N	eVolv2k (Toohey & Sigl 2017)
+1856	1856	9	25	42.1	6.6	0.0	1.26	0.45	1.000	Hokkaido-Komagatake (Japan)	N	eVolv2k (Toohey & Sigl 2017)
+1853	1853	4	22	42.5	7.2	0.0	1.36	0.42	1.000	Toya (Japan)	N	eVolv2k (Toohey & Sigl 2017)
+1846	1846	1	1	45.0	5.1	0.0	0.97	0.41	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1835	1835	1	20	13.0	18.8	9.6	9.48	2.21	0.663	Cosigüina (Nicaragua)	N	eVolv2k (Toohey & Sigl 2017)
+1831	1831	7	1	46.9	34.7	4.3	12.00	7.00	0.890	Zavaritskii-Simushir Island (Kurils)	Y	"eVolv2k (Toohey & Sigl 2017; Plunkett et al., 2023; Hutchison, in preparation)"
+1822	1822	10	8	-7.3	6.1	0.0	2.02	0.79	1.000	Galunggung (Indonesia)	N	eVolv2k (Toohey & Sigl 2017)
+1821	1821	1	1	-45.0	0.0	2.9	0.55	0.28	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1815	1815	4	10	-8.0	38.4	45.8	28.08	4.49	0.456	Tambora (Indonesia)	N	eVolv2k (Toohey & Sigl 2017)
+1809	1809	1	1	0.0	32.4	25.4	19.26	3.54	0.560	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1797	1797	1	1	45.0	3.9	0.0	0.74	0.33	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1796	1796	1	1	45.0	3.7	0.0	0.69	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1786	1786	1	1	45.0	4.4	0.0	0.83	0.36	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1783	1783	6	15	64.4	109.5	0.0	20.81	7.04	1.000	Laki (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Plunkett et al., 2023)"
+1770	1770	1	1	45.0	3.7	0.0	0.70	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1766	1766	4	5	64.0	13.2	0.0	2.52	0.75	1.000	Hekla (Iceland)	N	eVolv2k (Toohey & Sigl 2017)
+1762	1762	1	1	0.0	9.3	5.2	4.82	1.13	0.640	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1755	1755	10	17	63.6	6.2	0.0	1.18	0.43	1.000	Katla (Iceland)	N	eVolv2k (Toohey & Sigl 2017)
+1739	1739	8	19	42.7	18.1	0.0	3.44	1.09	1.000	Shikotsu (Japan)	N	eVolv2k (Toohey & Sigl 2017)
+1729	1729	1	1	45.0	25.4	0.0	4.82	1.49	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1721	1721	5	11	63.6	4.3	0.0	0.81	0.36	1.000	Katla (Iceland)	N	eVolv2k (Toohey & Sigl 2017)
+1720	1720	1	1	45.0	3.8	0.0	0.72	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1707	1707	12	16	35.4	5.7	0.0	1.08	0.40	1.000	Fujisan (Japan)	N	eVolv2k (Toohey & Sigl 2017)
+1695	1695	1	1	0.0	24.7	22.5	15.74	2.88	0.523	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1693	1693	1	1	0.0	7.0	1.5	2.82	0.79	0.823	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1673	1673	5	20	1.4	5.9	8.1	4.67	0.82	0.422	Gamkonora (Indonesia)	N	eVolv2k (Toohey & Sigl 2017)
+1667	1667	9	23	42.7	18.3	0.0	3.48	1.11	1.000	Tarumae (Japan)	Y	eVolv2k (Toohey & Sigl 2017)
+1662	1662	1	1	-45.0	0.0	4.0	0.76	0.14	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1654	1654	1	1	0.0	6.2	5.0	3.72	1.22	0.552	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1646	1646	1	1	45.0	12.7	0.0	2.42	0.82	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1640	1640	12	26	6.1	41.1	14.9	18.68	4.28	0.734	Mount Parker (Philippines)	N	eVolv2k (Toohey & Sigl 2017)
+1637	1637	1	1	45.0	6.8	0.0	1.30	0.49	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1621	1621	1	1	-45.0	0.0	8.6	1.63	0.27	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1600	1600	2	17	-16.6	38.1	18.7	18.95	4.03	0.671	Huaynaputina (Peru)	N	eVolv2k (Toohey & Sigl 2017)
+1595	1595	3	1	4.9	11.8	14.8	8.87	1.51	0.444	Nevado del Ruiz (Columbia)	N	eVolv2k (Toohey & Sigl 2017)
+1590	1590	1	1	-45.0	0.0	2.6	0.49	0.25	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1585	1585	1	10	19.5	23.3	2.2	8.51	2.34	0.914	Colima (Mexico)	N	eVolv2k (Toohey & Sigl 2017)
+1576	1576	1	1	-45.0	0.0	2.1	0.40	0.21	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1567	1567	1	1	45.0	13.2	0.0	2.51	0.82	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1554	1554	1	1	0.0	5.2	2.0	2.41	0.81	0.724	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1541	1541	1	1	-45.0	0.0	5.0	0.95	0.17	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1537	1537	1	1	45.0	4.5	0.0	0.85	0.35	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1528	1528	1	1	45.0	5.7	0.0	1.08	0.45	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1512	1512	1	1	-45.0	0.0	1.1	0.21	0.11	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1510	1510	7	25	64.0	12.1	0.0	2.30	0.83	1.000	Hekla (Iceland)	N	eVolv2k (Toohey & Sigl 2017)
+1505	1505	1	1	-45.0	0.0	4.6	0.87	0.15	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1502	1502	1	1	45.0	5.3	0.0	1.00	0.37	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1480	1480	1	1	45.0	8.7	0.0	1.66	0.53	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1478	1478	1	1	-45.0	0.0	6.2	1.18	0.20	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1477	1477	2	1	64.6	27.0	0.0	5.12	1.61	1.000	Veiðivötn (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Abbott et al., 2021)"
+1470	1470	1	1	45.0	7.3	0.0	1.39	0.50	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1463	1463	1	1	45.0	3.2	0.0	0.61	0.31	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1458	1458	1	1	-16.8	35.3	63.6	32.98	4.80	0.357	Kuwae (Vanuatu)	N	"eVolv2k (Toohey & Sigl 2017; Burke et al. 2023)"
+1453	1453	1	1	45.0	24.8	5.1	9.97	3.07	0.829	N/A	N	"eVolv2k (Toohey & Sigl 2017; Burke et al. 2023)"
+1448	1448	1	1	-45.0	0.0	3.9	0.74	0.14	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1441	1441	1	1	45.0	4.2	0.0	0.80	0.35	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1414	1414	1	1	0.0	4.0	1.7	1.90	0.66	0.701	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1389	1389	1	1	0.0	5.4	4.4	3.26	0.81	0.550	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1381	1381	1	1	0.0	5.1	2.3	2.46	0.82	0.688	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1378	1378	1	1	-45.0	0.0	4.9	0.93	0.16	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1345	1345	1	1	0.0	26.2	19.1	15.11	2.86	0.579	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1341	1341	1	1	45.0	6.2	0.0	1.17	0.43	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1336	1336	1	1	-45.0	0.0	3.5	0.67	0.12	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1329	1329	1	1	45.0	19.4	0.0	3.69	1.23	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1306	1306	1	1	-45.0	0.0	3.8	0.72	0.16	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1286	1286	1	1	0.0	24.4	20.8	15.06	2.79	0.540	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1276	1276	1	1	0.0	4.7	29.9	11.53	1.63	0.136	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1269	1269	1	1	-45.0	0.0	16.7	3.17	0.47	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1260	1260	1	1	45.0	5.6	0.0	1.05	0.45	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1257	1257	7	1	-8.4	104.9	73.4	59.42	10.86	0.588	Samalas (Indonesia)	Y	"eVolv2k (Toohey & Sigl 2017; Guillet et al., 2023)"
+1236	1236	1	1	-45.0	0.0	2.0	0.38	0.19	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1230	1230	1	1	0.0	48.2	23.1	23.78	5.24	0.676	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1222	1222	1	1	45.0	4.6	0.0	0.87	0.38	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1210	1210	1	1	45.0	17.3	0.0	3.29	1.26	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1200	1200	1	1	45.0	17.3	0.0	3.29	0.97	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1191	1191	1	1	0.0	10.4	15.2	8.53	1.49	0.406	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1182	1182	1	1	45.0	52.9	0.0	10.05	2.98	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1180	1180	1	1	-45.0	0.0	1.5	0.29	0.15	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1171	1171	1	1	0.0	34.7	19.5	18.05	3.67	0.640	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1137	1137	1	1	45.0	5.6	0.0	1.06	0.45	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1127	1127	1	1	0.0	7.8	3.2	3.68	1.14	0.710	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1118	1118	1	1	-45.0	0.0	1.6	0.30	0.16	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1115	1115	1	1	45.0	4.1	0.0	0.78	0.35	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1108	1108	1	1	0.0	45.9	11.6	19.16	4.71	0.798	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1092	1092	1	1	-45.0	0.0	1.2	0.23	0.11	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1067	1067	1	1	45.0	3.5	0.0	0.67	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1064	1064	1	1	45.0	5.0	0.0	0.94	0.37	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1057	1057	1	1	45.0	4.3	0.0	0.83	0.33	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1039	1039	1	1	-45.0	0.0	10.9	2.07	0.35	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1028	1028	1	1	0.0	20.4	2.9	7.78	2.09	0.876	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1020	1020	1	1	45.0	10.4	0.0	1.97	0.70	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1011	1011	1	1	45.0	8.5	0.0	1.61	0.63	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+1003	1003	1	1	0.0	11.1	3.9	4.98	1.52	0.739	N/A	N	eVolv2k (Toohey & Sigl 2017)
+998	998	1	1	45.0	5.4	0.0	1.03	0.38	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+990	990	1	1	-45.0	0.0	1.1	0.21	0.11	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+982	982	1	1	45.0	8.1	0.0	1.54	0.63	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+976	976	1	1	0.0	11.8	6.9	6.24	1.49	0.632	N/A	N	eVolv2k (Toohey & Sigl 2017)
+970	970	1	1	45.0	5.8	0.0	1.10	0.47	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+960	960	1	1	-45.0	0.0	8.0	1.52	0.24	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+958	958	1	1	45.0	3.6	0.0	0.68	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+953	953	1	1	45.0	4.6	0.0	0.88	0.38	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+946	946	11	1	42.0	9.1	0.0	1.72	0.61	1.000	Changbaishan, Millennium Eruption (Korea/China)	Y	"eVolv2k (Toohey & Sigl 2017; Sun et al., 2014; Oppenheimer et al. 2017)"
+939	939	4	1	63.6	85.4	0.0	16.23	4.97	1.000	Katla (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Oppenheimer et al. 2018; Hutchison et al., in review)"
+929	929	1	1	0.0	8.2	4.0	4.06	1.00	0.671	N/A	N	eVolv2k (Toohey & Sigl 2017)
+916	916	1	1	0.0	12.4	5.8	6.08	1.55	0.682	N/A	N	eVolv2k (Toohey & Sigl 2017)
+908	908	1	1	45.0	3.9	0.0	0.74	0.33	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+904	904	1	1	45.0	20.3	0.0	3.85	1.21	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+900	900	1	1	0.0	9.7	7.0	5.56	1.01	0.581	N/A	N	eVolv2k (Toohey & Sigl 2017)
+880	880	1	1	45.0	6.8	0.0	1.28	0.46	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+877	877	1	1	64.6	16.1	0.0	3.05	0.94	1.000	Veiðivötn (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Plunkett et al., 2023; Gabriel et al., 2024)"
+876	876	1	1	45.0	10.1	0.0	1.92	0.68	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+869	869	1	1	-45.0	0.0	2.7	0.51	0.26	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+859	859	1	1	0.0	5.3	6.7	3.99	0.78	0.440	N/A	N	eVolv2k (Toohey & Sigl 2017)
+853	853	1	1	61.4	13.0	0.0	2.48	0.83	1.000	Churchill, White River Ash East (Alaska)	Y	"eVolv2k (Toohey & Sigl 2017; Jensen et al. 2024; Mackay et al. 2022)"
+853	853	1	1	-45.0	0.0	6.4	1.22	0.22	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+841	841	1	1	45.0	5.1	0.0	0.97	0.37	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+835	835	1	1	45.0	4.2	0.0	0.80	0.35	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+827	827	1	1	-45.0	0.0	1.3	0.25	0.13	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+823	823	1	1	63.6	20.7	0.0	3.93	1.54	1.000	Katla (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Büntgen et al., 2018; Plunkett et al., 2020)"
+819	819	1	1	-45.0	0.0	7.1	1.35	0.25	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+817	817	1	1	45.0	49.1	0.0	9.34	3.01	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+800	800	1	1	45.0	13.0	0.0	2.48	0.91	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+782	782	1	1	64.4	9.1	0.0	1.72	0.75	1.000	Grímsvötn (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Gabriel et al., 2024)"
+777	777	1	1	45.0	4.4	0.0	0.84	0.37	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+763	763	7	1	63.6	13.3	1.0	4.77	1.40	0.930	Katla, Hrafnkatla (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Gabriel et al., 2024)"
+757	757	1	1	63.6	16.2	0.0	3.07	1.15	1.000	Katla (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Gabriel et al., 2024)"
+751	751	1	1	64.4	35.7	0.0	6.79	2.41	1.000	Grímsvötn (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; Gabriel et al., 2024)"
+749	749	1	1	-45.0	0.0	7.0	1.33	0.25	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+745	745	1	1	-45.0	0.0	8.8	1.67	0.29	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+732	732	1	1	45.0	3.8	0.0	0.72	0.33	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+725	725	1	1	-45.0	0.0	3.9	0.74	0.15	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+717	717	1	1	-45.0	0.0	3.8	0.72	0.37	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+713	713	1	1	-45.0	0.0	7.0	1.33	0.27	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+698	698	1	1	0.0	4.8	5.0	3.27	0.70	0.490	N/A	N	eVolv2k (Toohey & Sigl 2017)
+694	694	1	1	45.0	9.9	0.0	1.88	0.56	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+688	688	1	1	45.0	20.1	0.0	3.81	1.15	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+682	682	1	1	0.0	42.9	38.7	27.19	4.67	0.526	N/A	N	eVolv2k (Toohey & Sigl 2017)
+671	671	1	1	45.0	4.2	0.0	0.79	0.35	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+657	657	1	1	45.0	3.6	0.0	0.68	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+641	641	1	1	-45.0	0.0	2.5	0.48	0.24	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+637	637	1	1	0.0	3.7	1.5	1.74	0.62	0.713	N/A	N	eVolv2k (Toohey & Sigl 2017)
+632	632	1	1	45.0	11.0	0.0	2.09	0.74	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+629	629	1	1	-45.0	0.0	3.4	0.65	0.12	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+626	626	10	1	45.0	69.5	0.0	13.20	4.09	1.000	N/A	N	"eVolv2k (Toohey & Sigl 2017; Sigl et al., 2015)"
+607	607	1	1	0.0	5.9	2.1	2.65	0.95	0.736	N/A	N	eVolv2k (Toohey & Sigl 2017)
+595	595	1	1	45.0	5.8	0.0	1.10	0.50	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+589	589	1	1	0.0	7.2	6.0	4.40	0.95	0.545	N/A	N	eVolv2k (Toohey & Sigl 2017)
+581	581	1	1	45.0	4.7	0.0	0.89	0.41	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+574	574	1	1	0.0	38.3	34.1	24.14	5.02	0.529	N/A	N	eVolv2k (Toohey & Sigl 2017)
+571	571	1	1	45.0	3.8	0.0	0.73	0.36	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+547	547	1	1	45.0	5.6	0.0	1.06	0.49	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+540	540	1	1	0.0	61.2	34.4	31.85	7.73	0.640	N/A	N	eVolv2k (Toohey & Sigl 2017)
+536	536	1	1	45.0	99.0	0.0	18.81	6.94	1.000	N/A	Y	eVolv2k (Toohey & Sigl 2017)
+528	528	1	1	-45.0	0.0	4.1	0.78	0.13	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+521	521	1	1	45.0	19.3	0.0	3.66	1.24	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+511	511	1	1	45.0	3.7	0.0	0.69	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+501	501	1	1	45.0	12.8	0.0	2.43	0.76	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+492	492	1	1	-45.0	0.0	9.8	1.86	0.32	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+487	487	1	1	-45.0	0.0	1.2	0.23	0.12	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+469	469	1	1	45.0	5.5	0.0	1.04	0.40	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+467	467	1	1	45.0	13.5	0.0	2.57	0.79	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+462	462	1	1	-45.0	0.0	4.3	0.82	0.42	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+456	456	1	1	0.0	5.7	1.8	2.50	0.87	0.760	N/A	N	eVolv2k (Toohey & Sigl 2017)
+452	452	1	1	56.6	3.5	0.0	0.67	0.32	1.000	Shiveluch	Y	"eVolv2k (Toohey & Sigl 2017; Plunkett et al., 2023)"
+432	433	1	1	13.7	14.7	27.2	13.98	2.23	0.351	Ilopango, Tierra Blanca Joven  (El Salvador)	Y	"eVolv2k (Toohey & Sigl 2017; Smith et al., 2020)"
+426	426	1	1	45.0	5.8	0.0	1.11	0.47	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+423	423	1	1	45.0	12.5	0.0	2.37	0.74	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+418	418	1	1	45.0	6.3	0.0	1.20	0.44	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+411	411	1	1	45.0	8.2	0.0	1.55	0.56	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+393	393	1	1	0.0	7.6	1.6	3.07	0.95	0.826	N/A	N	eVolv2k (Toohey & Sigl 2017)
+388	388	1	1	-45.0	0.0	2.7	0.51	0.26	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+379	379	1	1	0.0	4.0	6.1	3.38	0.73	0.398	N/A	N	eVolv2k (Toohey & Sigl 2017)
+369	369	1	1	45.0	6.1	0.0	1.16	0.49	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+366	366	1	1	45.0	11.2	0.0	2.13	0.76	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+360	360	1	1	-45.0	0.0	3.4	0.65	0.33	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+358	358	1	1	45.0	4.1	0.0	0.78	0.35	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+353	353	1	1	-45.0	0.0	3.1	0.59	0.30	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+345	345	1	1	0.0	6.3	6.0	4.11	0.92	0.513	N/A	N	eVolv2k (Toohey & Sigl 2017)
+332	332	1	1	0.0	4.0	8.2	4.07	0.77	0.328	N/A	N	eVolv2k (Toohey & Sigl 2017)
+304	304	1	1	0.0	7.6	16.6	8.07	1.25	0.314	N/A	N	eVolv2k (Toohey & Sigl 2017)
+299	299	1	1	45.0	5.3	0.0	1.00	0.43	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+281	281	1	1	45.0	15.8	0.0	3.01	1.36	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+266	266	1	1	0.0	54.3	11.3	21.86	5.69	0.828	N/A	N	eVolv2k (Toohey & Sigl 2017)
+244	244	1	1	0.0	3.5	1.2	1.57	0.59	0.746	N/A	N	eVolv2k (Toohey & Sigl 2017)
+236	236	3	1	-38.8	9.4	14.1	5.83	1.22	0.401	Taup? (New Zealand)	Y	"eVolv2k (Toohey & Sigl 2017; Piva et al., 2023)"
+230	230	1	1	45.0	3.6	0.0	0.69	0.32	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+226	226	1	1	45.0	7.7	0.0	1.46	0.58	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+218	218	1	1	0.0	5.6	2.4	2.67	0.80	0.701	N/A	N	eVolv2k (Toohey & Sigl 2017)
+215	215	1	1	-45.0	0.0	1.7	0.32	0.16	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+206	206	1	1	-45.0	0.0	14.0	2.66	0.41	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+192	192	1	1	45.0	6.9	0.0	1.30	0.44	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+172	172	1	1	45.0	5.9	0.0	1.12	0.52	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+169	169	1	1	0.0	26.1	18.4	14.82	3.58	0.586	N/A	N	eVolv2k (Toohey & Sigl 2017)
+164	164	1	1	-45.0	0.0	2.8	0.53	0.27	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+160	160	1	1	45.0	18.0	0.0	3.42	1.13	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+150	150	1	1	-45.0	0.0	1.6	0.30	0.16	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+143	143	1	1	-45.0	0.0	5.9	1.12	0.19	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+124	124	1	1	-45.0	0.0	13.1	2.49	0.47	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+121	121	1	1	-45.0	0.0	10.0	1.90	0.34	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+114	114	1	1	45.0	10.4	0.0	1.97	0.90	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+102	102	1	1	-45.0	0.0	3.1	0.59	0.30	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+95	95	1	1	-45.0	0.0	1.6	0.30	0.16	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+87	87	1	1	45.0	56.1	0.0	10.65	4.21	1.000	Unidentifed	Y	"eVolv2k (Toohey & Sigl 2017; Plunkett et al., 2022)"
+58	58	1	1	-45.0	0.0	7.3	1.39	0.25	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+31	31	1	1	-45.0	0.0	5.0	0.95	0.71	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+4	4	1	1	-45.0	0.0	3.7	0.70	0.19	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-8	-7	1	1	-45.0	0.0	9.1	1.73	0.48	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-21	-20	1	1	-45.0	0.0	8.2	1.56	0.43	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-35	-34	1	1	45.0	9.2	0.0	1.75	0.57	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-43	-42	1	1	53.5	100.3	15.4	48.00	15.00	0.867	Okmok (Alaska)	Y	"eVolv2k (Toohey & Sigl 2017; McConnell et al., 2020; Pearson et al., 2022)"
+-45	-44	1	1	64.4	19.1	0.0	3.62	1.20	1.000	Unidentifed (Iceland)	Y	"eVolv2k (Toohey & Sigl 2017; McConnell et al., 2020)"
+-85	-84	1	1	0.0	13.0	5.8	6.26	1.60	0.691	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-100	-99	1	1	-45.0	0.0	14.0	2.66	0.74	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-105	-104	1	1	45.0	11.3	0.0	2.15	0.72	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-123	-122	1	1	0.0	21.5	11.3	10.92	3.69	0.655	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-139	-138	1	1	-45.0	0.0	8.2	1.56	0.43	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-141	-140	1	1	45.0	38.5	0.0	7.31	2.36	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-147	-146	1	1	0.0	30.8	6.0	12.28	3.51	0.837	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-158	-157	1	1	45.0	12.6	0.0	2.39	0.81	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-161	-160	1	1	45.0	11.2	0.0	2.13	0.74	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-164	-163	1	1	45.0	13.8	0.0	2.61	0.85	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-168	-167	1	1	0.0	39.0	12.7	17.24	4.36	0.754	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-180	-179	1	1	45.0	4.3	0.0	0.82	0.40	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-190	-189	1	1	0.0	3.4	4.7	2.69	0.81	0.418	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-209	-208	1	1	0.0	9.2	15.9	8.38	1.87	0.367	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-217	-216	1	1	45.0	23.5	0.0	4.47	1.97	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-228	-227	1	1	45.0	4.8	0.0	0.91	0.44	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-244	-243	1	1	45.0	21.3	0.0	4.04	1.46	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-247	-246	1	1	0.0	13.9	12.6	8.84	2.04	0.525	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-255	-254	1	1	45.0	16.4	0.0	3.12	1.28	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-299	-298	1	1	45.0	9.2	0.0	1.76	0.80	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-301	-300	1	1	45.0	15.0	0.0	2.85	1.03	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-326	-325	1	1	-45.0	0.0	20.5	3.90	1.08	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-329	-328	1	1	0.0	4.4	7.0	3.82	0.96	0.388	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-331	-330	1	1	45.0	7.8	0.0	1.49	0.51	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-339	-338	1	1	45.0	7.2	0.0	1.37	0.63	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-346	-345	1	1	0.0	8.9	5.4	4.77	1.44	0.623	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-352	-351	1	1	45.0	5.1	0.0	0.97	0.46	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-356	-355	1	1	0.0	22.8	8.9	10.55	2.68	0.719	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-362	-361	1	1	0.0	5.7	0.0	1.90	0.88	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-376	-375	1	1	-45.0	0.0	5.3	1.01	0.28	0.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-385	-384	1	1	45.0	6.1	0.0	1.16	0.53	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-392	-391	1	1	0.0	24.3	9.6	11.29	2.87	0.717	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-396	-395	1	1	45.0	22.2	0.0	4.22	1.37	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-426	-425	1	1	0.0	99.8	78.2	59.33	17.95	0.561	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-430	-429	1	1	45.0	4.9	0.0	0.93	0.45	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-434	-433	1	1	0.0	10.4	4.6	5.01	1.64	0.694	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-465	-464	1	1	0.0	14.4	7.9	7.43	1.87	0.646	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-478	-477	1	1	0.0	3.9	5.0	2.98	0.83	0.441	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-487	-486	1	1	45.0	4.2	0.0	0.80	0.40	1.000	N/A	N	eVolv2k (Toohey & Sigl 2017)
+-491	-490	1	1	0.0	18.9	3.8	7.56	2.34	0.832	N/A	N	eVolv2k (Toohey & Sigl 2017)

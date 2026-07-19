@@ -40,7 +40,9 @@ print("AGRICULTURAL IMPACT ANALYSIS — CLEAN 1950-2025 PANEL")
 print("=" * 70)
 
 df = pd.read_parquet(PANEL_PATH)
-df = df[df["era5_region"].isin(range(1, 9))].copy()
+# All 25 ERA5 regions have full climate coverage since the 2026-07 archive
+# completion; the former .isin(range(1, 9)) filter dated from the partial
+# download and silently cut the panel to 73 of 197 countries.
 df = df[df["temperature_c"].notna() & (df["pop"] > 0) & (df["area_km2"] >= 500)].copy()
 
 # Derived growth rates
@@ -102,6 +104,46 @@ for dep, indeps, label in specs:
     m = run_fe(df, dep, indeps)
     if m:
         print_fe(m, label, indeps)
+
+# ════════════════════════════════════════════════════════════════════════════
+# 1b. PER-PATHWAY FE (Law 4)
+# ════════════════════════════════════════════════════════════════════════════
+print("\n" + "=" * 70)
+print("1b. PER-PATHWAY FE: temp → ag land growth by agricultural pathway")
+print("=" * 70)
+
+import pycountry
+
+
+def _fix_iso3(val):
+    if str(val).isnumeric():
+        try:
+            c = pycountry.countries.get(numeric=str(val).zfill(3))
+            return c.alpha_3 if c else val
+        except Exception:
+            return val
+    return val
+
+
+clusters = pd.read_parquet(ROOT / "analysis" / "data" / "paper1_clustered_features.parquet")
+clusters["iso3"] = clusters["iso3"].apply(_fix_iso3)
+df_cl = df.merge(clusters[["iso3", "cluster"]], on="iso3", how="left")
+print(f"\n  Pathway match: {df_cl['cluster'].notna().mean():.1%} of obs")
+
+PATHWAY_LABELS = {0: "Crop-dominant", 1: "Pastoral/mixed",
+                  3: "High-density", 4: "Early extensifiers"}
+pathway_results = {}
+for cid, plabel in PATHWAY_LABELS.items():
+    sub = df_cl[df_cl["cluster"] == cid]
+    m = run_fe(sub, "ag_land_km2_growth", ["temp_anomaly", "precip_anomaly"])
+    if m is None:
+        print(f"  {plabel:<20} insufficient data")
+        continue
+    b, p = m.params["temp_anomaly"], m.pvalues["temp_anomaly"]
+    star = "***" if p < 0.001 else "**" if p < 0.01 else "*" if p < 0.05 else ""
+    pathway_results[plabel] = (b, p, int(m.nobs))
+    print(f"  {plabel:<20} β={b:+.6f}  p={p:.4f}{star:<3}  N={int(m.nobs)}  "
+          f"countries={sub['country_id'].nunique()}")
 
 # ════════════════════════════════════════════════════════════════════════════
 # 2. LOCAL PROJECTION IRFs
