@@ -17,7 +17,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-import pycountry
+from analysis.shared.utils import iso_num_to_alpha3
 
 # Ensure project root is on path
 sys.path.insert(0, '/Volumes/BIGDATA/HYDE35')
@@ -29,12 +29,6 @@ from analysis.paper2_malthus.regressions import run_rolling_window
 # ── 1. Load and filter panel ────────────────────────────────────────────────
 cp = pd.read_parquet(ANALYSIS_DATA / 'country_analysis_panel.parquet')
 
-def iso_num_to_alpha3(num):
-    try:
-        c = pycountry.countries.get(numeric=str(int(num)).zfill(3))
-        return c.alpha_3 if c else str(int(num))
-    except Exception:
-        return str(int(num))
 
 code_map = {c: iso_num_to_alpha3(c) for c in cp.country.unique()}
 cp['iso3'] = cp['country'].map(code_map)

@@ -12,7 +12,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-import pycountry
+from analysis.shared.utils import iso_num_to_alpha3
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -44,12 +44,6 @@ COLORS = {
 cp = pd.read_parquet(ANALYSIS_DATA / "country_analysis_panel.parquet")
 clustered = pd.read_parquet(ANALYSIS_DATA / "paper1_clustered_features.parquet")
 
-def iso_num_to_alpha3(num):
-    try:
-        c = pycountry.countries.get(numeric=str(int(num)).zfill(3))
-        return c.alpha_3 if c else str(int(num))
-    except:
-        return str(int(num))
 
 code_map = {c: iso_num_to_alpha3(c) for c in cp.country.unique()}
 cp["iso3"] = cp["country"].map(code_map)
