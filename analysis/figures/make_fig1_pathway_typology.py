@@ -12,6 +12,7 @@ import matplotlib.patches as mpatches
 from matplotlib.ticker import LogLocator, LogFormatter
 import warnings
 warnings.filterwarnings("ignore")
+from analysis.shared.plotting import panel_label
 
 # ── paths ────────────────────────────────────────────────────────────────────
 DATA_PATH = "/Volumes/BIGDATA/HYDE35/analysis/data/paper1_clustered_features.parquet"
@@ -62,11 +63,6 @@ fig.subplots_adjust(hspace=0.38, wspace=0.35)
 
 ax_A, ax_B = axes[0, 0], axes[0, 1]
 ax_C, ax_D = axes[1, 0], axes[1, 1]
-
-# helper: bold panel label at top-left
-def panel_label(ax, letter):
-    ax.text(-0.08, 1.06, f"({letter})", transform=ax.transAxes,
-            fontsize=11, fontweight="bold", va="top", ha="left")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # (A) Scatter: peak_ag_expansion_year vs density_1750 (log y)
