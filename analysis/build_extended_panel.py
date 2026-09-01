@@ -117,11 +117,21 @@ print("Extracting HYDE NetCDF variables (1950-2025) …")
 iso_flat = iso_arr.ravel()
 area_flat = area_arr.ravel()
 
-country_indices = {}
-for code in all_codes:
-    idx = np.where(iso_flat == code)[0]
-    if len(idx) > 0:
-        country_indices[code] = idx
+# Fast path: compute country indices in a single pass
+valid_mask = ~np.isnan(iso_flat)
+valid_idx = np.where(valid_mask)[0]
+valid_iso = iso_flat[valid_mask]
+
+sort_order = np.argsort(valid_iso)
+sorted_iso = valid_iso[sort_order]
+sorted_idx = valid_idx[sort_order]
+
+unq_vals, unq_idx = np.unique(sorted_iso, return_index=True)
+splits = np.split(sorted_idx, unq_idx[1:])
+country_indices = {
+    val: np.sort(split)
+    for val, split in zip(unq_vals, splits) if val in all_codes
+}
 
 print(f"  Index map built for {len(country_indices)} countries")
 
