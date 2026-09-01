@@ -6,6 +6,8 @@ computes annual region-level means, and saves to analysis/data/era5_full_panel.p
 import sys
 import warnings
 from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 
 import numpy as np
 import pandas as pd
@@ -13,7 +15,7 @@ import xarray as xr
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-ROOT = Path("/Volumes/BIGDATA/HYDE35")
+ROOT = PROJECT_ROOT
 ERA5_ROOT = ROOT / "ERA5"
 OUT_PATH = ROOT / "analysis" / "data" / "era5_full_panel.parquet"
 

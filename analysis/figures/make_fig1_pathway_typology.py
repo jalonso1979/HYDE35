@@ -2,6 +2,9 @@
 Figure 1: Agricultural Transition Pathways — Five-Cluster Typology
 2x2 panel figure for economic history paper using HYDE 3.5 data.
 """
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 
 import numpy as np
 import pandas as pd
@@ -15,9 +18,9 @@ warnings.filterwarnings("ignore")
 from analysis.shared.plotting import panel_label
 
 # ── paths ────────────────────────────────────────────────────────────────────
-DATA_PATH = "/Volumes/BIGDATA/HYDE35/analysis/data/paper1_clustered_features.parquet"
-OUT_PNG   = "/Volumes/BIGDATA/HYDE35/analysis/figures/fig1_pathway_typology.png"
-OUT_PDF   = "/Volumes/BIGDATA/HYDE35/analysis/figures/fig1_pathway_typology.pdf"
+DATA_PATH = str(PROJECT_ROOT / "analysis/data/paper1_clustered_features.parquet")
+OUT_PNG   = str(PROJECT_ROOT / "analysis/figures/fig1_pathway_typology.png")
+OUT_PDF   = str(PROJECT_ROOT / "analysis/figures/fig1_pathway_typology.pdf")
 
 # ── cluster metadata ─────────────────────────────────────────────────────────
 CLUSTER_LABELS = {

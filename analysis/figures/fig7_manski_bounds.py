@@ -6,7 +6,9 @@ Panel B: Pre vs post structural break density coefficients
 """
 
 import sys
-sys.path.insert(0, '/Volumes/BIGDATA/HYDE35')
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(PROJECT_ROOT))
 
 import numpy as np
 import matplotlib
@@ -196,7 +198,7 @@ fig.suptitle(
     fontsize=11, fontweight='bold', y=1.01
 )
 
-OUT_BASE = '/Volumes/BIGDATA/HYDE35/analysis/figures/fig7_manski_bounds'
+OUT_BASE = str(PROJECT_ROOT / "analysis/figures/fig7_manski_bounds")
 fig.savefig(OUT_BASE + '.png', dpi=300, bbox_inches='tight', facecolor='white')
 fig.savefig(OUT_BASE + '.pdf', bbox_inches='tight', facecolor='white')
 print(f"\nSaved: {OUT_BASE}.png")

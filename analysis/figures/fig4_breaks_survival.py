@@ -7,7 +7,9 @@ Panel B (bottom): Kaplan-Meier survival curves — probability of remaining in M
 """
 
 import sys
-sys.path.insert(0, "/Volumes/BIGDATA/HYDE35")
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(PROJECT_ROOT))
 
 import numpy as np
 import pandas as pd
@@ -27,8 +29,8 @@ from analysis.paper2_malthus.panels import build_malthusian_panel
 from analysis.paper2_malthus.breaks import detect_breaks_all_entities
 
 # ── output paths ─────────────────────────────────────────────────────────────
-OUT_PNG = "/Volumes/BIGDATA/HYDE35/analysis/figures/fig4_breaks_survival.png"
-OUT_PDF = "/Volumes/BIGDATA/HYDE35/analysis/figures/fig4_breaks_survival.pdf"
+OUT_PNG = str(PROJECT_ROOT / "analysis/figures/fig4_breaks_survival.png")
+OUT_PDF = str(PROJECT_ROOT / "analysis/figures/fig4_breaks_survival.pdf")
 
 # ── cluster metadata — match Figure 1 exactly ────────────────────────────────
 LABELS = {

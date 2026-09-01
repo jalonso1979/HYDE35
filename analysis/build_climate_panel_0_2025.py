@@ -19,8 +19,9 @@ import xarray as xr
 
 warnings.filterwarnings("ignore")
 
-ROOT = Path("/Volumes/BIGDATA/HYDE35")
-sys.path.insert(0, str(ROOT))
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+ROOT = PROJECT_ROOT
+sys.path.insert(0, str(PROJECT_ROOT))
 
 RECON_DIR = ROOT / "climate_reconstructions"
 ERA5_PANEL = ROOT / "analysis" / "data" / "era5_full_panel.parquet"

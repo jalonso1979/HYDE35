@@ -2,6 +2,9 @@
 Figure 10: The Climate-Agriculture-Population Nexus — Identification Strategy
 Two-panel figure: (A) DAG-style causal diagram, (B) Summary results visual table.
 """
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 
 import matplotlib
 matplotlib.use('Agg')
@@ -353,7 +356,7 @@ for i, (label, color) in enumerate([
                   transform=ax_table.transAxes)
 
 # ── save ─────────────────────────────────────────────────────────────────
-out_base = '/Volumes/BIGDATA/HYDE35/analysis/figures/fig10_iv_dag'
+out_base = str(PROJECT_ROOT / "analysis/figures/fig10_iv_dag")
 fig.savefig(out_base + '.png', dpi=300, bbox_inches='tight',
             facecolor='white', edgecolor='none')
 fig.savefig(out_base + '.pdf', bbox_inches='tight',

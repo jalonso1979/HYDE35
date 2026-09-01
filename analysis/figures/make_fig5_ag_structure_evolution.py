@@ -19,9 +19,11 @@ from analysis.shared.plotting import panel_label
 
 # ── paths ────────────────────────────────────────────────────────────────────
 from pathlib import Path
-ANALYSIS_DATA = Path("/Volumes/BIGDATA/HYDE35/analysis/data")
-OUT_PNG = "/Volumes/BIGDATA/HYDE35/analysis/figures/fig5_ag_structure_evolution.png"
-OUT_PDF = "/Volumes/BIGDATA/HYDE35/analysis/figures/fig5_ag_structure_evolution.pdf"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+ANALYSIS_DATA = Path(str(PROJECT_ROOT / "analysis/data"))
+OUT_PNG = str(PROJECT_ROOT / "analysis/figures/fig5_ag_structure_evolution.png")
+OUT_PDF = str(PROJECT_ROOT / "analysis/figures/fig5_ag_structure_evolution.pdf")
 
 # ── cluster metadata ─────────────────────────────────────────────────────────
 CLUSTER_LABELS = {

@@ -8,6 +8,7 @@ Control: land_labor_ratio_lag
 """
 
 import sys
+from pathlib import Path
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -20,7 +21,8 @@ import matplotlib.patches as mpatches
 import pycountry
 
 # Ensure project root is on path
-sys.path.insert(0, '/Volumes/BIGDATA/HYDE35')
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from analysis.shared.config import ANALYSIS_DATA
 from analysis.paper2_malthus.panels import build_malthusian_panel
@@ -174,7 +176,7 @@ ax.spines['bottom'].set_linewidth(0.8)
 plt.tight_layout()
 
 # ── 6. Save ──────────────────────────────────────────────────────────────────
-out_base = '/Volumes/BIGDATA/HYDE35/analysis/figures/fig3_rolling_malthusian'
+out_base = str(PROJECT_ROOT / "analysis/figures/fig3_rolling_malthusian")
 fig.savefig(out_base + '.png', dpi=300, bbox_inches='tight')
 fig.savefig(out_base + '.pdf', bbox_inches='tight')
 print(f"\nSaved: {out_base}.png")
