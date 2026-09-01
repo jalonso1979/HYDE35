@@ -196,12 +196,23 @@ def download_one(
 
 
 def _extract_if_zip(fp: Path, logger: logging.Logger):
-    """If the downloaded file is a zip archive, extract it."""
+    """If the downloaded file is a zip archive, extract it securely."""
     try:
         if zipfile.is_zipfile(fp):
             ext_dir = fp.parent / "_extracted"
             ext_dir.mkdir(exist_ok=True)
+            resolved_ext_dir = ext_dir.resolve()
+
             with zipfile.ZipFile(fp) as z:
+                # Prevent Zip Slip vulnerability by checking that all
+                # extracted files resolve to within the target directory.
+                for member in z.infolist():
+                    member_path = (resolved_ext_dir / member.filename).resolve()
+                    if not member_path.is_relative_to(resolved_ext_dir):
+                        raise ValueError(
+                            f"Zip Slip vulnerability detected in member: {member.filename}"
+                        )
+
                 z.extractall(ext_dir)
             logger.info(f"    extracted zip → {ext_dir}")
     except Exception as e:
