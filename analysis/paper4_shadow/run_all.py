@@ -595,6 +595,26 @@ EXERCISES = {
 }
 
 
+
+def run_exercises(exercises: list[int], figures_only: bool = False) -> None:
+    data = load_data()
+    endowments = None
+
+    for ex_num in sorted(exercises):
+        if ex_num not in EXERCISES:
+            print(f"[warn] Unknown exercise {ex_num}, skipping")
+            continue
+
+        if ex_num == 1:
+            endowments = exercise_1(data, figures_only=figures_only)
+        elif ex_num == 6:
+            exercise_6(data, endowments, figures_only=figures_only)
+        else:
+            EXERCISES[ex_num](data, figures_only=figures_only)
+
+    _banner("All requested exercises complete")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Paper 4 — The Long Shadow of Seasonality: run all exercises",
@@ -613,22 +633,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    data = load_data()
-    endowments = None
-
-    for ex_num in sorted(args.exercises):
-        if ex_num not in EXERCISES:
-            print(f"[warn] Unknown exercise {ex_num}, skipping")
-            continue
-
-        if ex_num == 1:
-            endowments = exercise_1(data, figures_only=args.figures_only)
-        elif ex_num == 6:
-            exercise_6(data, endowments, figures_only=args.figures_only)
-        else:
-            EXERCISES[ex_num](data, figures_only=args.figures_only)
-
-    _banner("All requested exercises complete")
+    run_exercises(args.exercises, args.figures_only)
 
 
 if __name__ == "__main__":
