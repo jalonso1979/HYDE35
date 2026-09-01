@@ -56,3 +56,8 @@ def plot_counterfactual(cf_df, title="Counterfactual simulation", ylabel="Respon
     ax.legend()
     fig.tight_layout()
     return fig
+
+
+def panel_label(ax, letter, x=-0.08, y=1.06, fontsize=11):
+    ax.text(x, y, f"({letter})", transform=ax.transAxes,
+            fontsize=fontsize, fontweight="bold", va="top", ha="left")

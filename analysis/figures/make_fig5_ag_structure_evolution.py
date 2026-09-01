@@ -15,6 +15,7 @@ import matplotlib.patches as mpatches
 import pycountry
 import warnings
 warnings.filterwarnings("ignore")
+from analysis.shared.plotting import panel_label
 
 # ── paths ────────────────────────────────────────────────────────────────────
 from pathlib import Path
@@ -109,11 +110,6 @@ plt.rcParams.update({
 fig, (ax_A, ax_B) = plt.subplots(2, 1, figsize=(10, 10))
 fig.subplots_adjust(hspace=0.38)
 
-# helper: bold panel label at top-left
-def panel_label(ax, letter):
-    ax.text(-0.07, 1.05, f"({letter})", transform=ax.transAxes,
-            fontsize=12, fontweight="bold", va="top", ha="left")
-
 # ─────────────────────────────────────────────────────────────────────────────
 # Panel (A): Crop share of agricultural land
 # ─────────────────────────────────────────────────────────────────────────────
@@ -143,7 +139,7 @@ ax_A.set_ylim(0, 1.02)
 ax_A.set_xlabel("Year (CE)")
 ax_A.set_ylabel("Cropland share of total agricultural land")
 ax_A.set_title("Agricultural land composition by pathway, 0–1750 CE", pad=6)
-panel_label(ax_A, "A")
+panel_label(ax_A, "A", x=-0.07, y=1.05, fontsize=12)
 
 # Legend in upper-left whitespace
 legend_A = ax_A.legend(
@@ -181,7 +177,7 @@ ax_B.set_ylim(bottom=0)
 ax_B.set_xlabel("Year (CE)")
 ax_B.set_ylabel("Urban population share")
 ax_B.set_title("Urban population share by pathway, 0–1750 CE", pad=6)
-panel_label(ax_B, "B")
+panel_label(ax_B, "B", x=-0.07, y=1.05, fontsize=12)
 
 # Annotation noting the divergence
 ymax = urban_agg["mean"].max()
