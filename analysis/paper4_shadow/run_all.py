@@ -8,6 +8,7 @@ Usage
     python -m analysis.paper4_shadow.run_all --exercises 1 2 3
     python -m analysis.paper4_shadow.run_all --figures-only
 """
+
 from __future__ import annotations
 
 import argparse
@@ -38,6 +39,7 @@ def _sub(title: str) -> None:
 # Data loading
 # ---------------------------------------------------------------------------
 
+
 def load_data() -> dict:
     """Load all required parquet files and return as a dict.
 
@@ -62,6 +64,7 @@ def load_data() -> dict:
             from analysis.paper3_climate.climate_shocks import (
                 build_climate_shock_panel,
             )
+
             ep = build_climate_shock_panel(
                 ep,
                 climate_vars=["temperature_c"],
@@ -116,6 +119,7 @@ def load_data() -> dict:
 # Figure helper
 # ---------------------------------------------------------------------------
 
+
 def _try_figure(func, *args, **kwargs):
     """Call a figure function, swallowing ImportError / AttributeError."""
     try:
@@ -129,6 +133,7 @@ def _import_figures():
     """Try to import figures module; return module or None."""
     try:
         from analysis.paper4_shadow import figures
+
         return figures
     except Exception:
         return None
@@ -137,6 +142,7 @@ def _import_figures():
 # ---------------------------------------------------------------------------
 # Exercise 1 — Pathway prediction from climate endowments
 # ---------------------------------------------------------------------------
+
 
 def exercise_1(data: dict, *, figures_only: bool = False) -> pd.DataFrame:
     """Exercise 1: Does climate seasonality predict agricultural pathway?
@@ -195,7 +201,9 @@ def exercise_1(data: dict, *, figures_only: bool = False) -> pd.DataFrame:
             )
             print(result["summary"])
             me = compute_marginal_effects(
-                result["model"], merged, ["seasonality"],
+                result["model"],
+                merged,
+                ["seasonality"],
             )
             if not me.empty:
                 _sub("Marginal effects")
@@ -205,8 +213,10 @@ def exercise_1(data: dict, *, figures_only: bool = False) -> pd.DataFrame:
 
     # Figures
     figs = _import_figures()
-    if figs and 'merged' in dir():
-        _try_figure(figs.fig3_seasonality_predicts_pathway, merged, "seasonality", "cluster")
+    if figs and "merged" in dir():
+        _try_figure(
+            figs.fig3_seasonality_predicts_pathway, merged, "seasonality", "cluster"
+        )
 
     return endowments
 
@@ -214,6 +224,7 @@ def exercise_1(data: dict, *, figures_only: bool = False) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # Exercise 2 — Dual-channel separation
 # ---------------------------------------------------------------------------
+
 
 def exercise_2(data: dict, *, figures_only: bool = False) -> None:
     """Exercise 2: Seasonality vs. volatility — dual-channel separation."""
@@ -233,7 +244,9 @@ def exercise_2(data: dict, *, figures_only: bool = False) -> None:
 
         # Compute seasonality and volatility per region
         proxy = compute_historical_seasonality_proxy(
-            climate, window=50, entity_col="region",
+            climate,
+            window=50,
+            entity_col="region",
         )
         vol = (
             climate.groupby("region")["temperature_c"]
@@ -273,10 +286,14 @@ def exercise_2(data: dict, *, figures_only: bool = False) -> None:
                 seasonality_col="seasonality",
                 volatility_col="volatility",
             )
-            print(f"  Seasonality coef: {r1['seasonality_coef']:.4f} "
-                  f"(p={r1['seasonality_pval']:.4f})")
-            print(f"  Volatility  coef: {r1['volatility_coef']:.4f} "
-                  f"(p={r1['volatility_pval']:.4f})")
+            print(
+                f"  Seasonality coef: {r1['seasonality_coef']:.4f} "
+                f"(p={r1['seasonality_pval']:.4f})"
+            )
+            print(
+                f"  Volatility  coef: {r1['volatility_coef']:.4f} "
+                f"(p={r1['volatility_pval']:.4f})"
+            )
             print(f"  R-squared: {r1['rsquared']:.4f}, N={r1['nobs']}")
 
             # Stage 2 requires a country-level malthusian_beta
@@ -286,8 +303,9 @@ def exercise_2(data: dict, *, figures_only: bool = False) -> None:
                 cp.dropna(subset=["pop_growth", "log_density"])
                 .groupby("country")
                 .apply(
-                    lambda g: g["pop_growth"].corr(g["log_density"])
-                    if len(g) > 5 else np.nan,
+                    lambda g: (
+                        g["pop_growth"].corr(g["log_density"]) if len(g) > 5 else np.nan
+                    ),
                     include_groups=False,
                 )
                 .reset_index(name="malthusian_beta")
@@ -310,10 +328,14 @@ def exercise_2(data: dict, *, figures_only: bool = False) -> None:
                     seasonality_col="seasonality",
                     volatility_col="volatility",
                 )
-                print(f"  Seasonality coef: {r2['seasonality_coef']:.4f} "
-                      f"(p={r2['seasonality_pval']:.4f})")
-                print(f"  Volatility  coef: {r2['volatility_coef']:.4f} "
-                      f"(p={r2['volatility_pval']:.4f})")
+                print(
+                    f"  Seasonality coef: {r2['seasonality_coef']:.4f} "
+                    f"(p={r2['seasonality_pval']:.4f})"
+                )
+                print(
+                    f"  Volatility  coef: {r2['volatility_coef']:.4f} "
+                    f"(p={r2['volatility_pval']:.4f})"
+                )
                 print(f"  R-squared: {r2['rsquared']:.4f}, N={r2['nobs']}")
             else:
                 print("  [warn] Too few observations for stage 2")
@@ -328,6 +350,7 @@ def exercise_2(data: dict, *, figures_only: bool = False) -> None:
 # ---------------------------------------------------------------------------
 # Exercise 3 — Malthusian dynamics by pathway
 # ---------------------------------------------------------------------------
+
 
 def exercise_3(data: dict, *, figures_only: bool = False) -> None:
     """Exercise 3: Malthusian regressions stratified by pathway cluster."""
@@ -382,13 +405,14 @@ def exercise_3(data: dict, *, figures_only: bool = False) -> None:
             print("  [warn] No results from rolling regressions")
 
     figs = _import_figures()
-    if figs and 'roll' in dir() and not roll.empty:
+    if figs and "roll" in dir() and not roll.empty:
         _try_figure(figs.fig5_rolling_malthusian_by_pathway, roll)
 
 
 # ---------------------------------------------------------------------------
 # Exercise 4 — Pathway-stratified IRFs
 # ---------------------------------------------------------------------------
+
 
 def exercise_4(data: dict, *, figures_only: bool = False) -> None:
     """Exercise 4: Climate-shock impulse response functions by pathway."""
@@ -416,8 +440,10 @@ def exercise_4(data: dict, *, figures_only: bool = False) -> None:
         )
 
         if irf_dict:
-            print(f"  IRFs computed for {len(irf_dict)} pathways: "
-                  f"{list(irf_dict.keys())}")
+            print(
+                f"  IRFs computed for {len(irf_dict)} pathways: "
+                f"{list(irf_dict.keys())}"
+            )
 
             _sub("Comparison at horizon 5")
             comp = compare_pathway_irfs(irf_dict, horizon=5)
@@ -429,13 +455,14 @@ def exercise_4(data: dict, *, figures_only: bool = False) -> None:
             print("  [warn] No IRFs could be computed")
 
     figs = _import_figures()
-    if figs and 'irf_dict' in dir() and irf_dict:
+    if figs and "irf_dict" in dir() and irf_dict:
         _try_figure(figs.fig6_pathway_stratified_irfs, irf_dict, "Temp")
 
 
 # ---------------------------------------------------------------------------
 # Exercise 5 — Escape mechanisms
 # ---------------------------------------------------------------------------
+
 
 def exercise_5(data: dict, *, figures_only: bool = False) -> None:
     """Exercise 5: Escape-mechanism interactions (intensification/urbanization)."""
@@ -456,8 +483,9 @@ def exercise_5(data: dict, *, figures_only: bool = False) -> None:
                 ep["intensification_index"] = ep["irrigation_share"] * ep["crop_share"]
 
         # Select mediators that actually exist in the panel
-        mediators = [m for m in ["urban_share", "intensification_index"]
-                     if m in ep.columns]
+        mediators = [
+            m for m in ["urban_share", "intensification_index"] if m in ep.columns
+        ]
 
         _sub("Interaction regressions: shock x mediator")
         results = run_escape_interactions(
@@ -474,15 +502,21 @@ def exercise_5(data: dict, *, figures_only: bool = False) -> None:
                 continue
             _sub(f"Mediator: {med_name}")
             if "interaction_coef" in res:
-                print(f"  Shock coef:       {res['shock_coef']:.6f} "
-                      f"(p={res['shock_pval']:.4f})")
-                print(f"  Interaction coef: {res['interaction_coef']:.6f} "
-                      f"(p={res['interaction_pval']:.4f})")
+                print(
+                    f"  Shock coef:       {res['shock_coef']:.6f} "
+                    f"(p={res['shock_pval']:.4f})"
+                )
+                print(
+                    f"  Interaction coef: {res['interaction_coef']:.6f} "
+                    f"(p={res['interaction_pval']:.4f})"
+                )
                 print(f"  R-squared: {res['rsquared']:.4f}, N={res['nobs']}")
             else:
                 # Joint model — report per-mediator interactions
-                print(f"  Shock coef: {res['shock_coef']:.6f} "
-                      f"(p={res['shock_pval']:.4f})")
+                print(
+                    f"  Shock coef: {res['shock_coef']:.6f} "
+                    f"(p={res['shock_pval']:.4f})"
+                )
                 for k, v in res.items():
                     if k.endswith("_interaction_coef"):
                         med = k.replace("_interaction_coef", "")
@@ -504,19 +538,23 @@ def exercise_5(data: dict, *, figures_only: bool = False) -> None:
             )
             if not roll.empty:
                 print(f"  {len(roll)} windows computed")
-                print(roll[["center_year", "interaction_coef",
-                            "interaction_pval"]].to_string(index=False))
+                print(
+                    roll[
+                        ["center_year", "interaction_coef", "interaction_pval"]
+                    ].to_string(index=False)
+                )
             else:
                 print("  [warn] Rolling interaction returned no results")
 
     figs = _import_figures()
-    if figs and 'results' in dir() and results:
+    if figs and "results" in dir() and results:
         _try_figure(figs.fig8_escape_mechanism, results)
 
 
 # ---------------------------------------------------------------------------
 # Exercise 6 — Long shadow cross-section
 # ---------------------------------------------------------------------------
+
 
 def exercise_6(
     data: dict,
@@ -534,6 +572,7 @@ def exercise_6(
 
     if endowments is None:
         from analysis.paper4_shadow.seasonality import build_seasonality_panel
+
         endowments = build_seasonality_panel(
             data["climate_panel"],
             entity_col="region",
@@ -575,8 +614,12 @@ def exercise_6(
             print("  [warn] No results from long-shadow regressions")
 
     figs = _import_figures()
-    if figs and 'xs' in dir() and len(xs) > 0:
-        seas_col = "seasonality_historical" if "seasonality_historical" in xs.columns else "hist_seasonality_proxy"
+    if figs and "xs" in dir() and len(xs) > 0:
+        seas_col = (
+            "seasonality_historical"
+            if "seasonality_historical" in xs.columns
+            else "hist_seasonality_proxy"
+        )
         if seas_col in xs.columns:
             _try_figure(figs.fig9_long_shadow, xs, seas_col)
 
@@ -593,6 +636,27 @@ EXERCISES = {
     5: exercise_5,
     6: exercise_6,
 }
+
+
+def run_exercises(
+    exercises: list[int], data: dict, figures_only: bool = False
+) -> None:
+    """Run the specified exercises."""
+    endowments = None
+
+    for ex_num in sorted(exercises):
+        if ex_num not in EXERCISES:
+            print(f"[warn] Unknown exercise {ex_num}, skipping")
+            continue
+
+        if ex_num == 1:
+            endowments = exercise_1(data, figures_only=figures_only)
+        elif ex_num == 6:
+            exercise_6(data, endowments, figures_only=figures_only)
+        else:
+            EXERCISES[ex_num](data, figures_only=figures_only)
+
+    _banner("All requested exercises complete")
 
 
 def main() -> None:
@@ -614,21 +678,7 @@ def main() -> None:
     args = parser.parse_args()
 
     data = load_data()
-    endowments = None
-
-    for ex_num in sorted(args.exercises):
-        if ex_num not in EXERCISES:
-            print(f"[warn] Unknown exercise {ex_num}, skipping")
-            continue
-
-        if ex_num == 1:
-            endowments = exercise_1(data, figures_only=args.figures_only)
-        elif ex_num == 6:
-            exercise_6(data, endowments, figures_only=args.figures_only)
-        else:
-            EXERCISES[ex_num](data, figures_only=args.figures_only)
-
-    _banner("All requested exercises complete")
+    run_exercises(args.exercises, data, args.figures_only)
 
 
 if __name__ == "__main__":
