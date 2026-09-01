@@ -15,8 +15,9 @@ import xarray as xr
 from pathlib import Path
 
 # ── paths ─────────────────────────────────────────────────────────────────────
-ROOT = Path("/Volumes/BIGDATA/HYDE35")
-sys.path.insert(0, str(ROOT))
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ROOT = PROJECT_ROOT
+sys.path.insert(0, str(PROJECT_ROOT))
 
 NC_DIR = ROOT / "gbc2025_7apr_base" / "NetCDF"
 GENERAL = ROOT / "general_files" / "general_files"

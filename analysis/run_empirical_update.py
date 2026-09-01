@@ -19,8 +19,9 @@ import matplotlib.pyplot as plt
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-ROOT = Path("/Volumes/BIGDATA/HYDE35")
-sys.path.insert(0, str(ROOT))
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+ROOT = PROJECT_ROOT
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from analysis.paper3_climate.climate_shocks import build_climate_shock_panel
 from analysis.paper3_climate.local_projections import run_local_projection

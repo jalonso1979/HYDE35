@@ -1,8 +1,10 @@
 """Paths, constants, and scenario definitions for HYDE35 analysis."""
 from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 
 # Root data directory
-DATA_ROOT = Path("/Volumes/BIGDATA/HYDE35")
+DATA_ROOT = PROJECT_ROOT
 
 # Scenario directories
 SCENARIOS = {

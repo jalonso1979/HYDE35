@@ -7,6 +7,9 @@ Two-panel figure comparing OLS and IV estimates of:
 
 Across four historical periods: 0–500, 500–1000, 1000–1500, 1500–1750 CE.
 """
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -218,7 +221,7 @@ fig.suptitle(
 )
 
 # ── Save ─────────────────────────────────────────────────────────────────────
-out_base = '/Volumes/BIGDATA/HYDE35/analysis/figures/fig9_ols_vs_iv_periods'
+out_base = str(PROJECT_ROOT / "analysis/figures/fig9_ols_vs_iv_periods")
 fig.savefig(out_base + '.png', dpi=300, bbox_inches='tight')
 fig.savefig(out_base + '.pdf', dpi=300, bbox_inches='tight')
 print(f'Saved: {out_base}.png')

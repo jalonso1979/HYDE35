@@ -24,8 +24,9 @@ import matplotlib.pyplot as plt
 
 warnings.filterwarnings("ignore")
 
-ROOT = Path("/Volumes/BIGDATA/HYDE35")
-sys.path.insert(0, str(ROOT))
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+ROOT = PROJECT_ROOT
+sys.path.insert(0, str(PROJECT_ROOT))
 
 PANEL_PATH = ROOT / "analysis" / "data" / "hyde_era5_extended_panel.parquet"
 CLIMATE_HIST = ROOT / "analysis" / "data" / "climate_panel_0_2025.parquet"

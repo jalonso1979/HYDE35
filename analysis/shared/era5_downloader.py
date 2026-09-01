@@ -24,6 +24,8 @@ import zipfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 
 import numpy as np
 import xarray as xr
@@ -32,7 +34,7 @@ import xarray as xr
 
 ERA5_DATASET = "reanalysis-era5-single-levels"
 ERA5_VARIABLES = ["2m_temperature", "total_precipitation"]
-ERA5_ROOT = Path("/Volumes/BIGDATA/HYDE35/ERA5")
+ERA5_ROOT = Path(str(PROJECT_ROOT / "ERA5"))
 CHECKPOINT_FILE = ERA5_ROOT / "_download_checkpoint.csv"
 
 YEAR_START = 1950
