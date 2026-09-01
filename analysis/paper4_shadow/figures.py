@@ -13,6 +13,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 
 OUT_DIR = Path(__file__).resolve().parents[1] / "figures" / "paper4"
 
@@ -348,7 +349,6 @@ def fig8_escape_mechanism(interaction_results: dict) -> Path:
         Output of ``run_escape_interactions``.  Keys are mediator names plus
         ``"joint"``.  Each value has ``"model"`` key with a fitted OLS result.
     """
-    import statsmodels.api as sm  # noqa: F811
 
     ensure_out_dir()
 
@@ -425,7 +425,6 @@ def fig9_long_shadow(
 
     OLS fit line in red with beta and p-value annotated in each subplot title.
     """
-    import statsmodels.api as sm  # noqa: F811
 
     ensure_out_dir()
 
