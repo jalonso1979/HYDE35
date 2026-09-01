@@ -15,12 +15,13 @@ def detect_intensification_onset(
     years: np.ndarray, intensification_index: np.ndarray, land_growth_rate: np.ndarray,
     intens_threshold: float = 0.05, land_growth_threshold: float = 0.01,
 ) -> float:
-    for i in range(len(years)):
-        if np.isnan(land_growth_rate[i]):
-            continue
-        if (intensification_index[i] >= intens_threshold
-                and land_growth_rate[i] < land_growth_threshold):
-            return float(years[i])
+    if len(years) == 0:
+        return np.nan
+    with np.errstate(invalid='ignore'):
+        mask = (intensification_index >= intens_threshold) & (land_growth_rate < land_growth_threshold)
+    idx = mask.argmax()
+    if mask[idx]:
+        return float(years[idx])
     return np.nan
 
 
