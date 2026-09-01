@@ -27,9 +27,9 @@ def detect_intensification_onset(
 def detect_urbanization_takeoff(
     years: np.ndarray, urban_share: np.ndarray, threshold: float = 0.05,
 ) -> float:
-    for i in range(len(years)):
-        if urban_share[i] >= threshold:
-            return float(years[i])
+    mask = urban_share >= threshold
+    if mask.any():
+        return float(years[np.argmax(mask)])
     return np.nan
 
 
