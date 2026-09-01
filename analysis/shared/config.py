@@ -2,7 +2,8 @@
 from pathlib import Path
 
 # Root data directory
-DATA_ROOT = Path("/Volumes/BIGDATA/HYDE35")
+import os
+DATA_ROOT = Path(os.environ.get("HYDE35_DATA_ROOT", "/Volumes/BIGDATA/HYDE35"))
 
 # Scenario directories
 SCENARIOS = {
