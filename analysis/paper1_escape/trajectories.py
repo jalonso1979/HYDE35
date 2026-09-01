@@ -35,10 +35,12 @@ def detect_urbanization_takeoff(
 
 def _compute_land_growth_rate(years: np.ndarray, land_area: np.ndarray) -> np.ndarray:
     growth = np.full(len(years), np.nan)
-    for i in range(1, len(years)):
-        dt = years[i] - years[i - 1]
-        if dt > 0 and land_area[i - 1] > 0:
-            growth[i] = (land_area[i] - land_area[i - 1]) / (land_area[i - 1] * dt)
+    if len(years) > 1:
+        dt = np.diff(years)
+        prev_land_area = land_area[:-1]
+        valid = (dt > 0) & (prev_land_area > 0)
+
+        growth[1:][valid] = (land_area[1:][valid] - prev_land_area[valid]) / (prev_land_area[valid] * dt[valid])
     return growth
 
 
