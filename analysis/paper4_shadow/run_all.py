@@ -518,20 +518,10 @@ def exercise_5(data: dict, *, figures_only: bool = False) -> None:
 # Exercise 6 — Long shadow cross-section
 # ---------------------------------------------------------------------------
 
-def exercise_6(
-    data: dict,
-    endowments: pd.DataFrame | None = None,
-    *,
-    figures_only: bool = False,
-) -> None:
-    """Exercise 6: Long shadow — do pre-industrial endowments predict modern outcomes?"""
-    _banner("Exercise 6: The Long Shadow Cross-Section")
 
-    from analysis.paper4_shadow.long_shadow import (
-        build_long_shadow_cross_section,
-        run_long_shadow_regressions,
-    )
-
+def _prepare_seasonality_endowments(
+    data: dict, endowments: pd.DataFrame | None
+) -> pd.DataFrame:
     if endowments is None:
         from analysis.paper4_shadow.seasonality import build_seasonality_panel
         endowments = build_seasonality_panel(
@@ -548,37 +538,73 @@ def exercise_6(
             "hist_seasonality_proxy": "seasonality_historical",
         },
     )
+    return seas_endow
 
-    if not figures_only:
-        ep = data["extended_panel"]
-        pw = data["pathways"]
 
-        _sub("Building cross-section")
-        xs = build_long_shadow_cross_section(
-            ep,
-            seas_endow,
-            pw,
-            entity_col="country_id",
-        )
-        print(f"  Cross-section: {len(xs)} countries")
+def _build_and_run_cross_section(
+    data: dict, seas_endow: pd.DataFrame
+) -> pd.DataFrame:
+    from analysis.paper4_shadow.long_shadow import (
+        build_long_shadow_cross_section,
+        run_long_shadow_regressions,
+    )
+    ep = data["extended_panel"]
+    pw = data["pathways"]
 
-        _sub("OLS: modern outcomes ~ historical seasonality")
-        results = run_long_shadow_regressions(
-            xs,
-            seasonality_col="seasonality_historical",
-            pathway_col="cluster",
-            include_pathway_fe=True,
-        )
-        if not results.empty:
-            print(results.to_string(index=False))
-        else:
-            print("  [warn] No results from long-shadow regressions")
+    _sub("Building cross-section")
+    xs = build_long_shadow_cross_section(
+        ep,
+        seas_endow,
+        pw,
+        entity_col="country_id",
+    )
+    print(f"  Cross-section: {len(xs)} countries")
 
+    _sub("OLS: modern outcomes ~ historical seasonality")
+    results = run_long_shadow_regressions(
+        xs,
+        seasonality_col="seasonality_historical",
+        pathway_col="cluster",
+        include_pathway_fe=True,
+    )
+    if not results.empty:
+        print(results.to_string(index=False))
+    else:
+        print("  [warn] No results from long-shadow regressions")
+
+    return xs
+
+
+def _plot_long_shadow_figures(xs: pd.DataFrame) -> None:
     figs = _import_figures()
-    if figs and 'xs' in dir() and len(xs) > 0:
-        seas_col = "seasonality_historical" if "seasonality_historical" in xs.columns else "hist_seasonality_proxy"
+    if figs and len(xs) > 0:
+        seas_col = (
+            "seasonality_historical"
+            if "seasonality_historical" in xs.columns
+            else "hist_seasonality_proxy"
+        )
         if seas_col in xs.columns:
             _try_figure(figs.fig9_long_shadow, xs, seas_col)
+
+
+def exercise_6(
+    data: dict,
+    endowments: pd.DataFrame | None = None,
+    *,
+    figures_only: bool = False,
+) -> None:
+    """Exercise 6: Long shadow — do pre-industrial endowments \
+predict modern outcomes?"""
+    _banner("Exercise 6: The Long Shadow Cross-Section")
+
+    seas_endow = _prepare_seasonality_endowments(data, endowments)
+
+    xs = pd.DataFrame()
+    if not figures_only:
+        xs = _build_and_run_cross_section(data, seas_endow)
+
+    if not xs.empty:
+        _plot_long_shadow_figures(xs)
 
 
 # ---------------------------------------------------------------------------
