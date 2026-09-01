@@ -1,0 +1,3 @@
+🎯 **What:** The testing gap addressed is the lack of test coverage for the exception handling inside `load_region_bboxes` in `analysis/shared/era5_downloader.py`. Specifically, when reading a NetCDF file with `xr.open_dataset` fails due to corruption or missing data, the script is supposed to catch the exception and skip to the next file rather than aborting the loop.
+📊 **Coverage:** The scenario tested now is the failure path of reading a single corrupted NetCDF file followed by a successful read of another NetCDF file within the same directory.
+✨ **Result:** Test coverage for `analysis/shared/era5_downloader.py` is improved, ensuring reliability and robustness of the downloader orchestration loop when interacting with corrupt raw `.nc` outputs.
