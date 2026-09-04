@@ -11,16 +11,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from matplotlib.lines import Line2D
 import pycountry
+from analysis.shared.utils import iso_num_to_alpha3
 
-# ---------------------------------------------------------------------------
-# 1. Helper: ISO numeric -> ISO alpha-3
-# ---------------------------------------------------------------------------
-def iso_num_to_alpha3(num):
-    try:
-        c = pycountry.countries.get(numeric=str(int(num)).zfill(3))
-        return c.alpha_3 if c else str(int(num))
-    except Exception:
-        return str(int(num))
 
 # ---------------------------------------------------------------------------
 # 2. Load data
